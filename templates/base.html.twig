@@ -10,12 +10,11 @@
 
 	{% block meta %}
 	<meta name="author" content="{{ appName }}">
-	<meta name="keywords" content="{{ appName }} : trouvez un studio, ingénieur de son, vidéaste,">
+	<meta name="keywords" content="{{ appName }} : Vous accompagne dans la réalisation de vos projets sur mesure.">
 	<meta name="description"
-		content="Trouvez le prestataire qui répondra à vos besoins, qui vous aidera dans vos projets musicaux ; des ingénieurs de sons, danseurs…, proche de chez vous">
+		content="Trouvez le vendeur qui saura répondre à vos besoins spécifiques et vous accompagner dans vos réalisations sur mesure.">
 	{% endblock %}
 
-	<meta name="google-site-verification" content="8R1IqiWtRxl4xmw78_KdRUQU231e7SSQg-e5lhhe9Vk" />
 
 	<!-- Favicon Icon -->
 	<link rel="icon" type="{{ asset('img/Logo.png') }}" href="images/fav.svg">
@@ -112,29 +111,17 @@
 	<script>
 		// Add the following code if you want the name of the file appear on select
 		$(".custom-file-input").on("change", function () {
-			console.log("change fire");
-			
 			let fileName = $(this).val().split("\\").pop();
 			$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 
 			let i = $(this).prev('label').clone();
 			let file = $(".custom-file-input")[0].files[0].name;
 			let label = $(".label");
-			//console.log(file);
 			label.text(file);
 		});
 	</script>
 
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-TBWPH2ZDRB"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
 
-		gtag('config', 'G-TBWPH2ZDRB');
-	</script>
-	
 	<script>
 		$(document).ready(function () {
 			$('.modal-location').modal({
