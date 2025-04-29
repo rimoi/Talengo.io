@@ -1,0 +1,52 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Commandes - {{ commande.pack.name }} {% endblock %}
+
+{% block body %}
+
+<div class="card">
+    <div class="card-header bg-dark">
+        <h1 class="h6 text-light">Commandes - {{ commande.pack.name }}</h1>
+    </div>
+    <div class="card-body">
+        <span>Pack</span>
+        <h6>{{ commande.offre }}</h6>
+
+        <div class="py-2">
+            <h6 class="h6 mb-2">Tarif</h6>
+            <h6 class="h5">{{ commande.pack.tarif ~ currency }}</h6>
+        </div>
+
+        <div class="py-2">
+            <div class="pro-section rounded"
+                style="background-image: url({% if commande.pack.imageName %}{{ vich_uploader_asset(commande.pack, 'imageFile') | imagine_filter('very_large_size') }}{% endif %});">
+                <div class="pro-text">
+                    <span><i class="fa fa-microscope"></i> PACK PRODUIT ME</span>
+                    <h3>{{ commande.pack.name }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-2">
+            {% for categorie in commande.pack.categorie %}
+            <a href="{{ path('microservices_categories', {slug: categorie.slug}) }}?categories%5B%5D={{ categorie.id }}"
+                class="text-uppercase badge badge-pill badge-blue">
+                {{ categorie.name }}
+            </a>
+            {% endfor %}
+        </div>
+        <div class="py-2">
+            <h6 class="h6 mb-2">Description</h6>
+            {{ commande.pack.description|raw }}
+        </div>
+        <div class="py-2">
+            <h6 class="h6 mb-2">Date</h6>
+            <span>Le {{ commande.created ? commande.created|date('d/m/Y H:i:s') : '' }}</span>
+        </div>
+        <div class="py-2">
+            <h6 class="h6 mb-2">Statut</h6>
+            <span class="badge badge-pill badge-success">Validé</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

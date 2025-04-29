@@ -1,0 +1,22 @@
+controllers:
+    resource: ../src/Controller/
+    type: annotation
+
+kernel:
+    resource: ../src/Kernel.php
+    type: annotation
+
+connect_instagram_check:
+    path: /oauth/check/{service_instagram}
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+
+#connect_google_check:
+#    path: /oauth/check/{service_google}
+#    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+#    #defaults:
+#    #    template: security/auth.html.twig
+
+#connect_facebook_check:
+#    path: /oauth/check/{service}
+#    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+

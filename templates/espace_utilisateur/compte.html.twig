@@ -1,0 +1,77 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Compte
+{% endblock %}
+
+{% block bg %}{% endblock %}
+
+{% block colleft %}4
+{% endblock %}
+
+{% block colright %}8
+{% endblock %}
+
+{% block sidebar %}
+	<div class="box mb-3 shadow-sm rounded bg-white profile-box text-center">
+		<div class="py-4 px-3 border-bottom">
+			<img src="{{ asset('themes/base/images/user/s4.png') }}" class="img-fluid mt-2 rounded-circle" alt="Responsive image">
+			<h5 class="font-weight-bold text-dark mb-1 mt-4">{{ app.user.nom ~ ' ' ~ app.user.prenom }}</h5>
+			<p class="mb-0 text-muted">{{ app.user.email }}</p>
+            <span class="badge badge-success">{{ app.user.compte }}</span>
+		</div>
+		<div class="d-flex">
+			<div class="col-6 border-right p-3">
+				<h6 class="font-weight-bold text-dark mb-1">358</h6>
+				<p class="mb-0 text-black-50 small">Connections</p>
+			</div>
+			<div class="col-6 p-3">
+				<h6 class="font-weight-bold text-dark mb-1">85</h6>
+				<p class="mb-0 text-black-50 small">Views</p>
+			</div>
+		</div>
+		<div class="overflow-hidden border-top">
+			<a class="font-weight-bold p-3 d-block" href="{{ path('app_logout') }}">
+				Se déconnecter
+			</a>
+		</div>
+	</div>
+	<div class="box shadow-sm  rounded bg-white mb-3">
+		<div class="box-title border-bottom p-3">
+			<h6 class="m-0">Skills & Endorsements</h6>
+		</div>
+		<div class="box-body">
+			<div class="d-flex align-items-center osahan-post-header p-3 border-bottom people-list">
+				<div class="dropdown-list-image mr-3">
+					<img class="rounded-circle" src="images/l4.png" alt="">
+				</div>
+				<div class="font-weight-bold">
+					<div class="text-truncate">Character Concept
+						<span class="badge badge-dark ml-1">1</span>
+					</div>
+					<div class="small text-muted">
+						<span class="text-primary">You and 1 connection</span>
+						have given endorsements for this skill
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="box shadow-sm mb-3 rounded bg-white ads-box text-center overflow-hidden">
+		<img src="images/job1.png" class="img-fluid" alt="Responsive image">
+		<div class="p-3 border-bottom">
+			<h6 class="font-weight-bold text-dark">Osahan Solutions</h6>
+			<p class="mb-0 text-muted">Looking for talent?</p>
+		</div>
+		<div class="p-3">
+			<button type="button" class="btn btn-outline-success pl-4 pr-4">
+				POST A JOB
+			</button>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+
+
+
+{% endblock %}

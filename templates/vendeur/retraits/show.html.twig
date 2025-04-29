@@ -1,0 +1,66 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Details retrait{% endblock %}
+
+{% block body %}
+
+<div class="card">
+    <div class="card-header bg-dark">
+        <h4 class="mb-0 text-light h6">
+            Details retrait
+        </h4>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Montant</th>
+                        <td><strong>{{ retrait.montant ~ currency }}</strong></td>
+                    </tr>
+                    <tr>
+                        <th>Mode de Paiement</th>
+                        <td>{{ retrait.modePaiement }}</td>
+                    </tr>
+                    <tr>
+                        <th>Statut</th>
+                        <td>
+                            <span
+                                class="badge badge-pill badge-{% if retrait.statut == 'En attente'  %}warning{% elseif retrait.statut == 'Valider' %}success{% else %}danger{% endif %}">{{
+                                retrait.statut }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Nom du titulaire de la carte</th>
+                        <td>{{ retrait.nomsurCarte }}</td>
+                    </tr>
+                    <tr>
+                        <th>Numéro de carte</th>
+                        <td>{{ retrait.numeroCarte }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date d'expiration de la carte</th>
+                        <td>{{ retrait.dateExpiration|date('d/m/Y') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Adresse Paypal</th>
+                        <td>{{ retrait.adressePaypal }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td>Le {{ retrait.created|date('d/m/Y') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Réponse de {{ appName }}</th>
+                        <td><p>{{ retrait.reponse }}</p></td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td>Le {{ retrait.updated|date('d/m/Y') }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

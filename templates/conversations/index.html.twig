@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conversations{% endblock %}
+
+{% block body %}
+
+	<div class="py-5">
+		<div class="container">
+			<div class="row">
+				<!-- Main Content -->
+				<main class="col-lg-12 col-md-12 col-sm-12 col-12">
+					{% include "conversations/composants/_chat.html.twig" %}
+				</main>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

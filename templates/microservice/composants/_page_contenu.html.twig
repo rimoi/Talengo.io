@@ -1,0 +1,50 @@
+<section class="js-filter main-page best-selling"><!-- js-filter  -->
+
+   <!-- Formulaire de recherche -->
+   <div class="third-menu filter-options pt-3">
+      {% include "microservice/composants/_search_form.html.twig" %}
+   </div>
+
+   <div class="view_slider recommended pt-4">
+      <div class="container">
+
+         <!-- Js Sorting js-filter-sorting 
+         <div class=" sorting-div d-flex align-items-center justify-content-between">
+
+             include "microservice/composants/_sorting.html.twig" %}
+
+         </div>-->
+
+         <div class="sorting-div d-flex align-items-center justify-content-between">
+             <p class="mb-2">
+               ({{ microservices.getTotalItemCount }})
+               {{ ville == null ? 'Services disponible' : 'Services à proximités' }}
+            </p>
+         </div>
+
+         <h3>
+            {{ app.request.attributes.get('_route') == 'microservices' ? 'Toute les catégories' : 'Dans la catégorie ' ~
+            categorie.name }}
+         </h3>
+
+      </div>
+      <div class="container">
+
+         <!-- Contenu -->
+         <div class="js-filter-content">
+            {% include "microservice/composants/_listing.html.twig" %}
+         </div>
+
+         <div class="js-filter-pagination py-4">
+            {% include "microservice/composants/_pagination.html.twig" %}
+         </div>
+
+      </div>
+   </div>
+
+   <!-- Pagination footer-pagination text-center
+   <div class="js-filter-pagination">
+       include "microservice/composants/_pagination.html.twig" %}
+   </div>-->
+
+</section>

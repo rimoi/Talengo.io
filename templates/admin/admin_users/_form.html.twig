@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="card-body py-4">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-sm-3 text-end pt-2">Nom(s)*</div>
+            <div class="col-sm-7">
+                {{ form_row(form.nom) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 text-end pt-2">Prénom(s)*</div>
+            <div class="col-sm-7">
+                {{ form_row(form.prenom) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 text-end pt-2">Genre*</div>
+            <div class="col-sm-7">
+                {{ form_row(form.genre) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 text-end pt-2">Avatar</div>
+            <div class="col-sm-7">
+                {{ form_row(form.imageFile) }}
+
+                {{ form_row(form.couvertureFile) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 text-end pt-2"></div>
+            <div class="col-sm-7">
+                {{ form_rest(form) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 text-end pt-2"></div>
+            <div class="col-sm-7"><button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>

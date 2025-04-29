@@ -1,0 +1,33 @@
+{{ form_start(form, {attr: {class: 'form-noborder', id: 'registration_form_adresse'}}) }}
+<div class="input-group bg-white border border-light rounded">
+   <span class="input-group-text border-0 bg-transparent" id="basic-addon1">
+      <i class="fa fa-map-marker text-blue"></i>
+   </span>
+
+   {{ form_widget(form.ville, {attr: {'value': ville is defined ? ville : null, 'class': 'shadow-none mt-1
+   border-0'}}) }}
+
+   {{ form_row(form.address) }}
+
+   <div class="input-group-append p-0">
+      <span class="input-group-text p-1 bg-transparent border-0">
+         <button type="submit" class="btn btn-success h-100 btn-block btn-lg btn-gradient shadow-sm">
+            <i class="fa fa-search"></i>
+         </button>
+      </span>
+   </div>
+
+</div>
+<div class="w-100 addresses" id="addresses">
+   <ul class="list-group text-dark" id="adresse-liste">
+   </ul>
+</div>
+{{ form_end(form) }}
+
+<div class="search-categorie pt-3">
+   <span class="btn text-light p-1">Populaire</span>
+   {% for categorie in categories() %}
+      <a href="{{ path('microservices_categories', {slug: categorie.slug}) }}?categories%5B%5D={{ categorie.id }}&ville={{ ville() }}"
+         class="btn btn-light text-blue button">#{{ categorie.name }}</a>
+   {% endfor %}
+</div>

@@ -1,0 +1,14 @@
+<p class="mb-2">({{ microservices.getTotalItemCount }}) Service{{ microservices.getTotalItemCount > 0 ? 's'
+   : ''}} disponible
+</p>
+<div class="sorting d-flex align-items-center">
+   <p>Trier par</p>
+   {{ knp_pagination_sortable(microservices, 'Prix', 'm.prixMastering') }}
+   {{ knp_pagination_sortable(microservices, 'Date', 'm.created') }}
+
+   <!--<select class="custom-select custom-select-sm border-0 shadow-sm ml-2">
+      <option>Best Selling</option>
+      <option>Recommended</option>
+      <option>Newest Arrivals</option>
+   </select>-->
+</div>

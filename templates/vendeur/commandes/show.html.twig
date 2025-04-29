@@ -1,0 +1,40 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Commandes du pack {{ commande.pack.name }} {% endblock %}
+
+{% block body %}
+
+<div class="card">
+    <div class="card-header bg-dark">
+        <h1 class="h6 text-light">Commandes du pack {{ commande.pack.name }}</h1>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ commande.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Offre</th>
+                        <td>{{ commande.offre }}</td>
+                    </tr>
+                    <tr>
+                        <th>Montant</th>
+                        <td>{{ commande.montant }}</td>
+                    </tr>
+                    <tr>
+                        <th>Created</th>
+                        <td>{{ commande.created ? commande.created|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Updated</th>
+                        <td>{{ commande.updated ? commande.updated|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

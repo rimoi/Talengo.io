@@ -1,0 +1,23 @@
+{% extends 'service.html.twig' %}
+
+{% block title %}
+Prix, description et delai
+{% endblock %}
+
+{% block colleft %}4{% endblock %}
+
+{% block colright %}8{% endblock %}
+
+{% block body %}
+
+{% if microservice.categorie.slug == 'ingenieur-son' %}
+
+    {% include "vendeur/microservices/form/_ingenieur_son.html.twig" %}
+
+{% else %}
+
+    {% include "vendeur/microservices/form/_description.html.twig" %}
+
+{% endif %}
+
+{% endblock %}

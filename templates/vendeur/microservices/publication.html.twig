@@ -1,0 +1,56 @@
+{% extends 'service.html.twig' %}
+
+{% block colleft %}4{% endblock %}
+
+{% block colright %}8{% endblock %}
+
+{% block body %}
+<div class="card rounded">
+
+	<div class="card-body">
+		<h6 class="font-weight-bold">Publication</h6>
+
+		{{ form_start(form) }}
+
+		<div class="form-group">
+				<p class="text-muted">
+				{% if microservice.online == 1 %}
+					Ce servise est déjà publié sur <strong>{{ appName }}</strong>.
+					Vous pouvez également revenir sur les étapes précédentes pour effectuer une modification.
+				{% else %}
+					Vous y êtes presque ! Avant qu’un membre de notre équipe de modération ne relise votre service, nous vous invitons à jeter un dernier coup d’œil à celui-ci. Vous pouvez également revenir sur les étapes précédentes pour effectuer une modification. J'atteste…
+				{% endif %}
+				</p>
+			
+			<div class="text-muted {{ microservice.online == 1 ? 'bloc-masquer' : '' }}">
+
+				<div class="my-3">
+					{{ form_widget(form) }}
+				</div>
+
+				<div class="">
+					<button class="btn btn-dark" formnovalidate>
+						<span id="btnFetch">
+							{{ button_label|default('Publier') }}
+						</span>
+					</button>
+				</div>
+
+			</div>
+
+		</div>
+
+		{{ form_end(form) }}
+	</div>
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{{ parent() }}
+
+{% include "vendeur/microservices/composants/_tarif_script.html.twig" %}
+
+{% endblock %}

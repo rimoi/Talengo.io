@@ -1,0 +1,21 @@
+{% extends 'auth.html.twig' %}
+
+{% block title %}Mail envoyé{% endblock %}
+
+{% block titre %}Félicitation {{ user.nom }} {{ user.prenom }}{% endblock %}
+
+{% block text %}<strong>{{ appName }}</strong> vous remerci pour votre inscription {% endblock %}
+
+{% block body %}
+
+<div class="alert alertflash">
+   <p class="mb-1">Nous devons vérifier votre adresse e-mail "<strong>{{ user.email }}</strong>" avant que vous puissiez accéder à votre portail <strong>{{ user.compte }}</strong>.</p>
+
+   <p>
+      Vérifiez votre adresse e-mail puis cliquez sur: <span class="text-muted">Confirmer mon e-mail</span>
+   </p>
+</div>
+
+<h6>Merci !</h6>
+
+{% endblock %}

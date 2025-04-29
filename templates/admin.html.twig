@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+
+   <meta charset="utf-8" />
+   <title>{% block title %}{% endblock %}</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+   <meta content="Themesbrand" name="author" />
+   <!-- App favicon -->
+   <link rel="shortcut icon" href="{{ asset('img/Logo.png') }}">
+
+   <!-- Responsive Table css -->
+   <link href="{{ asset('themes/admin/assets/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet"
+      type="text/css" />
+
+   <!--Chartist Chart CSS -->
+   <link href="{{ asset('themes/admin/assets/libs/chartist/chartist.min.css') }}" rel="stylesheet" type="text/css" />
+   <!-- plugin css -->
+   <link href="{{ asset('themes/admin/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }}"
+      rel="stylesheet" type="text/css" />
+   <!-- DataTables -->
+   <link href="{{ asset('themes/admin/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}"
+      rel="stylesheet" type="text/css" />
+
+   <!-- Bootstrap Css -->
+   <link href="{{ asset('themes/admin/assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet"
+      type="text/css" />
+   <!-- Icons Css -->
+   <link href="{{ asset('themes/admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+   <!-- App Css-->
+   <link href="{{ asset('themes/admin/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+   {% block stylesheets %}
+   {{ encore_entry_link_tags('app') }}
+   {% endblock %}
+
+   <style>
+      .vich-image img {
+         display: block;
+         border-radius: 10px;
+         margin: 15px 0;
+      }
+
+      .table-rep-plugin .btn-group,
+      .table-wrapper .btn-group {
+         display: none !important;
+      }
+
+      .bloc-small {
+         width: 100px;
+         margin: 0;
+      }
+
+      table th {
+         text-transform: uppercase;
+         font-weight: 500 !important;
+      }
+      .detail-table th {
+         text-align: left;
+      }
+      .rounded-radius {
+         border-radius: 30px !important;
+         overflow: hidden !important;
+      }
+      @font-face {
+         font-family: Jost;
+         src: url(Font/Jost-Regular-400.ttf);
+      }
+      .bloc-masquer{
+         visibility: hidden!important;
+         height: 1px!important;
+         padding: 0;
+      }
+      .encours i{
+         color: rgb(211, 216, 218)!important;
+      }
+      .validee i{
+         color: rgb(125, 255, 99)!important;
+      }
+      .form-group{
+         margin-bottom: 15px!important;
+      }
+   </style>
+
+</head>
+
+<body data-sidebar="dark" data-keep-enlarged="true" data-turbo="false">
+   <!-- Begin page -->
+   <div id="layout-wrapper">
+
+      {% include "partials/admin/_header.html.twig" %}
+
+      {% include "partials/admin/_sidebar.html.twig" %}
+
+      <div class="main-content">
+
+         <div class="page-content">
+            <div class="container-fluid">
+
+               <!-- start page title -->
+               <div class="row">
+                  <div class="col-12">
+                     <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">
+                           {% block pageTitle %}Espace d'administration {{ appName }}{% endblock %}
+                        </h4>
+
+                        <div class="page-title-right">
+                           <ol class="breadcrumb m-0">
+                              {% block breadcrumb %}
+                              {% endblock %}
+                           </ol>
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+               <!-- end page title -->
+
+               {{ include('partials/admin/_flash_message.html.twig') }}
+
+               {% block body %}{% endblock %}
+
+            </div>
+         </div>
+      </div>
+
+   </div>
+   <!-- Right bar overlay-->
+   <div class="rightbar-overlay"></div>
+
+   <!-- JAVASCRIPT -->
+   <script src="{{ asset('themes/admin/assets/libs/jquery/jquery.min.js') }}"></script>
+   <script src="{{ asset('themes/admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+   <script src="{{ asset('themes/admin/assets/libs/metismenu/metisMenu.min.js') }}"></script>
+   <script src="{{ asset('themes/admin/assets/libs/simplebar/simplebar.min.js') }}"></script>
+   <script src="{{ asset('themes/admin/assets/libs/node-waves/waves.min.js') }}"></script>
+
+
+   <!-- Responsive Table js -->
+   <script src="{{ asset('themes/admin/assets/libs/admin-resources/rwd-table/rwd-table.min.js') }}"></script>
+
+   <!-- Init js -->
+   <script src="{{ asset('themes/admin/assets/js/pages/table-responsive.init.js') }}"></script>
+
+
+   <!-- Plugin Js-->
+   <script src="{{ asset('themes/admin/assets/libs/chartist/chartist.min.js') }}"></script>
+   <script
+      src="{{ asset('themes/admin/assets/libs/chartist-plugin-tooltips/chartist-plugin-tooltip.min.js') }}"></script>
+   <script src="{{ asset('themes/admin/assets/libs/morris.js/morris.min.js') }}') }}"></script>
+   <script src="{{ asset('themes/admin/assets/libs/raphael/raphael.min.js') }}"></script>
+   <!-- Peity chart-->
+   <script src="{{ asset('themes/admin/assets/libs/peity/jquery.peity.min.js') }}"></script>
+
+   <!-- Plugins js-->
+   <script
+      src="{{ asset('themes/admin/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+   <script
+      src="{{ asset('themes/admin/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js') }}"></script>
+
+   <!-- Required datatable js -->
+   <script src="{{ asset('themes/admin/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+   <script src="{{ asset('themes/admin/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+
+   <script src="{{ asset('themes/admin/assets/js/pages/dashboard2.init.js') }}"></script>
+
+   <script src="{{ asset('themes/admin/assets/js/app.js') }}"></script>
+	<script src="{{ asset('js/btnloader.js') }}"></script>
+
+   {% block javascripts %}
+      {{ encore_entry_script_tags('app') }}
+		{{ encore_entry_script_tags('service') }}
+   {% endblock %}
+
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande pack{% endblock %}
+
+{% block body %}
+
+<section>
+    <div class="container py-5">
+        {% include "pack/composants/_block.html.twig" %}
+    </div>
+</section>
+
+<section class="main-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="">
+                    <!--<h4 class="h6 pb-3">Services</h4>
+                    <div class="row service-slider pb-3">
+                        {% for service in pack.categorie %}
+                        <div class="col">
+                            <div class="service">
+                                {% if service.image %}
+
+                                <img class="img-fluid rounded"
+                                    src="{{ vich_uploader_asset(service, 'imageFile') | imagine_filter('midle_size') }}" />
+
+                                {% else %}
+
+                                <img
+                                    src="{{ asset('themes/base/images/service-02.jpg') | imagine_filter('midle_size') }}">
+
+                                {% endif %}
+
+                                <h3 class="h6">{{ service.name }}</h3>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>-->
+                    <div>
+                        <h4 class="h6 py-3">Description</h4>
+                        {{ pack.description|raw }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="shadow-sm bg-white rounded sticky">
+                    <div class="p-3">
+                        <h6 class="h6">{{ pack.name }}</h6>
+
+                        <p>
+                            Pack de {{ pack.categorie|length }} service{{ pack.categorie|length > 1 ? 's' : '' }}: {% for service in pack.categorie %} {{ service.name }} {% endfor %}
+                        </p>
+
+                        <p>
+                            Important : Vous recevrez votre pack comme configuré sur l'aperçu avec ces différents services.
+                        </p>
+                        
+                        <div class="">
+                            <div class="d-flex align-items-top mb-2">
+                                <p class="mb-0 text-muted">Frais bancaires</p>
+                                <p class="text-muted mb-0 mt-0 ml-auto">{{ taux ~ currency }}</p>
+                            </div>
+                            <div class="d-flex align-items-top mb-2">
+                                <p class="mb-0 text-muted">Frais de service</p>
+                                <p class="text-muted mb-0 mt-0 ml-auto">{{ frais ~ currency }}</p>
+                            </div>
+                            <div class="d-flex align-items-top mb-2">
+                                <p class="mb-0 text-muted">Sous-total</p>
+                                <p class="text-muted mb-0 mt-0 ml-auto">{{ montant ~ currency }}</p>
+                            </div>
+                            <div class="d-flex align-items-top mb-2">
+                                <p class="mb-0 text-muted">Total</p>
+                                <p class="text-muted mb-0 mt-0 ml-auto">{{ total ~ currency }}</p>
+                            </div>
+                        </div>
+
+                        {% include "pack/composants/_stripe.html.twig" %}
+
+                        {% include "pack/composants/_paypal.html.twig" %}
+
+                        <p class="py-3 text-center p-0">
+                            Paiement <strong><i class="fa fa-lock"></i> Sécurisé</strong>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

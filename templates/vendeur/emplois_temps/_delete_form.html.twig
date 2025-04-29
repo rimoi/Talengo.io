@@ -1,0 +1,4 @@
+<form method="post" class="d-inline" action="{{ path('app_vendeur_emplois_temps_delete', {'id': emplois_temp.id}) }}" onsubmit="return confirm('Voulez-vous supprimer cet élément?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ emplois_temp.id) }}">
+    <button class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
+</form>

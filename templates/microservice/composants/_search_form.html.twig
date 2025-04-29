@@ -1,0 +1,104 @@
+{{ form_start(form, {attr: {class: 'filter js-filter-form container'}}) }}
+<div class="form-search row align-items-center justify-content-between">
+
+   <div class="col-lg-7 col-sm-7">
+      <div class="dropdown-filters row">
+         <div class="col-12 col-sm-4 {{ app.request.attributes.get('_route') == 'microservices_categories' ? 'd-none' : '' }}">
+
+            <div class="form-group">
+               <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Catégories
+                  </button>
+                  <div class="dropdown-menu p-3" aria-labelledby="dropdownMenuButton"><!-- scroled -->
+                     <div class="options">
+                        <h5>Catégories</h5>
+                        <div class="row">
+                           <div class="col-md-6">
+                              {{ form_row(form.categories) }}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+         </div>
+         <div class="col-12 col-sm-4">
+            <div class="form-group">
+               <div class="dropdown w-100">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="budget" data-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false">
+                     Selon mon Budget
+                  </button>
+                  <div class="dropdown-menu p-3 budget" aria-labelledby="budget">
+                     <div class="options">
+                        <div class="row">
+                           <div class="col-md-12">
+                              {{ form_row(form.minPrice) }}
+                           </div>
+                           <div class="col-md-12">
+                              {{ form_row(form.maxPrice) }}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-12 col-sm-4">
+            <div class="form-group">
+               <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Plus d'options
+                  </button>
+                  <div class="dropdown-menu p-3" aria-labelledby="dropdownMenuButton">
+                     <div class="options border-0">
+                        <h5>Professionnel</h5>
+                        <div class="form-group">
+                           {{ form_row(form.ville) }}
+                        </div>
+                        <div class="form-group">
+                           {{ form_row(form.jour) }}
+                        </div>
+                        <label>Disponible</label>
+                        <div class="row">
+                           <div class="col-6">
+                              {{ form_row(form.heureOuverture) }}
+                           </div>
+                           <div class="col-6">
+                              {{ form_row(form.heureCloture) }}
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           {{ form_row(form.promo) }}
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-5 col-sm-5">
+      <div class="row align-items-center">
+         <div class="col-8 col-sm-7 ml-auto">
+            <div class="form-group">
+               {{ form_widget(form.q) }}
+               {{ form_rest(form) }}
+            </div>
+         </div>
+         <div class="col-4">
+            <div class="form-group">
+               <button type="submit" class="btn btn-success border border-success w-100">
+                  <i class="fa fa-filter mr-1 text-light"></i>Filtrer
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+</div>
+{{ form_end(form) }}

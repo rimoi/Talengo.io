@@ -1,0 +1,4 @@
+<form method="post" class="d-inline" action="{{ path('app_vendeur_services_medias_delete', {'id': media.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette image?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ media.id) }}">
+    <button class="btn btn-outline-danger my-2 btn-sm"><i class="fa fa-trash"></i> Supprimer</button>
+</form>

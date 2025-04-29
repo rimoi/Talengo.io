@@ -1,0 +1,20 @@
+<li class="nav-item dropdown no-arrow no-caret mr-3 dropdown-notifications d-sm-none">
+   <a class="btn btn-icon btn-transparent-dark dropdown-toggle miblie-notif ml-3" href="#" id="searchDropdown"
+      role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-search fa-fw"></i>
+   </a>
+   <!-- Dropdown - Messages -->
+   <div class="dropdown-menu dropdown-menu-left shadow-sm animated--grow-in position-absolute form-key-word" aria-labelledby="searchDropdown">
+      <form class="form-inline mr-auto w-100 navbar-search p-3" method="get" action="{{ path('microservices') }}">
+         <div class="input-group">
+            <input type="text" name="q" class="form-control bg-light border-0 small" placeholder="Je cherche..."
+               aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+               <button class="btn btn-success" type="submit">
+                  <i class="fa fa-search fa-sm"></i>
+               </button>
+            </div>
+         </div>
+      </form>
+   </div>
+</li>

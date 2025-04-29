@@ -1,0 +1,21 @@
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+   <div style="margin: auto;background: #fff;padding: 20px;">
+
+      {% include "mails/_logo.html.twig" %}
+      
+      <p>Bonjour <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
+
+      <p>
+         Nous vous informons que pour une raison ou une autre, votre retrait de fond de <strong>{{ demande.montant ~ currency }}</strong> a été rejeté.
+      </p>
+
+      {% if demande.reponse %}
+      <strong>Réponse de {{ appName }}</strong>
+      <p>{{ demande.reponse }}</p>
+      <hr>
+      {% endif %}
+
+      {% include "mails/_lien_cgu.html.twig" %}
+
+   </div>
+</div>

@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+            {{ form_widget(form._token) }}
+            {{ form_errors(form) }}
+            <div id="emploisTemps" class="row" data-prototype="{{ include("vendeur/emplois_temps/_emploisTemps.html.twig", {form:
+                form.emploisTemps.vars.prototype})|e("html_attr") }}"
+                data-index="{{ form.emploisTemps|length > 0 ? form.emploisTemps|last.vars.name + 1 : 0 }}">
+                {% for time in form.emploisTemps %}
+                <div class="col-sm-6">
+                    {{ include("vendeur/emplois_temps/_emploisTemps.html.twig", {form: time}) }}
+                </div>
+                {% endfor %}
+            </div>
+            <br>
+            <button type="button" class="btn btn-light btn-new" data-collection="#emploisTemps">
+                <i class="fa fa-plus"></i> Ajouter un planning
+            </button>
+
+            <div class="form-group text-left mt-5">
+                <button type="submit" class="btn btn-dark">{{ button_label|default('Enregistrer') }}</button>
+            </div>
+            {{ form_end(form, {render_rest: false}) }}

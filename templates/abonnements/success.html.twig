@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Félicitation {{ app.user.nom }} {{ app.user.prenom }}
+{% endblock %}
+
+{% block titre %}Félicitation
+{{ app.user.nom }} {{ app.user.prenom }}
+{% endblock %}
+
+{% block body %}
+
+<section class="py-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 mx-auto">
+				<div class="card">
+					<div class="card-body text-center">
+						<div class="row">
+							<div class="col-sm-3 mx-auto text-center">
+								<img src="{{ asset('img/order_confirmed.svg') }}" class="img-fluid mt-3" alt="">
+							</div>
+						</div>
+						<div>
+							<h6 class="text-center py-3 text-light">Félicitation {{ app.user.nom }} {{ app.user.prenom }}</h6>
+							<p class="text-muted m-0">Vous venez de souscrire à l'offre
+								<span class="badge badge-warning badge-pill">{{ abonnement.name }}</span>
+							</p>
+							<p>Vous serez facturez à partir de
+								<span class="h4 font-weight-bold">{{ abonnement.tarif }}</span> <span>{{ currency }}/mois</span>
+							</p>
+							<p>Pour des reclamations et d'autres raisons, vous pouvez nous contacté:</p>
+							<a href="mailto:{{ appEmail }}" class="font-weight-bold">{{ appEmail }}</a>
+
+							<div class="py-2">
+								<a href="{{ path('vendeur_abonnement') }}" class="btn btn-outline-secondary">
+									Détails de mon abonnement &longrightarrow;</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}

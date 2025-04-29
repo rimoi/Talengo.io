@@ -1,0 +1,70 @@
+<div class="email-leftbar p-0">
+   <div class="list-group">
+
+      {% if microservice.id %}
+
+      <a class="list-group-item d-flex justify-content-between align-items-start {{ app.request.attributes.get('_route') == 'app_admin_services_titre' ? 'active' : '' }} {{ microservice.name ? 'validee' : 'encours' }}"
+         href="{{ path('app_admin_services_titre', {id: microservice.id}) }}">
+         1. Titre et catégorie &nbsp;&nbsp;&nbsp;
+         <i class="text-muted fa fa-check-circle float-right"></i>
+      </a>
+
+      <a class="list-group-item d-flex justify-content-between align-items-start {{ app.request.attributes.get('_route') == 'app_admin_services_description' ? 'active' : '' }} {{ microservice.description ? 'validee' : 'encours' }}"
+         href="{{ path('app_admin_services_description', {id: microservice.id}) }}">
+         2. Prix, description et délai &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
+      </a>
+
+      <a class="list-group-item d-flex justify-content-between align-items-start {{ app.request.attributes.get('_route') == 'app_admin_services_options' ? 'active' : 'validee' }} {{ microservice.serviceOptions|length > 0 ? 'validee' : 'encours' }}"
+         href="{{ path('app_admin_services_options', {id: microservice.id}) }}">
+         3. Options supplémentaire &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
+      </a>
+
+      <a class="list-group-item d-flex justify-content-between align-items-start {{ app.request.attributes.get('_route') == 'app_admin_services_galerie' ? 'active' : '' }} {{ microservice.medias|length > 0 ? 'validee' : 'encours' }}"
+         href="{{ path('app_admin_services_galerie', {id: microservice.id}) }}">
+         4. Galerie &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
+      </a>
+
+      <a class="list-group-item d-flex justify-content-between align-items-start {{ app.request.attributes.get('_route') ==  'app_admin_services_disponibilite' ? 'active' : '' }} {{ microservice.disponibilites|length > 0 ? 'validee' : 'encours' }}"
+         href="{{ path('app_admin_services_disponibilite', {id: microservice.id}) }}">
+         5. Disponibilité &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
+      </a>
+
+      <a class="list-group-item d-flex justify-content-between align-items-start {{ app.request.attributes.get('_route') ==  'app_admin_services_publication' ? 'active' : '' }} {{ microservice.online == 1 ? 'validee' : 'encours' }}"
+         href="{{ path('app_admin_services_publication', {id: microservice.id}) }}">
+         6. Publication &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
+      </a>
+
+      {% else %}
+
+      <a
+         class="list-group-item d-flex justify-content-between align-items-start {{ app.request.attributes.get('_route') == 'app_admin_services_new' ? 'active' : '' }}">
+         1. Titre et catégorie &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
+      </a>
+
+      <div
+         class="list-group-item d-flex justify-content-between align-items-start {{ app.request.attributes.get('_route') == 'app_admin_services_description' ? 'active' : '' }}">
+         2. Prix, description et délai &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
+      </div>
+
+      <div
+         class="list-group-item d-flex justify-content-between align-items-start {{ app.request.attributes.get('_route') == '' ? 'active' : 'app_admin_services_options' }}">
+         3. Options supplémentaire &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
+      </div>
+
+      <div class="list-group-item d-flex justify-content-between align-items-start {{ app.request.attributes.get('_route') == 'app_admin_services_galerie' ? 'active' : '' }}">
+         4. Galerie &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
+      </div>
+
+      <div class="list-group-item d-flex justify-content-between align-items-start {{ app.request.attributes.get('_route') == 'app_admin_services_disponibilite' ? 'active' : '' }}">
+         5. Disponibilité &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
+      </div>
+
+      <div class="list-group-item d-flex justify-content-between align-items-start {{ app.request.attributes.get('_route') == '' ? 'active' : '' }}">
+         6. Publication &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
+      </div>
+
+      {% endif %}
+
+   </div>
+</div>
+<!-- End Left sidebar -->

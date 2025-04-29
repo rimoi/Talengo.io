@@ -1,0 +1,80 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}
+Titre et catégorie
+{% endblock %}
+
+{% block pageTitle %}Nouveau service{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-12">
+        <!-- Left sidebar -->
+        {% include "admin/admin_services/composants/_step.html.twig" %}
+
+        <!-- Right Sidebar -->
+        <div class="email-rightbar">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="">
+                        {{ form_start(form) }}
+
+                        <div class="">
+                            <div class="form-group mb-3">
+                                <h6 class="font-weight-bold">Titre</h6>
+                                <p class="text-muted">
+                                    Indiquez précisément ce que vous faites dans votre service basique. Faites attention
+                                    aux fautes, ne
+                                    mettez
+                                    pas de majuscules, et n'utilisez pas de ponctuation ni de signes (parenthèses,
+                                    tirets, etc.).
+                                </p>
+                                <div>
+                                    {{ form_widget(form.name) }}
+                                    {{ form_errors(form.name) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h6 class="font-weight-bold">Catégorie</h6>
+                                <p class="text-muted">
+                                    Suggérez à notre équipe de modération la catégorie la plus adaptée à votre service.
+                                </p>
+                                <div class="">
+                                    {{ form_widget(form.categorie) }}
+                                    {{ form_errors(form.categorie) }}
+                                </div>
+                            </div>
+                            <div class="form-group pt-3">
+                                {{ form_row(form.vendeur) }}
+                            </div>
+                        </div>
+
+                        <div class="py-4">
+                            <div class="">
+                                <button class="btn btn-primary">
+                                    {{ button_label|default('Enregistrer et suivant') }}
+                                </button>
+                            </div>
+                        </div>
+
+                        {{ form_end(form) }}
+                    </div>
+
+                </div>
+            </div> <!-- panel -->
+
+        </div> <!-- end Col -->
+    </div>
+</div><!-- End row -->
+
+{% endblock %}
+
+{% block javascripts %}
+
+{{ parent() }}
+
+{% include "admin/admin_services/composants/_tarif_script.html.twig" %}
+
+{% endblock %}

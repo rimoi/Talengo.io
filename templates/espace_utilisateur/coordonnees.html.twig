@@ -1,0 +1,140 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Profil
+{% endblock %}
+
+{% block bg %}{% endblock %}
+
+{% block colleft %}4
+{% endblock %}
+
+{% block colright %}8
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+
+	<style>
+		.cs-imageFile .invalid-feedback:not(.cs-show-error) {
+			display: none !important;
+		}
+
+		.custom-file-input.cs-uploade-image-custom {
+			opacity: 1;
+		}
+
+		.custom-file-label {
+			line-height: 0.5 !important;
+		}
+	</style>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="">
+	<div class="card bg-light mb-3">
+		<div class="card-header bg-dark">
+			<h4 class="h6 text-light mb-0">Coordonnées personnelles</h4>
+		</div>
+		<div class="card-body">
+
+			{% if is_granted('ROLE_VENDEUR') %}
+			<div class="text-dark">
+				{{ form_start(form) }}
+				<div class="row">
+					<div class="col-sm-8">
+						{{ form_row(form.nom) }}
+						{{ form_row(form.prenom) }}
+						{{ form_row(form.email) }}
+						{{ form_row(form.pseudo) }}
+						{{ form_row(form.usePseudo) }}
+						{{ form_row(form.categorie) }}
+						{{ form_row(form.adresse) }}
+						{{ form_row(form.ville) }}
+						{{ form_row(form.pays) }}
+						{{ form_row(form.telephone) }}
+					</div>
+					<div class="col-sm-4">
+						{% if app.user.avatar == null %}
+							<img class="img-fluid rounded" src="{{ asset('img/user.jpg') | imagine_filter('identite_size') }}"
+						alt='' />
+						{% endif %}
+
+						<div class="cs-imageFile">
+							{{ form_label(form.imageFile) }}
+							{% if form.imageFile.vars.errors|length > 0 %}
+								<span class="invalid-feedback d-block cs-show-error">
+								{% for error in form.imageFile.vars.errors %}
+									{% if loop.first %}
+										<span class="form-error-icon badge badge-danger text-uppercase">Erreur</span>
+										<span class="form-error-message">{{ error.getMessage() }}</span>
+									{% endif %}
+								{% endfor %}
+                			</span>
+							{% endif %}
+							{{ form_widget(form.imageFile, {attr: {
+								placeholder: 'Charger votre image'
+							}}) }}
+						</div>
+
+						{{ form_row(form.genre) }}
+						{{ form_row(form.codePostal) }}
+					</div>
+				</div>
+
+				<div>
+					{{ form_row(form.apropos) }}
+				</div>
+				
+				{{ form_rest(form) }}
+				<button class="btn btn-dark">Suivant</button>
+				{{ form_end(form) }}
+			</div>
+			{% endif %}
+			
+			<!--<div class="row">
+				<div class="col-sm-12">
+					<table class="table table-borderless">
+						<tbody>
+							<tr>
+								<th>Compte</th>
+								<td class="text-left">{{ app.user.compte }}</td>
+							</tr>
+							<tr>
+								<th>Nom</th>
+								<td class="text-left">{{ app.user.nom }}</td>
+							</tr>
+							<tr>
+								<th>Prénom</th>
+								<td class="text-left">{{ app.user.prenom }}</td>
+							</tr>
+							<tr>
+								<th>Genre</th>
+								<td class="text-left">{{ app.user.genre }}</td>
+							</tr>
+							<tr>
+								<th>Téléphone</th>
+								<td class="text-left">{{ app.user.telephone }}</td>
+							</tr>
+							<tr>
+								<th>Adresse</th>
+								<td class="text-left">{{ app.user.adresse }}</td>
+							</tr>
+							<tr>
+								<th>Ville</th>
+								<td class="text-left">{{ app.user.ville }}</td>
+							</tr>
+							<tr>
+								<th>Etat</th>
+								<td class="text-left">{{ app.user.pays }} - {{ app.user.etat }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>-->
+		</div>
+	</div>
+</div>
+
+{% endblock %}

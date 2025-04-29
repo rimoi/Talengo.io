@@ -1,0 +1,28 @@
+<div class="">
+   <div class="d-flex align-items-top mb-2">
+      <p class="mb-0 text-muted"><i class="fa fa-calendar"></i> Date</p>
+      <p class="text-muted mb-0 mt-0 ml-auto">
+         {{ commande.created|date("d/m/Y") }}
+      </p>
+   </div>
+   <div class="d-flex align-items-top mb-2">
+      <p class="mb-0 text-muted">Offre</p>
+      <p class="text-muted mb-0 mt-0 ml-auto">
+         {{ commande.offre }}
+      </p>
+   </div>
+   <div class="d-flex align-items-top mb-2">
+      <p class="mb-0 text-dark">
+         <span>Sous-total</span>
+      </p>
+      <strong class="text-dark mb-0 mt-0 ml-auto">{{ commande.montant }} {{ currency }}</strong>
+   </div>
+   <div class="d-flex align-items-top mb-2">
+      <p class="mb-0 text-muted">Statut</p>
+      <p class="ml-auto">
+         <span class="badge badge-pill badge-{{ commande.payed == true ? 'success' : 'warning' }}">
+            {{ commande.payed == true ? 'Payée' : 'Non payée' }}
+         </span>
+      </p>
+   </div>
+</div>

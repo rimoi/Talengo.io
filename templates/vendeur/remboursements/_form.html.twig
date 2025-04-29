@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+
+    {{ form_row(form.montant) }}
+    
+    <h6 class="h6">Coordonnées bancaires</h6>
+    <div class="row">
+        <div class="col-sm-4">
+            {{ form_row(form.nomsurCarte) }}
+        </div>
+        <div class="col-sm-4">
+            {{ form_row(form.numeroCarte) }}
+        </div>
+        <div class="col-sm-4">
+            {{ form_row(form.dateExpiration) }}
+        </div>
+    </div>
+
+    {{ form_rest(form) }}
+
+    <button class="btn btn-dark">{{ button_label|default('Envoyer') }}</button>
+{{ form_end(form) }}

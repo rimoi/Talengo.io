@@ -1,0 +1,24 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Planning des services{% endblock %}
+{% block bg %}transparent{% endblock %}
+
+{% block body %}
+
+<div class="card mb-3">
+    <div class="card-header bg-dark">
+        <h2 class="h6 text-light mb-0">Planning de travail</h2>
+    </div>
+    <div class="card-body">
+        {% include "vendeur/emplois_temps/_table.html.twig" %}
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="pb-4 h6"> Ajouter / supprimer les planning de travail</h5>
+        {% include "vendeur/emplois_temps/_form.html.twig" %}
+    </div>
+</div>
+
+{% endblock %}

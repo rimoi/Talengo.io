@@ -1,0 +1,27 @@
+{% extends 'service.html.twig' %}
+
+{% block title %}Nouveau service{% endblock %}
+
+{% block colleft %}4{% endblock %}
+
+{% block colright %}8{% endblock %}
+
+{% block body %}
+
+    <div class="p-3 text-left bg-dark rounded border-bottom">
+        <h4 class="mb-0 h6 text-light rounded">
+            Nouveau service
+        </h4>
+    </div>
+
+	{{ include('vendeur/microservices/_form.html.twig') }}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{{ parent() }}
+
+{% include "vendeur/microservices/composants/_tarif_script.html.twig" %}
+
+{% endblock %}

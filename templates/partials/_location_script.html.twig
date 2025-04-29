@@ -1,0 +1,130 @@
+<script>
+   $(document).mouseup(function (e) {
+      var container = $("#adresse, #registration_form_adresse");
+
+      // if the target of the click isn't the container nor a descendant of the container
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+         $("#addresses").hide();
+      }
+   });
+
+   // TO MAKE THE EXAMPLE WORK YOU MUST
+   // ADD YOUR ACCESS TOKEN FROM
+   // https://account.mapbox.com
+
+   const ACCESS_TOKEN = '{{ map_box_token }}'
+
+   $("#registration_form_adresse").on('click', function (e) {
+      const query = $(this).val();
+      if (query.length > 3) {
+         $("#addresses").css('display', 'block')
+      } else {
+         $("#addresses").css('display', 'none')
+      }
+   });
+
+   $("#registration_form_adresse").on('keyup', function (e) {
+
+      const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
+      const query = e.target.value
+
+      if (query.length > 3) {
+         $("#addresses").css('display', 'block')
+      } else {
+         $("#addresses").css('display', 'none')
+      }
+
+      $("#adresse-liste").html("");
+
+      fetch(`${url}${query}.json?access_token=${ACCESS_TOKEN}`)
+         .then((response) => response.json())
+         .then((data) => {
+            console.log(data)
+            const features = data.features
+
+            if (features.length > 0) {
+               for (let i = 0; i < features.length; i++) {
+                  const feature = features[i];
+                  const addresse = features[i].place_name;
+                  const context = features[i].context;
+                  let pays = "";
+                  let ville = "";
+
+                  for (let j = 0; j < context.length; j++) {
+                     const elt = context[j];
+
+                     if (elt.id.includes("country")) {
+                        pays = elt.text
+                     }
+
+                     if (elt.id.includes("region")) {
+                        ville = elt.text
+                     }
+                     else if(elt.id.includes("place")){
+                        ville = elt.text
+                     }
+                  }
+
+                  let li = `<li class="list-group-item address-item">
+                     <strong class="d-block addresse-line">${addresse}</strong>
+                     <span class="ville-line">${ville}</span>,
+                     <span class="pays-line">${pays}</span>
+                  </li>`;
+
+                  $("#adresse-liste").append(li);
+                  $(".address-item").click(function () {
+                     let adr = $(this).find(".addresse-line").html();
+                     let vil = $(this).find(".ville-line").html();
+                     let pys = $(this).find(".pays-line").html();
+
+                     $("#registration_form_adresse").val(adr);
+                     $("#adresse").val(adr);
+                     $("#registration_form_ville").val(vil);
+                     $("#ville").val(vil);
+                     $("#registration_form_pays").val(pys);
+                     $("#addresses").hide();
+                  });
+               }
+            }
+            /*const longitude = data.features[0].geometry.coordinates[0];
+            const latitude = data.features[0].geometry.coordinates[1];
+
+            $("#registration_form_longitude").val(longitude)
+            $("#registration_form_latitude").val(latitude)
+
+            console.log(longitude, latitude)*/
+         });
+
+      console.log('form has changed', e.target.value);
+   })
+
+   /*const script = document.getElementById('search-js');
+   script.onload = () => {
+      // Add search box to input
+      const collection = mapboxsearch.autofill({
+         accessToken: ACCESS_TOKEN,
+         options: { country: 'fr' }
+      });
+
+      // Configure minimap
+      const minimap = document.querySelector('mapbox-address-minimap');
+      minimap.accessToken = ACCESS_TOKEN;
+      minimap.defaultMapStyle = ['mapbox', 'outdoors-v11'];
+      minimap.theme = {
+         variables: { border: '13px solid #bbb', borderRadius: '18px', boxShadow: '0 2px 8px #000' }
+      }
+
+      minimap.onSaveMarkerLocation = (coordinate) => { console.log(coordinate); }
+      minimap.feature = {
+         type: 'Feature',
+         geometry: { type: 'Point', coordinates: [-73.981872, 40.768037] },
+         properties: {}
+      };
+
+      // Set minimap feature on search box selection
+      collection.addEventListener('retrieve', (e) => {
+         minimap.feature = e.detail.features[0];
+         console.log(minimap.feature)
+      })
+   };*/
+</script>

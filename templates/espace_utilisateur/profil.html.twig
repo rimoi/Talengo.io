@@ -1,0 +1,156 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Profil
+{% endblock %}
+
+{% block bg %}{% endblock %}
+
+{% block colleft %}4
+{% endblock %}
+
+{% block colright %}8
+{% endblock %}
+
+{% block sidebar %}
+{{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+<div class="card bg-light">
+	<div class="card-header bg-dark">
+		<h4 class="mb-0 text-light h6">
+			Mon profil {{ is_granted('ROLE_VENDEUR') ? 'public' : '' }}
+		</h4>
+	</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="form-group">
+					<strong>Nom</strong> <br>
+					<strong class="text-muted mb-0">{{ app.user.nom }}</strong>
+				</div>
+				<div class="form-group">
+					<strong>Prénom</strong> <br>
+					<strong class="text-muted mb-0">{{ app.user.prenom }}</strong>
+				</div>
+				<div class="form-group">
+					<strong>Nom public</strong> <br>
+					<strong class="text-muted mb-0">{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.nom ~ ' ' ~
+						app.user.prenom }}</strong>
+				</div>
+				<div class="form-group">
+					<strong>Email</strong> <br>
+					<strong class="text-muted mb-0">{{ app.user.email }}</strong>
+				</div>
+				<div class="form-group">
+					<strong>#ID</strong> <br>
+					<strong class="text-muted mb-0">{{ app.user.id }}</strong>
+				</div>
+				<div class="form-group">
+					<strong>Adresse</strong> <br>
+					<strong class="text-muted mb-0">{{ app.user.ville }} - {{ app.user.adresse }} {{ app.user.pays
+						}}</strong>
+				</div>
+
+				<div>
+
+
+					{% if is_granted('ROLE_VENDEUR') %}
+					<p>
+						En tant que vendeur, vous disposez d’un profil public présentant vos services en vente. Complétez-le
+						avec
+						soin,
+						sans indiquer de coordonnée personnelle ni faire la promotion d’un autre moyen de contact que via {{
+						appName
+						}}
+					</p>
+					{% endif %}
+
+					{% if is_granted('ROLE_VENDEUR') %}
+
+					<div>
+						<strong>Photo de couverture</strong>
+						<div class="py-4">
+							{% if app.user.couverture %}
+
+							<img class="img-fluid rounded"
+								src="{{ vich_uploader_asset(app.user, 'couvertureFile') | imagine_filter('rectangle_avatar') }}"
+								alt='' />
+
+							{% else %}
+
+							<p>Aucune image de couverture..</p>
+
+							{% endif %}
+						</div>
+					</div>
+
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<strong>Photo de profil</strong>
+				<div class="py-2">
+
+					{% if app.user.reseauAvatar %}
+
+					<img src="{{ app.user.reseauAvatar }}" class="img-fluid rounded"
+						alt="{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.usePseudo == 1 ? app.user.pseudo : app.user.nom ~ ' ' ~ app.user.prenom }}"
+						width="200" height="200">
+
+					{% else %}
+
+					{% if app.user.avatar %}
+
+					<img src="{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('identite_size') }}"
+						class="img-fluid rounded"
+						alt="{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.usePseudo == 1 ? app.user.pseudo : app.user.nom ~ ' ' ~ app.user.prenom }}">
+					{% else %}
+
+					<img class="img-fluid rounded" src="{{ asset('img/user.jpg') | imagine_filter('identite_size') }}"
+						alt='' />
+
+					{% endif %}
+
+					{% endif %}
+				</div>
+				{% if is_granted('ROLE_VENDEUR') %}
+				<p>
+					Montrez-vous ! Les vendeurs avec une photo les représentant vraiment font plus de ventes que la
+					moyenne.
+				</p>
+				{% endif %}
+
+				<div class="form-group">
+					<strong>Genre</strong> <br>
+					<strong class="text-muted mb-0">{{ app.user.genre }}</strong>
+				</div>
+
+				<div class="form-group">
+					<strong>Code postal</strong> <br>
+					<strong class="text-muted mb-0">{{ app.user.codePostal }}</strong>
+				</div>
+			</div>
+		</div>
+
+		<div>
+
+			<div class="form-group text-left">
+
+				{% if is_granted('ROLE_VENDEUR') %}
+				<a href="{{ path('user_coordonnees') }}" class="btn btn-success">
+					{{ app.user.endRegister == 1 ? 'Mettre à jour' : 'Completer mon profil' }}
+				</a>
+				{% else %}
+				<a href="{{ path('user_edit_profil') }}" class="btn btn-success">
+					Mettre à jour
+				</a>
+				{% endif %}
+			</div>
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}

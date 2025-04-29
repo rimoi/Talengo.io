@@ -1,0 +1,192 @@
+<div class="card">
+   <div class="card-header bg-white p-2">
+      {{ form_start(form, {attr: {class: 'filter js-filter-form container'}}) }}
+      <div class="row my-3">
+         <div class="col-sm-6">
+            <p class="mb-2">
+               ({{ users.getTotalItemCount }}) Compte{{ users.getTotalItemCount > 0 ? 's' : '' }} utilisateur{{ users.getTotalItemCount > 0 ? 's' : '' }}
+            </p>
+         </div>
+         <div class="col-sm-6">
+            <div class="sorting d-flex align-items-center justify-content-end">
+               <p>Trier par</p>&nbsp;&nbsp;
+               {{ knp_pagination_sortable(users, "Date d'inscription", 'u.created') }} &nbsp;&nbsp;
+               {{ knp_pagination_sortable(users, "Statut du compte", 'u.isVerified') }}
+            </div>
+         </div>
+      </div>
+      <div class="form-search row align-items-center justify-content-between">
+      
+         <div class="col-sm-6">
+            <div class="row">
+               <div class="col-sm-5">
+                  <div class="form-group">
+                     {{ form_widget(form.email) }}
+                  </div>
+               </div>
+               <div class="col-sm-4">
+                  <div class="form-group">
+                     {{ form_widget(form.name) }}
+                  </div>
+               </div>
+               <div class="col-sm-3">
+                  <div class="dropdown">
+                     <button type="button" class="btn shadow-sm dropdown-toggle w-100" data-bs-toggle="dropdown">
+                        <i class="fa fa-map-marker-alt"></i> Ville
+                     </button>
+                     <div class="dropdown-menu p-3">
+                        {{ form_row(form.ville) }}
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-sm-6">
+            <div class="row">
+               <div class="col-sm-3">
+                  <div class="dropdown w-100">
+                     <button type="button" class="btn shadow-sm dropdown-toggle w-100" data-bs-toggle="dropdown">
+                        <i class="fa fa-user-circle"></i> Compte
+                     </button>
+                     <div class="dropdown-menu p-3">
+                        {{ form_row(form.compte) }}
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-3">
+                  <div class="dropdown w-100">
+                     <button type="button" class="btn shadow-sm dropdown-toggle w-100" data-bs-toggle="dropdown">
+                        <i class="fa fa-tags"></i> Catégorie
+                     </button>
+                     <div class="dropdown-menu p-3">
+                        {{ form_row(form.categories) }}
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-3">
+                  <div class="dropdown w-100">
+                     <button type="button" class="btn shadow-sm dropdown-toggle w-100" data-bs-toggle="dropdown">
+                        Plus <i class="fa fa-plus"></i>
+                     </button>
+                     <div class="dropdown-menu p-3">
+                        <strong>Genre</strong>
+                        {{ form_row(form.genre) }}
+
+                        <strong>Statut du compte</strong>
+                        {{ form_row(form.isVerified) }}
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-3">
+                  <div class="form-group">
+                     <button type="submit" class="btn btn-success border border-success w-100">
+                        <i class="fa fa-filter text-light"></i>Filtrer
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      {{ form_end(form) }}
+   </div>
+   <div class="card-body p-0">
+      <div class="table-rep-plugin">
+         <div class="table-responsive mb-0" data-bs-pattern="priority-columns">
+
+            <table id="tech-companies-1" class="table  table-hover">
+               <thead>
+                  <tr>
+                     <th>#Id</th>
+                     <th>Avatar</th>
+                     <th>Profil</th>
+                     <th>Nom</th>
+                     <th>Prenom</th>
+                     <th>Genre</th>
+                     <th>Compte</th>
+                     <th class="text-end">actions</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for user in users %}
+                  <tr>
+                     <td>{{ user.id }}</td>
+                     <td>
+
+                        {% if user.reseauAvatar %}
+
+                        <img src="{{ user.reseauAvatar | imagine_filter('small_avatar') }}" alt="">
+
+                        {% endif %}
+
+                        {% if user.avatar %}
+
+                        <img class="img-fluid rounded"
+                           src="{{ vich_uploader_asset(user, 'imageFile') | imagine_filter('small_avatar') }}" />
+
+                        {% else %}
+
+                        <img class="img-fluid rounded"
+                           src="{{ asset('img/user.jpg') | imagine_filter('small_avatar') }}" />
+
+                        {% endif %}
+
+                     </td>
+                     <td>
+                        {{ user.email }} <br>
+
+                        <span class="badge bg-light border text-dark rounded-pill text-uppercase">
+                           {{ user.compte }}
+                        </span>
+
+                        {% if user.compte == 'Vendeur' %}
+                        <span class="badge bg-info border rounded-pill text-uppercase">
+                           {{ user.microservices|length }} Service{{ user.microservices|length > 1 ? 's' : '' }}
+                        </span>
+                        {% endif %}
+                        
+                        {% if user.categorie %}
+                           <p class="text-muted"><i class="fa fa-tags"></i> {{ user.categorie.name }}</p>
+                        {% endif %}
+                        
+                        {% if user.ville %}
+                           <p class="text-muted"><i class="fa fa-map-marker-alt"></i> {{ user.ville }}</p>
+                        {% endif %}
+
+                     </td>
+                     <td><strong>{{ user.nom }}</strong></td>
+                     <td><strong>{{ user.prenom }}</strong></td>
+                     <td>{{ user.genre }}</td>
+                     <td>
+                     <span class="badge bg-{{ user.isVerified == 1 ? 'success' : 'warning' }} rounded-pill text-capitalize">{{
+                           user.isVerified == 1 ? 'Actif' : 'Inactif' }}</span></td>
+                     <td class="text-end">
+                        <a href="{{ path('app_admin_users_show', {'nameUrl': user.nameUrl}) }}"
+                           class="btn btn-light border">Profil</a>
+                        <a href="{{ path('app_admin_users_edit', {'id': user.id}) }}"
+                           class="btn btn-light border">Modifier</a>
+                        <a href="{{ path('app_admin_users_generate_email', {'id': user.id}) }}"
+                           class="btn btn-primary border" title="Envoyé les identifiants identifiant"
+                           onclick="return confirm('Êtes-vous sûr de vouloir envoyé Email ?');"
+                        >Envoyé</a>
+                     </td>
+                  </tr>
+                  {% else %}
+                  <tr>
+                     <td colspan="10">Aucun compte utilisateur</td>
+                  </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+
+   <div class="card-footer bg-white">
+      {{ knp_pagination_render(users, null, {}, {
+      'align': 'right',
+      'size': 'medium',
+      'rounded': true,
+      }) }}
+   </div>
+</div>

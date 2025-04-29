@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Retrait{% endblock %}
+
+{% block body %}
+    <h1>Edit Retrait</h1>
+
+    {{ include('vendeur_retraits/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_vendeur_retraits_index') }}">back to list</a>
+
+    {{ include('vendeur_retraits/_delete_form.html.twig') }}
+{% endblock %}

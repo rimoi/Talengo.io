@@ -1,0 +1,13 @@
+<a href="{{ path('favoris_new', {id: microservice.id}) }}" class="{{ app.user ? 'js-favoris' : '' }}">
+
+	{% if app.user and microservice.isAddedByUser(app.user) %}
+
+	<i class="green fa fa-heart" aria-hidden="true"></i>
+
+	{% else %}
+
+	<i class="light fa fa-heart" aria-hidden="true"></i>
+
+	{% endif %}
+	
+</a>

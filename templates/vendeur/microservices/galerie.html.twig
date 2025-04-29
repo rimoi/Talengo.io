@@ -1,0 +1,89 @@
+{% extends 'service.html.twig' %}
+
+{% block title %}Galérie{% endblock %}
+
+{% block colleft %}4{% endblock %}
+
+{% block colright %}8{% endblock %}
+
+{% block bg %}transparent{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        .cs-imageFile .invalid-feedback:not(.cs-show-error) {
+            display: none !important;
+        }
+
+        .custom-file-input.cs-uploade-image-custom {
+            opacity: 1;
+        }
+
+        .custom-file-label {
+            line-height: 0.5 !important;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body">
+        <div class="form-group">
+            <h6 class="font-weight-bold">Galerie</h6>
+            <p class="text-muted">
+                La 1re image, principale, sera utilisée dans la recherche, les catégories, et sur
+                votre profil. C’est la plus importante. Afin que votre service se démarque des autres, privilégiez une
+                image lisible en rapport direct avec ce que vous faites dans votre service, et surtout : de votre
+                création. <br> Les autres images, optionnelles, serviront à montrer des exemples de votre travail ou
+                illustrer plus précisément ce que vous vendez.
+            </p>
+        </div>
+
+        {% if microservice.medias|length > 0 %}
+
+            <div class="pb-4">
+                {% include "vendeur/microservices/composants/_slider.html.twig" %}
+            </div>
+
+        {% endif %}
+
+        <h6 class="font-weight-bold py-4">Medias</h6>
+        
+        {{ form_start(form, {attr: {class: '', 'id': ''}}) }}
+        {{ form_widget(form._token) }}
+        {{ form_errors(form) }}
+            <div id="medias" class="row" data-prototype="{{ include("vendeur/microservices/form/_medias.html.twig", {form:
+                form.medias.vars.prototype})|e("html_attr") }}"
+                data-index="{{ form.medias|length > 0 ? form.medias|last.vars.name + 1 : 0 }}">
+                {% for media in form.medias %}
+                <div class="col-sm-6">
+                    {{ include("vendeur/microservices/form/_medias.html.twig", {form: media}) }}
+                </div>
+                {% endfor %}
+            </div>
+            <br>
+            <button type="button" class="btn btn-light btn-new" data-collection="#medias">
+                <i class="fa fa-plus"></i> Ajouter une image
+            </button>
+
+            <div class="form-group text-left mt-5">
+                <button type="submit" class="btn btn-dark">{{ button_label|default('Enregistrer et poursuivre') }}</button>
+            </div>
+            {{ form_end(form, {render_rest: false}) }}
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // Dropzone has been added as a global variable.
+        const dropzone = new Dropzone("dropzone", { url: "/file/post" });
+    </script>
+
+{#    <script>#}
+{#        // Dropzone has been added as a global variable.#}
+{#        const dropzone = new Dropzone("dropzone", { url: "/file/post" });#}
+{#    </script>#}
+{% endblock %}

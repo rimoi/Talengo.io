@@ -1,0 +1,35 @@
+<div class="d-block d-sm-flex w-100 rounded">
+   <div class="p-2 bg-white flex-fill border">
+      <div class="media p-3">
+         <div class="media-body">
+            <h5 class="h6">Revenu disponible</h5>
+            <div>
+               <span class="h2 font-weight-bold">
+                  {{ portefeuille(app.user).soldeDisponible|number_format(2, ',', ' ') }}
+               </span>
+               <span class="lead">{{ currency }}</span>
+            </div>
+            <span>
+               {{ portefeuille(app.user).soldeEnCours|number_format(2, ',', ' ') ~ currency }} en cours
+            </span> <br>
+            <span>
+               {{ retraits(app.user).total > 0 ? retraits(app.user).total|number_format(2, ',', ' ') : 0 }} {{ currency }} retiré au total
+            </span>
+         </div>
+         <img src="{{ asset('img/wallet.png') }}" width="50" alt="">
+      </div>
+   </div>
+   <div class="p-2 bg-dark flex-fill">
+      <div class="media p-3 text-light">
+         <div class="media-body">
+            <h5 class="h6">Ventes éffectuées</h5>
+            <div>
+               <span class="h2 font-weight-bold">
+                  {{ ventes(app.user)|length }}
+               </span>
+            </div>
+         </div>
+         <i class="fa fa-opencart fa-3x"></i>
+      </div>
+   </div>
+</div>

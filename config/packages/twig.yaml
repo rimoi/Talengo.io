@@ -1,0 +1,21 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    form_themes: ['bootstrap_4_layout.html.twig']
+    #form_themes: ['bootstrap_4_Horizontal_layout.html.twig']
+    globals:
+        appName: 'MISSION INFINITY'
+        appEmail: 'sidi.khalifa@live.fr'
+        appPhone: '06 05 99 24 81'
+        currency: ' €'
+        ashtag: '#'
+        appConcepteur: "Sidi Conception"
+        app_environement: '%env(APP_ENV)%'
+        stripe_public_key_test: '%env(STRIPE_PUBLIC_KEY_TEST)%'
+        stripe_public_key_live: '%env(STRIPE_PUBLIC_KEY_LIVE)%'
+        map_box_token: '%env(MAPBOX_TOKEN)%'
+        appSite: 'https://mission-c2c.com/'
+        appSiteLocal: 'https://127.0.0.1:8000/'
+
+when@test:
+    twig:
+        strict_variables: true

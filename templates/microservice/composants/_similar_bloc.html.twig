@@ -1,0 +1,60 @@
+<div class="bg-white shadow-sm rounded mb-3" id="microservice-{{ similaire.id }}">
+   <a href="{{ path('microservice_details', {slug: similaire.slug}) }}">
+      {% if similaire.medias|length > 0 %}
+
+      <img class="img-fluid" src="{{ vich_uploader_asset(similaire.medias[0], 'imageFile') | imagine_filter('medium_size') }}" alt="{{ similaire.name }} France" />
+
+      {% else %}
+
+      <img class="img-fluid" src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('medium_size') }}" alt="{{ similaire.name }} France"  />
+
+      {% endif %}
+
+   </a>
+   <div class="inner-slider shadow-0">
+      <div class="inner-wrapper shadow-0">
+
+         <div class="d-flex align-items-center">
+
+            <span class="seller-name">
+               <a href="{{ path('microservice_details', {slug: similaire.slug}) }}">
+                  {{ similaire.name|u.truncate(25, '...') }}
+               </a>
+            </span>
+
+         </div>
+
+         <div class="content-info">
+         
+            <a href="{{ path('favoris_new', {id: similaire.id}) }}">
+               <div class="rating-wrapper">
+                  <span class="gig-rating text-body-2">
+                     <a href="{{ path('microservices_categories', {slug: similaire.categorie.slug}) }}?categories%5B%5D={{ similaire.categorie.id }}"
+                        class="badge badge-blue badge-pill my-2" style="font-size: .9em!important;">
+                        #{{ similaire.categorie.name }}
+                     </a>
+                  </span>
+               </div>
+            </a>
+
+            <div class="rating-wrapper">
+               <span class="gig-rating text-body-2">
+                  {% include "microservice/composants/_etoilles.html.twig" %}
+                  <span>({{ serviceAvis(similaire) }})</span>
+               </span>
+            </div>
+         </div>
+
+         <div class="footer">
+
+            {% include "microservice/composants/_favoris_btn.html.twig" %}
+
+            <div class="price small text-capitalize">
+               A partir de
+               <strong>{{ similaire.prixMastering ~ currency }}</strong>
+            </div>
+
+         </div>
+      </div>
+   </div>
+</div>

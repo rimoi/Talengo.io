@@ -1,0 +1,11 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Gestion des retraits{% endblock %}
+
+{% block pageTitle %}Réponse au vendeur{% endblock %}
+
+{% block body %}
+
+    {{ include('admin/admin_retraits/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+
+{% endblock %}

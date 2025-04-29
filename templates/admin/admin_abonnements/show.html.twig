@@ -1,0 +1,76 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Abonnements - Détails{% endblock %}
+
+{% block pageTitle %}Abonnements - Détails{% endblock %}
+
+{% block body %}
+
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive border-0">
+            <table class="table table-borderless detail-table">
+                <tbody>
+                    <tr>
+                        <th>#Id</th>
+                        <td>{{ abonnement.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Vendeur</th>
+                        <td>
+                            <div class="shadow-sm bg-white rounded p-2 bloc-small text-center">
+                                {% if abonnement.user.reseauAvatar %}
+
+                                <img src="{{ reseauAvatar }}" class="img-fluid rounded-circle"
+                                    alt="{{ abonnement.user.prenom }}">
+
+                                {% else %}
+
+                                {% if abonnement.user.avatar %}
+                                <img src="{{ vich_uploader_asset(abonnement.user, 'imageFile') | imagine_filter('small_avatar') }}"
+                                    class="img-fluid rounded-circle" alt="{{ abonnement.user.prenom }}">
+                                {% else %}
+
+                                <img class="img-fluid rounded-circle"
+                                    src="{{ asset('img/user.jpg') | imagine_filter('small_avatar') }}" alt='' />
+
+                                {% endif %}
+
+                                {% endif %}
+
+                                <div>
+                                    <strong class="small">
+                                        {{ abonnement.user.nom }} {{ abonnement.user.prenom }}
+                                    </strong>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Statut</th>
+                        <td>
+                            <span class="badge bg-dark rounded-pill">{{ abonnement.statut ? 'Abonnement en cours' : 'Abonnement suspendu'
+                                }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Date d'abonnement</th>
+                        <td>{{ abonnement.created ? abonnement.created|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de mise à jour</th>
+                        <td>{{ abonnement.updated ? abonnement.updated|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            {{ include('admin/admin_abonnements/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,75 @@
+{{ form_start(form, {attr: {class: 'filter js-filter-form container'}}) }}
+<div class="row">
+
+   <div class="form-search col-lg-12 align-items-center justify-content-between">
+
+      <div class="left">
+         <div class="dropdown-filters">
+            <div
+               class="dropdown {{ app.request.attributes.get('_route') == 'microservices_categories' ? 'd-none' : 'mr-4' }}">
+               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Filtrer par catégories
+               </button>
+               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <div class="options">
+                     <h5>Catégories</h5>
+                     <div class="row">
+                        <div class="col-md-6">
+                           {{ form_row(form.categories) }}
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="dropdown">
+               <button class="btn btn-secondary dropdown-toggle" type="button" id="budget" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Selon mon Budget
+               </button>
+               <div class="dropdown-menu budget" aria-labelledby="budget">
+                  <div class="options">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <label>Min.(Mastering)</label>
+                           {{ form_row(form.minPrice) }}
+                        </div>
+                        <div class="col-md-6">
+                           <label>Max.(Beatmaking)</label>
+                           {{ form_row(form.maxPrice) }}
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="right">
+         <ul class="d-flex align-items-center">
+            <li>
+               <label class="switch">
+                  {{ form_widget(form.promo) }}
+                  <span class="slider round"></span>
+               </label>
+               <h5>En promotion</h5>
+            </li>
+            <li>
+               {{ form_widget(form.q) }}
+            </li>
+            <li>
+               <button type="submit" class="btn btn-success border border-success">
+                  <i class="fa fa-filter mr-1 text-light"></i>Rechercher
+               </button>
+            </li>
+            <li class="d-none">
+               {{ form_rest(form) }}
+            </li>
+         </ul>
+
+         {{ form_rest(form) }}
+      </div>
+
+   </div>
+
+</div>
+{{ form_end(form) }}

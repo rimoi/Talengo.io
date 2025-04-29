@@ -1,0 +1,29 @@
+<table class="table table-bordered">
+   <thead>
+      <tr class="bg-dark text-light">
+         <td colspan="3">
+            <h6><i class="fa fa-calendar"></i> Disponibilité du vendeur</h6>
+         </td>
+      </tr>
+      <tr>
+         <td>Jours</td>
+         <td>De</td>
+         <td>A</td>
+      </tr>
+   </thead>
+   <tbody>
+      {% for emplois_temp in emploistemps(microservice.vendeur) %}
+      <tr>
+         <td>{{ emplois_temp.jour }}</td>
+         <td> <i class="fa fa-clock-o"></i> {{ emplois_temp.heureOuverture|date('H:i') }}</td>
+         <td> <i class="fa fa-clock-o"></i> {{ emplois_temp.heureCloture|date('H:i') }}</td>
+      </tr>
+      {% else %}
+      <tr>
+         <td colspan="3">
+            <p>Aucun planning disponible pour l'instant</p>
+         </td>
+      </tr>
+      {% endfor %}
+   </tbody>
+</table>

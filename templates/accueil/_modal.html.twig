@@ -1,0 +1,51 @@
+<div class="modal hide fade {{ ville ? '' : 'modal-location' }}" id="modalLocations" data-bs-backdrop="static"
+	data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLocationsLabel" aria-hidden="true">
+
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content" style="border-radius: 10px;">
+			<div class="modal-header border-0 text-center">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="btn text-light" style="font-size: 1em!important;" aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<h6 class="modal-title text-center text-light" id="modalLocationsLabel">Bienvenue sur {{ appName }}</h6>
+				<p class="text-center text-light">
+					Entrez votre adresse pour trouver les prestataires à proximité
+				</p>
+				<div class="row">
+					<div class="col-sm-10 mx-auto">
+						<form method="post">
+							<div class="position-relative location">
+								<div class="form-group">
+									<div class="input-group bg-white rounded shadow-sm">
+										<div class="input-group-prepend">
+											<span class="input-group-text bg-transparent border-0">
+												<i class="fa fa-map-marker text-blue"></i>
+											</span>
+										</div>
+										<input type="text" name="adresse" placeholder="Votre ville" value="{{ ville ?? '' }}"
+											class="form-control rounded border-0" id="registration_form_adresse">
+										<input type="hidden" name="ville" id="registration_form_ville">
+										<input type="hidden" name="pays" id="registration_form_pays">
+									</div>
+								</div>
+
+								<div class="w-100 addresses" id="addresses">
+									<ul class="list-group text-dark" id="adresse-liste">
+									</ul>
+								</div>
+							</div>
+							<div class="form-group">
+								<button type="submit" id="button-location"
+									class="btn btn-success btn-block btn-lg btn-gradient shadow-sm">
+									Continuer
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

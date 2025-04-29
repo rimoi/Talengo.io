@@ -1,0 +1,246 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Profil utilisateur{% endblock %}
+
+{% block pageTitle %}{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-sm-10 mx-auto">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card profile">
+                    <div class="card-body">
+                        <div class="text-center">
+
+                            {% if user.reseauAvatar %}
+
+                            <img src="{{ user.reseauAvatar | imagine_filter('large_avatar') }}" alt=""
+                                class="rounded-circle img-thumbnail avatar-xl">
+
+                            {% else %}
+
+                            {% if user.avatar %}
+
+                            <img class="rounded-circle img-thumbnail avatar-xl"
+                                src="{{ vich_uploader_asset(user, 'imageFile') | imagine_filter('large_avatar') }}" />
+
+                            {% else %}
+
+                            <img class="rounded-circle img-thumbnail avatar-xl"
+                                src="{{ asset('img/user.jpg') | imagine_filter('large_avatar') }}" />
+
+                            {% endif %}
+
+                            {% endif %}
+
+                            <div class="online-circle">
+                                <i class="fa fa-circle text-success"></i>
+                            </div>
+                            <h4 class="mt-3">{{ user.nom ~ " " ~ user.prenom }}</h4>
+                            <span class="badge bg-dark rounded-pill text-uppercase">{{ user.compte }}</span>
+                            <span>{{ user.created|ago(locale='fr') }}</span>
+
+                            {% if user.compte == 'Vendeur' %}
+
+                            <ul class="list-unstyled list-inline mt-3 text-muted">
+                                <li class="list-inline-item font-size-13 me-3">
+                                    <b class="text-dark">
+                                        {{ followers(user)|length }}</b> Suivi{{ followers(user)|length > 1 ? 's' : ''
+                                    }}
+                                </li>
+                            </ul>
+
+                            <ul class="list-unstyled list-inline mt-3">
+                                {% for follow in followers(user) %}
+                                <li class="list-inline-item ">
+                                    <a href="#">
+                                        {% if follow.client.avatar %}
+
+                                        <img src="{{ vich_uploader_asset(follow.client, 'imageFile') | imagine_filter('large_avatar') }}"
+                                            class="rounded-circle avatar-xs" alt="{{ follow.client.prenom ?? '' }}"/>
+
+                                        {% else %}
+
+                                        <img src="{{ asset('img/user.jpg') | imagine_filter('large_avatar') }}"
+                                            class="rounded-circle avatar-xs" alt="{{ follow.client.prenom ?? '' }}"/>
+
+                                        {% endif %}
+
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+
+                            <ul class="list-unstyled list-inline mt-3 text-muted">
+                                <li class="list-inline-item font-size-13 me-3">
+                                    <b class="text-dark">
+                                        {{ avispositif(user)|length }}</b> Avis positifs
+                                </li>
+                                <li class="list-inline-item font-size-13">
+                                    <b class="text-dark">{{ avisnegatif(user)|length }}</b> Avis négatif
+                                </li>
+                            </ul>
+
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end card -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Informations personnelles</h5>
+                        <h6>A propos</h6>
+                        <p class="card-title-desc">
+                            {{ user.apropos }}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <a href="{{ path('app_admin_users_edit', {'id': user.id}) }}" class="btn btn-light">Modifier le
+                            compte</a>
+
+                        {{ include('admin/admin_users/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Contact</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class=""><i class="mdi mdi-phone me-2 text-success font-size-18"></i> <b>
+                                    Téléphone </b> : {{ user.telephone }}</li>
+                            <li class="mt-2"><i class="mdi mdi-email-outline text-success font-size-18 mt-2 me-2"></i>
+                                <b> Email </b> : {{ user.email }}
+                            </li>
+                            <li class="mt-2"><i class="mdi mdi-map-marker text-success font-size-18 mt-2 me-2"></i>
+                                <b>Localisation</b> : {{ user.pays }} - {{ user.ville }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Position géographique</h5>
+                        <div style="width: 100%"><iframe width="100%" height="400" frameborder="0" scrolling="no"
+                                marginheight="0" marginwidth="0"
+                                src="https://maps.google.com/maps?width=100%25&amp;height=300&amp;hl=en&amp;q={{ user.ville }}+(G%C3%A9olocalisation)&amp;t=p&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a
+                                    href="https://www.gps.ie/sport-gps/">hiking gps</a></iframe></div>
+                    </div>
+                </div>
+                <!-- end card -->
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+
+            {% if user.compte == 'Vendeur' %}
+
+            <div class="card">
+                <div class="card-body profile">
+                    <h5>Services</h5>
+                    <div class="table-rep-plugin">
+                        <div class="table-responsive mb-0" data-bs-pattern="priority-columns">
+                            <table id="tech-companies-1" class="table  table-striped">
+                                <thead>
+                                    <tr class="align-self-center">
+                                        <th>Media</th>
+                                        <th>Titre</th>
+                                        <th>Prix Mastering</th>
+                                        <th>Statut</th>
+                                        <th>Date de création</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for service in services %}
+
+                                    <tr>
+                                        <td>
+                                            {% if service.medias|length > 0 %}
+
+                                            <img class="img-fluid rounded"
+                                                src="{{ vich_uploader_asset(service.medias[0], 'imageFile') | imagine_filter('medium_avatar') }}" />
+
+                                            {% else %}
+
+                                            <img class="img-fluid rounded"
+                                                src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('medium_avatar') }}" />
+
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {{ service.name }}
+                                        </td>
+                                        <td>{{ service.prixMastering ~ currency }}</td>
+                                        <td>
+                                            <span
+                                                class="badge bg-boxed  bg-{{ service.online == 1 ? 'success' : 'light border' }}">
+                                                {{ service.online == 1 ? 'En lighe' : 'Hors ligne'
+                                                }}
+                                            </span>
+                                        </td>
+                                        <td>{{ service.created|date('d/m/Y') }}</td>
+                                    </tr>
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--end table-responsive-->
+                    <div class="pt-3 text-end">
+                        {{ knp_pagination_render(services) }}
+                    </div>
+
+                </div>
+            </div>
+            <!-- end card -->
+
+            {% else %}
+
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h4>Suivi</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-4">
+                            <div class="card">
+                                <div class="card-body text-center py-3">
+                                    <img src="{{ asset('themes/base/images/user/s2.png') }}" alt=""
+                                        class="avatar-sm  rounded-circle me-2" data-bs-toggle="tooltip" title=""
+                                        data-original-title="school project">
+                                    <h6>Nom et prénom</h6>
+
+                                    <a href="" class="btn btn-outline-dark rounded w-100">Suivre</a>
+                                </div>
+                            </div>
+                            <!-- end card -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('js/suivi.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Profil
+{% endblock %}
+
+{% block bg %}{% endblock %}
+
+{% block colleft %}4
+{% endblock %}
+
+{% block colright %}8
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+
+	<style>
+		.cs-imageFile .invalid-feedback:not(.cs-show-error) {
+			display: none !important;
+		}
+
+		.custom-file-label {
+			line-height: 0.5 !important;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+
+<div class="card rounded bg-light mb-3">
+	<div class="card-header bg-dark">
+		<h4 class="h6 text-light mb-0">Informations supplémentaire</h4>
+	</div>
+	<div class="card-body">
+		{% if is_granted('ROLE_VENDEUR') %}
+		<div class="text-dark">
+			{{ form_start(form) }}
+
+			<div class="{{ app.user.categorie.slug == 'videaste' ? 'bloc-masquer' : '' }}">
+
+				{{ form_row(form.lieuPrestation) }}
+
+				{{ form_row(form.homeStudio) }}
+			
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<strong>Photo de couverture</strong>
+					<div class="form-group">
+
+						<div class="cs-imageFile">
+							{{ form_label(form.couvertureFile) }}
+							{% if form.couvertureFile.vars.errors|length > 0 %}
+								<span class="invalid-feedback d-block cs-show-error">
+								{% for error in form.couvertureFile.vars.errors %}
+									{% if loop.first %}
+										<span class="form-error-icon badge badge-danger text-uppercase">Erreur</span>
+										<span class="form-error-message">{{ error.getMessage() }}</span>
+									{% endif %}
+								{% endfor %}
+                			</span>
+							{% endif %}
+							{{ form_widget(form.couvertureFile) }}
+						</div>
+
+{#						{{ form_row(form.couvertureFile) }}#}
+					</div>
+					{% if is_granted('ROLE_VENDEUR') %}
+					<p>
+						Ce n’est pas obligatoire, mais c’est joli. Personnalisez votre photo de couverture pour vous
+						démarquer.
+					</p>
+					{% endif %}
+				</div>
+			</div>
+
+			{{ form_rest(form) }}
+
+			<button class="btn btn-dark">Suivant</button>
+
+			{{ form_end(form) }}
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}

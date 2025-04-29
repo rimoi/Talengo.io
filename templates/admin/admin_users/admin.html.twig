@@ -1,0 +1,17 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Comptes administrateur{% endblock %}
+
+{% block pageTitle %}Comptes administrateur ({{ users.getTotalItemCount }}){% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('app_admin_users_new') }}" class="btn btn-primary text-light">Nouveau compte</a>
+    </li>
+{% endblock %}
+
+{% block body %}
+
+{% include "admin/admin_users/_table.html.twig" %}
+
+{% endblock %}

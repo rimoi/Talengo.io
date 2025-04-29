@@ -1,0 +1,64 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Remboursements{% endblock %}
+
+{% block body %}
+
+<div class="card w-100 mb-4">
+    <div class="card-header bg-dark">
+        <h2 class="h6 text-light  mb-0">Remboursements</h2>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsible">
+            <table class="table table-borderless text-dark">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Montant</th>
+                        <th>Date</th>
+                        <th>Statut</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for remboursement in remboursements %}
+                    <tr>
+                        <td>{{ remboursement.id }}</td>
+                        <td>
+                            <strong class="text-light">{{ remboursement.montant ~ currency }}</strong>
+                        </td>
+                        <td>{{ remboursement.created ? remboursement.created|date('d/m/Y') : '' }}</td>
+                        <td>
+                            <span
+                                class="badge badge-{% if remboursement.statut == 'En attente' %}warning{% elseif remboursement.statut == 'Accepter' %}success{% else %}danger{% endif %} badge-pill">{{
+                                remboursement.statut }}</span>
+                        </td>
+                        <td>
+                            {% if remboursement.statut == 'En attente' %}
+                            ...
+                            {% else %}
+                            <a href="{{ path('app_vendeur_remboursements_show', {'id': remboursement.id}) }}"
+                                class="btn btn-dark">Détails</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            <div class="">
+                                <div class="py-3 text-center bg-white rounded">
+                                    <p class="text-muted">Aucun remboursements</p>
+                                    <div class="">
+                                        <i class="fa fa-search fa-3x text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

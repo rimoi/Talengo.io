@@ -1,0 +1,38 @@
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+	<div style="margin: auto;background: #fff;padding: 20px;">
+
+		{% include "mails/_logo.html.twig" %}
+
+		<p>Bonjour <strong>Mr/Mme</strong>,</p>
+
+		<p>
+
+			Vous venez de créer un compte sur <strong>{{ appName }}</strong>. Avant de pouvoir utiliser votre compte, vous devez vérifier que cette adresse e-mail est bien la vôtre en cliquant ici :
+
+		</p>
+
+		<div><br>
+			<a href="{{ signedUrl }}" style="background: #080679;
+     background: -webkit-linear-gradient(legacy-direction(to right), #080679 0%, #a9a9a9 100%);
+     background: -webkit-gradient(linear, left top, right top, from(#080679), to(#a9a9a9));
+     background: -webkit-linear-gradient(left, #080679 0%, #a9a9a9 100%);
+     background: -o-linear-gradient(left, #080679 0%, #a9a9a9 100%);
+     background: linear-gradient(to right, #080679 0%, #a9a9a9 100%);
+     border-color: #080679;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Confirmer mon e-mail</a>
+		</div><br>
+
+		<p>Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.</p>
+
+		<p>
+			Besoin d'aide ? Consultez la <a href="{{ path('page_faqs') }}">FAQ</a>.
+			<a href="{{ path('page_politiques') }}">Conditions générales</a>
+		</p>
+
+		<p>
+			Cordialement, <br>
+			L'équipe {{ appName }}
+		</p>
+
+		<p style="text-align: center;">©{{ appName }} - Tous droits réservés</p>
+	</div>
+</div>

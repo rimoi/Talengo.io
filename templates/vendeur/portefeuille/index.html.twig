@@ -1,0 +1,33 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Mon protefeuille{% endblock %}
+
+{% block bg %}white{% endblock %}
+
+{% block colleft %}4{% endblock %}
+
+{% block colright %}8{% endblock %}
+
+{% block body %}
+
+<div class="card">
+   <div class="card-header bg-dark">
+      <h4 class="mb-0 text-light h6">
+         Portefeuille
+      </h4>
+   </div>
+   <div class="card-body">
+      <div class="my-3">
+         {% include "vendeur/portefeuille/composants/_box.html.twig" %}
+      </div>
+
+      <div class="row">
+         <div class="col-sm-6">
+            <a href="{{ path('app_vendeur_retraits_new') }}" class="btn btn-dark">
+               Retrait de fond
+            </a>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

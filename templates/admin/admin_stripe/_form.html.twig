@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-body">
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_row(form.tarif) }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_row(form.stripeKey) }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_row(form.description) }}
+        </div>
+        <div class="row">
+            <div class="col-1">
+                {{ form_widget(form.hexColor) }}
+            </div>
+            <div class="col-11">
+
+                <p class="text-muted">Choisir une couleur pour les statistiques au niveau du tableau de bord</p>
+
+            </div>
+        </div>{{ form_errors(form.hexColor) }}
+
+        <div class="form-group">
+            {{ form_rest(form) }}
+        </div>
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+        {{ form_end(form) }}
+    </div>
+</div>

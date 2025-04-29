@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Gurdeep singh osahan">
+	<meta name="author" content="Gurdeep singh osahan">
+	<meta name="google-site-verification" content="8R1IqiWtRxl4xmw78_KdRUQU231e7SSQg-e5lhhe9Vk" />
+	<title>
+		{% block title %}{{ appName }} des services pour tout vos besoins{% endblock %}
+	</title>
+	<link rel="alternate" hreflang="fr-fr" href="https://links-infinity.com/">
+	<!-- Favicon Icon -->
+	<link rel="icon" type="{{ asset('img/Logo.png') }}" href="images/fav.svg">
+	<!-- Bootstrap core CSS -->
+	<link href="{{ asset('themes/base/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+	<!-- Font Awesome-->
+	<link href="{{ asset('themes/base/vendor/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">
+	<!-- Material Design Icons -->
+	<link href="{{ asset('themes/base/vendor/icons/css/materialdesignicons.min.css') }}" media="all" rel="stylesheet"
+		type="text/css">
+	<!-- Slick -->
+	<link href="{{ asset('themes/base/vendor/slick-master/slick/slick.css') }}" rel="stylesheet" type="text/css">
+	<!-- Lightgallery -->
+	<link href="{{ asset('themes/base/vendor/lightgallery-master/dist/css/lightgallery.min.css') }}" rel="stylesheet">
+	<!-- Select2 CSS -->
+	<link href="{{ asset('themes/base/vendor/select2/css/select2-bootstrap.css') }}" />
+	<link href="{{ asset('themes/base/vendor/select2/css/select2.min.css') }}" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	{{ encore_entry_link_tags('style') }}
+	{{ encore_entry_link_tags('custom') }}
+	{{ encore_entry_link_tags('responsive') }}
+	{% endblock %}
+
+	<!-- map box -->
+	<script id="search-js" defer src="https://api.mapbox.com/search-js/v1.0.0-beta.14/web.js">
+	</script>
+</head>
+
+<body data-turbo="false" class="bg">
+
+	{{ include('partials/base/_navbars.html.twig') }}
+
+	{% block filters %}{% endblock %}
+
+	<section class="py-5">
+		<div class="container">
+
+			{% if app.user.isVerified == true %}
+
+			<div class="row">
+				<div class="col-md-{% block colleft %}4{% endblock %} d-none d-sm-block">
+					<div class="sidebar-fix">
+						{% block sidebar %}
+						{% include "partials/vendeur/_sidebar.html.twig" %}
+						{% endblock %}
+					</div>
+				</div>
+				<div class="col-md-{% block colright %}8{% endblock %}">
+
+					<div class="bg-{% block bg %}shadow-sm{% endblock %} rounded sidebar-page-right">
+						<div>
+
+							{{ include('partials/_flash_message.html.twig') }}
+
+							{% if is_granted('ROLE_VENDEUR') %}
+
+							{% if app.user.endRegister == null %}
+
+							<div class="alert alert-warning">
+								<p><i class="fa fa-exclamation-triangle"></i> Veuillez completer votre profil avant de vendre
+									vos prestations sur {{ appName }} il s'agit de:</p>
+								<ol class="pl-3">
+									{% if app.user.categorie == null %}
+									<li>Vos coordonnées</li>
+									{% endif %}
+									{% if app.user.statut == null %}
+									<li>Vos informations supplémentaires</li>
+									{% endif %}
+									{% if app.user.rib == null %}
+									<li>Méthode de paiement</li>
+									{% endif %}
+								</ol>
+							</div>
+
+							{% endif %}
+
+							{% endif %}
+
+							{% block body %}{% endblock %}
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{% else %}
+
+				{% include "vendeur/composants/_compte_non_valide.html.twig" %}
+
+			{% endif %}
+
+		</div>
+	</section>
+
+	<!--       footer -->
+	{{ include('partials/base/_footer.html.twig') }}
+
+	<!--       footer-->
+	<!-- Bootstrap core JavaScript -->
+	<script src="{{ asset('themes/base/vendor/jquery/jquery.min.js') }}"> </script>
+	<script src="{{ asset('themes/base/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+	<!-- Contact form JavaScript -->
+	<!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+	<script src="{{ asset('themes/base/js/jqBootstrapValidation.js') }}"></script>
+	<script src="{{ asset('themes/base/js/contact_me.js') }}"></script>
+	<!-- Slick -->
+	<script src="{{ asset('themes/base/vendor/slick-master/slick/slick.js') }}" type="text/javascript"
+		charset="utf-8"></script>
+	<!-- lightgallery -->
+	<script src="{{ asset('themes/base/vendor/lightgallery-master/dist/js/lightgallery-all.min.js') }}"></script>
+	<!-- select2 Js -->
+	<script src="{{ asset('themes/base/vendor/select2/js/select2.min.js') }}"></script>
+	{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+	{{ encore_entry_script_tags('jscustom') }}
+	{{ encore_entry_script_tags('dropdown') }}
+	{{ encore_entry_script_tags('favoris') }}
+	{{ encore_entry_script_tags('btnloader') }}
+	{{ encore_entry_script_tags('service') }}
+	{{ encore_entry_script_tags('file') }}
+	{% endblock %}
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-TBWPH2ZDRB"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-TBWPH2ZDRB');
+	</script>
+	
+	<!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11223496460"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'AW-11223496460');
+    </script>
+    
+    <!-- Hotjar Tracking Code for https://links-infinity.com/ -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:3546213,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+	
+	<script>
+		// Add the following code if you want the name of the file appear on select
+		$(".custom-file-input").on("change", function (event) {
+			var inputFile = event.currentTarget;
+
+			var filename = inputFile.files[0].name;
+			$(inputFile).parent()
+					.find('.custom-file-label')
+					.html(
+							filename
+					);
+		});
+	</script>
+</body>
+
+</html>

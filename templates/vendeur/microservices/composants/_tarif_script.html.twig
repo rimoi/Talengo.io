@@ -1,0 +1,50 @@
+<script>
+    let collection, boutonAjout, span;
+    window.onload = () => {
+        collection = document.querySelector("#prix");
+        span = collection.querySelector("span");
+
+        boutonAjout = document.createElement("button");
+        boutonAjout.className = "ajout-prix btn btn-dark";
+        boutonAjout.innerText = "Ajouter un prix";
+
+        let nouveauBouton = span.append(boutonAjout);
+
+        collection.dataset.index = collection.querySelectorAll("input").length;
+
+        boutonAjout.addEventListener("click", function () {
+            addButton(collection, nouveauBouton);
+        });
+    }
+
+    function addButton(collection, nouveauBouton) {
+        let prototype = collection.dataset.prototype;
+
+        let index = collection.dataset.index;
+
+        prototype = prototype.replace(/__name__/g, index);
+
+        let content = document.createElement("html");
+        content.innerHTML = prototype;
+        let newForm = content.querySelector("div");
+
+        let boutonSuppr = document.createElement("button");
+        boutonSuppr.type = "button";
+        boutonSuppr.className = "btn btn-danger";
+        boutonSuppr.id = "delete-prix-" + index;
+        boutonSuppr.innerText = "Supprimer";
+
+        newForm.append(boutonSuppr);
+
+        collection.dataset.index++;
+
+        let boutonAjout = collection.querySelector(".ajout-prix");
+
+        span.insertBefore(newForm, boutonAjout);
+
+        boutonSuppr.addEventListener("click", function () {
+            this.previousElementSibling.parentElement.remove();
+        })
+    }
+
+</script>

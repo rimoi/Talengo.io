@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ServiceSignale{% endblock %}
+
+{% block body %}
+    <h1>Create new ServiceSignale</h1>
+
+    {{ include('admin_services_signale/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_services_signale_index') }}">back to list</a>
+{% endblock %}

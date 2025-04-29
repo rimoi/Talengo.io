@@ -1,0 +1,21 @@
+{% if app.user.reseauAvatar %}
+
+					<img src="{{ app.user.reseauAvatar }}" class="img-fluid rounded"
+						alt="{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.usePseudo == 1 ? app.user.pseudo : app.user.nom ~ ' ' ~ app.user.prenom }}"
+						width="200" height="200">
+
+					{% else %}
+
+						{% if app.user.avatar %}
+
+						<img src="{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('identite_size') }}"
+							class="img-fluid rounded"
+							alt="{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.usePseudo == 1 ? app.user.pseudo : app.user.nom ~ ' ' ~ app.user.prenom }}">
+						{% else %}
+
+						<img class="img-fluid rounded" src="{{ asset('img/user.jpg') | imagine_filter('identite_size') }}"
+							alt='' />
+
+						{% endif %}
+
+					{% endif %}

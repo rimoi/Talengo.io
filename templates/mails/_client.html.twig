@@ -1,0 +1,37 @@
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+   <div style="margin: auto;background: #fff;padding: 20px;">
+      
+      {% include "mails/_logo.html.twig" %}
+      
+      <p>Bonjour <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo : client.nom ~ ' ' ~ client.prenom }}</strong>,</p>
+
+      <p>
+         Bonne nouvelle !<br> Votre commande d'un montant de <strong>{{ commande.montant ~ currency }}</strong> a été prise en compte par le prestataire <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>.
+      </p>
+
+      {% if commande.disponibilite %}
+      <p>
+         Disponibilité: <strong>{{ commande.disponibilite }}</strong>
+      </p>
+      {% endif %}
+      
+
+      <p>
+         Lorsque la commande sera terminée par le prestataire <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo :
+         vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}, </strong> il percevra <strong>{{ commande.montant ~ currency }}</strong>.
+      </p>
+
+      <div><br>
+         <a href="{{ absolute_url(path('commande_details', {id: commande.id})) }}" style="background: #080679;
+     background: -webkit-linear-gradient(legacy-direction(to right), #080679 0%, #a9a9a9 100%);
+     background: -webkit-gradient(linear, left top, right top, from(#080679), to(#a9a9a9));
+     background: -webkit-linear-gradient(left, #080679 0%, #a9a9a9 100%);
+     background: -o-linear-gradient(left, #080679 0%, #a9a9a9 100%);
+     background: linear-gradient(to right, #080679 0%, #a9a9a9 100%);
+     border-color: #080679;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Voir cette commande</a>
+      </div><br>
+
+      {% include "mails/_lien_cgu.html.twig" %}
+
+   </div>
+</div>

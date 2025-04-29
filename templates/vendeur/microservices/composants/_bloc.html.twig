@@ -1,0 +1,56 @@
+<div class="box mb-3 shadow-sm rounded bg-white osahan-post">
+   <div class="p-3 d-flex align-items-center border-bottom bg-white rounded">
+      <div class="dropdown-list-image mr-3">
+         {% if microservice.vendeur.avatar %}
+         <img class="rounded-circle"
+            src="{{ vich_uploader_asset(microservice.vendeur, 'imageFile') | imagine_filter('medium_avatar') }}"
+            alt='' />
+
+         {% else %}
+
+         <img class="rounded-circle" src="{{ asset('img/user.jpg') | imagine_filter('medium_avatar') }}" alt='' />
+
+         {% endif %}
+      </div>
+      <div class="font-weight-bold">
+         <div class="text-truncate">{{ microservice.vendeur.nom ~ ' ' ~ microservice.vendeur.prenom }}
+         </div>
+         <div class="small text-gray-500">{{ microservice.created|ago(locale='fr') }}</div>
+      </div>
+      <span class="ml-auto">
+         {% include "microservice/composants/_favoris_btn.html.twig" %}
+      </span>
+   </div>
+
+   {% if microservice.medias|length > 0 %}
+
+   <img class="img-fluid w-100"
+      src="{{ vich_uploader_asset(microservice.medias[0], 'imageFile') | imagine_filter('rectangle_size') }}" />
+
+   {% else %}
+
+   <img class="img-fluid w-100" src="{{ asset('themes/base/images/post1.png') | imagine_filter('rectangle_size') }}" />
+
+   {% endif %}
+
+   <div class="p-3 osahan-post-body">
+      <a href="{{ path('microservice_details', {slug: microservice.slug}) }}" class="text-dark">
+         <h5 class="mb-1 text-muted h6">{{ microservice.name }}</h5>
+      </a>
+      <div class="mb-2">
+         <a href="{{ path('microservices_categories', {slug: microservice.categorie.slug}) }}?categories%5B%5D={{ microservice.categorie.id }}"
+            class="badge badge-blue badge-pill my-2 categorie">
+            #{{ microservice.categorie.name }}
+         </a>
+      </div>
+      <div class="rating-wrapper mb-2">
+         <span class="gig-rating text-success">
+            {% include "microservice/composants/_etoilles.html.twig" %}
+            <span class="text-muted">({{ serviceAvis(microservice) }})</span>
+         </span>
+      </div>
+      <p>
+         A partir de <strong class="text-dark">{{ microservice.prixMastering ~ currency }}</strong>
+      </p>
+   </div>
+</div>

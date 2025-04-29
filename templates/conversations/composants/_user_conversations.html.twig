@@ -1,0 +1,203 @@
+<div class="osahan-chat-list">
+	{% if app.request.attributes.get('_route') == 'conversations' %}
+
+	{% for userconversation in conversations %}
+
+	<div class="p-1 align-items-center border-bottom osahan-post-header overflow-hidden {{ userconversation == conversation ? 'bg-blue' : '' }}"
+		id="conversation-{{ userconversation.id }}">
+
+		{% if userconversation.user1.id == app.user.id %}
+
+		<a href="{{ path('conversations_show', {'id': userconversation.id}) }}" class="media">
+
+			{% if userconversation.user2.reseauAvatar %}
+
+			<img src="{{ userconversation.user2.reseauAvatar }}"
+				alt="{{ userconversation.user2.usePseudo == 1 ? userconversation.user2.pseudo : userconversation.user2.nom ~ ' ' ~ userconversation.user2.prenom }}">
+
+			{% else %}
+
+			{% if userconversation.user2.avatar %}
+
+			<img src="{{ vich_uploader_asset(userconversation.user2) | imagine_filter('small_avatar') }}"
+				class="rounded-circle border"
+				alt="{{ userconversation.user2.usePseudo == 1 ? userconversation.user2.pseudo : userconversation.user2.nom ~ ' ' ~ userconversation.user2.prenom }}">
+
+			{% else %}
+
+			<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+
+			{% endif %}
+
+			{% endif %}
+
+			<span class="media-body ml-2">
+				<span class="text-truncate">
+
+					{{ userconversation.user2.usePseudo == 1 ? userconversation.user2.pseudo : userconversation.user2.nom
+					~ ' ' ~ userconversation.user2.prenom }}
+
+				</span> <br>
+				<span class="small text-truncate overflow-hidden text-black-50">
+
+					{{ include('conversations/composants/_last_message.html.twig') }}
+
+				</span>
+			</span>
+
+		</a>
+
+		{% elseif userconversation.user2.id == app.user.id %}
+
+		<a href="{{ path('conversations_show', {'id': userconversation.id}) }}" class="media">
+
+			{% if userconversation.user1.reseauAvatar %}
+
+			<img src="{{ userconversation.user1.reseauAvatar }}"
+				alt="{{ userconversation.user1.usePseudo == 1 ? userconversation.user1.pseudo : userconversation.user1.nom ~ ' ' ~ userconversation.user1.prenom }}">
+
+			{% else %}
+
+			{% if userconversation.user1.avatar %}
+
+			<img src="{{ vich_uploader_asset(userconversation.user1) | imagine_filter('small_avatar') }}"
+				class="rounded-circle border"
+				alt="{{ userconversation.user1.usePseudo == 1 ? userconversation.user1.pseudo : userconversation.user1.nom ~ ' ' ~ userconversation.user1.prenom }}">
+
+			{% else %}
+
+			<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+
+			{% endif %}
+
+			{% endif %}
+
+			<span class="media-body ml-2">
+				<span>
+
+					{{ userconversation.user1.usePseudo == 1 ? userconversation.user1.pseudo : userconversation.user1.nom ~ '
+					' ~ userconversation.user1.prenom }}
+
+				</span> <br>
+				<span class="small text-truncate overflow-hidden text-black-50">
+
+					{{ include('conversations/composants/_last_message.html.twig') }}
+
+				</span>
+			</span>
+		</a>
+
+		{% endif %}
+
+	</div>
+
+	{% else %}
+
+	<div class="p-1 d-flex align-items-center border-bottom osahan-post-header overflow-hidden">
+		<p class="pt-2 pl-3">Aucune conversation</p>
+	</div>
+
+	{% endfor %}
+
+	{% else %}
+
+	{% for userconversation in conversations %}
+
+	<div
+		class="p-1 align-items-center border-bottom osahan-post-header overflow-hidden {{ userconversation == conversation ? 'bg-blue' : '' }}"
+		id="conversation-{{ userconversation.id }}">
+
+		{% if userconversation.user1.id == app.user.id %}
+
+		<a href="{{ path('conversations_show', {'id': userconversation.id}) }}" class="media">
+
+			{% if userconversation.user2.reseauAvatar %}
+
+				<img src="{{ userconversation.user2.reseauAvatar }}"
+					alt="{{ userconversation.user2.usePseudo == 1 ? userconversation.user2.pseudo : userconversation.user2.nom ~ ' ' ~ userconversation.user2.prenom }}">
+
+			{% else %}
+
+				{% if userconversation.user2.avatar %}
+
+				<img src="{{ vich_uploader_asset(userconversation.user2) | imagine_filter('small_avatar') }}"
+					class="rounded-circle border"
+					alt="{{ userconversation.user2.usePseudo == 1 ? userconversation.user2.pseudo : userconversation.user2.nom ~ ' ' ~ userconversation.user2.prenom }}">
+
+				{% else %}
+
+				<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+
+				{% endif %}
+
+			{% endif %}
+
+			<span class="media-body ml-2">
+				<span class="text-truncate">
+
+					{{ userconversation.user2.usePseudo == 1 ? userconversation.user2.pseudo : userconversation.user2.nom ~ '
+					' ~ userconversation.user2.prenom }}
+
+				</span>
+				<span class="small text-truncate overflow-hidden text-black-50">
+
+					{{ include('conversations/composants/_last_message.html.twig') }}
+
+				</span>
+			</span>
+
+		</a>
+
+		{% elseif userconversation.user2.id == app.user.id %}
+
+		<a href="{{ path('conversations_show', {'id': userconversation.id}) }}" class="media">
+
+			{% if userconversation.user1.reseauAvatar %}
+
+				<img src="{{ userconversation.user1.reseauAvatar }}"
+					alt="{{ userconversation.user1.usePseudo == 1 ? userconversation.user1.pseudo : userconversation.user1.nom ~ ' ' ~ userconversation.user1.prenom }}">
+
+			{% else %}
+
+				{% if userconversation.user1.avatar %}
+
+				<img src="{{ vich_uploader_asset(userconversation.user1) | imagine_filter('small_avatar') }}"
+					class="rounded-circle border"
+					alt="{{ userconversation.user1.usePseudo == 1 ? userconversation.user1.pseudo : userconversation.user1.nom ~ ' ' ~ userconversation.user1.prenom }}">
+
+				{% else %}
+
+				<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+
+				{% endif %}
+
+			{% endif %}
+
+			<span class="media-body ml-2">
+				<span class="text-truncate">
+
+					{{ userconversation.user1.usePseudo == 1 ? userconversation.user1.pseudo : userconversation.user1.nom ~ '
+					' ~ userconversation.user1.prenom }}
+
+				</span>
+				<span class="small text-truncate overflow-hidden text-black-50">
+
+					{{ include('conversations/composants/_last_message.html.twig') }}
+
+				</span>
+			</span>
+
+		</a>
+
+		{% endif %}
+
+	</div>
+
+	{% else %}
+	<div class="p-1 d-flex align-items-center border-bottom osahan-post-header overflow-hidden">
+		<p class="pt-2 pl-3">Aucune conversation</p>
+	</div>
+	{% endfor %}
+
+	{% endif %}
+</div>

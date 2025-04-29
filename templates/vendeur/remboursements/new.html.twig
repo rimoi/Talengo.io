@@ -1,0 +1,20 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Nouvelle demande{% endblock %}
+
+{% block body %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="h5">Nouvelle demande</h5>
+    </div>
+    <div class="card-body">
+        {% if userRemboursements(app.user)|length == 0 %}
+        {{ include('vendeur/remboursements/_form.html.twig') }}
+        {% else %}
+        <p>Vous avez déjà une demande en attente</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

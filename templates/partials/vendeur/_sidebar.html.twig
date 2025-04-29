@@ -1,0 +1,128 @@
+<div class="large-icone mb-3">
+
+	{% if is_granted('ROLE_VENDEUR') %}
+
+	{% if app.user.endRegister == true %}
+
+	<div class="card mb-3">
+		<div class="card-header bg-dark">
+			<h6 class="m-0 h6 text-light">Espace membre</h6>
+		</div>
+		<div class="card-body p-0">
+			<div class="bg-white rounded shadow-sm">
+				<div class="dropdown-menu-show">
+					<a class="dropdown-item {{ app.request.attributes.get('_route') == 'user_dashboard' ? 'active' : '' }}" href="{{ path('user_dashboard') }}">
+						<i class="fa fa-dashboard"></i>&nbsp;&nbsp;&nbsp;Tableau de bord
+					</a>
+
+					{% include "partials/vendeur/_menu.html.twig" %}
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% endif %}
+
+	{% else %}
+
+	<div class="card mb-3">
+		<div class="card-header bg-dark">
+			<h6 class="m-0 h6 text-light">Espace membre</h6>
+		</div>
+		<div class="card-body p-0">
+			<div class="bg-white rounded shadow-sm">
+				<div class="dropdown-menu-show">
+
+					<a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'user_dashboard' ? 'active' : '' }}"
+						href="{{ path('user_dashboard') }}"><i
+							class="text-muted fa fa-dashboard"></i>&nbsp;&nbsp;&nbsp;Tableau de bord</a>
+
+					<a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'vendeur_achats_index' ? 'active' : '' }}"
+						href="{{ path('vendeur_achats_index') }}"><i
+							class="text-muted fa fa-opencart"></i>&nbsp;&nbsp;&nbsp;Mes achats</a>
+
+					<a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'favoris_index' ? 'active' : '' }}"
+						href="{{ path('favoris_index') }}"><i class="fa fa-heart"></i>&nbsp;&nbsp;&nbsp;Favoris</a>
+
+					<a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'suivis_index' ? 'active' : '' }}"
+						href="{{ path('suivis_index') }}"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Suivis</a>
+					<a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'app_vendeur_remboursements_index' ? 'active' : '' }}"
+						href="{{ path('app_vendeur_remboursements_index') }}"><i
+							class="text-muted fa fa-backward"></i>&nbsp;&nbsp;&nbsp;Remboursements</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% endif %}
+
+	{% if is_granted('ROLE_VENDEUR') %}
+
+	{% if app.user.endRegister == true %}
+
+	<!--<div class="card mb-3">
+		<div class="card-header bg-dark">
+			<h6 class="m-0 h6 text-light">Mon portefeuille</h6>
+		</div>
+		<div class="card-body p-0">
+			<div class="bg-white rounded shadow-sm">
+				<div class="dropdown-menu-show">
+
+					<a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'vendeur_portefeuille' ? 'active' : '' }}"
+						href="{{ path('vendeur_portefeuille') }}"><i
+							class="text-muted fa fa-credit-card"></i>&nbsp;&nbsp;&nbsp;Mes revenus</a>-->
+
+					<!--<a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'stripe_abonnement_services' ? 'active' : '' }}"
+						href="{{ path('stripe_abonnement_services') }}"><i
+							class="text-muted fa fa-globe"></i>&nbsp;&nbsp;&nbsp;Mon abonnement</a>
+				</div>
+			</div>
+		</div>
+	</div>-->
+
+	{% endif %}
+
+	{% endif %}
+
+	<div class="card rounded bg-white">
+		<div class="card-header bg-dark">
+			<h6 class="m-0 h6 text-light">Paramètres {{ is_granted('ROLE_VENDEUR') ? 'de vente' : '' }}</h6>
+		</div>
+		<div class="card-body p-0">
+			<div class="dropdown-menu-show">
+
+				<a class="dropdown-item py-2 tache-terminer {{ app.request.attributes.get('_route') == 'user_profil' ? 'active' : '' }}"
+					href="{{ path('user_profil') }}"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;&nbsp;Mon
+					profil {{ is_granted('ROLE_VENDEUR') ? 'public' : '' }}
+					<i class="fa fa-check-circle float-right"></i>
+				</a>
+
+				{% if is_granted('ROLE_VENDEUR') %}
+
+				<a class="dropdown-item py-2 {{ app.user.categorie ? 'tache-terminer' : 'tache-edit' }} {{ app.request.attributes.get('_route') == 'user_coordonnees' ? 'active' : '' }}"
+					href="{{ path('user_coordonnees') }}"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Mes
+					coordonnées
+					<i class="fa fa-check-circle float-right"></i>
+				</a>
+
+				<a class="dropdown-item py-2 {{ app.user.statut ? 'tache-terminer' : 'tache-encours' }} {{ app.user.statut ? '' : 'disabled' }} {{ app.request.attributes.get('_route') == 'user_categorie' ? 'active' : '' }}"
+					href="{{ path('user_categorie') }}"><i class="text-muted fa fa-info-circle"></i>&nbsp;&nbsp;&nbsp;Informations supplémentaires
+					<i class="fa fa-check-circle float-right"></i>
+				</a>
+
+				<a class="dropdown-item py-2 {{ app.user.rib ? 'tache-terminer' : 'tache-encours' }} {{ app.user.couverture ? '' : 'disabled' }} {{ app.request.attributes.get('_route') == 'user_methode_payment' ? 'active' : '' }}"
+					href="{{ path('user_methode_payment') }}">
+					<i class="fa fa-credit-card text-muted"></i>&nbsp;&nbsp;&nbsp;Méthode de paiement
+					<i class="fa fa-check-circle float-right"></i>
+				</a>
+
+				{% endif %}
+
+				<a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'edit_password' ? 'active' : '' }}"
+					href="{{ path('edit_password') }}"><i class="fa fa-key"></i>&nbsp;&nbsp;&nbsp;Mes accès</a>
+			</div>
+		</div>
+	</div>
+
+</div>

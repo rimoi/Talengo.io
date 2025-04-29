@@ -1,0 +1,7 @@
+<form method="post" class="d-inline" action="{{ path('vendeur_annuler_commande', {'id': commande.id}) }}" 
+onsubmit="return confirm('Voulez-vous vraiment annuler cette commande?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('annuler' ~ commande.id) }}">
+    <button class="btn btn-outline-danger rounded-btn w-100 my-2" id="btnFetch">
+        <i class="fa fa-exclamation-triangle"></i> <span id="btnFetch">J'annule la commande !</span>
+    </button>
+</form>

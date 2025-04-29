@@ -1,0 +1,196 @@
+<div class="card rounded bg-white border mb-3 osahan-chat">
+	<div class="card-header bg-dark ">
+		<h5 class="h6 text-light">Suivis commande</h5>
+	</div>
+	<div class="card-body p-0">
+		<div class="row m-0">
+			<div
+				class="col-sm-4 border-right px-0 bg-white {{ app.request.attributes.get('_route') == 'commande_details' ? 'd-none d-sm-block' : '' }}">
+				<div class="osahan-chat-left">
+					<div class="osahan-chat-list">
+
+						{% for usercommande in usercommandes %}
+
+							{% if usercommande.vendeur != null %}
+							
+								{% if usercommande.vendeur.id == app.user.id %}
+
+									{% if usercommande.client != null %}
+									
+									<div class="p-1 align-items-center border-bottom osahan-post-header overflow-hidden {{ usercommande == commande ? 'bg-blue' : '' }}">
+
+										<a href="{{ path('commande_details', {id: usercommande.id}) }}" class="media">
+
+											{% if usercommande.client.reseauAvatar %}
+
+											<img src="{{ usercommande.client.reseauAvatar }}"
+												alt="{{ usercommande.client.usePseudo == 1 ? usercommande.client.pseudo : usercommande.client.nom ~ ' ' ~ usercommande.client.prenom }}">
+
+											{% else %}
+
+											{% if usercommande.client.avatar %}
+											<img src="{{ vich_uploader_asset(usercommande.client) | imagine_filter('small_avatar') }}"
+												alt="{{ usercommande.client.prenom ?? '' }}" class="rounded-circle border">
+											{% else %}
+											<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+											{% endif %}
+
+											{% endif %}
+
+											<span class="media-body pl-2">
+												<span class="text-truncate d-inline">
+													{{ usercommande.client.nom ~ ' ' ~ usercommande.client.prenom }}
+												</span>
+												<small class="small">
+													{{ usercommande.created|ago(locale='fr') }}
+												</small>
+												<br>
+												<span class="small text-truncate overflow-hidden text-black-50">
+													{{ usercommande.offre }}
+												</span>
+											</span>
+										</a>
+
+									</div>
+
+									{% endif %}
+
+								{% else %}
+
+									<div
+										class="p-3 align-items-center border-bottom osahan-post-header overflow-hidden {{ usercommande == commande ? 'bg-blue' : '' }}">
+
+										<a href="{{ path('commande_details', {id: usercommande.id}) }}" class="media">
+
+											{% if usercommande.vendeur.reseauAvatar %}
+
+											<img src="{{ usercommande.vendeur.reseauAvatar }}"
+												alt="{{ usercommande.vendeur.usePseudo == 1 ? usercommande.vendeur.pseudo : usercommande.vendeur.nom ~ ' ' ~ usercommande.vendeur.prenom }}">
+
+											{% else %}
+
+											{% if usercommande.vendeur.avatar %}
+											<img src="{{ vich_uploader_asset(usercommande.vendeur) | imagine_filter('small_avatar') }}"
+												alt="{{ usercommande.vendeur.prenom ?? '' }}" class="rounded-circle border">
+											{% else %}
+											<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+											{% endif %}
+
+											{% endif %}
+
+											<span class="media-body pl-2">
+												<span class="text-truncate d-inline">
+													{{ usercommande.vendeur.nom ~ ' ' ~ usercommande.vendeur.prenom }}
+												</span>
+												<small class="text-right small">
+													{{ usercommande.created|ago(locale='fr') }}
+												</small><br>
+												<span class="small text-truncate overflow-hidden text-black-50">
+													{{ usercommande.offre }}
+												</span>
+											</span>
+										</a>
+									</div>
+
+								{% endif %}
+
+							{% endif %}
+
+						{% else %}
+
+						<div class="p-3 d-flex align-items-center border-bottom osahan-post-header overflow-hidden">
+							<p>Aucune commande</p>
+						</div>
+
+						{% endfor %}
+
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="col-sm-8 px-0 {{ app.request.attributes.get('_route') == 'commandes_chats' ? 'd-none d-sm-block' : '' }}">
+
+				{% if app.request.attributes.get('_route') == 'commande_details' %}
+
+				<div class="p-1 d-flex align-items-center  border-bottom osahan-post-header">
+					{% if commande.client != null %}
+
+					<div class="font-weight-bold mr-1 overflow-hidden">
+						
+						{% if commande.client.id == app.user.id %}
+
+						<div class="text-truncate">
+							{% if commande.vendeur.reseauAvatar %}
+
+							<img src="{{ commande.vendeur.reseauAvatar }}"
+								alt="{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.nom ~ ' ' ~ commande.vendeur.prenom }}">
+
+							{% else %}
+
+							{% if commande.vendeur.avatar %}
+							<img src="{{ vich_uploader_asset(commande.vendeur) | imagine_filter('small_avatar') }}"
+								alt="{{ commande.vendeur.prenom ?? '' }}" class="rounded-circle border">
+							{% else %}
+							<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+							{% endif %}
+
+							{% endif %}
+
+							{{ commande.vendeur.nom ~ ' ' ~ commande.vendeur.prenom }}
+
+						</div>
+
+						{% else %}
+
+						<div class="text-truncate">
+
+							{% if commande.client.avatar %}
+							<img src="{{ vich_uploader_asset(commande.client) | imagine_filter('small_avatar') }}"
+								alt="{{ commande.client.prenom ?? '' }}" class="rounded-circle border">
+							{% else %}
+							<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+							{% endif %}
+
+							{{ commande.client.nom ~ ' ' ~ commande.client.prenom }}
+
+						</div>
+
+						{% endif %}
+					</div>
+					
+					{% endif %}
+
+				</div>
+				<div class="osahan-chat-box p-3 bg-light">
+
+					{% include "conversations/composants/_security.html.twig" %}
+
+					<!-- Listing message -->
+					{% include "commande/composants/_messages.html.twig" %}
+
+				</div>
+
+				{% if commande.deliver == false %}
+
+				{% include "conversations/composants/_message_form.html.twig" %}
+
+				{% endif %}
+
+				{% else %}
+
+				<div class="py-5 text-center">
+					<div class="row">
+						<div class="col-sm-6 mx-auto">
+							<h6 class="h5">Choisir une commande à suivre</h6>
+							<img src="{{ asset('img/commande.svg') }}" class="img-fluid" alt="">
+						</div>
+					</div>
+				</div>
+
+				{% endif %}
+
+			</div>
+		</div>
+	</div>
+</div>

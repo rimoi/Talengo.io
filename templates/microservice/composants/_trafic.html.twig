@@ -1,0 +1,215 @@
+<div class="sticky"><!-- sticky -->
+
+   {% if is_granted('microservice_edit', microservice) %}{% else %}
+
+   {% if microservice.categorie.slug == 'ingenieur-son' %}
+   <!-- Ingénieur de son uniquement-->   
+   <ul class="nav nav-tabs bg-light small">
+   
+      {% if microservice.prixMastering > 0 %}
+      <li><a class="active" data-toggle="tab" href="#Mastering" class="bg-dark">Mastering</a></li>
+      {% endif %}
+
+      {% if microservice.prixMixage > 0 %}
+      <li><a data-toggle="tab" href="#Mixage">Mixage</a></li>
+      {% endif %}
+
+      {% if microservice.prixBeatmaking > 0 %}
+      <li><a data-toggle="tab" href="#Beatmaking">Beatmaking</a></li>
+      {% endif %}
+
+      {% if microservice.prixComposition > 0 %}
+      <li><a data-toggle="tab" href="#Composition">Composition</a></li>
+      {% endif %}
+   </ul>
+
+   {% if (microservice.prixMastering > 0) or (microservice.prixMixage > 0) or (microservice.prixBeatmaking > 0) or (microservice.prixComposition > 0) %}
+   <div class="tab-content mb-0 pb-1 mb-3">
+
+      {% if microservice.prixMastering > 0 %}
+      <div id="Mastering" class="tab-pane fade show active">
+         <div class="header">
+            <h3 class="h6"><b class="title">{{ microservice.name }}</b><span class="price badge">
+                  {{ microservice.prixMastering ~ currency }}</span>
+            </h3>
+            <p></p>
+         </div>
+
+         {% if is_granted('microservice_edit', microservice) %}
+
+         {% include "microservice/composants/_edit_btn.html.twig" %}
+
+         {% else %}
+
+         <a href="{{ path('commander_microservice', {slug: microservice.slug, offre: 'Mastering'}) }}">
+            <button>{{ microservice.prixMastering ~ currency }} commander</button>
+         </a>
+
+         {% endif %}
+      </div>
+      {% endif %}
+
+      {% if microservice.prixMixage > 0 %}
+      <div id="Mixage" class="tab-pane fade">
+         <div class="header">
+            <h3 class="h6"><b class="title">{{ microservice.name }}</b><span class="price badge">{{
+                  microservice.prixMixage ~
+                  currency }}</span></h3>
+            <p></p>
+         </div>
+
+         {% if is_granted('microservice_edit', microservice) %}
+
+         {% include "microservice/composants/_edit_btn.html.twig" %}
+
+         {% else %}
+
+         <a href="{{ path('commander_microservice', {slug: microservice.slug, offre: 'Mixage'}) }}">
+            <button>{{ microservice.prixMixage ~ currency }} commander</button>
+         </a>
+
+         {% endif %}
+      </div>
+      {% endif %}
+
+      {% if microservice.prixBeatmaking > 0 %}
+      <div id="Beatmaking" class="tab-pane fade">
+         <div class="header">
+            <h3 class="h6"><b class="title">{{ microservice.name }}</b><span class="price badge">{{
+                  microservice.prixBeatmaking ~
+                  currency }}</span></h3>
+            <p></p>
+         </div>
+
+         {% if is_granted('microservice_edit', microservice) %}
+
+         {% include "microservice/composants/_edit_btn.html.twig" %}
+
+         {% else %}
+
+         <a href="{{ path('commander_microservice', {slug: microservice.slug, offre: 'Beatmaking'}) }}">
+            <button>{{ microservice.prixBeatmaking ~ currency }} commander</button>
+         </a>
+
+         {% endif %}
+
+      </div>
+      {% endif %}
+
+      {% if microservice.prixComposition > 0 %}
+      <div id="Composition" class="tab-pane fade">
+         <div class="header">
+            <h3 class="h6"><b class="title">{{ microservice.name }}</b><span class="price badge">{{
+                  microservice.prixComposition ~
+                  currency }}</span></h3>
+            <p></p>
+         </div>
+
+         {% if is_granted('microservice_edit', microservice) %}
+
+         {% include "microservice/composants/_edit_btn.html.twig" %}
+
+         {% else %}
+
+         <a href="{{ path('commander_microservice', {slug: microservice.slug, offre: 'Composition'}) }}">
+            <button>{{ microservice.prixComposition ~ currency }} commander</button>
+         </a>
+
+         {% endif %}
+
+      </div>
+      {% endif %}
+
+      <p class="pt-4 pb-0 text-center p-0">
+         Paiement <strong><i class="fa fa-lock"></i> Sécurisé</strong>
+      </p>
+   </div>
+   {% endif %}
+
+   {% endif %}
+
+   {% endif %}
+
+   <div class="border rounded bg-white p-0">
+      <div class="profile-card my-4">
+         <div class="user-profile-image d-flex shadow-none py-0">
+            <label class="profile-pict" for="profile_image">
+               <a href="{{ path('vendeur_profil', {nameUrl: microservice.vendeur.nameUrl}) }}">
+                  {% if microservice.vendeur.reseauAvatar %}
+
+                  <img src="{{ microservice.vendeur.reseauAvatar }}" class="img-fluid" alt="{{ microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo : microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo : microservice.vendeur.nom ~ ' ' ~ microservice.vendeur.prenom }}" width="80">
+
+                  {% else %}
+
+                     {% if microservice.vendeur.avatar %}
+                     <img src="{{ vich_uploader_asset(microservice.vendeur, 'imageFile') | imagine_filter('large_avatar') }}" class="img-fluid" alt="{{ microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo : microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo : microservice.vendeur.nom ~ ' ' ~ microservice.vendeur.prenom }}" width="80">
+                     {% else %}
+
+                     <img class="img-fluid" src="{{ asset('img/user.jpg') | imagine_filter('large_avatar') }}" alt="{{ microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo : microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo : microservice.vendeur.nom ~ ' ' ~ microservice.vendeur.prenom }}" width="80" />
+
+                     {% endif %}
+
+                  {% endif %}
+               </a>
+            </label>
+            <div class="right">
+               <div class="profile-name">
+                  <div class="seller-level">
+                     <span>{{ microservice.vendeur.compte }}</span>
+                  </div>
+                  <span class="user-status">
+                     <a href="{{ path('vendeur_profil', {nameUrl: microservice.vendeur.nameUrl}) }}"
+                        class="seller-link">{{ microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo :
+                        microservice.vendeur.nom ~ ' ' ~ microservice.vendeur.prenom }}</a>
+                  </span>
+               </div>
+            </div>
+         </div>
+
+         <div class="pl-4 pr-4 pt-2 bg-white">
+
+            <div class="mb-3 text-muted">
+               {{ microservice.vendeur.apropos|raw }}
+            </div>
+
+            <h6 class=" py-2">Statistiques vendeur</h6>
+            <div class="">
+               <div class="d-flex align-items-top mb-2">
+                  <p class="mb-0 text-muted"><i class="fa fa-thumbs-up"></i> Avis positif</p>
+                  <p class="text-muted mb-0 mt-0 ml-auto">{{ avispositif(microservice.vendeur)|length }}</p>
+               </div>
+               <div class="d-flex align-items-top mb-2">
+                  <p class="mb-0 text-muted"><i class="fa fa-thumbs-down"></i> Avis négatif</p>
+                  <p class="text-muted mb-0 mt-0 ml-auto">{{ avisnegatif(microservice.vendeur)|length }}</p>
+               </div>
+               <div class="d-flex align-items-top mb-2">
+                  <p class="mb-0 text-muted"><i class="fa fa-cart-plus"></i> Commandes en cours</p>
+                  <p class="text-muted mb-0 mt-0 ml-auto">{{ commandeEncours(microservice.vendeur)|length }}</p>
+               </div>
+               <div class="d-flex align-items-top mb-2">
+                  <p class="mb-0 text-muted"><i class="fa fa-opencart"></i> Vente au total</p>
+                  <p class="text-muted mb-0 mt-0 ml-auto">{{ ventes(microservice.vendeur)|length }}</p>
+               </div>
+               <div class="d-flex align-items-top">
+                  <p class="mb-0 text-muted"><i class="fa fa-user-circle"></i> Vendeur</p>
+                  <p class="text-muted mb-0 mt-0 ml-auto">{{ microservice.vendeur.created|ago(locale='fr') }}</p>
+               </div>
+            </div>
+            
+            <div class="row pt-3" id="packagesTable">
+            {% if is_granted('microservice_edit', microservice) %}{% else %}
+               <div class="col-6">
+                  <a class="btn btn-outline-dark btn-block"
+                     href="{{ path('microservice_conversations', {vendeurNameUrl: microservice.vendeur.nameUrl, microserviceId: microservice.id }) }}">Contacter</a>
+               </div>
+            {% endif %}
+               <div class="col-6">
+                  <a href="{{ path('vendeur_profil', {nameUrl: microservice.vendeur.nameUrl }) }}"
+                     class="btn btn-dark btn-block">Voir le profil</a>
+               </div>
+            </div>
+         </div>
+
+      </div>
+   </div>
+</div>

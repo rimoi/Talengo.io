@@ -1,0 +1,91 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Demande de remboursements{% endblock %}
+
+{% block pageTitle %}Demande de remboursements ({{ remboursements.getTotalItemCount }}){% endblock %}
+
+{% block breadcrumb %}{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-rep-plugin">
+            <div class="table-responsive mb-0" data-bs-pattern="priority-columns">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Auteur</th>
+                            <th>Montant</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for remboursement in remboursements %}
+                        <tr>
+                            <td>{{ remboursement.id }}</td>
+                            <td>
+                                <div class="shadow-sm bg-white rounded p-2 bloc-small text-center">
+                                    {% if remboursement.user.reseauAvatar %}
+
+                                    <img src="{{ reseauAvatar }}" class="img-fluid rounded-circle"
+                                        alt="{{ remboursement.user.prenom }}">
+
+                                    {% else %}
+
+                                    {% if remboursement.user.avatar %}
+                                    <img src="{{ vich_uploader_asset( remboursement.user, 'imageFile') | imagine_filter('small_avatar') }}"
+                                        class="img-fluid rounded-circle" alt="{{ remboursement.user.prenom }}">
+                                    {% else %}
+
+                                    <img class="img-fluid rounded-circle"
+                                        src="{{ asset('img/user.jpg') | imagine_filter('small_avatar') }}" alt='' />
+
+                                    {% endif %}
+
+                                    {% endif %}
+
+                                    <div class="">
+                                        <strong class="small">{{ remboursement.user.nom }} {{ remboursement.user.prenom }}</strong>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>{{ remboursement.montant ~ currency }}</strong>
+                            </td>
+                            <td>{{ remboursement.created ? remboursement.created|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>
+                                <span
+                                    class="badge bg-{% if remboursement.statut == 'En attente' %}warning{% elseif remboursement.statut == 'Accepter' %}success{% else %}danger{% endif %} rounded-pill">{{
+                                    remboursement.statut }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_admin_remboursements_show', {'id': remboursement.id}) }}"
+                                    class="btn btn-light">Détails</a>
+                                <a href="{{ path('app_admin_remboursements_edit', {'id': remboursement.id}) }}"
+                                    class="btn btn-secondary">Répondre</a>
+                                {{ include('admin/admin_remboursements/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6">Aucune demande</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="pt-4">
+                    {{ knp_pagination_render(remboursements, null, {}, {
+                    'align': 'right',
+                    'size': 'medium',
+                    'rounded': true,
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

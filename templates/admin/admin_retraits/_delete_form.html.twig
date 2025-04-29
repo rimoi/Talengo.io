@@ -1,0 +1,4 @@
+<form method="post" class="d-inline" action="{{ path('app_admin_retraits_delete', {'id': retrait.id}) }}" onsubmit="return confirm('Voulez-vous supprimer cette demande?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ retrait.id) }}">
+    <button class="btn btn-danger"><i class="mdi mdi-trash-can-outline"></i> supprimer</button>
+</form>

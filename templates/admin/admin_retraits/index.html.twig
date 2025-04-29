@@ -1,0 +1,98 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}retrait ({{ retraits.getTotalItemCount }}){% endblock %}
+
+{% block pageTitle %}retrait ({{ retraits.getTotalItemCount }}){% endblock %}
+
+{% block breadcrumb %}{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-rep-plugin">
+            <div class="table-responsive mb-0" data-bs-pattern="priority-columns">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Vendeur</th>
+                            <th>Montant</th>
+                            <th>Mode de Paiement</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for retrait in retraits %}
+                        <tr>
+                            <td>{{ retrait.id }}</td>
+                            <td>
+                                <div class="shadow-sm bg-white rounded p-2 bloc-small text-center">
+                                    {% if retrait.vendeur.reseauAvatar %}
+
+                                    <img src="{{ reseauAvatar }}" class="img-fluid rounded-circle"
+                                        alt="{{ retrait.vendeur.prenom }}">
+
+                                    {% else %}
+
+                                    {% if retrait.vendeur.avatar %}
+                                    <img src="{{ vich_uploader_asset(retrait.vendeur, 'imageFile') | imagine_filter('small_avatar') }}"
+                                        class="img-fluid rounded-circle" alt="{{ retrait.vendeur.prenom }}">
+                                    {% else %}
+
+                                    <img class="img-fluid rounded-circle"
+                                        src="{{ asset('img/user.jpg') | imagine_filter('small_avatar') }}" alt='' />
+
+                                    {% endif %}
+
+                                    {% endif %}
+
+                                    <div>
+                                        <strong class="small">
+                                            {{ retrait.vendeur.nom ~ ' ' ~ retrait.vendeur.prenom }}
+                                        </strong>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ retrait.montant ~ currency }}</td>
+                            <td>{{ retrait.modePaiement }}</td>
+                            <td>{{ retrait.created ? retrait.created|date('d/m/Y') : '' }}</td>
+                            <td>
+                                <span
+                                    class="badge rounded-pill bg-{% if retrait.statut == 'En attente'  %}warning{% elseif retrait.statut == 'Valider' %}success{% else %}danger{% endif %}">{{
+                                    retrait.statut }}</span>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_admin_retraits_show', {'id': retrait.id}) }}"
+                                    class="btn btn-light">Detail</a>
+
+                                {% if retrait.statut == 'En attente' %}
+
+                                {{ include('admin/admin_retraits/_valider_form.html.twig') }}
+
+                                {{ include('admin/admin_retraits/_rejeter_form.html.twig') }}
+
+                                {% endif %}
+                                
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6">Aucune demande</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="pt-4">
+                    {{ knp_pagination_render(retraits, null, {}, {
+                    'align': 'right',
+                    'size': 'medium',
+                    'rounded': true,
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

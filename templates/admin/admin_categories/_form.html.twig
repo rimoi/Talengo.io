@@ -1,0 +1,73 @@
+<div class="card">
+    <div class="card-body">
+
+        {{ form_start(form) }}
+
+        <div class="form-group">
+
+            {{ form_row(form.name) }}
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+
+                    {{ form_row(form.iconeFile) }}
+
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+
+                    {{ form_row(form.imageFile) }}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            {{ form_row(form.description) }}
+
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-sm-3">
+                {{ form_row(form.position) }}
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <div class="row">
+                <div class="col-1">
+
+                    {{ form_widget(form.hexColor) }}
+
+                </div>
+                <div class="col-11">
+
+                    <p>Choisir une couleur pour les statistiques au niveau du tableau de bord</p>
+
+                </div>
+            </div>{{ form_errors(form.hexColor) }}
+
+        </div>
+
+        {{ form_rest(form) }}
+
+        <div class="form-group">
+            <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+        </div>
+
+        {{ form_end(form) }}
+
+        {% if categorie.id %}
+            {{ include('admin/admin_categories/_delete_form.html.twig') }}
+        {% endif %}
+
+    </div>
+</div>

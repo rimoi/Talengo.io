@@ -1,0 +1,66 @@
+<div class="row list">
+
+   {% for vendeur in vendeurs %}
+
+   <div class="col-6 col-sm-3 d-flex align-items-stretch paddingless">
+      <div>
+         <div class="col">
+            <div class="freelancer">
+               <a href="{{ path('vendeur_profil', {nameUrl: vendeur.nameUrl}) }}">
+                  {% if vendeur.couverture %}
+                     <img src="{{ vich_uploader_asset(vendeur, 'couvertureFile') | imagine_filter('midle_size') }}"
+                          class="img-fluid"
+                          alt="{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}">
+                  {% else %}
+
+                     <img src="{{ asset('themes/base/images/senatopcustudio.jpg') | imagine_filter('midle_size') }}">
+
+                  {% endif %}
+               </a>
+               <div class="freelancer-footer">
+
+                  {% if vendeur.avatar %}
+                     <img src="{{ vich_uploader_asset(vendeur, 'imageFile') | imagine_filter('medium_avatar') }}"
+                          class="img-fluid"
+                          alt="{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}">
+                  {% else %}
+
+                     <img class="img-fluid" src="{{ asset('img/user.jpg') | imagine_filter('medium_avatar') }}"
+                          alt='' />
+
+                  {% endif %}
+                  <a href="{{ path('vendeur_profil', {nameUrl: vendeur.nameUrl}) }}" class="pl-2 pt-2 text-dark">
+                     <strong class="">{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom
+                        }}</strong>
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   {% else %}
+
+   <div class="col-12">
+
+      <div class="card mb-4">
+         <div class="card-body text-center">
+
+            <div class="row">
+               <div class="col-sm-4 mx-auto text-center">
+
+                  <p class="text-center pt-4">Aucun vendeur ne correspond à votre recherche.</p>
+
+                  <img src="{{ asset('img/searching.svg') }}" class="img-fluid" alt="">
+
+               </div>
+            </div>
+
+         </div>
+      </div>
+
+   </div>
+
+   {% endfor %}
+
+</div>

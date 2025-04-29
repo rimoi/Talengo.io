@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Retrait{% endblock %}
+
+{% block body %}
+    <h1>Create new Retrait</h1>
+
+    {{ include('admin_retraits/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_retraits_index') }}">back to list</a>
+{% endblock %}

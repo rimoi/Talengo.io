@@ -1,0 +1,105 @@
+<!-- ========== Left Sidebar Start ========== -->
+<div class="vertical-menu">
+
+   <div data-simplebar class="h-100">
+
+      <!--- Sidemenu -->
+      <div id="sidebar-menu">
+         <!-- Left Menu Start -->
+         <ul class="metismenu list-unstyled" id="side-menu">
+
+            <li class="menu-title">Espace d'administration</li>
+
+            <li>
+               <a href="{{ path('admin_dashboard') }}" class=" waves-effect">
+                  <i class="mdi mdi-chart-pie"></i>
+                  <span>Tableau de bord</span>
+               </a>
+            </li>
+
+            <li>
+               <a href="{{ path('app_admin_services_index') }}" class=" waves-effect">
+                  <i class="mdi mdi-briefcase-variant-outline"></i>
+                  <span>Services</span>
+               </a>
+            </li>
+
+            <!-- Catégories -->
+            <li>
+               <a href="javascript: void(0);" class="has-arrow waves-effect">
+                  <i class="mdi mdi-buffer"></i>
+                  <span>Catégories</span>
+               </a>
+               <ul class="sub-menu" aria-expanded="false">
+                  <li><a href="{{ path('app_admin_categories_index') }}">Liste</a></li>
+                  <li><a href="{{ path('app_admin_categories_new') }}">Ajouter</a></li>
+               </ul>
+            </li>
+
+            <li>
+               <a href="{{ path('app_admin_services_signale_index') }}" class=" waves-effect">
+                  <i class="mdi mdi-bell"></i>
+                  <span class="badge rounded-pill bg-danger float-end">{{ alertesNonLu()|length }}</span>
+                  <span>Alertes</span>
+               </a>
+            </li>
+
+            <li>
+               <a href="{{ path('app_admin_offres_index') }}" class=" waves-effect">
+                  <i class="mdi mdi-briefcase-variant-outline"></i>
+                  <span>Packs</span>
+               </a>
+            </li>
+
+            <li>
+               <a href="{{ path('app_admin_commandes_index') }}" class=" waves-effect">
+                  <i class="mdi mdi-cart-arrow-down"></i>
+                  <span>Commandes</span>
+               </a>
+            </li>
+
+            <li>
+               <a href="{{ path('app_admin_stripe_index') }}" class=" waves-effect">
+                  <i class="mdi mdi-book-multiple-outline"></i>
+                  <span>Offres</span>
+               </a>
+            </li>
+
+            <li>
+               <a href="{{ path('app_admin_abonnements_index') }}" class=" waves-effect">
+                  <i class="mdi mdi-card-account-details-outline"></i>
+                  <span>Abonnements</span>
+               </a>
+            </li>
+
+            <li>
+               <a href="javascript: void(0);" class="has-arrow waves-effect">
+                  <i class="mdi mdi-account-supervisor-circle-outline"></i>
+                  <span>Comptes utilisateurs</span>
+               </a>
+               <ul class="sub-menu" aria-expanded="false">
+                  <li><a href="{{ path('app_admin_users_index') }}">Tout les comptes</a></li>
+                  <li><a href="{{ path('app_admin_users_new') }}">Crée un compte</a></li>
+               </ul>
+            </li>
+
+            <li>
+               <a href="{{ path('app_admin_retraits_index') }}" class=" waves-effect">
+                  <i class="mdi mdi-currency-usd-circle-outline"></i>
+                  <span>Retraits</span>
+               </a>
+            </li>
+
+            <li>
+               <a href="{{ path('app_admin_remboursements_index') }}" class=" waves-effect">
+                  <i class="mdi mdi-currency-usd-circle-outline"></i>
+                  <span>Remboursements</span>
+               </a>
+            </li>
+
+         </ul>
+      </div>
+      <!-- Sidebar -->
+   </div>
+</div>
+<!-- Left Sidebar End -->

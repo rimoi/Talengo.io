@@ -1,0 +1,82 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Services favoris{% endblock %}
+
+{% block bg %}{% endblock %}
+
+{% block body %}
+
+<div class="card w-100 mb-4">
+	<div class="card-header bg-dark">
+		<h2 class="h6 text-light mb-0">Services favoris</h2>
+	</div>
+	<div class="card-body">
+		<div class="">
+			<div class="">
+				{% for favori in favoris %}
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="media shadow-sm p-3 mb-3 rounded bg-white">
+							{% if favori.microservice.medias|length > 0 %}
+
+							<img class="img-fluid rounded"
+								src="{{ vich_uploader_asset(favori.microservice.medias[0], 'imageFile') | imagine_filter('midle_avatar') }}" />
+
+							{% else %}
+
+							<img class="img-fluid rounded"
+								src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('midle_avatar') }}" />
+
+							{% endif %}
+							<div class="media-body ml-3">
+								<div class="row">
+									<div class="col-9">
+										<a href="{{ path('microservice_details', {slug: favori.microservice.slug}) }}" class="text-dark">
+											<strong class="mb-1">{{ favori.microservice.name|u.truncate(40, '...') }}</strong>
+										</a> <br>
+										<a href="{{ path('microservices_categories', {slug: favori.microservice.categorie.slug}) }}?categories%5B%5D={{ favori.microservice.categorie.id }}"
+											class="badge badge-blue badge-pill">
+											#{{ favori.microservice.categorie.name }}
+										</a>
+
+										<div>
+											<span class="text-muted">A partir de</span>
+
+											<strong>{{ favori.microservice.prixMastering ~ currency }}</strong>
+										</div>
+									</div>
+									<div class="col-3 text-right">
+
+										{% include "favoris/_delete_form.html.twig" %}
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				{% else %}
+				<div class="">
+					<div class="py-3 text-center bg-white rounded">
+						<p class="text-muted">Aucun service favoris</p>
+						<div class="">
+							<i class="fa fa-search fa-3x text-muted"></i>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+
+			<div class="py-3">
+				{{ knp_pagination_render(favoris) }}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script class="{{ asset('js/favoris.js') }}"></script>
+{% endblock %}

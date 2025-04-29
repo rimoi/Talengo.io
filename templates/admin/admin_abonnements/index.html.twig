@@ -1,0 +1,83 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Abonnements ({{ abonnements.getTotalItemCount }}) {% endblock %}
+
+{% block pageTitle %}Abonnements ({{ abonnements.getTotalItemCount }}){% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-rep-plugin">
+            <div class="table-responsive mb-0" data-bs-pattern="priority-columns">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Abonné</th>
+                            <th>Offre</th>
+                            <th>Statut de l'abonnement</th>
+                            <th>Date d'abonnement</th>
+                            <th>Date mise à jour</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for abonnement in abonnements %}
+                        <tr>
+                            <td>{{ abonnement.id }}</td>
+                            <td>
+                                <div class="shadow-sm bg-white rounded p-2 bloc-small text-center">
+                                    {% if abonnement.user.reseauAvatar %}
+
+                                    <img src="{{ reseauAvatar }}" class="img-fluid rounded-circle"
+                                        alt="{{ abonnement.user.prenom }}">
+
+                                    {% else %}
+
+                                    {% if abonnement.user.avatar %}
+                                    <img src="{{ vich_uploader_asset(abonnement.user, 'imageFile') | imagine_filter('small_avatar') }}"
+                                        class="img-fluid rounded-circle" alt="{{ abonnement.user.prenom }}">
+                                    {% else %}
+
+                                    <img class="img-fluid rounded-circle"
+                                        src="{{ asset('img/user.jpg') | imagine_filter('small_avatar') }}" alt='' />
+
+                                    {% endif %}
+
+                                    {% endif %}
+
+                                    <div>
+                                        <strong class="small">
+                                            {{ abonnement.user.nom }}  {{ abonnement.user.prenom }}
+                                        </strong>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="badge bg-dark rounded-pill">{{ abonnement.stripe.name }}</span></td>
+                            <td><span class="badge bg-warning rounded-pill">{{ abonnement.statut ? 'Abonnement en cours' : 'Abonnement suspendu' }}</span></td>
+                            <td>{{ abonnement.created ? abonnement.created|date('d/m/Y') : '' }}</td>
+                            <td>{{ abonnement.updated ? abonnement.updated|date('d/m/Y') : '' }}</td>
+                            <td>
+                                <a href="{{ path('app_admin_abonnements_show', {'id': abonnement.id}) }}" class="btn btn-light">Détails</a>
+                                {% include "admin/admin_abonnements/_delete_form.html.twig" %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5">Aucun abonnement</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="pt-4">
+                    {{ knp_pagination_render(abonnements, null, {}, {
+                    'align': 'right',
+                    'size': 'medium',
+                    'rounded': true,
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

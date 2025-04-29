@@ -1,0 +1,29 @@
+{% if microservice.realisations|length > 0 %}
+
+<div class="mb-4">
+   <div class="view_slider recommended">
+      <h6 id="recommendations" class="h6 mb-3">Mes réalisations</h6>
+      <div class="view realisation-slider">
+         {% for realisation in microservice.realisations %}
+
+         <a href="{{ realisation.link }}" target="_blank" class="d-block text-muted">
+            <div class="media shadow-sm rounded p-2">
+               <span class="realisation-icon">
+                  <i class="fa fa-{{ realisation.plateforme }} fa-2x"></i>
+               </span>
+               <div class="media-body pl-2">
+                  <strong class="text-dark">{{ realisation.name }}</strong> <br>
+                  <span class="text-blue">
+                     {{ realisation.type }}
+                     {{ realisation.plateforme }} &longrightarrow;
+                  </span>
+               </div>
+            </div>
+         </a>
+
+         {% endfor %}
+      </div>
+   </div>
+</div>
+
+{% endif %}

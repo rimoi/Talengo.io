@@ -1,0 +1,57 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Mes services
+{% endblock %}
+
+{% block bg %}{% endblock %}
+
+{% block body %}
+
+<div class="card w-100 mb-4">
+	<div class="card-header bg-dark">
+		<div class="row align-items-center">
+			<div class="col-7">
+				<h2 class="h6 text-light">Mes services</h2>
+			</div>
+
+			{% if app.user.isVerified == true %}
+			<div class="col-5 text-right">
+				<a href="{{ path('vendeur_microservices_new') }}" class="btn btn-dark">Ajouter</a>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="p-0">
+			<div class="">
+				{% for microservice in microservices %}
+				{% include "vendeur/microservices/composants/_bloc_list.html.twig" %}
+				{% else %}
+				<div class="">
+					<div class="py-3 text-center">
+						<p class="text-muted text-center">Vous n'avez aucun service actif. Créez-en un nouveau
+							ou activez-les depuis la page Mes services.</p>
+						<div class="py-4">
+							<i class="fa fa-search fa-3x text-muted"></i>
+						</div>
+
+						{% if app.user.isVerified == true %}
+							<a href="{{ path('vendeur_microservices_new') }}" class="btn btn-dark">Nouveau service</a>
+						{% else %}
+							<div class="alert alert-warning">
+								<p><i class="fa fa-exclamation-triangle"></i> Vous devez activé votre compte pour avant de publier vos services sur {{ appName }}. Un lien de validation de compte vous a été envoyer via votre adresse email {{ app.user.email }}, lors de votre inscription</p>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+
+			<div class="py-3">
+				{{ knp_pagination_render(microservices) }}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

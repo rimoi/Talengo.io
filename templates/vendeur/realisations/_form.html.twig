@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-body">
+        {{ form_start(form) }}
+
+        {{ form_row(form.name) }}
+        
+        {{ form_row(form.type) }}
+
+        {{ form_row(form.plateforme) }}
+        
+        {{ form_row(form.link) }}
+        
+        {{ form_rest(form) }}
+        
+        <div class="form-group">
+            <button class="btn btn-dark rounded-btn">{{ button_label|default('Enregistrer') }}</button>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+</div>

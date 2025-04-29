@@ -1,0 +1,4 @@
+<form method="post" class="d-inline" action="{{ path('app_vendeur_realisation_delete', {'id': realisation.id}) }}" onsubmit="return confirm('Voulez-vous vraimaent supprimer cette réalisation?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ realisation.id) }}">
+    <button class="btn btn-outline-danger">Supprimer</button>
+</form>

@@ -1,0 +1,96 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Offres d'abonnements{% endblock %}
+
+{% block pageTitle %}Offres d'abonnements{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{{ path('app_admin_stripe_new') }}" class="btn btn-primary text-light">Nouvelle offre</a>
+</li>
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    {% for stripe in stripes %}
+    <div class="col-sm-4 mx-auto">
+        <div class="card shadow-sm rounded-radius">
+            <div class="card-header border-bottom bg-white text-center lead py-3">
+                <span>Offre</span> <span class="badge bg-dark rounded-pill">{{ stripe.name }}</span>
+            </div>
+            <div class="card-body p-0">
+
+                <div class="py-4 text-center border-bottom">
+                    <span class="lead">{{ currency }}</span>
+                    <h2 class="d-inline h1">{{ stripe.tarif }}</h2><span>/mois</span>
+                </div>
+
+                {% if stripe.description %}
+                <div class="p-3 fw-light m-0">
+                    {{ stripe.description|raw }}
+                </div>
+                {% endif %}
+
+                <ul class="list-group list-group-numbered list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="">#ID</div>
+                        </div>
+                        <span class="badge bg-dark">{{ stripe.id }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="">Clé API Stripe</div>
+                        </div>
+                        <span class="badge text-muted">{{ stripe.stripeKey }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="">Abonnements</div>
+                        </div>
+                        <span class="badge bg-dark">{{ stripe.abonnements|length }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="">Date de création</div>
+                        </div>
+                        <span class="badge text-muted">
+                            {{ stripe.created ? stripe.created|date('d/m/Y') : '' }}
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="">Date de mise à jour</div>
+                        </div>
+                        <span class="badge text-muted">
+                            {{ stripe.updated ? stripe.updated|date('d/m/Y') : '' }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer bg-white py-4 text-center">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a href="{{ path('app_admin_stripe_edit', {'id': stripe.id}) }}" class="btn btn-light w-100">Modifier</a>
+                    </div>
+                    <div class="col-sm-6">
+                        {% include "admin/admin_stripe/_delete_form.html.twig" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-center">
+                <p class="text-center lead py-3">Aucune offre</p>
+                <a href="{{ path('app_admin_stripe_new') }}" class="btn btn-primary text-light">Nouvelle
+                    offre</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

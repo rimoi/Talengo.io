@@ -1,0 +1,176 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ microservice.name|u.truncate(60, '...') }}{% endblock %}
+
+{% block alternatiflink %}https://links-infinity.com/microservices/{{ microservice.name }}{% endblock %}
+
+{% block meta %}
+<meta name="author" content="{{ appName }}" />
+<meta name="keywords" content="{{ truncateTitle(microservice.name) }}" />
+<meta name="description"
+	content="{{ microservice.name|u.truncate(150, '...') }}: {{ (microservice.description|raw)|u.truncate(100, '...') }}" />
+{% endblock %}
+
+{% block serviceBlocNavigation %}
+<div class="third-menu border-top">
+	<div class="container">
+		<div class="row d-flex align-items-center justify-content-between">
+			<div class="col-sm-8 left">
+				<ul>
+					<li class="nav-description">
+						<a href="#description">Description</a>
+					</li>
+					<li class="nav-aboutSeller">
+						<a href="#serviceOptions">Réservation</a>
+					</li>
+					<li class="nav-recommendations">
+						<a href="#recommendations">Autres services</a>
+					</li>
+				</ul>
+			</div>
+			{% if is_granted('microservice_edit', microservice) %}{% else %}
+			<div class="col-sm-4 right">
+				<ul class="d-flex align-items-center justify-content-end">
+					<li>
+						<button class="btn btn-sm bg-white border">
+							{% include "microservice/composants/_favoris_btn.html.twig" %}
+						</button>
+					</li>
+					<li class="ml-2">
+						<button class="btn btn-sm bg-white text-dark border" data-toggle="modal"
+							data-target="#serivesignaleModal">
+							<i class="fa fa-bell" aria-hidden="true"></i>
+							Signalez
+						</button>
+					</li>
+				</ul>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block body %}
+
+{% if microservice.offline == true %}
+
+{% include "microservice/composants/_indisponible.html.twig" %}
+
+{% else %}
+
+<div class="main-page py-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 left">
+				<span class="text-muted">{{ microservice.created|ago(locale='fr') }}</span>
+				<h2>{{ microservice.name }}</h2>
+				<div id="overview" class="seller-overview d-flex align-items-center">
+					<div class="user-profile-image d-flex">
+						<label class="profile-pict" for="profile_image">
+							<img
+								src="{{ microservice.vendeur.avatar ? vich_uploader_asset(microservice.vendeur, 'imageFile') : asset('img/user.jpg') | imagine_filter('large_avatar') }}"
+								class="profile-pict-img" width="40" height="40"
+								alt="{{ appName }} {{ microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo : microservice.vendeur.nom ~ ' ' ~ microservice.vendeur.prenom }}">
+						</label>
+						<div class="profile-name">
+							<div class="seller-level">
+								({{ commandeEncours(microservice.vendeur)|length }}) commande{{
+								commandeEncours(microservice.vendeur)|length > 1 ? 's' : '' }} en cours
+							</div>
+						</div>
+					</div>
+					<div class="user-info d-flex">
+						<span class="user-info-rating d-flex border-0 text-left">
+							<div class="star-rating-s15-wrapper text-success">
+								{% include "microservice/composants/_etoilles.html.twig" %}
+							</div>
+							<span class="total-rating pl-2">
+								({{ serviceAvis(microservice) }} Avis)
+							</span>
+						</span>
+					</div>
+				</div>
+
+				{% include "microservice/composants/_galerie.html.twig" %}
+
+				<div id="description" class="mb-3">
+					<h6 style="margin-top: -30px;">Description</h6>
+					<p class="p-0 m-0">{{ microservice.description|raw }}</p>
+				</div>
+
+				<!-- Réalisations liée à ce service -->
+				{% include "microservice/composants/_realisations.html.twig" %}
+
+				<!-- Personaliser le service et commander -->
+				{% if microservice.categorie.slug == 'ingenieur-son' %}{% else %}
+				
+				{% endif %}
+				
+				{% include "microservice/composants/_custom_form.html.twig" %}
+
+				<!-- Avis -->
+				{% include "microservice/composants/_avis.html.twig" %}<br>
+				
+				<div class="view_slider recommended">
+					<h6 class="pb-3" id="recommendations">Autres services de ce vendeur</h6>
+					<div class="view recommended-slider">
+						{% for similaire in similaires %}
+
+						{% if similaire == microservice %}{% else %}
+
+						{% include "microservice/composants/_similar_bloc.html.twig" %}
+
+						{% endif %}
+
+						{% endfor %}
+					</div>
+				</div>
+
+			</div>
+			<div class="col-md-4 right">
+
+				{% include "microservice/composants/_trafic.html.twig" %}
+
+			</div>
+		</div>
+
+		<div class="modal fade" id="serivesignaleModal" tabindex="-1" role="dialog"
+			aria-labelledby="serivesignaleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header border-0">
+						<h6 class="h6 text-light" id="serivesignaleModalLabel">Signalez ce service</h6>
+						<button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body text-light">
+						{{ form_start(servicesignaleForm) }}
+						{{ form_widget(servicesignaleForm) }}
+						<button type="submit" class="btn btn-dark btn-block">
+							<span id="btnFetch"><i class="mdi mdi-send"></i> Envoyer</span>
+						</button>
+						{{ form_end(servicesignaleForm) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{{ parent() }}
+
+{% if isHiden == true %}
+	{% include "microservice/composants/_script_2.html.twig" %}
+{% else %}
+	{% include "microservice/composants/_script.html.twig" %}
+{% endif %}
+
+{% endblock %}

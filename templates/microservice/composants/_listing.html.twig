@@ -1,0 +1,35 @@
+<div class="row list">
+
+   {% for microservice in microservices %}
+
+   <div class="col-6 col-sm-3 d-flex align-items-stretch paddingless">
+      <div>
+         {{ include('microservice/composants/_bloc.html.twig') }}
+      </div>
+   </div>
+
+   {% else %}
+
+   <div class="col-12">
+
+      <div class="card mb-4">
+         <div class="card-body text-center">
+
+            <div class="row">
+               <div class="col-sm-4 mx-auto text-center">
+
+                  <p class="text-center pt-4">Aucun service ne correspond à votre recherche.</p>
+
+                  <img src="{{ asset('img/searching.svg') }}" class="img-fluid" alt="">
+
+               </div>
+            </div>
+
+         </div>
+      </div>
+
+   </div>
+
+   {% endfor %}
+
+</div>

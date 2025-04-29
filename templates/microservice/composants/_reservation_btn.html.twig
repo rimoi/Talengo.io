@@ -1,0 +1,11 @@
+{% if is_granted('microservice_edit', microservice) %}
+
+{% include "microservice/composants/_edit_btn.html.twig" %}
+
+{% else %}
+
+<a href="{{ path('commander_microservice_reservation', {slug: microservice.slug}) }}">
+   <button type="" class="btn btn-outline-dark h5 btn-lg btn-block">{{ total ~ currency }} Reserver</button>
+</a>
+
+{% endif %}

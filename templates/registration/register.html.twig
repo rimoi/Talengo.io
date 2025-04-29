@@ -1,0 +1,91 @@
+{% extends 'auth.html.twig' %}
+
+{% block title %}Créer un compte
+{{ appName }}
+{% endblock %}
+
+{% block titre %}Créer un compte{% endblock %}
+
+{% block text %}Nouveau sur
+{{ appName }}? <br> Crée gratuitement votre compte
+{% endblock %}
+
+{% block alternatiflink %}https://links-infinity.com/inscription{% endblock %}
+
+{% block imgBg %}{{ asset('img/register.png') }}{% endblock %}
+
+{% block space %}{% endblock %}
+
+{% block body %}
+
+{% for flashError in app.flashes('verify_email_error') %}
+<div class="alert alert-danger" role="alert">
+	<!-- flashError -->
+	Le lien pour vérifier votre e-mail semble être pour un autre compte ou e-mail. Veuillez demander un nouveau lien.
+</div>
+{% endfor %}
+
+{{ form_start(registrationForm) }}
+<div class="row">
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label class="mb-1">Nom</label>
+			<div class="position-relative icon-form-control">
+				{{ form_widget(registrationForm.nom) }}
+			</div>
+			{{ form_errors(registrationForm.nom) }}
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label class="mb-1">Prénom</label>
+			<div class="position-relative icon-form-control">
+				{{ form_widget(registrationForm.prenom) }}
+			</div>
+			{{ form_errors(registrationForm.prenom) }}
+		</div>
+	</div>
+</div>
+
+<div class="form-group radio">
+	<label class="mb-1">Je souhaite?</label>
+	{{ form_widget(registrationForm.compte) }}
+	{{ form_errors(registrationForm.compte) }}
+</div>
+
+<div class="form-group">
+	<label class="mb-1">Email</label>
+	<div class="position-relative icon-form-control">
+		{{ form_widget(registrationForm.email) }}
+	</div>
+	{{ form_errors(registrationForm.email) }}
+</div>
+
+<div class="form-group mb-0">
+	{% include "security/_password.html.twig" %}
+	<div class="position-relative icon-form-control">
+		{{ form_widget(registrationForm.plainPassword) }}
+	</div>
+</div>
+
+<div class="mb-3">
+	{{ form_widget(registrationForm.agreeTerms) }}
+	<label for="registration_form_agreeTerms" style="display: inline;margin-left:30px;vertical-align: top;">
+		J'accepte les
+		<a href="{{ path('page_conditions') }}" class="text-light">termes</a>
+		et
+		<a href="{{ path('page_conditions') }}" class="text-light">conditions d'utilisation</a>
+	</label>
+</div>
+
+<button type="submit" formnovalidate class="btn btn-success btn-block text-uppercase">S'inscrire</button>
+
+{{ form_end(registrationForm) }}
+
+<div class="text-center mt-3 pb-3">
+
+	{% include "security/_reseaux.html.twig" %}
+
+</div>
+
+{% endblock %}

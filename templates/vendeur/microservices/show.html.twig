@@ -1,0 +1,163 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Service - {{ microservice.name }}{% endblock %}
+
+{% block body %}
+<div class="p-3 border-bottom text-right">
+    <h6 class="mb-0">Service - {{ microservice.name }}
+    </h6>
+</div>
+<div class="p-3 border-bottom">
+    <div class="row d-flex align-items-center form-group">
+        <div class="col-md-4">
+            <p class="text-muted font-weight-bold mb-0">TITRE</p>
+            <p class="text-muted">
+                Indiquez précisément ce que vous faites dans votre service basique. Faites attention aux fautes, ne
+                mettez pas de majuscules, et n'utilisez pas de ponctuation ni de signes (parenthèses, tirets, etc.).
+            </p>
+        </div>
+        <div class="col-md-8">
+            <h5>{{ microservice.name }}</h5>
+        </div>
+    </div>
+    <div class="row d-flex align-items-center form-group">
+        <div class="col-md-4">
+            <p class="text-muted font-weight-bold mb-0">CATEGORIE</p>
+            <p class="text-muted">
+                Suggérez à notre équipe de modération la catégorie la plus adaptée à votre service.
+            </p>
+        </div>
+        <div class="col-md-8">
+            <span class="badge badge-light border badge-pill">{{ microservice.categorie.name }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="p-3 border-bottom">
+    <div class="row d-flex align-items-center form-group">
+        <div class="col-md-4">
+            <p class="text-muted font-weight-bold mb-0">DESCRIPTION</p>
+            <p class="text-muted">
+                C’est la partie la plus importante de votre service, alors soignez-la ! Rédigez un texte original,
+                présentez-vous, vérifiez attentivement votre orthographe, rassurez vos futurs clients sur vos
+                compétences, détaillez ce que vous faites pour le prix de départ ainsi que dans vos options, définissez
+                des limites, et bien sûr appliquez nos conseils (disponibles sur l’aide) pour que votre service soit
+                validé par notre équipe de modération.
+            </p>
+        </div>
+        <div class="col-md-8">
+            {{ microservice.description|raw }}
+        </div>
+    </div>
+</div>
+
+<div class="p-3 border-bottom">
+    <div class="row d-flex align-items-center form-group">
+        <div class="col-md-4">
+            <p class="text-muted font-weight-bold mb-0">TARIFICATION</p>
+            <p class="text-muted">
+                Suggérez à notre équipe de modération les prix les plus adaptée à votre service.
+            </p>
+            <p class="text-danger">NB: vous ne devez pas indiquez plus de 3 prix</p>
+            <p>Utilisez plustôt les prix dans cette ordre</p>
+            <ul>
+                <li class="text-success">Basique</li>
+                <li class="text-success">Standard</li>
+                <li class="text-success">Prémium</li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+
+            {% if microservice.prix|length > 0 %}
+            <table class="table table-bordered">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Désignation</th>
+                        <th>Tarif</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for price in microservice.prix %}
+                    <tr>
+                        <th><span class="badge">{{ price.name }}</span></th>
+                        <td><strong class="badge font-weight-bold">{{ price.tarif ~ currency }}</strong></td>
+                        <td><p class="text-muted">{{ price.description }}</p></td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+            {% else %}
+            <div class="my-3 text-muted">
+                <p>Aucun prix</p>
+                <a href="{{ path('vendeur_microservices_description', {'id': microservice.id}) }}" class="btn btn-secondary">Mettre à jour le service</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="p-3 border-bottom">
+    <div class="row d-flex align-items-center form-group">
+        <div class="col-md-4">
+            <p class="text-muted font-weight-bold mb-0">VISIBILITE</p>
+            <p class="text-muted">
+                Rendre votre service visble par tout nos visiteurs
+            </p>
+        </div>
+        <div class="col-md-8">
+            <span class="badge badge-{{ microservice.online ? 'success' : 'light' }}">{{ microservice.online ? 'Visible
+                sur le site' : 'Hors ligne' }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="p-3 border-bottom">
+    <div class="row d-flex align-items-center form-group">
+        <div class="col-md-4">
+            <p class="text-muted font-weight-bold mb-0">GALERIE</p>
+            <p class="text-muted">
+                Rendre votre service visble par tout nos visiteurs
+            </p>
+        </div>
+        <div class="col-md-8">
+
+            {% if microservice.medias|length > 0 %}
+            
+            {% include "microservice/composants/_galerie.html.twig" %}
+
+            <div class="py-3">
+                <a href="{{ path('vendeur_microservices_galerie', {'id': microservice.id}) }}"
+                    class="btn btn-light">Mettre à jour la galérie</a>
+            </div>
+
+            {% else %}
+                
+            <div class="py-3 text-muted">
+                <p>Aucune image!</p>
+                <a href="{{ path('vendeur_microservices_galerie', {'id': microservice.id}) }}"
+                    class="btn btn-light">Ajouter des médias</a>
+            </div>
+
+            {% endif %}
+
+            
+        </div>
+    </div>
+</div>
+
+<div class="p-3 border-bottom">
+    <div class="row d-flex align-items-center form-group">
+        <div class="col-md-4">
+            <p class="text-muted font-weight-bold mb-0">ACTIONS</p>
+        </div>
+        <div class="col-md-8">
+            <a href="{{ path('vendeur_microservices_titre', {'id': microservice.id}) }}" class="btn btn-secondary">Modifier</a>
+
+            {{ include('vendeur/microservices/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
+{% endblock %}

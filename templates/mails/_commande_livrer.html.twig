@@ -1,0 +1,32 @@
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+   <div style="margin: auto;background: #fff;padding: 20px;">
+
+      {% include "mails/_logo.html.twig" %}
+      
+      <p>Bonjour <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
+            vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
+
+      <p>
+         Suite à votre livraison de la commande du service <strong>{{ commande.microservice.name }}</strong>, pour le client <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
+            client.nom ~ ' ' ~ client.prenom }}</strong>, vous allez recevoir un paiement de <strong>{{ commande.montant ~ currency }}</strong> après la rédaction de votre rapport de fin de prestation de service.
+      </p>
+
+      <div><br>
+         <a href="{{ absolute_url(path('commande_details', {id: commande.id})) }}#rapport" style="background: #080679;
+     background: -webkit-linear-gradient(legacy-direction(to right), #080679 0%, #a9a9a9 100%);
+     background: -webkit-gradient(linear, left top, right top, from(#080679), to(#a9a9a9));
+     background: -webkit-linear-gradient(left, #080679 0%, #a9a9a9 100%);
+     background: -o-linear-gradient(left, #080679 0%, #a9a9a9 100%);
+     background: linear-gradient(to right, #080679 0%, #a9a9a9 100%);
+     border-color: #080679;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;"> Redigez le rapport</a>
+      </div><br>
+
+
+      <p>
+         Attention : faites-nous parvenir votre rapport de fin de prestation de service afin de recevoir vos fonds, <strong>{{ commande.montant ~ currency }}</strong>.
+      </p>
+
+      {% include "mails/_lien_cgu.html.twig" %}
+      
+   </div>
+</div>

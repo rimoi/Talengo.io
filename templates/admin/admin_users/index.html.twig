@@ -1,0 +1,15 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Comptes utilisateurs{% endblock %}
+
+{% block pageTitle %}Comptes utilisateurs ({{ users.getTotalItemCount }}){% endblock %}
+
+{% block breadcrumb %}
+    <a href="{{ path('app_admin_users_new') }}" class="btn btn-primary">Crée un compte</a>
+{% endblock %}
+
+{% block body %}
+
+{% include "admin/admin_users/_table.html.twig" %}
+
+{% endblock %}

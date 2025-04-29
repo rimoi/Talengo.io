@@ -1,0 +1,38 @@
+<div class="pro-section rounded"
+   style="background-image: url({% if pack.couverture %}{{ vich_uploader_asset(pack, 'couvertureFile') | imagine_filter('very_large_size') }}{% endif %});">
+   <div class=" py-4">
+      <div class="media mb-5 text-light">
+         <img src="{{ asset('img/headphones.png') }}" width="40">
+         <div class="media-body pl-3">
+            <span>PACK <br> PRODUIT - MOI</span>
+         </div>
+      </div>
+      <div class="row align-items-start">
+         <div class="col-7 mr-auto">
+            <h3 class="mb-0 text-light mb-2">{{ pack.name }}</h3>
+            <hr class="hr w-25 p-0 mt-0">
+            {% if app.request.attributes.get('_route') == 'pack_commande' %}{% else %}
+            <div class="row pb-3">
+               <div class="col-sm-12">
+                  {% for categorie in pack.categorie %}
+                  <a href="{{ path('microservices_categories', {slug: categorie.slug}) }}?categories%5B%5D={{ categorie.id }}"
+                     class="text-uppercase text-light">
+                     {{ categorie.name }} /
+                  </a> 
+                  {% endfor %}
+               </div>
+            </div>
+            <a class="fit-btn" href="{{ path('pack_commande', {slug: pack.slug}) }}">
+               A partir de {{ pack.tarif ~ currency }}
+            </a>
+            {% endif %}
+         </div>
+         <div class="col-5 ml-auto text-right">
+            {% if pack.imageName %}
+            <img src="{{ vich_uploader_asset(pack, 'imageFile') | imagine_filter('medium_size') }}"
+               class="img-fluid w-100" alt="">
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,19 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Mes achats
+{% endblock %}
+
+{% block bg %}{% endblock %}
+
+{% block body %}
+
+	<div class="card">
+		<div class="card-header bg-dark pl-2">
+			<h1 class="h6 text-light mb-0">Mes achats</h1>
+		</div>
+		<div class="card-body p-0 m-0">
+			{% include "vendeur/commandes/_table.html.twig" %}
+		</div>
+	</div>
+
+{% endblock %}

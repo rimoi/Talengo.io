@@ -1,0 +1,4 @@
+<form method="post" class="d-inline" action="{{ path('app_admin_retraits_rejeter', {'id': retrait.id}) }}" onsubmit="return confirm('Voulez-vous rejeté cette demande?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('rejeter' ~ retrait.id) }}">
+    <button class="btn btn-warning">Rejeter</button>
+</form>

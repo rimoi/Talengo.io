@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Gurdeep singh osahan">
+	<meta name="author" content="Gurdeep singh osahan">
+	<meta name="google-site-verification" content="8R1IqiWtRxl4xmw78_KdRUQU231e7SSQg-e5lhhe9Vk" />
+	<title>
+		{% block title %}{{ appName }} des services pour tout vos besoins{% endblock %}
+	</title>
+	<link rel="alternate" hreflang="fr-fr" href="https://links-infinity.com/">
+	<!-- Favicon Icon -->
+	<link rel="icon" type="{{ asset('img/Logo.png') }}" href="images/fav.svg">
+	<!-- Bootstrap core CSS -->
+	<link href="{{ asset('themes/base/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+	<!-- Font Awesome-->
+	<link href="{{ asset('themes/base/vendor/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">
+	<!-- Material Design Icons -->
+	<link href="{{ asset('themes/base/vendor/icons/css/materialdesignicons.min.css') }}" media="all" rel="stylesheet"
+		type="text/css">
+	<!-- Slick -->
+	<link href="{{ asset('themes/base/vendor/slick-master/slick/slick.css') }}" rel="stylesheet" type="text/css">
+	<!-- Lightgallery -->
+	<link href="{{ asset('themes/base/vendor/lightgallery-master/dist/css/lightgallery.min.css') }}" rel="stylesheet">
+	<!-- Select2 CSS -->
+	<link href="{{ asset('themes/base/vendor/select2/css/select2-bootstrap.css') }}" />
+	<link href="{{ asset('themes/base/vendor/select2/css/select2.min.css') }}" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	{{ encore_entry_link_tags('style') }}
+	{{ encore_entry_link_tags('custom') }}
+	{{ encore_entry_link_tags('responsive') }}
+	{% endblock %}
+	<!-- map box -->
+	<script id="search-js" defer src="https://api.mapbox.com/search-js/v1.0.0-beta.14/web.js">
+	</script>
+</head>
+
+<body data-turbo="false" class="text-light body-gradient" style="background: #3533cd!important;">
+
+	<main class="main-gradient">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-5 shadow-right">
+
+					<div class="osahan-login pr-sm-4">
+						<a href="{{ path('accueil') }}">
+							<h1 class="text-uppercase font-weight-bold text-light h5 text-left pt-4">
+								<img src="{{ asset('img/small-logo.svg') }}" width="40" alt="Glog {{ appName }}"> 
+								<span>{{ appName }}</span>
+							</h1>
+						</a>
+						<div class="text-left mb-4">
+							<h5 class="text-light pt-3 font-weight-bold">{% block titre %}Inscription{% endblock %}</h5>
+							</p>
+						</div>
+
+						{% for type, messages in app.flashes %}
+						{% for message in messages %}
+						<div
+							class="alert alert-{{ type }} alertflash alert-dismissible fade show mb-3 border border-{{ type }}"
+							role="alert" style="text-align: left!important;">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong class="my-0 text-{{ type }}">
+								{% if type == 'danger' %}
+								<i class="fa fa-exclamation-triangle"></i> Echec!
+								{% elseif type == 'warning' %}
+								<i class="fa fa-exclamation-triangle"></i> Attention!
+								{% elseif type =='info' %}
+								<i class="fa fa-check"></i> En cours de validation!
+								{% elseif type =='success' %}
+								<i class="fa fa-check"></i> Succès!
+								{% endif %}
+							</strong> -
+							<p>{{ message }}</p>
+						</div>
+						{% endfor %}
+						{% endfor %}
+
+						{% block body %}{% endblock %}
+
+						{% block footer %}
+						<div class="pt-3 text-muted text-center m-0">
+
+							{% if app.request.attributes.get('_route') == 'app_register' %}
+
+							<p class="text-light">Avez-vous déjà un compte ? <a href="{{ path('app_login') }}"
+									class="text-light">connectez-vous</a></p>
+
+							{% elseif app.request.attributes.get('_route') == 'app_login' %}
+
+							<p class="text-light">Vous n'avez aucun compte ? <a href="{{ path('app_register') }}" class="text-light">créer un
+									compte</a></p>
+
+							{% else %}
+
+							<a href="{{ path('app_login') }}" class="text-light">Connexion</a>&nbsp;
+
+							<a href="{{ path('app_register') }}" class="text-light">Créer un compte</a>
+
+							{% endif %}
+							</span>
+						</div>
+						{% endblock %}
+					</div>
+
+					<ul class="nav justify-content-center p-0 m-0">
+						<li class="nav-item">
+							<a class="nav-link text-light" href="{{ path('page_conditions') }}">Conditons générales</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light" href="{{ path('page_conditions') }}">Mentions légales</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light" href="{{ path('page_conditions') }}">Politique de confidentialité</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light text-light" href="">Besoin d'aide?</a>
+						</li>
+					</ul>
+
+					<div class="text-center">
+						<a href="{{ path('accueil') }}" class="text-light small p-0"><i class="mdi mdi-arrow-left"></i>
+							Retournez vers accueil</a>
+					</div>
+
+				</div>
+				<div class="col-sm-7 text-left d-none d-sm-block">
+					<div class="bloc-logo" style="padding-top: 0">
+						<img src="{{ asset('img/links infinity-2.svg') }}" alt="{{ appName }} logo">
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<!--       footer-->
+	<!-- Bootstrap core JavaScript -->
+	<script src="{{ asset('themes/base/vendor/jquery/jquery.min.js') }}"></script>
+	<script src="{{ asset('themes/base/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+	{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+	{{ encore_entry_script_tags('jscustom') }}
+	{{ encore_entry_script_tags('dropdown') }}
+	{{ encore_entry_script_tags('btnloader') }}
+	{% endblock %}
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-TBWPH2ZDRB"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-TBWPH2ZDRB');
+	</script>
+	
+	<!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11223496460"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'AW-11223496460');
+    </script>
+    
+    <!-- Hotjar Tracking Code for https://links-infinity.com/ -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:3546213,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+</body>
+
+</html>

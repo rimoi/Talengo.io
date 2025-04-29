@@ -1,0 +1,120 @@
+{% if commande.deliver == 1 %}
+
+<div class="card my-3">
+   <div class="card-header bg-dark">
+      <h6 class="h6 text-light">Avis du client sur le service</h6>
+   </div>
+   <div class="card-body">
+
+      {% if commande.avis %}
+
+         <div class="media" id="{{ commande.avis.client.nameUrl }}">
+            
+               {% if commande.avis.client.reseauAvatar %}
+
+					<img src="{{ commande.avis.client.reseauAvatar }}" class="rounded-circle mr-3" alt="{{ commande.avis.client.usePseudo == 1 ? commande.avis.client.pseudo : commande.avis.client.nom ~ ' ' ~ commande.avis.client.prenom }}" width="50" height="50">
+
+					{% else %}
+
+                  {% if commande.avis.client.avatar %}
+                  <img src="{{ vich_uploader_asset(commande.avis.client, 'imageFile') | imagine_filter('midle_avatar') }}"
+                     class="rounded-circle mr-3" width="50" alt="{{ commande.avis.client.prenom }}">
+                  {% else %}
+
+                  <img class="rounded-circle mr-3" src="{{ asset('img/user.jpg') | imagine_filter('midle_avatar') }}" alt='' width="50" />
+
+                  {% endif %}
+
+            {% endif %}
+            <div class="media-body">
+               <strong class="mt-0 mb-1 d-block h6 font-weight-bold">{{ commande.client.usePseudo ? commande.client.pseudo : commande.avis.client.nom ~ ' ' ~
+                  commande.avis.client.prenom }}</strong>
+               {{ commande.avis.contenu }}
+
+               <span class="text-muted d-block text-italic py-2">
+                  <i class="fa fa-clock-o"></i> {{ commande.avis.created|ago(locale='fr') }}</span>
+            </div>
+         </div>
+
+         {% if commande.avis.avisReponses %}
+
+            {% for reponse in commande.avis.avisReponses %}
+
+            <div class="media avis-reponse" id="{{ reponse.vendeur.nameUrl }}">
+
+               {% if reponse.vendeur.reseauAvatar %}
+
+               <img src="{{ reponse.vendeur.reseauAvatar }}" class="rounded-circle mr-3" alt="{{ reponse.vendeur.usePseudo == 1 ? reponse.vendeur.pseudo : reponse.vendeur.nom ~ ' ' ~ reponse.vendeur.prenom }}" width="50" height="50">
+
+               {% else %}
+
+                  {% if reponse.vendeur.avatar %}
+                  <img src="{{ vich_uploader_asset(reponse.vendeur, 'imageFile') | imagine_filter('midle_avatar') }}"
+                     class="rounded-circle mr-3" width="50" alt="{{ reponse.vendeur.prenom }}">
+                  {% else %}
+
+                  <img class="rounded-circle mr-3" src="{{ asset('img/user.jpg') | imagine_filter('midle_avatar') }}" alt='' width="50" />
+
+                  {% endif %}
+
+               {% endif %}
+               <div class="media-body">
+                  <strong class="mt-0 mb-1 d-block h6 font-weight-bold">{{ reponse.vendeur.usePseudo ? reponse.vendeur.pseudo : reponse.vendeur.nom ~ ' ' ~
+                     reponse.vendeur.prenom }}</strong>
+                  {{ reponse.contenu }}
+
+                  <span class="text-muted d-block text-italic py-2">
+                     <i class="fa fa-clock-o"></i> {{ reponse.created|ago(locale='fr') }}</span>
+               </div>
+               
+            </div>
+                  
+            {% endfor %}
+
+         {% endif %}
+         
+         {% if is_granted('microservice_edit', commande.microservice) %}
+
+            {% if vendeuravisreponse(commande.microservice.vendeur, commande.avis) == null %}
+
+            {{ form_start(avisReponseForm) }}
+               {{ form_widget(avisReponseForm) }}
+               <div class="text-left">
+                  <button type="submit" class="btn btn-success btn-rounded" data-turbo="false">
+                     <span><i class="mdi mdi-send"></i> Répondre</span>
+                  </button>
+               </div>
+            {{ form_end(avisReponseForm) }}
+
+            {% endif %}
+
+         {% endif %}
+
+      {% else %}
+
+      <p>Aucun avis pour l'instant...</p>
+      
+      <!-- Formulaire pour laisser un avis -->
+      {% if is_granted('microservice_edit', commande.microservice) %}{% else %}
+      
+         {% if commande.avis == null %}
+
+         {{ form_start(avisForm) }}
+            {{ form_widget(avisForm) }}
+            <div class="text-left">
+               <button type="submit" class="btn btn-success btn-rounded" data-turbo="false">
+                  <span id="btnFetch"><i class="mdi mdi-send"></i> Envoyer</span>
+               </button>
+            </div>
+         {{ form_end(avisForm) }}
+
+         {% endif %}
+
+      {% endif %}
+
+      {% endif %}
+
+   </div>
+</div>
+
+{% endif %}

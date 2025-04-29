@@ -1,0 +1,7 @@
+{% if is_granted('ROLE_CLIENT') %}
+	Client
+{% elseif is_granted('ROLE_VENDEUR') %}
+	Vendeur
+{% elseif is_granted('ROLE_ADMIN') %}
+	Administrateur
+{% endif %}

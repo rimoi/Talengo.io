@@ -1,0 +1,11 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}New Remboursement{% endblock %}
+
+{% block body %}
+    <h1>Create new Remboursement</h1>
+
+    {{ include('admin_remboursements/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_remboursements_index') }}">back to list</a>
+{% endblock %}

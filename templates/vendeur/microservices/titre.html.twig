@@ -1,0 +1,60 @@
+{% extends 'service.html.twig' %}
+
+{% block title %}
+  Titre et catégorie
+{% endblock %}
+
+{% block colleft %}4{% endblock %}
+
+{% block colright %}8{% endblock %}
+
+{% block body %}
+  <div class="card">
+    <div class="card-body">
+      {{ form_start(form) }}
+
+      <div class="form-group">
+          <h6 class="font-weight-bold">
+            Titre
+          </h6>
+          <p class="text-muted">
+            Indiquez précisément ce que vous faites dans votre service basique.
+            Faites attention aux fautes, ne mettez pas de majuscules, et
+            n'utilisez pas de ponctuation ni de signes (parenthèses, tirets,
+            etc.).
+          </p>
+          <div>
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+          </div>
+        </div>
+        <div class="form-group">
+          <h6 class="font-weight-bold">
+            Catégorie
+          </h6>
+          <p class="text-muted">
+            Suggérez à notre équipe de modération la catégorie la plus adaptée à
+            votre service.
+          </p>
+          <div class="">
+            {{ form_widget(form.categorie) }}
+            {{ form_errors(form.categorie) }}
+          </div>
+        </div>
+
+      <div class="text-left form-group">
+        <button class="btn btn-dark">
+          {{ button_label|default('Enregistrer et suivant') }}
+        </button>
+      </div>
+
+      {{ form_end(form) }}
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  {% include 'vendeur/microservices/composants/_tarif_script.html.twig' %}
+{% endblock %}

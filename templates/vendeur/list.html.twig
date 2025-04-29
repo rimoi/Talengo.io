@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trouver un vendeur plus proche de vous{% endblock %}
+
+{#{% block alternatiflink %}https://links-infinity.com/microservices/categories/{{ categorie.name }}{% endblock %}#}
+
+{#{% block meta %}#}
+{#<meta name="author" content="{{ vendeur.fullName }}" />#}
+{#<meta name="keywords" content="{{ vendeur.fullName }}: trouver plus proche de vous" />#}
+{#<meta name="description" content="{{ vendeur.fullName }}: trouvez dès maintenant votre {{ vendeur.fullName }} plus proche de chez vous pour vous accompagner dans votre projet." />#}
+{#{% endblock %}#}
+
+{% block body %}
+<!-- Inner Header -->
+   <section class="py-1 inner-header bg-degrade">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-9 text-left">
+{#               <h1 class="mt-0 mb-3 text-dark">#{{ vendeur.fullName }} ({{ microservices.getTotalItemCount }})</h1>#}
+               <div class="breadcrumbs">
+{#                  {{ categorie.description|raw }}#}
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="caption"></div>
+   </section>
+   <!-- End Inner Header -->
+
+   {% include "vendeur/composants/_page_contenu.html.twig" %}
+
+   {% endblock %}

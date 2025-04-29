@@ -1,0 +1,234 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Services{% endblock %}
+
+{% block pageTitle %}Services ({{ microservices.getTotalItemCount }}){% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-header bg-white p-2">
+        {{ form_start(form, {attr: {class: 'filter js-filter-form container'}}) }}
+        <div class="row my-3">
+            <div class="col-sm-9">
+                <p class="mb-2">({{ microservices.getTotalItemCount }}) Service{{ microservices.getTotalItemCount > 0 ?
+                    's'
+                    : ''}} disponible
+                </p>
+            </div>
+            <div class="col-sm-3">
+                <div class="sorting d-flex align-items-center justify-content-end">
+                    <p>Trier par</p>&nbsp;&nbsp;
+                    {{ knp_pagination_sortable(microservices, 'Prix', 'm.prixMastering') }}&nbsp;&nbsp;
+                    {{ knp_pagination_sortable(microservices, 'Date', 'm.created') }}
+                </div>
+            </div>
+        </div>
+        <div class="form-search row align-items-center justify-content-between">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="dropdown w-100">
+                            <button type="button" class="btn shadow-sm dropdown-toggle w-100" data-bs-toggle="dropdown">
+                                <i class="fa fa-tags"></i> Catégories
+                            </button>
+                            <div class="dropdown-menu p-3">
+                                {{ form_row(form.categories) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="dropdown w-100">
+                            <button type="button" class="btn shadow-sm dropdown-toggle w-100" data-bs-toggle="dropdown">
+                                <i class="fa fa-wallet"></i> Budget
+                            </button>
+                            <div class="dropdown-menu p-3">
+                                <div class="form-group mb-3">
+                                    <label>Min</label>
+                                    {{ form_row(form.minPrice) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Max</label>
+                                    {{ form_row(form.maxPrice) }}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="dropdown">
+                            <button type="button" class="btn shadow-sm dropdown-toggle w-100" data-bs-toggle="dropdown">
+                                <i class="fa fa-map-marker"></i> Ville
+                            </button>
+                            <div class="dropdown-menu p-3">
+                                <label>Ville</label>
+                                {{ form_row(form.ville) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="dropdown">
+                            <button type="button" class="btn shadow-sm dropdown-toggle w-100" data-bs-toggle="dropdown">
+                                <i class="fa fa-cogs"></i> Options
+                            </button>
+                            <div class="dropdown-menu p-3">
+                                <label>Options</label>
+                                {{ form_row(form.promo) }}
+                                {{ form_row(form.online) }}
+                                {{ form_row(form.offline) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row pt-3">
+
+                    <div class="col-sm-6 ml-auto">
+                        <div class="form-group">
+                            {{ form_widget(form.q) }}
+                            {{ form_rest(form) }}
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success border border-success w-100">
+                                <i class="fa fa-filter text-light"></i>Filtrer
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <a href="{{ path('app_admin_services_new') }}"
+                                class="btn btn-success border border-success w-100">Ajouter
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    <div class="card-body p-0">
+        <div class="table-rep-plugin">
+            <div class="table-responsive mb-0" data-bs-pattern="priority-columns">
+
+                <table id="tech-companies-1" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th>Média</th>
+                            <th>Service</th>
+                            <th>Prix Mastering</th>
+                            <th>Signalé</th>
+                            <th>Statut</th>
+                            <th style="text-align: right;">actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for microservice in microservices %}
+                        <tr>
+                            <td>{{ microservice.id }}</td>
+                            <td>
+                                {% if microservice.medias|length > 0 %}
+
+                                <img class="img-fluid rounded"
+                                    src="{{ vich_uploader_asset(microservice.medias[0], 'imageFile') | imagine_filter('medium_avatar') }}" />
+
+                                {% else %}
+
+                                <img class="img-fluid rounded"
+                                    src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('medium_avatar') }}" />
+
+                                {% endif %}
+                            </td>
+                            <td>
+                                <strong class="mb-2 d-block">
+                                    {{ microservice.name|u.truncate(40, '...') }}
+                                </strong>
+
+                                <div class="d-flex">
+                                    <div class="me-2">
+                                        {% if microservice.vendeur.reseauAvatar %}
+
+                                        <img src="{{ microservice.vendeur.reseauAvatar }}" class="img-fluid rounded-circle" width="40" alt="{{ microservice.vendeur.prenom }}">
+
+                                        {% else %}
+
+                                        {% if microservice.vendeur.avatar %}
+                                        <img src="{{ vich_uploader_asset( microservice.vendeur, 'imageFile') | imagine_filter('small_avatar') }}"
+                                            class="img-fluid rounded-circle" alt="{{ microservice.vendeur.prenom }}">
+                                        {% else %}
+
+                                        <img class="img-fluid rounded-circle"
+                                            src="{{ asset('img/user.jpg') | imagine_filter('small_avatar') }}" alt='' />
+
+                                        {% endif %}
+
+                                        {% endif %}
+                                    </div>
+                                    <div class="">
+                                        <strong class="small">{{ microservice.vendeur.nom }}</strong>
+                                        <strong class="small">{{ microservice.vendeur.prenom }}</strong> <br>
+                                        <small class="text-muted text-italic">{{ microservice.created ?
+                                            microservice.created|ago(locale='fr') : '' }}</small>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td><strong>{{ microservice.prixMastering ~ currency }}</strong></td>
+                            <td><span class="badge bg-secondary rounded-pill">{{ microservice.serviceSignales|length
+                                    }}</span></td>
+                            <td>
+
+                                {% if microservice.offline == 1 %}
+
+                                <span class="badge bg-danger rounded-pill">Bloqué</span>
+
+                                {% else %}
+
+                                <span
+                                    class="badge bg-{{ microservice.online == true ? 'success' : 'light' }} rounded-pill">
+                                    {{ microservice.online == true ? 'En ligne' : 'Hors ligne' }}
+                                </span>
+
+                                {% endif %}
+                            </td>
+                            <td style="text-align: right;">
+                                <a href="{{ path('microservice_details', {'slug': microservice.slug}) }}"
+                                    class="btn btn-light" target="_blank">Details</a>
+
+                                <a href="{{ path('app_admin_services_titre', {'id': microservice.id}) }}"
+                                    class="btn btn-light">Modifier</a>
+                                {% if microservice.online %}
+                                    <a href="{{ path('microservice_offline', {'slug': microservice.slug}) }}" onclick="return confirm('Êtes-vous sûr de vouloir désactiver ce service ?');"
+                                       class="btn btn-dark" title="Passer hors ligne" target="_blank">Hors ligne</a>
+                                {% else %}
+                                    <a href="{{ path('microservice_online', {'slug': microservice.slug}) }}" onclick="return confirm('Êtes-vous sûr de vouloir publier ce service ?');"
+                                       class="btn btn-success" title="Publié" target="_blank">Publié</a>
+                                {% endif %}
+                                {% include "admin/admin_services/_delete_form.html.twig" %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="11">Aucun service</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer bg-white">
+        {{ knp_pagination_render(microservices, null, {}, {
+        'align': 'right',
+        'size': 'medium',
+        'rounded': true,
+        }) }}
+    </div>
+</div>
+
+{% endblock %}

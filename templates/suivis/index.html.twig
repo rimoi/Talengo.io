@@ -1,0 +1,71 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %} Vous suivez ces profesionnels {% endblock %}
+
+{% block bg %}{% endblock %}
+
+{% block body %}
+
+<div class="card w-100 mb-4">
+    <div class="card-header bg-dark">
+        <h2 class="h6 text-light mb-0">Suivis</h2>
+    </div>
+    <div class="card-body">
+        <div class="">
+            <div class="">
+                {% for suivi in suivis %}
+                <div class="row">
+                    <div class="col-sm-12 mx-auto">
+                        <a href="{{ path('vendeur_profil', {nameUrl: suivi.vendeur.nameUrl}) }}" class="d-block">
+                            <div class="media d-flex align-items-center shadow-sm p-3 mb-3 rounded bg-white">
+
+                                {% if suivi.vendeur.avatar %}
+
+                                <img class="rounded-circle"
+                                    src="{{ vich_uploader_asset(suivi.vendeur, 'imageFile') | imagine_filter('midle_avatar') }}" />
+
+                                {% else %}
+
+                                <img class="rounded-circle"
+                                    src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('midle_avatar') }}" />
+
+                                {% endif %}
+
+                                <div class="media-body ml-3">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <a href="{{ path('vendeur_profil', {nameUrl: suivi.vendeur.nameUrl}) }}">
+                                                <strong class="mb-1">{{ suivi.vendeur.nom }}</strong>
+                                                <span class="text-muted">{{ suivi.vendeur.prenom }}</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-4 text-right">
+                                            {% include "suivis/_delete_form.html.twig" %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="">
+                    <div class="py-3 text-center bg-white rounded">
+                        <p class="text-muted">Vous ne suivez aucun profésionnel pour l'instant</p>
+                        <div class="">
+                            <i class="fa fa-search fa-3x text-muted"></i>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="py-3">
+                {{ knp_pagination_render(suivis) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,126 @@
+<div class="box shadow-sm rounded bg-white mb-3 osahan-chat">
+	<h5 class="pl-3 pt-3 pr-3 border-bottom mb-0 pb-3 h5 font-weight-bold">Messagerie</h5>
+	<div class="row m-0">
+		<div class="border-right col-lg-5 col-xl-4 px-0">
+			<div class="osahan-chat-left">
+				<div class="osahan-chat-list">
+					<div class="p-3 d-flex align-items-center border-bottom osahan-post-header overflow-hidden">
+						<div class="dropdown-list-image mr-3"><img class="rounded-circle" src="{{ asset('themes/base/images/user/s1.png') }}" alt=""></div>
+						<div class="font-weight-bold mr-1 overflow-hidden">
+							<div class="text-truncate">Ashley Briggs</div>
+							<div class="small text-truncate overflow-hidden text-black-50">
+								<i class="mdi mdi-check text-primary"></i>
+								Pellentesque semper ex diam, at tristique ipsum varius sed. Pellentesque non metus ullamcorper</div>
+						</div>
+						<span class="ml-auto mb-auto">
+							<div class="text-right text-muted pt-1 small">00:21PM</div>
+						</span>
+					</div>
+					<div class="p-3 d-flex align-items-center bg-light border-left border-primary  border-bottom osahan-post-header overflow-hidden">
+						<div class="dropdown-list-image mr-3"><img class="rounded-circle" src="{{ asset('themes/base/images/user/s2.png') }}" alt=""></div>
+						<div class="font-weight-bold mr-1 overflow-hidden">
+							<div class="text-truncate">Carl Jenkins
+							</div>
+							<div class="small text-truncate overflow-hidden text-black-50">
+								<i class="mdi mdi-check"></i>
+								Semper ex diam, at tristique ipsum varius sed. Pellentesque non metus ullamcorper</div>
+						</div>
+						<span class="ml-auto mb-auto">
+							<div class="text-right text-muted pt-1 small">00:21PM</div>
+						</span>
+					</div>
+					<div class="p-3 d-flex align-items-center border-bottom osahan-post-header overflow-hidden">
+						<div class="dropdown-list-image mr-3"><img class="rounded-circle" src="{{ asset('themes/base/images/user/s3.png') }}" alt=""></div>
+						<div class="font-weight-bold mr-1 overflow-hidden">
+							<div class="text-truncate">Bertha Martin
+							</div>
+							<div class="small text-truncate overflow-hidden text-black-50">
+								<i class="mdi mdi-check text-primary"></i>
+								Pellentesque semper ex diam, at tristique ipsum varius sed. Pellentesque non metus ullamcorper</div>
+						</div>
+						<span class="ml-auto mb-auto">
+							<div class="text-right text-muted pt-1 small">00:21PM</div>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-7 col-xl-8 px-0">
+			<div class="p-3 d-flex align-items-center  border-bottom osahan-post-header">
+				<div class="font-weight-bold mr-1 overflow-hidden">
+					{% if commande.client.id == app.user.id %}
+
+						<div class="text-truncate">
+
+							{% if commande.vendeur.avatar %}
+								<img src="{{ vich_uploader_asset(commande.vendeur) | imagine_filter('small_avatar') }}" alt="{{ commande.vendeur.prenom ?? '' }}" class="rounded-circle border">
+							{% else %}
+								<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+							{% endif %}
+
+							{{ commande.vendeur.nom ~ ' ' ~ commande.vendeur.prenom }}
+
+						</div>
+
+					{% else %}
+
+						<div class="text-truncate">
+
+							{% if commande.client.avatar %}
+								<img src="{{ vich_uploader_asset(commande.client) | imagine_filter('small_avatar') }}" alt="{{ commande.client.prenom ?? '' }}" class="rounded-circle border">
+							{% else %}
+								<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+							{% endif %}
+
+							{{ commande.client.nom ~ ' ' ~ commande.client.prenom }}
+
+						</div>
+
+					{% endif %}
+				</div>
+			</div>
+			<div class="osahan-chat-box p-3 border-top border-bottom bg-light">
+				<div class="text-center my-3">
+					<span class="px-3 py-2 small bg-white shadow-sm  rounded">DEC 21, 2020</span>
+				</div>
+				<div class="d-flex align-items-center osahan-post-header">
+					<div class="dropdown-list-image mr-3 mb-auto"><img class="rounded-circle" src="{{ asset('themes/base/images/user/s1.png') }}" alt=""></div>
+					<div class="mr-1">
+						<div class="text-truncate h6 mb-3">Carl Jenkins
+						</div>
+						<p>Hi Marie</p>
+						<p>welcome to Live Chat! My name is Jason. How can I help you today?
+							<a href="#">iamosahan@gmail.com</a>
+						</p>
+					</div>
+					<span class="ml-auto mb-auto">
+						<div class="text-right text-muted pt-1 small">00:21PM</div>
+					</span>
+				</div>
+			</div>
+
+			<div class="w-100 border-top border-bottom">
+				<textarea placeholder="Write a message…" class="form-control border-0 p-3 shadow-none" rows="2"></textarea>
+			</div>
+			<div class="p-3 d-flex align-items-center">
+				<div class="overflow-hidden">
+					<button type="button" class="btn btn-light btn-sm rounded">
+						<i class="mdi mdi-image"></i>
+					</button>
+					<button type="button" class="btn btn-light btn-sm rounded">
+						<i class="mdi mdi-paperclip"></i>
+					</button>
+					<button type="button" class="btn btn-light btn-sm rounded">
+						<i class="mdi mdi-camera"></i>
+					</button>
+				</div>
+				<span class="ml-auto">
+					<button type="button" class="btn btn-success btn-sm rounded">
+						<i class="mdi mdi-send"></i>
+						Envoyer
+					</button>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block body %}
+    <h1>Commande</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ commande.id }}</td>
+            </tr>
+            <tr>
+                <th>Offre</th>
+                <td>{{ commande.offre }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ commande.montant }}</td>
+            </tr>
+            <tr>
+                <th>Validate</th>
+                <td>{{ commande.validate ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Deliver</th>
+                <td>{{ commande.deliver ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Cancel</th>
+                <td>{{ commande.cancel ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>DeliverAt</th>
+                <td>{{ commande.deliverAt ? commande.deliverAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>CancelAt</th>
+                <td>{{ commande.cancelAt ? commande.cancelAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ValidateAt</th>
+                <td>{{ commande.validateAt ? commande.validateAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ commande.statut }}</td>
+            </tr>
+            <tr>
+                <th>ConfirmationClient</th>
+                <td>{{ commande.confirmationClient ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Lu</th>
+                <td>{{ commande.lu ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ commande.created ? commande.created|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{{ commande.updated ? commande.updated|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_commandes_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_commandes_edit', {'id': commande.id}) }}">edit</a>
+
+    {{ include('admin/admin_commandes/_delete_form.html.twig') }}
+    
+{% endblock %}

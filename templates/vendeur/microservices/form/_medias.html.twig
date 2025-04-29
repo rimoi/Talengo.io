@@ -1,0 +1,30 @@
+<div class="card mb-3">
+  <div class="card-body">
+
+    <div class="cs-imageFile form-group">
+      {% if form.imageFile.vars.errors|length > 0 %}
+        <span class="invalid-feedback d-block cs-show-error">
+            {% for error in form.imageFile.vars.errors %}
+              {% if loop.first %}
+                <span class="form-error-icon badge badge-danger text-uppercase">Erreur</span>
+                <span class="form-error-message">{{ error.getMessage() }}</span>
+              {% endif %}
+            {% endfor %}
+        </span>
+      {% endif %}
+      {{ form_widget(form.imageFile, {attr: {
+          class: 'cs-uploade-image-custom',
+          placeholder: 'Charger votre image'
+      }}) }}
+    </div>
+
+{#    {{ form_row(form.imageFile) }}#}
+    <div class="form-group">
+      <button type="button" class="btn btn-outline-danger btn-remove">
+        <i class="fa fa-trash"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+

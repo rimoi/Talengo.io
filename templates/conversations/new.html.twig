@@ -1,0 +1,126 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Nouvelle conversation
+{% endblock %}
+
+{% block titre %}Nouvelle conversation{% endblock %}
+
+{% block body %}
+
+<section class="py-5">
+	<div class="container">
+		<div class="card">
+			<div class="card-body">
+
+				<div class="row">
+
+					<div class="col-sm-7 mx-auto">
+						<h3 class="text-center h6 pb-3">Nouvelle conversation</h3>
+						<div class="row pb-3">
+							<div class="col-4 col-sm-3 ml-auto d-flex justify-content-center">
+								<div class="text-center">
+
+									{% if app.user.avatar %}
+									<img src="{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('large_avatar') }}"
+										class="rounded-circle img-fluid" alt="{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.nom ~ ' ' ~ app.user.prenom }}">
+
+									{% else %}
+
+									<img class="rounded-circle img-fluid"
+										src="{{ asset('img/user.jpg') | imagine_filter('large_avatar') }}"
+										alt='{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.nom ~ ' ' ~ app.user.prenom }}' />
+
+									{% endif %}
+
+									<strong class="py-3">{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.nom ~ ' ' ~ app.user.prenom }}</strong>
+								</div>
+							</div>
+							<div class="col-4 col-sm-2 text-center">
+								<img src="{{ asset('img/message.png') }}" class="img-fluid" alt="">
+							</div>
+							<div class="col-4 col-sm-3 mr-auto d-flex justify-content-center">
+								<div class="text-center">
+
+									{% if vendeur.avatar %}
+									<img src="{{ vich_uploader_asset(vendeur, 'imageFile') | imagine_filter('large_avatar') }}"
+										class="rounded-circle img-fluid" alt="{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}">
+
+									{% else %}
+
+									<img class="rounded-circle img-fluid"
+										src="{{ asset('img/user.jpg') | imagine_filter('large_avatar') }}"
+										alt='{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}' />
+
+									{% endif %}
+
+									<strong class="py-3">{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>
+								</div>
+							</div>
+						</div>
+
+						{% if microservice %}
+
+						<p class="text-center">Contacter
+							<strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>
+							pour ce service
+						</p>
+						<div class="list-group my-3">
+							<div class="list-group-item">
+								<div class="d-flex">
+									<div>
+										{% if microservice.medias|length > 0 %}
+
+										<img class="rounded"
+											src="{{ vich_uploader_asset(microservice.medias[0], 'imageFile') | imagine_filter('large_avatar') }}" />
+
+										{% else %}<img class="rounded"
+											src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('large_avatar') }}" />
+
+										{% endif %}
+									</div>
+									<div class="pl-3">
+										<strong class="d-block">{{ microservice.name }}</strong>
+										<a href="{{ path('microservices_categories', {slug: microservice.categorie.slug}) }}?categories%5B%5D={{ microservice.categorie.id }}" class="badge badge-blue rounded-pill">#{{ microservice.categorie.name }}</a>
+										<p class="">
+											{% if microservice.categorie.slug == 'ingenieur-son' %}
+
+											A partir de <strong>{{ microservice.prixMixage ~ currency }}</strong>
+
+											{% else %}
+
+											A partir de <strong>{{ microservice.prix ~ currency }}</strong>
+
+											{% endif %}
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						{% endif %}
+
+						{{ form_start(form, {'attr': {'id': ''}}) }}
+
+						{{ form_errors(form.contenu) }}
+
+						<div class="form-group text-muted">
+
+							{{ form_widget(form.contenu, {'attr': {'rows': 5}}) }}
+
+						</div>
+
+						<button id="submit" type="submit" class="btn btn-success btn-block align-items-center">
+							<i class="fa fa-paper-plane"></i>
+							Envoyer
+						</button>
+
+						{{ form_end(form) }}
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}

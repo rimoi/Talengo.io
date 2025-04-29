@@ -1,0 +1,17 @@
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+   <div style="margin: auto;background: #fff;padding: 20px;">
+
+      {% include "mails/_logo.html.twig" %}
+      
+      <p>Bonjour <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
+
+      <p>Nous vous informons que votre demande de retrait de <strong>{{ demande.montant ~ currency }}</strong> a bien été validée.</p>
+
+      <p>
+         Sur <strong>{{ demande.modePaiement }}</strong>, la somme devrait être rapidement visible sur votre compte. Pour un retrait SEPA, cela peut prendre jusqu'à 3 jours ouvrés (c'est-à-dire hors week-end et jours fériés) avant d'apparaître sur celui-ci.
+      </p>
+
+      {% include "mails/_lien_cgu.html.twig" %}
+
+   </div>
+</div>

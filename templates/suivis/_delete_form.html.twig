@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('suivis_delete', {'id': suivi.id}) }}" onsubmit="return confirm('Ne voulez-vous plus suivre ce prestataire?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ suivi.id) }}">
+    <button class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
+</form>

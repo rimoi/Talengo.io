@@ -1,0 +1,6 @@
+<form method="post" class="d-inline" action="{{ path('vendeur_valider_commande', {'id': commande.id}) }}" onsubmit="return confirm('Voulez-vous valider cette commande?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('validate' ~ commande.id) }}">
+    <button class="btn btn-dark rounded-btn w-100 my-2">
+        <span id="btnFetch">Valider et démarrer la prestation !</span>
+    </button>
+</form>

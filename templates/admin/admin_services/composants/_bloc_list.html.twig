@@ -1,0 +1,61 @@
+<div class="card mb-2 shadow-sm">
+	<div class="card-body p-2">
+		<div class="row align-items-center">
+			<div class="col-4">
+				{% if microservice.medias|length > 0 %}
+
+				<img class="img-fluid rounded w-100 h-100"
+					src="{{ vich_uploader_asset(microservice.medias[0], 'imageFile') | imagine_filter('medium_size') }}" />
+
+				{% else %}
+
+				<img class="img-fluid rounded w-100 h-100"
+					src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('medium_size') }}" />
+
+				{% endif %}
+			</div>
+			<div class="col-8">
+
+				<small class="text-muted">{{ microservice.created|ago(locale='fr') }}</small>
+				<a href="{{ path('microservice_details', {slug: microservice.slug}) }}" class="text-light d-block py-1">
+					<strong class="d-block text-light mb-1">{{ microservice.name }}</strong>
+				</a>
+
+				<div class="">
+					<a href="{{ path('microservices_categories', {slug: microservice.categorie.slug}) }}?categories%5B%5D={{ microservice.categorie.id }}"
+						class="badge badge-dark border badge-pill" style="font-size: .9em!important;">
+						#{{ microservice.categorie.name }}
+					</a>
+
+					<span class="text-muted">A partir de</span>
+					<strong class="h6 mb-1 text-right font-weight-bold">
+						{{ microservice.prixMastering ~ currency }}
+					</strong>
+				</div>
+
+				<div class="rating-wrapper py-1">
+					<span class="gig-rating text-success">
+						{% include "microservice/composants/_etoilles.html.twig" %}
+						<span class="text-muted">({{ serviceAvis(microservice) }})</span>
+					</span>
+				</div>
+
+				{% if is_granted('microservice_edit', microservice) %}
+
+				<div class="content-info mb-3 text-left">
+					<a href="{{ path('microservice_details', {'slug': microservice.slug}) }}" class="btn btn-outline-dark"
+						target="_blank">Details</a>
+					<a href="{{ path('vendeur_microservices_galerie', {'id': microservice.id}) }}"
+						class="btn btn btn-outline-dark">
+						<i class="fa fa-image"></i>&nbsp;Galerie</a>
+					<a href="{{ path('vendeur_microservices_titre', {'id': microservice.id}) }}"
+						class="btn btn-dark">Modifier</a>
+
+					{% include "vendeur/microservices/_delete_form.html.twig" %}
+				</div>
+
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>

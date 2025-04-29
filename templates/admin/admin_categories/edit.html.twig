@@ -1,0 +1,11 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edition Categorie{% endblock %}
+
+{% block pageTitle %}Catégorie {{ categorie.name }}{% endblock %}
+
+{% block body %}
+
+    {{ include('admin/admin_categories/_form.html.twig') }}
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% if app.user %}
+
+{% if is_granted('ROLE_VENDEUR') %}
+
+{% if app.user.endRegister == true %}
+
+<li class="nav-item dropdown no-arrow">
+   <a class="nav-link dropdown-toggle" id="navbarDropdownCategories" href="javascript:void(0);" role="button"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+      style="font-weight:400!important;padding-left:15px;font-size: 1rem;">
+      <div class="text-blue"><i class="text-muted fa fa-credit-card"></i>&nbsp;Mon portefeuille</div>
+   </a>
+   <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up"
+      aria-labelledby="navbarDropdownCategories">
+      <a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'vendeur_portefeuille' ? 'active' : '' }}"
+         href="{{ path('vendeur_portefeuille') }}"><i class="text-muted fa fa-credit-card"></i>&nbsp;&nbsp;&nbsp;Mes
+         revenus</a>
+
+      <a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'app_vendeur_retraits_index' ? 'active' : '' }}"
+         href="{{ path('app_vendeur_retraits_index') }}"><i
+            class="text-muted fa fa-user-circle"></i>&nbsp;&nbsp;&nbsp;Retraits</a>
+      <!--<a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'stripe_abonnement_services' ? 'active' : '' }}"
+						href="{{ path('stripe_abonnement_services') }}"><i
+							class="text-muted fa fa-globe"></i>&nbsp;&nbsp;&nbsp;Mon abonnement</a>-->
+   </div>
+</li>
+
+{% endif %}
+
+{% endif %}
+
+<li class="nav-item dropdown no-arrow">
+   <a class="nav-link dropdown-toggle" id="navbarDropdownCategories" href="javascript:void(0);" role="button"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+      style="font-weight:400!important;padding-left:15px;font-size: 1rem;">
+      <div class="text-blue"><i class="text-muted fa fa-cogs"></i>&nbsp;Paramètres {{ is_granted('ROLE_VENDEUR') ? 'de vente'
+         : '' }}</div>
+   </a>
+   <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up"
+      aria-labelledby="navbarDropdownCategories">
+      <a class="dropdown-item py-2 tache-terminer {{ app.request.attributes.get('_route') == 'user_profil' ? 'active' : '' }}"
+         href="{{ path('user_profil') }}"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;&nbsp;Mon
+         profil {{ is_granted('ROLE_VENDEUR') ? 'public' : '' }}
+         <i class="fa fa-check-circle float-right"></i>
+      </a>
+
+      {% if is_granted('ROLE_VENDEUR') %}
+
+      <a class="dropdown-item py-2 {{ app.user.statut ? 'tache-terminer' : 'tache-encours' }} {{ app.request.attributes.get('_route') == 'user_coordonnees' ? 'active' : '' }}"
+         href="{{ path('user_coordonnees') }}"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Mes
+         coordonnées
+         <i class="fa fa-check-circle float-right"></i>
+      </a>
+
+      <a class="dropdown-item py-2 {{ app.user.lieuPrestation ? 'tache-terminer' : 'tache-encours' }} {{ app.user.statut ? '' : 'disabled' }} {{ app.request.attributes.get('_route') == 'user_categorie' ? 'active' : '' }}"
+         href="{{ path('user_categorie') }}"><i class="text-muted fa fa-info-circle"></i>&nbsp;&nbsp;&nbsp;Informations supplémentaire
+         <i class="fa fa-check-circle float-right"></i>
+      </a>
+
+      <a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'edit_password' ? 'active' : '' }}"
+         href="{{ path('edit_password') }}"><i class="fa fa-key"></i>&nbsp;&nbsp;&nbsp;Mes accès</a>
+
+      {% endif %}
+   </div>
+</li>
+
+{% endif %}

@@ -1,0 +1,56 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Plan d'abonnement{% endblock %}
+
+{% block colleft %}3{% endblock %}
+{% block colright %}9{% endblock %}
+
+{% block body %}
+<div class="p-3 border-bottom text-left bg-dark rounded box-title">
+	<h4 class="mb-0 text-light">
+		Plan d'abonnement
+	</h4>
+</div>
+
+<div class="p-3">
+	<div class="text-center">
+		<h6 class="font-weight-bold">Salut
+			{{ app.user.prenom }},</h6>
+		<p class="lead">Choisissez votre plan d'abonnement</p>
+	</div>
+	<div class="row pt-5">
+		{% for abonnement in stripe %}
+
+		<div class="col-md-4 d-flex justify-content-strench">
+			<div class="card border rounded-btn w-100">
+				<div class="card-body p-2">
+
+					<p class="h5 font-weight-bold text-center">{{ abonnement.name }}</p>
+					<p class="text-muted text-center">{{ abonnement.description|raw }}</p>
+
+					<div class="text-center py-4">
+						<strong class="h1">{{ abonnement.tarif }}</strong>
+						<span class="lead">{{ currency }}/mois</span>
+					</div>
+					<div>
+						{{ abonnement.description|raw }}
+					</div>
+
+				</div>
+				<div class="card-footer bg-transparent border-0">
+					<form method="post" class="p-0 m-0"
+						action="{{ path('stripe_abonnement_checkout', {'priceKey': abonnement.stripeKey }) }}">
+						<button class="btn btn-outline-success rounded-btn btn-lg btn-block my-3">
+							M'abonner</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,0 +1,30 @@
+<div class="slider mt-4">
+	<div id="aniimated-thumbnials" class="slider-for slick-slider-single">
+		{% for media in microservice.medias %}
+
+			{% if media.imageName %}
+
+				<a href="{{ vich_uploader_asset(media, 'imageFile') | imagine_filter('rectangle_size') }}">
+					<img class="img-fluid" src="{{ vich_uploader_asset(media, 'imageFile') | imagine_filter('rectangle_size') }}" alt="{{ microservice.name }} France"/>
+				</a>
+
+			{% else %}
+
+				<a href="{{ asset('themes/base/images/list/v1.png') | imagine_filter('rectangle_size') }}">
+					<img class="img-fluid" src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('rectangle_size') }}" alt="{{ microservice.name }} France"/>
+				</a>
+
+			{% endif %}
+
+		{% endfor %}
+	</div>
+	<div class="slider-nav slick-slider-single">
+		{% for media in microservice.medias %}
+
+			<div class="item-slick">
+				<img class="img-fluid" src="{{ vich_uploader_asset(media, 'imageFile') | imagine_filter('large_avatar') }}" alt="{{ microservice.name }} France">
+			</div>
+
+		{% endfor %}
+	</div>
+</div>

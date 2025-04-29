@@ -1,0 +1,25 @@
+{{ form_start(form, {'attr': {'class': 'message-form bg-white border-top'}}) }}
+
+<div class="p-3">
+
+	{{ form_errors(form.contenu) }}
+
+	<div class="bloc-masquer">
+		{{ form_widget(form.messageFile) }}
+	</div>
+
+	<!--<textarea placeholder="Write a message…" class="form-control border-0 p-3 shadow-none" rows="2"></textarea>-->
+	<div class="text-right">
+		{{ form_widget(form.contenu, {'attr': {'rows': 2, 'class': 'shadow-none border-0 d-block mb-3'}}) }}
+
+		<label for="{{ app.request.attributes.get('_route') == 'commande_details' ? 'commande_message_messageFile_file' : 'chat_message_messageFile_file' }}" title="Joindre un fichier" class="btn btn-light mb-0 label">
+			<i class="fa fa-link"></i> Joindre un fichier
+		</label>
+		<button type="submit" class="btn btn-success">
+			<i class="mdi mdi-send"></i>
+			Envoyer
+		</button>
+	</div>
+</div>
+
+{{ form_end(form) }}

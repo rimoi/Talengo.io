@@ -1,0 +1,65 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Retraits{% endblock %}
+
+{% block bg %}transparent{% endblock %}
+
+{% block body %}
+
+<div class="card w-100 mb-4">
+    <div class="card-header bg-dark">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <h2 class="h6 text-light mb-3">Mes retraits</h2>
+            </div>
+            {% if retraitEnattente|length == 0 %}
+            <div class="col-sm-6 text-right">
+                <a href="{{ path('app_vendeur_retraits_new') }}" class="btn btn-dark">Nouvelle demande</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive bg-white">
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th>Montant</th>
+                        <th>Mode Paiement</th>
+                        <th>Date</th>
+                        <th>Statut</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for retrait in retraits %}
+                    <tr>
+                        <td><strong>{{ retrait.montant ~ currency }}</strong></td>
+                        <td>{{ retrait.modePaiement }}</td>
+                        <td>{{ retrait.created|date('d/m/Y') }}</td>
+                        <td>
+                            <span
+                                class="badge badge-pill badge-{% if retrait.statut == 'En attente'  %}warning{% elseif retrait.statut == 'Valider' %}success{% else %}danger{% endif %}">{{
+                                retrait.statut }}</span>
+                        </td>
+                        <td>
+                            <a href="{{ path('app_vendeur_retraits_show', {'id': retrait.id}) }}"
+                                class="btn btn-outline-dark">Details</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">
+                            <p class="text-center">Aucun retrait de fond pour l'instant</p>
+                            <div class="py-4 text-center">
+                                <i class="fa fa-search fa-3x text-muted"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

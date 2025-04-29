@@ -1,0 +1,11 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edition de l'offre {{ stripe.name }}{% endblock %}
+
+{% block pageTitle %}Edition de l'offre {{ stripe.name }}{% endblock %}
+
+{% block body %}
+
+    {{ include('admin/admin_stripe/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+{% endblock %}

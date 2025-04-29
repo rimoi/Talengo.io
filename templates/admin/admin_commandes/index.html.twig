@@ -1,0 +1,148 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Commandes{% endblock %}
+
+{% block pageTitle %}Commandes ({{ commandes.getTotalItemCount }}){% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-rep-plugin">
+            <div class="table-responsive mb-0" data-bs-pattern="priority-columns">
+
+                <table id="tech-companies-1" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Client</th>
+                            <th>Vendeur</th>
+                            <th>Service</th>
+                            <th></th>
+                            <th>Offre</th>
+                            <th>Montant</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for commande in commandes %}
+                        <tr>
+                            <td>{{ commande.id }}</td>
+                            <td class="text-center">
+
+                                {% if commande.client != null %}
+
+                                <div class="shadow-sm bg-white rounded p-2 bloc-small">
+
+                                    {% if commande.client.reseauAvatar %}
+
+                                        <img src="{{ commande.client.reseauAvatar }}" class="img-fluid rounded-circle"
+                                        alt="{{ commande.client.prenom }}">
+
+                                    
+                                    {% else %}
+
+                                        {% if commande.client.avatar %}
+                                        <img src="{{ vich_uploader_asset(commande.client, 'imageFile') | imagine_filter('small_avatar') }}"
+                                            class="img-fluid rounded-circle" alt="{{ commande.client.prenom }}">
+                                        {% else %}
+
+                                        <img class="img-fluid rounded-circle"
+                                            src="{{ asset('img/user.jpg') | imagine_filter('small_avatar') }}" alt='' />
+
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                    <div>
+                                        <strong class="small">
+                                            {{ commande.client.nom }} <br> {{ commande.client.prenom }}
+                                        </strong>
+                                    </div>
+                                </div>
+
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if commande.vendeur != null %}
+
+                                <div class="shadow-sm bg-white rounded p-2 bloc-small">
+                                    {% if commande.vendeur.reseauAvatar %}
+
+                                    <img src="{{ reseauAvatar }}" class="img-fluid rounded-circle"
+                                        alt="{{ commande.vendeur.prenom }}">
+
+                                    {% else %}
+
+                                    {% if commande.vendeur.avatar %}
+                                    <img src="{{ vich_uploader_asset(commande.vendeur, 'imageFile') | imagine_filter('small_avatar') }}"
+                                        class="img-fluid rounded-circle" alt="{{ commande.vendeur.prenom }}">
+                                    {% else %}
+
+                                    <img class="img-fluid rounded-circle"
+                                        src="{{ asset('img/user.jpg') | imagine_filter('small_avatar') }}" alt='' />
+
+                                    {% endif %}
+
+                                    {% endif %}
+
+                                    <div>
+                                        <strong class="small">
+                                            {{ commande.vendeur.nom }} <br> {{ commande.vendeur.prenom }}
+                                        </strong>
+                                    </div>
+                                </div>
+
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if commande.microservice != null %}
+                                
+                                {% if commande.microservice.medias|length > 0 %}
+
+                                <img class="img-fluid rounded me-2"
+                                    src="{{ vich_uploader_asset(commande.microservice.medias[0], 'imageFile') | imagine_filter('midle_avatar') }}" />
+
+                                {% else %}
+
+                                <img class="img-fluid rounded me-2"
+                                    src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('midle_avatar') }}" />
+
+                                {% endif %}
+
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if commande.microservice != null %}
+                                    <strong>{{ commande.microservice.name|u.truncate(30, '...') }}</strong>
+                                {% endif %}                                
+                            </td>
+                            <td><span class="badge bg-secondary rounded-pill">{{ commande.offre }}</span></td>
+                            <td><strong>{{ commande.montant ~ currency }}</strong></td>
+                            <td>{{ commande.created ? commande.created|ago(locale='fr') : '' }}</td>
+                            <td>
+                                <span
+                                    class="badge rounded-pill bg-{{ commande.statut == 'Livrer' ? 'success' : 'warning' }}">{{
+                                    commande.statut }}</span>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="10">Aucune commande</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-footer bg-white">
+        {{ knp_pagination_render(commandes, null, {}, {
+        'align': 'right',
+        'size': 'medium',
+        'rounded': true,
+        }) }}
+    </div>
+</div>
+{% endblock %}

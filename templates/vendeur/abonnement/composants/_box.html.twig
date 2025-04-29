@@ -1,0 +1,46 @@
+<!--<div class="card">
+		<div class="card-header bg-dark text-light">
+			<h6 class="m-0 h6">Abonnement</h6>
+		</div>
+	<div class="card-body mb-3">
+		{% if app.user.abonnement %}
+		<div class="table-responsive">
+			<table class="table table-borderless text-dark">
+				<thead>
+					<tr>
+						<th>Offre</th>
+						<th>Tarif</th>
+						<th>Tarification</th>
+						<th>Statut</th>
+						<th>Date</th>
+					</tr>
+					<tr>
+						<td>
+							<span class="badge badge-blue p-2 text-light badge-pill">
+								{{ abonnement(app.user).stripe.name }}
+							</span>
+						</td>
+						<td>
+							<div>
+								<strong class="font-weight-bold">{{ abonnement(app.user).stripe.tarif }}</strong>
+								<span>{{ currency }}/mois</span>
+							</div>
+						</td>
+						<td>
+							<span>Annuel</span>
+						</td>
+						<td>
+							<span class="badge badge-success badge-pill">Actif</span>
+						</td>
+						<td>
+							<span class="text-muted">{{ abonnement(app.user).created|date('d/m/Y') }}</span>
+						</td>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		{% else %}
+		<p class="lead p-3">Aucun abonnement</p>
+		{% endif %}
+	</div>
+</div>-->

@@ -1,0 +1,14 @@
+<a{% for attr, value  in options | merge({class: 'btn bg-white border ml-2'}) %} {{ attr }}="{{ value }}"{% endfor %}>
+    <span class="float-right">
+        {% if sorted %}
+            {% if direction == 'desc' %}
+                <i class="fa fa-sort-down ml-2"></i>
+            {% else %}
+                <i class="fa fa-sort-up ml-2"></i>
+            {% endif %}
+        {% else %}
+            <i class="fa fa-sort ml-2"></i>
+        {% endif %}
+    </span>
+    {{ title }}
+</a>

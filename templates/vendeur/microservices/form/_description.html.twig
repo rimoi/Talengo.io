@@ -1,0 +1,56 @@
+<div class="card">
+   <div class="card-body">
+      {{ form_start(form) }}
+
+      <div class="mb-4">
+         <h6 class="font-weight-bold">
+            Prix
+         </h6>
+         <p class="text-muted">
+            Indiquez le prix pour ce service, c’est-à-dire le prix de la prestation que vous vendez.
+         </p>
+         <div class="form-group">
+            <div class="input-group mb-3 border border-light rounded">
+               <div class="input-group-prepend">
+                  <span class="input-group-text border-0 bg-white">{{ currency }}</span>
+               </div>
+               {{ form_widget(form.prix) }}
+            </div>
+            {{ form_errors(form.prix) }}
+         </div>
+      </div>
+
+      <div class=" mb-4">
+         <div class="">
+            <div class="">
+               <h6 class="font-weight-bold">
+                  Description
+               </h6>
+               <p class="text-muted">
+                  C’est la partie la plus importante de votre service, alors
+                  soignez-la ! Rédigez un texte original, présentez-vous, vérifiez
+                  attentivement votre orthographe, rassurez vos futurs clients sur vos
+                  compétences, détaillez ce que vous faites pour le prix de départ
+                  ainsi que dans vos options, définissez des limites, et bien sûr
+                  appliquez nos conseils (disponibles sur l’aide) pour que votre
+                  service soit validé par notre équipe de modération.
+               </p>
+            </div>
+            <div>
+               {{ form_widget(form.description) }}
+               {{ form_errors(form.description) }}
+            </div>
+         </div>
+      </div>
+
+      <div class="">
+         <div class="text-left">
+            <button class="btn btn-dark">
+               {{ button_label|default('Enregistrer et suivant') }}
+            </button>
+         </div>
+      </div>
+
+      {{ form_end(form) }}
+   </div>
+</div>

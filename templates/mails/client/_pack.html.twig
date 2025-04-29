@@ -1,0 +1,16 @@
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+   <div style="margin: auto;background: #fff;padding: 20px;">
+
+      {% include "mails/_logo.html.twig" %}
+      
+      <p>Bonjour <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo : client.nom ~ ' ' ~ client.prenom }}</strong>,</p>
+
+      <p>
+         Bonne nouvelle !<br> Votre commande d'un montant de <strong>{{ commande.montant ~ currency }}</strong> pour le pack <strong>{{ commande.pack.name }}</strong> a été prise en
+         compte par <strong>{{ appName }}</strong>.
+      </p>
+
+      {% include "mails/_lien_cgu.html.twig" %}
+      
+   </div>
+</div>

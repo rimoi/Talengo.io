@@ -1,0 +1,37 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block body %}
+    <h1>Commande</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ commande.id }}</td>
+            </tr>
+            <tr>
+                <th>Offre</th>
+                <td>{{ commande.offre }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ commande.montant }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ commande.created ? commande.created|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{{ commande.updated ? commande.updated|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('vendeur_achats_index') }}">Mes achats</a>
+
+    {{ include('vendeur/achats/_delete_form.html.twig') }}
+    
+{% endblock %}

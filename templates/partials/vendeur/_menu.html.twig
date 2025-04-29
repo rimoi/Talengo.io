@@ -1,0 +1,31 @@
+<a class="dropdown-item {{ app.request.attributes.get('_route') == 'app_vendeur_emplois_temps_index' ? 'active' : '' }}"
+   href="{{ path('app_vendeur_emplois_temps_index') }}">
+   <i class="fa fa-calendar"></i>&nbsp;&nbsp;&nbsp;Planning
+</a>
+
+<a class="dropdown-item {{ app.request.attributes.get('_route') == 'vendeur_microservices_index' ? 'active' : '' }}"
+   href="{{ path('vendeur_microservices_index') }}">
+   <i class="fa fa-briefcase"></i>&nbsp;&nbsp;&nbsp;Mes services
+</a>
+<a class="dropdown-item {{ app.request.attributes.get('_route') == 'app_vendeur_realisation_index' ? 'active' : '' }}"
+   href="{{ path('app_vendeur_realisation_index') }}">
+   <i class="fa fa-folder-open"></i>&nbsp;&nbsp;&nbsp;Mes réalisations
+</a>
+<a class="dropdown-item {{ app.request.attributes.get('_route') == 'vendeur_commandes_index' ? 'active' : '' }}"
+   href="{{ path('vendeur_commandes_index') }}"><i class="fa fa-cart-plus"></i>&nbsp;&nbsp;&nbsp;Mes
+   commandes</a>
+
+<a class="dropdown-item {{ app.request.attributes.get('_route') == 'vendeur_achats_index' ? 'active' : '' }}"
+   href="{{ path('vendeur_achats_index') }}"><i class="fa fa-opencart"></i>&nbsp;&nbsp;&nbsp;Mes achats</a>
+
+<a class="dropdown-item {{ app.request.attributes.get('_route') == 'favoris_index' ? 'active' : '' }}"
+   href="{{ path('favoris_index') }}"><i class="fa fa-heart"></i>&nbsp;&nbsp;&nbsp;Favoris</a>
+
+<a class="dropdown-item {{ app.request.attributes.get('_route') == 'suivis_index' ? 'active' : '' }}"
+   href="{{ path('suivis_index') }}"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Suivis</a>
+<a class="dropdown-item {{ app.request.attributes.get('_route') == 'app_vendeur_remboursements_index' ? 'active' : '' }}"
+   href="{{ path('app_vendeur_remboursements_index') }}"><i
+      class="fa fa-backward"></i>&nbsp;&nbsp;&nbsp;Remboursements</a>
+      
+<a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'app_vendeur_retraits_index' ? 'active' : '' }}"
+   href="{{ path('app_vendeur_retraits_index') }}"><i class="fa fa-credit-card"></i>&nbsp;&nbsp;&nbsp;Retraits</a>

@@ -1,0 +1,95 @@
+{{ form_start(form) }}
+
+<div class="p-3 border-bottom">
+	<div class="form-group">
+		<h6 class="font-weight-bold">Titre</h6>
+		<p class="text-muted">
+			Indiquez précisément ce que vous faites dans votre service basique. Faites attention aux fautes, ne mettez
+			pas de majuscules, et n'utilisez pas de ponctuation ni de signes (parenthèses, tirets, etc.).
+		</p>
+		<div>
+			{{ form_widget(form.name) }}
+			{{ form_errors(form.name) }}
+		</div>
+	</div>
+	<div class="">
+		<h6 class="font-weight-bold">Catégorie</h6>
+		<p class="text-muted">
+			Suggérez à notre équipe de modération la catégorie la plus adaptée à votre service.
+		</p>
+		<div class="">
+			{{ form_widget(form.categorie) }}
+			{{ form_errors(form.categorie) }}
+		</div>
+	</div>
+</div>
+
+<div class="p-3 border-bottom">
+	<div class="">
+		<div class="">
+			<h6 class="font-weight-bold">Description</h6>
+			<p class="text-muted">
+				C’est la partie la plus importante de votre service, alors soignez-la ! Rédigez un texte original,
+				présentez-vous, vérifiez attentivement votre orthographe, rassurez vos futurs clients sur vos compétences,
+				détaillez ce que vous faites pour le prix de départ ainsi que dans vos options, définissez des limites, et
+				bien sûr appliquez nos conseils (disponibles sur l’aide) pour que votre service soit validé par notre équipe
+				de modération.
+			</p>
+		</div>
+		<div>
+			{{ form_widget(form.description) }}
+			{{ form_errors(form.description) }}
+		</div>
+	</div>
+</div>
+
+<div class="p-3 border-bottom">
+	<div class="">
+		<h6 class="font-weight-bold">Prix</h6>
+		<p class="text-muted">
+			Suggérez à notre équipe de modération les prix les plus adaptée à votre service.
+		</p>
+		<p class="text-danger">NB: vous ne devez pas indiquez plus de 3 prix</p>
+		<p>Utilisez plustôt les prix dans cette ordre</p>
+		<ul>
+			<li class="text-success">Basique</li>
+			<li class="text-success">Standard</li>
+			<li class="text-success">Prémium</li>
+		</ul>
+
+		<div class="">
+			<div id="prix" data-prototype="{{ form_row(form.prix.vars.prototype)|e('html_attr') }}">
+				{{ form_row(form.prix) }}
+				<span></span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="p-3 border-bottom">
+	<div class="form-group">
+		<h6 class="font-weight-bold">Visibilité</h6>
+		<p class="text-muted">
+			Rendre votre service visble par tout nos visiteurs
+		</p>
+		<div class="">
+			{{ form_row(form.online) }}
+		</div>
+	</div>
+</div>
+
+<div class="p-3 border-bottom">
+	<div class="form-group">
+		<div class="">
+			<button class="btn btn-dark">{{ button_label|default('Enregistrer et poursuivre') }}</button>
+
+			{% if app.request.attributes.get('_route') == 'vendeur_microservices_edit' %}
+
+			{{ include('vendeur/microservices/_delete_form.html.twig') }}
+
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+{{ form_end(form) }}

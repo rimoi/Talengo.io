@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ appName }} catégories, studio, ingénieur de son, vidéastes{% endblock %}
+
+{% block alternatiflink %}https://links-infinity.com/microservices{% endblock %}
+
+{% block meta %}
+<meta name="author" content="{{ appName }} catégories" />
+<meta name="keywords" content="{{ appName }} catégories, studio, ingénieur de son, vidéastes" />
+<meta name="description"
+   content="{{ appName }} vous propose des centaines de freelances disponibles et qualifiés proches de chez vous, pour vous accompagner dans votre projet." />
+{% endblock %}
+
+{% block body %}
+<!-- Inner Header -->
+<section class="inner-header categorieSection"
+   style="background-image: url({{ asset('img/login.jpg') | imagine_filter('very_large_size') }})">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-9 text-left">
+            <h1 class="mt-0 mb-3 text-dark font-weight-bold">
+               {{ ville == null ? 'Services disponible' : 'Services à proximités' }}
+            </h1>
+            <div class="breadcrumbs">
+               <p class="mb-0 text-dark font-weight-bold" style="font-size: 1.2em;">
+                  Pour tous vos travaux, le site {{ appName }} vous propose
+                  des centaines de freelances disponibles et qualifiés, pour vous accompagner
+                  dans votre projet. Vous trouverez en ligne tout ce dont vous rêvez
+               </p>
+            </div>
+            {% include 'microservice/composants/_categories.html.twig' %}
+         </div>
+      </div>
+   </div>
+   <div class="caption"></div>
+</section>
+<!-- End Inner Header -->
+{% include 'microservice/composants/_page_contenu.html.twig' %}
+
+<section>
+   <div class="container py-5">
+      {% for pack in packs %}
+         {% include "pack/composants/_block.html.twig" %}
+      {% endfor %}
+   </div>
+</section>
+{% endblock %}

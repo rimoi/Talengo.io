@@ -1,0 +1,27 @@
+knpu_oauth2_client:
+    clients:
+        facebook:
+            type: facebook
+            client_id: '%env(FACEBOOK_ID)%'
+            client_secret: '%env(FACEBOOK_SECRET)%'
+            redirect_route: connect_facebook_check
+            redirect_params:
+                service: facebook
+            graph_api_version: 'v15.0'
+        # configure your clients as described here: https://github.com/knpuniversity/oauth2-client-bundle#configuration
+
+        google:
+            type: google
+            client_id: '%env(OAUTH_GOOGLE_CLIENT_ID)%'
+            client_secret: '%env(OAUTH_GOOGLE_CLIENT_SECRET)%'
+            redirect_route: connect_google_check
+            redirect_params:
+                service_google: google
+
+        instagram:
+            type: instagram
+            client_id: '%env(FACEBOOK_INSTAGRAM_ID)%'
+            client_secret: '%env(FACEBOOK_INSTAGRAM_SECRET)%'
+            redirect_route: connect_instagram_check
+            redirect_params:
+                service_instagram: instagram

@@ -1,0 +1,30 @@
+<form method="get" action="{{ action }}" enctype="application/x-www-form-urlencoded" class="g-3 align-items-center">
+
+   <div class="row">
+      {% if fields|length > 1 %}
+         <div class="col-sm-4">
+            
+            <select name="{{ filterFieldName }}">
+               {% for field, label in fields %}
+                     <option value="{{ field }}"{% if selectedField == field %} selected="selected"{% endif %}>{{ label }}</option>
+               {% endfor %}
+            </select>
+
+         </div>
+      {% else %}
+         <input type="hidden" name="{{ filterFieldName }}" value="{{ fields|keys|first }}" />
+      {% endif %}
+
+      <div class="col-sm-5">
+         <input type="text" placeholder="Je cherche..." value="{{ selectedValue }}" name="{{ filterValueName }}" class="form-control" />
+      </div>
+      
+      <div class="col-sm-2">
+         <button class="btn btn-light border w-100"><i class="fa fa-filter"></i> {{ options.button }}</button>
+      </div>
+      
+   </div>
+
+    
+
+</form>

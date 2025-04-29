@@ -1,0 +1,4 @@
+<form method="post" class="d-inline" action="{{ path('app_admin_services_signale_delete', {'id': service_signale.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer ce service?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service_signale.id) }}">
+    <button class="btn btn-danger">Supprimer</button>
+</form>

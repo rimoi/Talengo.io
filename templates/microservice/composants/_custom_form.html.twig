@@ -1,0 +1,137 @@
+{% if microservice.prix > 0 %}
+
+{% if is_granted('microservice_edit', microservice) %}{% else %}
+
+<h6 class="my-4">Réservation</h6>
+
+{{ form_start(commandeForm, {attr: {class: 'commande-form'} }) }}
+<div class="card my-3" id="serviceOptions">
+   <div class="card-header bg-white">
+      <a href="{{ path('vendeur_profil', {nameUrl: microservice.vendeur.nameUrl}) }}" class="d-block py-3 text-dark">
+         <div class="media">
+            <img width="60" height="60" src="{{ microservice.vendeur.avatar ? vich_uploader_asset(microservice.vendeur, 'imageFile') : asset('img/user.jpg') | imagine_filter('large_avatar') }}"
+               class="rounded-circle" alt="">
+
+            <div class="media-body pl-3 pt-3">
+               <h6>{{ microservice.vendeur.compte }}</h6>
+               <strong class="d-block">{{ microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo :
+                  microservice.vendeur.nom ~ ' ' ~ microservice.vendeur.prenom }}</strong>
+            </div>
+         </div>
+      </a>
+
+      <div>
+         <table class="table table-bordered">
+            <thead>
+               <tr class="text-light bg-dark">
+                  <td colspan="3">
+                     <h6><i class="fa fa-calendar"></i> Disponibilité du vendeur pour ce service</h6>
+                  </td>
+               </tr>
+               <tr>
+                  <td>Jours</td>
+                  <td>De</td>
+                  <td>A</td>
+               </tr>
+            </thead>
+            <tbody>
+               {% for disponibilite in disponibilites %}
+               <tr>
+                  <td>
+                     {% for jour in disponibilite.jours %}
+                        <span class="badge badge-dark font-weight-light badge-pill">{{ jour }}</span>
+                     {% endfor %}
+                  </td>
+                  <td> <i class="fa fa-clock-o"></i> {{ disponibilite.heureOuverture|date('H:i') }}</td>
+                  <td> <i class="fa fa-clock-o"></i> {{ disponibilite.heureCloture|date('H:i') }}</td>
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div class="card-body">
+      <div class="row py-3">
+         <div class="col-sm-12 mx-auto">
+            <h6 class="mb-1">Faites votre reservation</h6>
+            <span class="mb-3 d-block">Choisissez une date</span>
+
+            <!--<div id='calendar'></div>-->
+            {% if indisponible %}
+               <div class="alert alert-danger">
+                  <i class="fa fa-exclamation-triangle"></i> {{ indisponible }}
+               </div>
+            {% endif %}
+
+            <div class="form-group">
+               {{ form_row(commandeForm.reservationDate) }}
+            </div>
+
+            <div class="{{ isHiden == true ? 'bloc-masquer' : '' }}">
+               <h6 class="pb-2 h6">Horaire</h6>
+               {% if erreurmessage %}
+               <div class="alert alert-danger">
+                  <i class="fa fa-exclamation-triangle"></i> {{ erreurmessage }}
+               </div>
+               {% endif %}
+               <div class="row">
+                  <div class="col-sm-12">
+
+            {{ form_widget(commandeForm.montant,
+            {attr: {'value': microservice.prix is defined ? microservice.prix : 0 }}
+            ) }}
+
+                     {{ form_rest(commandeForm) }}
+                  </div>
+               </div>
+            </div>
+
+            {% if microservice.serviceOptions|length > 0 %}
+
+            <div class="row">
+               <div class="col-sm-12">
+                  <h6 class="mb-3">Options</h6>
+
+                  <table class="table table-borderless">
+                     <tbody>
+                        {% for option in microservice.serviceOptions %}
+                        <tr class="p-0 m-0">
+                           <td style="width: 20px;" class="p-0">
+                              <input type="checkbox" name="" id="option-{{ option.id }}" value="{{ option.montant }}">
+                           </td>
+                           <td class="p-0">
+                              <label for="option-{{ option.id }}" class="h6 d-block">
+                                 {{ option.name }}
+                              </label>
+                           </td>
+                           <td class="text-right p-0">
+                              <strong>{{ option.montant ~ currency }}</strong>
+                           </td>
+                        </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+
+            {% endif %}
+
+            <div class="row">
+               <div class="col-sm-12">
+                  <button class="btn btn-success btn-lg pt-2 pb-1">
+                     <span class="float-left mr-5">RESERVER</span> 
+                     <output name="total" id="total" class="h6 float-right">{{ microservice.prix }} {{ currency }} </output>
+                  </button>
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </div>
+
+</div>
+{{ form_end(commandeForm) }}
+
+{% endif %}
+
+{% endif %}

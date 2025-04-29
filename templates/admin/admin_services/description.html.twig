@@ -1,0 +1,38 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}
+Prix, description et delai
+{% endblock %}
+
+{% block pageTitle %}Nouveau service{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-12">
+        <!-- Left sidebar -->
+        {% include "admin/admin_services/composants/_step.html.twig" %}
+
+        <!-- Right Sidebar -->
+        <div class="email-rightbar">
+            <div class="card">
+                <div class="card-body">
+
+                    {% if microservice.categorie.slug == 'ingenieur-son' %}
+
+                        {% include "admin/admin_services/form/_ingenieur_son.html.twig" %}
+
+                    {% else %}
+
+                        {% include "admin/admin_services/form/_description.html.twig" %}
+
+                    {% endif %}
+
+                </div>
+            </div> <!-- panel -->
+
+        </div> <!-- end Col -->
+    </div>
+</div><!-- End row -->
+
+{% endblock %}

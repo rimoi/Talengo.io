@@ -1,0 +1,53 @@
+<script>
+
+	const commandeForm = document.forms['commande2'];
+
+	commandeForm.reset();
+
+	commandeForm.oninput = _ => {
+
+		let sum = {{ microservice.prix }}
+
+		commandeForm.querySelectorAll('input[type=checkbox]').forEach(chkBx => {
+			if (chkBx.checked) sum += +chkBx.value
+		})
+
+		commandeForm.total.textContent = `${sum} {{ currency }}`
+		$('#commande2_montant').val(sum)
+
+		commandeForm.onsubmit = e => {
+
+			//$('#commande_montant').val(sum)
+			//alert('submit')
+			// e.preventDefault()  // disable submit
+		}
+	}
+
+</script>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.6/index.global.min.js'></script>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		let calendarEl = document.getElementById('calendar');
+
+		let calendar = new FullCalendar.Calendar(calendarEl, {
+			selectable: true,
+			locale: 'fr',
+			headerToolbar: {
+				left: 'title',
+				center: '',
+				right: 'prev,next'
+			},
+			dateClick: function (info) {
+				//alert('clicked ' + info.dateStr);
+				$('#commande2_reservationDate').val(info.dateStr)
+			},
+			select: function (info) {
+				//alert('selected ' + info.startStr + ' to ' + info.endStr);
+				$('#commande2_reservationDate').val(info.dateStr)
+			}
+		});
+
+		calendar.render();
+	});
+</script>

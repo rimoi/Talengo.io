@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+<div class="card">
+    <div class="card-body">
+        {{ form_row(form.name) }}
+        
+        {{ form_row(form.tarif) }}
+
+        <h6 class="mt-3">Image associées</h6>
+        <div class="row">
+            <div class="col-sm-4">
+                {{ form_row(form.couvertureFile) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form.imageFile) }}
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+</div>
+{{ form_end(form) }}

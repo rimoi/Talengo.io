@@ -1,0 +1,100 @@
+<footer class="cs-footer-website">
+	<div class="container">
+		<div class="d-flex justify-content-top">
+			<div class="footer-list">
+				<a href="{{ path('accueil') }}">
+					<h2 class=" text-uppercase">
+						{{ appName }}
+					</h2>
+				</a>
+				<!--<a href="{{ path('accueil') }}">
+					<img src="{{ asset('img/header-logo.png') }}" width="40px" height="40px" alt="logo {{ appName }}" class="border rounded-circle">
+				</a>-->
+				<ul class="list d-none d-sm-block">
+					<li>
+						<p class="pr-2">La plateforme Links Infinity donne la facilité à toute personne de se lancer en indépendant accompagnée par des professionnels.</p>
+					</li>
+				</ul>
+				<div class="copyright">
+					<ul class="social">
+						<li>
+							<a href="#">
+								<i class="fa fa-facebook text-blue" aria-hidden="true"></i>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa-twitter text-blue" aria-hidden="true"></i>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa-linkedin text-blue" aria-hidden="true"></i>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa-pinterest-p text-blue" aria-hidden="true"></i>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa-instagram text-blue" aria-hidden="true"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-list">
+				<h2>Besoin d'aide?</h2>
+				<ul class="list">
+					<li>
+						<a href="{{ path('page_cmarche') }}">Comment ça marche?</a>
+					</li>
+					<li>
+						<a href="{{ path('page_conditions') }}">FAQS</a>
+					</li>
+					<li>
+						<a href="mailto:{{ appEmail }}">Contactez-nous</a>
+					</li>
+				</ul>
+			</div>
+			<div class="footer-list">
+				<h2>{{ appName }}</h2>
+				<ul class="list">
+					{% if app.user %}{% else %}
+						<li>
+							<a href="{{ path('app_register') }}">Vendre/connexion</a>
+						</li>
+					{% endif %}
+					<li>
+						<a href="{{ path('page_conditions') }}">Politique de confidentialité</a>
+					</li>
+					<li>
+						<a href="{{ path('page_conditions') }}">CGU et CGV
+						</a>
+					</li>
+					<li>
+						<a href="{{ path('page_conditions') }}">Mentions légales
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="footer-list">
+				<h2>Nous contacter</h2>
+				<ul class="list">
+					<li>
+						<a href="mailto:{{ appEmail }}">{{ appEmail }}</a>
+					</li>
+				</ul>
+			</div>
+			<div class="d-block d-sm-none pl-3 mb-3">
+				<p class="pr-2 text-blue">La plateforme Links Infinity donne la facilité à toute personne de se lancer en indépendant accompagnée par des professionnels.</p>
+			</div>
+		</div>
+	</div>
+	<div class="text-center py-2 text-muted">
+		<p class="p-0 m-0">© Copyright {{ 'now'|date('Y') }} {{ appName }}.
+		</p>
+	</div>
+</footer>

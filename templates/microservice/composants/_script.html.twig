@@ -1,0 +1,143 @@
+<script>
+
+	const commandeForm = document.forms['commande'];
+
+	let somme = 0;
+
+	let sum = {{ microservice.prix }};
+
+	let optionSomme = 0;
+
+	let globalHoure = 1;
+
+	$('#commande_startHoure').on('change', function () {
+
+		somme = 0;
+
+		let startHoure = $(this).val();
+
+		let endHoure = $('#commande_endHoure').val();
+
+		if (startHoure && endHoure) {
+
+			let globalHoure = endHoure - startHoure;
+
+			if (globalHoure >= 2) {
+
+				somme = sum * globalHoure;
+
+				console.log(somme)
+
+				$('#total').html(`${somme + optionSomme} {{ currency }}`);
+				$('#commande_montant').val(somme + optionSomme)
+
+			} else {
+				somme = sum;
+
+				$('#total').html(`${somme + optionSomme} {{ currency }}`);
+				$('#commande_montant').val(somme + optionSomme)
+			}
+
+		} else {
+			somme = sum;
+
+			$('#total').html(`${somme + optionSomme} {{ currency }}`);
+			$('#commande_montant').val(somme + optionSomme)
+		}
+	})
+
+	$('#commande_endHoure').on('change', function () {
+
+		somme = 0;
+
+		let endHoure = $(this).val();
+
+		let startHoure = $('#commande_startHoure').val();
+
+		if (startHoure && endHoure) {
+
+			let globalHoure = endHoure - startHoure;
+
+			if (globalHoure >= 2) {
+
+				somme = sum * globalHoure;
+
+				console.log(somme)
+
+				$('#total').html(`${somme + optionSomme} {{ currency }}`);
+				$('#commande_montant').val(somme + optionSomme)
+
+			} else {
+				somme = sum;
+
+				$('#total').html(`${somme + optionSomme} {{ currency }}`);
+				$('#commande_montant').val(somme + optionSomme)
+			}
+		} else {
+			somme = sum;
+
+			$('#total').html(`${somme + optionSomme} {{ currency }}`);
+			$('#commande_montant').val(somme + optionSomme)
+		}
+	})
+
+	commandeForm.reset();
+
+	commandeForm.oninput = _ => {
+
+	sum = {{ microservice.prix }};
+
+	optionSomme = 0;
+	let tauxHoraire = 1;
+
+	let startHoure = $('#commande_startHoure').val();
+	let endHoure = $('#commande_endHoure').val();
+
+	if (startHoure && endHoure) {
+		let calcuTauxHoraire = endHoure - startHoure;
+
+		if (calcuTauxHoraire >= 2) {
+			tauxHoraire = calcuTauxHoraire
+		}
+	}
+
+	commandeForm.querySelectorAll('input[type=checkbox]').forEach(chkBx => {
+		if (chkBx.checked) {
+			optionSomme += +chkBx.value;
+		}
+	})
+
+	console.log(sum, optionSomme);
+
+	$('#total').html(`${optionSomme + (sum * tauxHoraire)} {{ currency }}`);
+	$('#commande_montant').val(optionSomme + (sum * tauxHoraire))
+	}
+
+</script>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.6/index.global.min.js'></script>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		let calendarEl = document.getElementById('calendar');
+
+		let calendar = new FullCalendar.Calendar(calendarEl, {
+			selectable: true,
+			locale: 'fr',
+			headerToolbar: {
+				left: 'title',
+				center: '',
+				right: 'prev,next'
+			},
+			dateClick: function (info) {
+				//alert('clicked ' + info.dateStr);
+				$('#commande_reservationDate').val(info.dateStr)
+			},
+			select: function (info) {
+				//alert('selected ' + info.startStr + ' to ' + info.endStr);
+				$('#commande_reservationDate').val(info.dateStr)
+			}
+		});
+
+		calendar.render();
+	});
+</script>

@@ -1,0 +1,17 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edition du compte{% endblock %}
+
+{% block pageTitle %}
+Edition du compte de {{ user.nom ~ ' ' ~ user.prenom }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{ include('admin/admin_users/_delete_form.html.twig') }}
+{% endblock %}
+
+{% block body %}
+
+{{ include('admin/admin_users/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+{% endblock %}

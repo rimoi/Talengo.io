@@ -1,0 +1,83 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Options{% endblock %}
+
+{% block colleft %}4{% endblock %}
+
+{% block colright %}8{% endblock %}
+
+{% block pageTitle %}Nouveau service{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-12">
+        <!-- Left sidebar -->
+        {% include "admin/admin_services/composants/_step.html.twig" %}
+
+        <!-- Right Sidebar -->
+        <div class="email-rightbar">
+            <div class="card rounded">
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    {{ form_widget(form._token) }}
+                    {{ form_errors(form) }}
+
+                    <div class="form-group {{ microservice.categorie.slug == 'ingenieur-son' ? 'bloc-masquer' : '' }}">
+                        <h6 class="font-weight-bold">Options</h6>
+                        <p class="text-muted">
+                            Afin de compléter et personnaliser votre service, vous pouvez ajouter des options en relation directe avec ce dernier. Leur nombre et prix maximal dépend de votre offre {{ appName }}.
+                        </p>
+
+                        <div id="serviceOptions" class="row" data-prototype="{{ include("vendeur/microservices/form/_serviceOptions.html.twig", {form:
+                            form.serviceOptions.vars.prototype})|e("html_attr") }}"
+                            data-index="{{ form.serviceOptions|length > 0 ? form.serviceOptions|last.vars.name + 1 : 0 }}">
+                            {% for option in form.serviceOptions %}
+                            <div class="col-sm-6">
+                                {{ include("vendeur/microservices/form/_serviceOptions.html.twig", {form: option}) }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <br>
+                        <button type="button" class="btn btn-light btn-new" data-collection="#serviceOptions">
+                            <i class="fa fa-plus"></i> Ajouter une option
+                        </button>
+
+                    </div>
+                    <div class="form-group">
+                        <h6 class="font-weight-bold">Réalisations</h6>
+                        <p class="text-muted">
+                            Ajouter vos réalisations en relation directe avec ce dernier. (Ex: lien YouTube, Instagram; projets).
+                        </p>
+
+                        <div id="realisations" class="row" data-prototype="{{ include("vendeur/microservices/form/_realisations.html.twig", {form:
+                            form.realisations.vars.prototype})|e("html_attr") }}"
+                            data-index="{{ form.realisations|length > 0 ? form.realisations|last.vars.name + 1 : 0 }}">
+                            {% for realisation in form.realisations %}
+                            <div class="col-sm-6">
+                                {{ include("vendeur/microservices/form/_realisations.html.twig", {form: realisation}) }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <br>
+                        <button type="button" class="btn btn-light btn-new" data-collection="#realisations">
+                            <i class="fa fa-plus"></i> Ajouter une réalisation
+                        </button>
+
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.promo) }}
+                    </div>
+                    <div class="form-group text-left">
+                        <button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer et poursuivre') }}</button>
+                    </div>
+
+                    {{ form_end(form, {render_rest: false}) }}
+                </div>
+            </div>
+
+        </div> <!-- end Col -->
+    </div>
+</div><!-- End row -->
+
+{% endblock %}

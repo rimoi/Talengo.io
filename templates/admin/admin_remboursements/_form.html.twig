@@ -1,0 +1,35 @@
+{{ form_start(form) }}
+
+<div class="bg-light p-2 rounded border">
+    {{ remboursement.montant ~ currency }}
+</div>
+
+<h6 class="h6 py-3">Coordonnées bancaires</h6>
+
+<div class="row mb-3">
+    <div class="col-sm-4">
+        <div class="bg-light p-2 rounded border">
+            {{ remboursement.nomsurCarte }}
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="bg-light p-2 rounded border">
+            {{ remboursement.numeroCarte }}
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="bg-light p-2 rounded border">
+            {{ remboursement.dateExpiration|date('d/m/Y') }}
+        </div>
+    </div>
+</div>
+
+<div class="bg-light border rounded p-2 mb-3">
+    {{ remboursement.motif }}
+</div>
+
+{{ form_widget(form) }}
+
+<button class="btn btn-primary">{{ button_label|default('Envoyer') }}</button>
+
+{{ form_end(form) }}

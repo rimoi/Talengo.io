@@ -1,0 +1,252 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Tableau de bord admin{% endblock %}
+
+{% block body %}
+<div class="row">
+   <div class="col-sm-3">
+      <div class="card bg-success text-white income">
+         <div class="card-body text-dark">
+            <h5 class="text-white">Revenu disponible</h5>
+            <div class="">
+               <h1 class="my-1 text-white"><i class="mdi mdi-wallet me-3"></i>{{ currency }}
+                  {{ slodeDisponible ? slodeDisponible.solde|number_format(0, ' ', ' ') : 0 }}
+               </h1>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-sm-3">
+      <div class="card bg-primary text-white income">
+         <div class="card-body text-dark">
+            <h5 class="text-white">Revenu en cours</h5>
+            <div class="">
+               <h1 class="my-1 text-white"><i class="mdi mdi-wallet me-3"></i>{{ currency }}
+                  {{ slodeEncours ? slodeEncours.solde|number_format(0, ' ', ' ') : 0 }}
+               </h1>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-sm-3">
+      <a href="{{ path('app_admin_users_client') }}">
+         <div class="card">
+            <div class="card-body text-dark">
+               <div class="row">
+                  <div class="col-4 align-self-center">
+                     <div class="icon-info">
+                        <i class="mdi mdi-account-multiple-plus-outline"></i>
+                     </div>
+                  </div>
+                  <div class="col-8 align-self-center text-center">
+                     <div class="ms-2 text-end">
+                        <p class="mb-1 text-muted font-size-13 py-2">Clients</p>
+                        <h4 class="mb-1 font-size-20">{{ (clients|length)|number_format(0, '', ' ') }}</h4>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </a>
+   </div>
+   <!-- end col -->
+   <div class="col-sm-3">
+      <a href="{{ path('app_admin_users_vendeur') }}">
+         <div class="card">
+            <div class="card-body text-dark">
+               <div class="row">
+                  <div class="col-4 align-self-center">
+                     <div class="icon-info">
+                        <i class="mdi mdi-account-multiple-check-outline"></i>
+                     </div>
+                  </div>
+                  <div class="col-8 align-self-center text-center">
+                     <div class="ms-2 text-end">
+                        <p class="mb-1 text-muted font-size-13 py-2">Vendeurs</p>
+                        <h4 class="mb-1 font-size-20">{{ (vendeurs|length)|number_format(0, ' ', ' ') }}</h4>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </a>
+   </div>
+   <!-- end col -->
+   <div class="col-sm-3">
+      <a href="{{ path('app_admin_services_index') }}">
+         <div class="card">
+            <div class="card-body text-dark">
+               <div class="row">
+                  <div class="col-4 align-self-center">
+                     <div class="icon-info">
+                        <i class="mdi mdi-briefcase-variant-outline"></i>
+                     </div>
+                  </div>
+                  <div class="col-8 align-self-center text-center">
+                     <div class="ms-2 text-end">
+                        <p class="mb-1 text-muted font-size-13 py-2">Services</p>
+                        <h4 class="mb-1 font-size-20">{{ (microservices|length)|number_format(0, '', ' ') }}</h4>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </a>
+   </div>
+   <!-- end col -->
+   <div class="col-sm-3">
+      <a href="{{ path('app_admin_commandes_index') }}">
+         <div class="card">
+            <div class="card-body text-dark">
+               <div class="row">
+                  <div class="col-4 align-self-center">
+                     <div class="icon-info">
+                        <i class="mdi mdi-cart-arrow-down"></i>
+                     </div>
+                  </div>
+                  <div class="col-8 align-self-center text-center">
+                     <div class="ms-2 text-end">
+                        <p class="mb-1 text-muted font-size-13 py-2">Commandes</p>
+                        <h4 class="mb-1 font-size-20">{{ (commandes|length)|number_format(0, '', ' ') }}</h4>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </a>
+   </div>
+   <div class="col-sm-3">
+      <a href="{{ path('app_admin_stripe_index') }}">
+         <div class="card">
+            <div class="card-body text-dark">
+               <div class="row">
+                  <div class="col-4 align-self-center">
+                     <div class="icon-info">
+                        <i class="mdi  mdi-book-multiple-outline"></i>
+                     </div>
+                  </div>
+                  <div class="col-8 align-self-center text-center">
+                     <div class="ms-2 text-end">
+                        <p class="mb-1 text-muted font-size-13 py-2">Offres</p>
+                        <h4 class="mb-1 font-size-20">{{ (offres|length)|number_format(0, '', ' ') }}</h4>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </a>
+   </div>
+   <!-- end col -->
+   <div class="col-sm-3">
+      <a href="{{ path('app_admin_abonnements_index') }}">
+         <div class="card">
+            <div class="card-body text-dark">
+               <div class="row">
+                  <div class="col-4 align-self-center">
+                     <div class="icon-info">
+                        <i class="mdi mdi-card-account-details-outline"></i>
+                     </div>
+                  </div>
+                  <div class="col-8 align-self-center text-center">
+                     <div class="ms-2 text-end">
+                        <p class="mb-1 text-muted font-size-13 py-2">Abonnements</p>
+                        <h4 class="mb-1 font-size-20">{{ (abonnees|length)|number_format(0, ' ', ' ') }}</h4>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </a>
+   </div>
+   <!-- end col -->
+</div>
+<!-- end row -->
+
+<div class="row">
+   <div class="col-md-12">
+      <div class="card">
+         <div class="card-body text-dark">
+            <div class="row">
+               <div class="col-sm-12">
+                  <h5>Répartition des services par catégories</h5>
+                  <div>
+                     <canvas id="serviceCategories" width="100%" height="40%"></canvas>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!--<div class="col-md-12">
+      <div class="card">
+         <div class="card-body text-dark">
+            <div class="row">
+               <div class="col-sm-12">
+                  <h5>Répartition des vendeurs par type d'abonnement</h5>
+                  <div>
+                     <canvas id="offreStripe" width="100%" height="30%"></canvas>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>-->
+</div>
+<!--end row-->
+{% endblock %}
+
+{% block javascripts %}
+
+{{ parent() }}
+<script src="{{ asset('jslibs/chartjs/Chart.min.js') }}"></script>
+<script src="{{ asset('jslibs/chartjs/Chartjs-custom.js') }}"></script>
+<script>
+   var serviceCategorie = document.getElementById('serviceCategories').getContext('2d');
+   var serviceCategories = new Chart(serviceCategorie, {
+      type: 'pie',
+      data: {
+         labels: {{ categorieNames| raw }},
+   datasets: [{
+      label: 'Effectif des services',
+      data: {{ categorieCount| raw }},
+      backgroundColor: {{ categorieColors| raw }},
+      hoverBorderColor: "#fff"
+			}]
+		},
+   options: {
+      scales: {
+         y: {
+            beginAtZero: true,
+               stacked: true
+         }
+      }
+   }
+	});
+
+
+   var offreStripe = document.getElementById('offreStripe').getContext('2d');
+   var offreStripes = new Chart(offreStripe, {
+      type: 'bar',
+      data: {
+         labels: {{ stripeNames| raw }},
+   datasets: [{
+      label: 'Effectif des abonnées',
+      data: {{ stripeCount| raw }},
+      backgroundColor: {{ stripeColors| raw }},
+      hoverBorderColor: "#fff"
+			}]
+		},
+   options: {
+      scales: {
+         y: {
+            beginAtZero: true,
+               stacked: true
+         }
+      }
+   }
+	});
+
+</script>
+
+{% endblock %}

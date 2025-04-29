@@ -1,0 +1,74 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Details Retrait{% endblock %}
+
+{% block pageTitle %}Details Retrait{% endblock %}
+
+{% block body %}
+
+<div class="card">
+    <div class="card-body m-0">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ retrait.id }}</td>
+                </tr>
+                <tr>
+                    <th>Montant</th>
+                    <td><strong>{{ retrait.montant ~ currency }}</strong></td>
+                </tr>
+                <tr>
+                    <th>Mode de Paiement</th>
+                    <td>{{ retrait.modePaiement }}</td>
+                </tr>
+                <tr>
+                    <th>Statut</th>
+                    <td>
+                        <span
+                            class="badge rounded-pill bg-{% if retrait.statut == 'En attente'  %}warning{% elseif retrait.statut == 'Valider' %}success{% else %}danger{% endif %}">{{
+                            retrait.statut }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Nom du titulaire de la carte</th>
+                    <td>{{ retrait.nomsurCarte }}</td>
+                </tr>
+                <tr>
+                    <th>Numéro de carte</th>
+                    <td>{{ retrait.numeroCarte }}</td>
+                </tr>
+                <tr>
+                    <th>Date d'expiration de la carte</th>
+                    <td>{{ retrait.dateExpiration|date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <th>Adresse Paypal</th>
+                    <td>{{ retrait.adressePaypal }}</td>
+                </tr>
+                <tr>
+                    <th>Date de la demande</th>
+                    <td>Le {{ retrait.created|date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <th>Réponse de {{ appName }}</th>
+                    <td>
+                        <p>{{ retrait.reponse }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>Le {{ retrait.updated|date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        {{ include('admin/admin_retraits/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

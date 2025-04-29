@@ -1,0 +1,242 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Tableau de bord
+{% endblock %}
+
+{% block bg %}{% endblock %}
+
+{% block sidebar %}
+
+{{ parent() }}
+
+{% endblock %}
+
+{% block body %}
+
+{% if app.user.isVerified == true %}
+<h5 class="h6 bg-dark rounded text-light p-3 mb-3">Tableau de bord</h5>
+
+{% if is_granted('ROLE_VENDEUR') %}
+
+<div class="pb-4">
+   {% include "vendeur/portefeuille/composants/_box.html.twig" %}
+
+   {% include "vendeur/abonnement/composants/_box.html.twig" %}
+</div>
+
+<div class="dashboard-link">
+   <div class="row">
+      <div class="col-sm-6">
+         <div class="media p-4 shadow-sm rounded">
+            <div class="media-body">
+               <h5 class="h6">Services</h5>
+               <div>
+                  <span class="h5 font-weight-light">
+                     {{ services }}
+                  </span>
+               </div>
+            </div>
+            <i class="fa fa-briefcase fa-3x text-primary"></i>
+         </div>
+      </div>
+      <div class="col-sm-6">
+         <div class="media p-4 shadow-sm rounded">
+            <div class="media-body">
+               <h5 class="h6">Commandes en attente</h5>
+               <div>
+                  <span class="h5 font-weight-light">
+                     {{ commandes }}
+                  </span>
+               </div>
+            </div>
+            <i class="fa fa-cart-plus fa-3x text-secondary"></i>
+         </div>
+      </div>
+   </div>
+   <br>
+   <div class="row">
+      <div class="col-sm-6">
+         <a href="{{ path('favoris_index') }}">
+            <div class="media p-4 shadow-sm rounded">
+               <div class="media-body">
+                  <h5 class="h6">Favoris</h5>
+                  <div>
+                     <span class="h5 font-weight-light">
+                        {{ clientFavoris(app.user)|length }}
+                     </span>
+                  </div>
+               </div>
+               <i class="fa fa-heart fa-3x text-success"></i>
+            </div>
+         </a>
+      </div>
+
+      <div class="col-sm-6">
+         <a href="{{ path('suivis_index') }}">
+            <div class="media p-4 shadow-sm rounded">
+               <div class="media-body">
+                  <h5 class="h6">Suivis</h5>
+                  <div>
+                     <span class="h5 font-weight-light">
+                        {{ clientSuivis(app.user)|length }}
+                     </span>
+                  </div>
+               </div>
+               <i class="fa fa-plus fa-3x text-info"></i>
+            </div>
+         </a>
+      </div>
+   </div>
+   <br>
+   <div class="row">
+      <div class="col-6">
+         <div class="media p-4 shadow-sm rounded">
+            <div class="media-body">
+               <h5 class="h6">Avis positif</h5>
+               <div>
+                  <span class="h5 font-weight-light">
+                     {{ avispositif(app.user)|length }}
+                  </span>
+               </div>
+            </div>
+            <i class="fa fa-thumbs-up fa-3x text-success"></i>
+         </div>
+      </div>
+      <div class="col-6">
+         <div class="media p-4 shadow-sm rounded">
+            <div class="media-body">
+               <h5 class="h6">Avis négatifs</h5>
+               <div>
+                  <span class="h5 font-weight-light">
+                     {{ avisnegatif(app.user)|length }}
+                  </span>
+               </div>
+            </div>
+            <i class="fa fa-thumbs-down fa-3x text-danger"></i>
+         </div>
+      </div>
+   </div>
+   <br>
+   <div class="row">
+      <div class="col-sm-6">
+         <div class="media p-4 shadow-sm rounded">
+            <div class="media-body">
+               <h5 class="h6">Retrais</h5>
+               <div>
+                  <span class="h5 font-weight-light">
+                     {{ retraits }}
+                  </span>
+               </div>
+               <span>
+                  {{ retrait.total > 0 ? retrait.total|number_format(2, ',', ' ') : 0 }} {{ currency }} au total
+               </span>
+            </div>
+            <i class="fa fa-credit-card fa-3x text-info"></i>
+         </div>
+      </div>
+      <div class="col-sm-6">
+         <div class="media p-4 shadow-sm rounded">
+            <div class="media-body">
+               <h5 class="h6">Remboursements</h5>
+               <div>
+                  <span class="h5 font-weight-light">
+                     {{ remboursements }}
+                  </span>
+               </div>
+               <span>
+                  {{ remboursement.total > 0 ? remboursement.total|number_format(2, ',', ' ') : 0 }} {{ currency }} au
+                  total
+               </span>
+            </div>
+            <i class="fa fa-backward fa-3x text-danger"></i>
+         </div>
+      </div>
+   </div>
+</div>
+
+{% else %}
+<div class="dashboard-link">
+   <div class="row">
+      <div class="col-sm-6">
+         <a href="{{ path('commandes_chats') }}">
+            <div class="media p-4 shadow-sm rounded">
+               <div class="media-body">
+                  <h5 class="h6">Commandes en cours</h5>
+                  <div>
+                     <span class="h5 font-weight-light">
+                        {{ clientCommandeEncours(app.user)|length }}
+                     </span>
+                  </div>
+               </div>
+               <i class="fa fa-opencart fa-3x text-secondary"></i>
+            </div>
+         </a>
+      </div>
+      <div class="col-sm-6">
+         <a href="{{ path('vendeur_achats_index') }}">
+            <div class="media p-4 shadow-sm rounded">
+               <div class="media-body">
+                  <h5 class="h6">Achats</h5>
+                  <div>
+                     <span class="h5 font-weight-light">
+                        {{ clientAchats(app.user)|length }}
+                     </span>
+                  </div>
+               </div>
+               <i class="fa fa-opencart fa-3x text-success"></i>
+            </div>
+         </a>
+      </div>
+      <div class="col-sm-6">
+         <a href="{{ path('favoris_index') }}">
+            <div class="media p-4 shadow-sm rounded">
+               <div class="media-body">
+                  <h5 class="h6">Favoris</h5>
+                  <div>
+                     <span class="h5 font-weight-light">
+                        {{ clientFavoris(app.user)|length }}
+                     </span>
+                  </div>
+               </div>
+               <i class="fa fa-heart fa-3x text-info"></i>
+            </div>
+         </a>
+      </div>
+
+      <div class="col-sm-6">
+         <a href="{{ path('suivis_index') }}">
+            <div class="media p-4 shadow-sm rounded">
+               <div class="media-body">
+                  <h5 class="h6">Suivis</h5>
+                  <div>
+                     <span class="h5 font-weight-light">
+                        {{ clientSuivis(app.user)|length }}
+                     </span>
+                  </div>
+               </div>
+               <i class="fa fa-plus fa-3x text-success"></i>
+            </div>
+         </a>
+      </div>
+
+      <div class="col-sm-6">
+         <a href="{{ path('app_vendeur_remboursements_index') }}">
+            <div class="media p-4 shadow-sm rounded">
+               <div class="media-body">
+                  <h5 class="h6">Remboursements</h5>
+                  <div>
+                     <span class="h5 font-weight-light">
+                        {{ clientRemboursements(app.user)|length }}
+                     </span>
+                  </div>
+               </div>
+               <i class="fa fa-backward fa-3x text-danger"></i>
+            </div>
+         </a>
+      </div>
+   </div>
+</div>
+{% endif %}
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,30 @@
+<table class="table table-borderless">
+   <tbody>
+      <thead>
+         <tr class="text-uppercase text-dark">
+            <th>Jours</th>
+            <th>Heure d'ouverture</th>
+            <th>Heure de cloture</th>
+         </tr>
+      </thead>
+      {% for emplois_temp in emploistemps(app.user) %}
+      <tr class="text-muted">
+         <th>
+            {% for jour in emplois_temp.jours %}
+               <span class="badge badge-light border text-dark">{{ jour }}</span> <br>
+            {% endfor %}
+         </th>
+         <td>
+            {{ emplois_temp.heureOuverture ? emplois_temp.heureOuverture|date('H:i') : '' }}
+         </td>
+         <td>
+            {{ emplois_temp.heureCloture ? emplois_temp.heureCloture|date('H:i') : '' }}
+         </td>
+      </tr>
+      {% else %}
+      <tr>
+         <td colspan="3">Aucun planning, vous n'avez pas encore renseigner votre emploi du temps</td>
+      </tr>
+      {% endfor %}
+   </tbody>
+</table>

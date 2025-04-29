@@ -1,0 +1,119 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Galérie{% endblock %}
+
+{% block colleft %}4{% endblock %}
+
+{% block colright %}8{% endblock %}
+
+{% block bg %}transparent{% endblock %}
+
+{% block pageTitle %}Nouveau service{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-12">
+        <!-- Left sidebar -->
+        {% include "admin/admin_services/composants/_step.html.twig" %}
+
+        <!-- Right Sidebar -->
+        <div class="email-rightbar" style="background: transparent!important;">
+
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="font-weight-bold">Galerie</h6>
+                    <p class="text-muted">
+                        La 1re image, principale, sera utilisée dans la recherche, les catégories, et sur
+                        votre profil. C’est la
+                        plus importante. Afin que votre service se démarque des autres, privilégiez une
+                        image lisible en rapport direct avec ce que vous faites dans votre service, et
+                        surtout : de votre
+                        création. <br>
+
+                        Les autres images, optionnelles, serviront à montrer des exemples de votre travail
+                        ou illustrer plus précisément ce que vous vendez.
+                    </p>
+
+                    {% if microservice.medias|length > 0 %}
+
+                    <div class="slider mt-2">
+                        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                {% for media in microservice.medias %}
+                                <div class="carousel-item {{ microservice.medias[0].id == media.id ? 'active' : '' }}">
+                                    {% if media.imageName %}
+                                    <img class="d-block img-fluid"
+                                        src="{{ vich_uploader_asset(media, 'imageFile') | imagine_filter('rectangle_size') }}"
+                                        alt="First slide">
+
+                                    {% else %}
+                                    <img class="d-block img-fluid"
+                                        src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('rectangle_size') }}"
+                                        alt="First slide">
+
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleFade" role="button"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Précédent</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleFade" role="button"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Suivant</span>
+                            </a>
+                        </div>
+
+                        <div class="row my-2">
+                            {% for media in microservice.medias %}
+
+                            <div class="col-sm-2 text-left">
+
+                                <img class="img-fluid"
+                                    src="{{ vich_uploader_asset(media, 'imageFile') | imagine_filter('small_size') }}"
+                                    alt="{{ media.name }}">
+
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {% endif %}
+
+                    <!-- Si le nombre maximal d'image pour un service est 2 -->
+                    {{ form_start(form) }}
+                    {{ form_widget(form._token) }}
+                    {{ form_errors(form) }}
+                        <div id="medias" class="row" data-prototype="{{ include("vendeur/microservices/form/_medias.html.twig", {form:
+                            form.medias.vars.prototype})|e("html_attr") }}"
+                            data-index="{{ form.medias|length > 0 ? form.medias|last.vars.name + 1 : 0 }}">
+                            {% for media in form.medias %}
+                            <div class="col-sm-6">
+                                {{ include("vendeur/microservices/form/_medias.html.twig", {form: media}) }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <br>
+                        <button type="button" class="btn btn-light btn-new" data-collection="#medias">
+                            <i class="fa fa-plus"></i> Ajouter une image
+                        </button>
+
+                        <div class="form-group text-left mt-5">
+                            <button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer et poursuivre') }}</button>
+                        </div>
+                    {{ form_end(form, {render_rest: false}) }}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div> <!-- panel -->
+
+{% endblock %}

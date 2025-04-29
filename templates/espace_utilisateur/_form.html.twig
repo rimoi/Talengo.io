@@ -1,0 +1,52 @@
+{{ form_start(form) }}
+
+<div class="card mb-3 bg-light">
+   <div class="card-header bg-dark">
+      <h4 class="mb-0 h6 text-light">
+         Mon profil {% if is_granted('ROLE_VENDEUR') %}public{% endif %}
+      </h4>
+   </div>
+   <div class="card-body">
+
+      <div class="row">
+         <div class="col-sm-8">
+            {{ form_row(form.nom) }}
+            {{ form_row(form.prenom) }}
+            {{ form_row(form.pseudo) }}
+            {{ form_row(form.usePseudo) }}
+            {{ form_row(form.email) }}
+            {% include "espace_utilisateur/composants/_position.html.twig" %}
+            {{ form_row(form.adresse) }}
+            {{ form_row(form.ville) }}
+            {{ form_row(form.pays) }}
+            {{ form_row(form.telephone) }}
+         </div>
+         <div class="col-sm-4">
+            <strong>Photo de profil</strong>
+            {% if app.user.avatar == null %}
+            <img class="img-fluid rounded" src="{{ asset('img/user.jpg') | imagine_filter('identite_size') }}" alt='' />
+            {% endif %}
+
+            {{ form_row(form.imageFile) }}
+            {{ form_row(form.genre) }}
+            {{ form_row(form.codePostal) }}
+         </div>
+      </div>
+
+      <div class="form-group">
+         <strong class="d-block">Biographie</strong>
+         {{ form_widget(form.apropos) }}
+         {{ form_errors(form.apropos) }}
+      </div>
+
+      <div>
+         {{ form_rest(form) }}
+      </div>
+
+      <div class="form-group">
+         <button type="submit" formnovalidate class="btn btn-dark">Mettre à jour</button>
+      </div>
+   </div>
+</div>
+
+{{ form_end(form) }}

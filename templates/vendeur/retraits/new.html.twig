@@ -1,0 +1,28 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Nouveau retrait{% endblock %}
+
+{% block bg %}transparent{% endblock %}
+
+{% block body %}
+
+{{ include('vendeur/portefeuille/composants/_box.html.twig') }}
+<br>
+<div class="card">
+    <div class="card-header bg-dark">
+        <h6 class="h6 text-light">Retrait de fonds</h6>
+    </div>
+    <div class="card-body">
+        {% if retraitEnattente|length == 0 %}
+
+        {{ include('vendeur/retraits/_form.html.twig') }}
+
+        {% else %}
+
+        <p class="alert alert-warning">Vous avez déjà un retrait en attentes</p>
+
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

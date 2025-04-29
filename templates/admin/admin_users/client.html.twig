@@ -1,0 +1,11 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Comptes administrateur{% endblock %}
+
+{% block pageTitle %}Comptes administrateur ({{ users.getTotalItemCount }}){% endblock %}
+
+{% block body %}
+
+{% include "admin/admin_users/_table.html.twig" %}
+
+{% endblock %}

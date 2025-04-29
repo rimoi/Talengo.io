@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ categorie.name }} : trouver plus proche de vous{% endblock %}
+
+{% block alternatiflink %}
+   https://links-infinity.com/microservices/categories/{{ categorie.name }}
+{% endblock %}
+
+{% block meta %}
+<meta name="author" content="{{ categorie.name }}" />
+<meta name="keywords" content="{{ categorie.name }}: trouver plus proche de vous" />
+<meta name="description" content="{{ categorie.name }}: trouvez dès maintenant votre {{ categorie.name }} plus proche de chez vous pour vous accompagner dans votre projet." />
+{% endblock %}
+
+{% block body %}
+<!-- Inner Header -->
+{% if categorie.image %}
+<section class="inner-header categorieSection"
+   style="background-image: url({{ vich_uploader_asset(categorie, 'imageFile') | imagine_filter('very_large_size') }})">
+   {% else %}
+   <section class="py-5 inner-header bg-degrade categorieSection">
+      {% endif %}
+      <div class="container">
+         <div class="row">
+            <div class="col-md-9 text-left">
+               <h1 class="mt-0 mb-3 text-dark">#{{ categorie.name }} ({{ microservices.getTotalItemCount }})</h1>
+               <div class="breadcrumbs">
+                  {{ categorie.description|raw }}
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="caption"></div>
+   </section>
+   <!-- End Inner Header -->
+
+   {% include "microservice/composants/_page_contenu.html.twig" %}
+
+   {% endblock %}

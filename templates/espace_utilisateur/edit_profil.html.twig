@@ -1,0 +1,83 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Compte
+{% endblock %}
+
+{% block bg %}{% endblock %}
+
+{% block colleft %}4
+{% endblock %}
+
+{% block colright %}8
+{% endblock %}
+
+{% block body %}
+
+{{ include('espace_utilisateur/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+{% endblock %}
+
+  {% block javascripts %}
+
+   {{ parent() }}
+
+   <script>
+      // TO MAKE THE EXAMPLE WORK YOU MUST
+      // ADD YOUR ACCESS TOKEN FROM
+      // https://account.mapbox.com
+
+      const ACCESS_TOKEN = '{{ map_box_token }}'
+
+      $("#edit_profil_adresse").on('change', function (e) {
+
+         const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
+         const query = e.target.value
+
+         fetch(`${url}${query}.json?access_token=${ACCESS_TOKEN}`)
+            .then((response) => response.json())
+            .then((data) => {
+               //console.log(data)
+               const longitude = data.features[0].geometry.coordinates[0];
+               const latitude = data.features[0].geometry.coordinates[1];
+
+               $("#edit_profil_longitude").val(longitude)
+               $("#edit_profil_latitude").val(latitude)
+
+               console.log(longitude, latitude)
+            });
+
+         console.log('form has changed', e.target.value);
+      })
+
+      const script = document.getElementById('search-js');
+      script.onload = () => {
+         // Add search box to input
+         const collection = mapboxsearch.autofill({
+            accessToken: ACCESS_TOKEN,
+            options: { country: 'fr' }
+         });
+
+         // Configure minimap
+         const minimap = document.querySelector('mapbox-address-minimap');
+         minimap.accessToken = ACCESS_TOKEN;
+         minimap.defaultMapStyle = ['mapbox', 'outdoors-v11'];
+         minimap.theme = {
+            variables: { border: '13px solid #bbb', borderRadius: '18px', boxShadow: '0 2px 8px #000' }
+         }
+
+         minimap.onSaveMarkerLocation = (coordinate) => { console.log(coordinate); }
+         minimap.feature = {
+            type: 'Feature',
+            geometry: { type: 'Point', coordinates: [-73.981872, 40.768037] },
+            properties: {}
+         };
+
+         // Set minimap feature on search box selection
+         collection.addEventListener('retrieve', (e) => {
+            minimap.feature = e.detail.features[0];
+            console.log(minimap.feature)
+         })
+      };
+   </script>
+
+   {% endblock %}

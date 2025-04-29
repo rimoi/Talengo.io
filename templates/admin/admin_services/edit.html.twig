@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Microservice{% endblock %}
+
+{% block body %}
+    <h1>Edit Microservice</h1>
+
+    {{ include('admin_services/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_services_index') }}">back to list</a>
+
+    {{ include('admin_services/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Détails alertes{% endblock %}
+
+{% block body %}
+
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Auteur de l'alerte</th>
+                    <td>
+                        <div class="d-flex">
+                            <div class="me-2">
+                                {% if service_signale.user.reseauAvatar %}
+
+                                <img src="{{ reseauAvatar }}" class="img-fluid rounded-circle"
+                                    alt="{{ service_signale.user.prenom }}">
+
+                                {% else %}
+
+                                {% if service_signale.user.avatar %}
+                                <img src="{{ vich_uploader_asset( service_signale.user, 'imageFile') | imagine_filter('small_avatar') }}"
+                                    class="img-fluid rounded-circle" alt="{{ service_signale.user.prenom }}">
+                                {% else %}
+
+                                <img class="img-fluid rounded-circle"
+                                    src="{{ asset('img/user.jpg') | imagine_filter('small_avatar') }}" alt='' />
+
+                                {% endif %}
+
+                                {% endif %}
+                            </div>
+                            <div class="">
+                                <strong class="small">{{ service_signale.user.nom }}</strong>
+                                <strong class="small">{{ service_signale.user.prenom }}</strong> <br>
+                                <small class="text-muted text-italic">{{ service_signale.created ?
+                                    service_signale.created|ago(locale='fr') : '' }}</small>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Service</th>
+                    <td>
+                        <div class="d-flex">
+                            <div class="me-2">
+                                {% if service_signale.microservice.medias|length > 0 %}
+
+                                <img class="img-fluid rounded"
+                                    src="{{ vich_uploader_asset(service_signale.microservice.medias[0], 'imageFile') | imagine_filter('midle_avatar') }}" />
+
+                                {% else %}
+
+                                <img class="img-fluid rounded"
+                                    src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('midle_avatar') }}" />
+
+                                {% endif %}
+                            </div>
+                            <div class="">
+                                <a href="{{ path('microservice_details', {'slug': service_signale.microservice.slug}) }}"
+                                    class="font-weight-bold">
+                                    <strong class="">{{ service_signale.microservice.name }}</strong>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Profésionnel</th>
+                    <td>
+                        <div class="d-flex">
+                            <div class="me-2">
+                                {% if service_signale.microservice.vendeur.reseauAvatar %}
+
+                                <img src="{{ reseauAvatar }}" class="img-fluid rounded-circle"
+                                    alt="{{ service_signale.microservice.vendeur.prenom }}">
+
+                                {% else %}
+
+                                {% if service_signale.microservice.vendeur.avatar %}
+                                <img src="{{ vich_uploader_asset( service_signale.microservice.vendeur, 'imageFile') | imagine_filter('small_avatar') }}"
+                                    class="img-fluid rounded-circle"
+                                    alt="{{ service_signale.microservice.vendeur.prenom }}">
+                                {% else %}
+
+                                <img class="img-fluid rounded-circle"
+                                    src="{{ asset('img/user.jpg') | imagine_filter('small_avatar') }}" alt='' />
+
+                                {% endif %}
+
+                                {% endif %}
+                            </div>
+                            <div class="">
+                                <strong class="small">{{ service_signale.microservice.vendeur.nom }}</strong>
+                                <strong class="small">{{ service_signale.microservice.vendeur.prenom }}</strong>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Message</th>
+                    <td>
+                        <p class="text-muted">{{ service_signale.message }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>{{ service_signale.created ? service_signale.created|date('d/m/Y') : '' }}</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <a href="{{ path('microservice_details', {'slug': service_signale.microservice.slug}) }}"
+                            class="btn btn-light" target="_blank">Voir le service</a>
+                        {{ include('admin/admin_services_signale/_offline_form.html.twig') }}
+                        {{ include('admin/admin_services_signale/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

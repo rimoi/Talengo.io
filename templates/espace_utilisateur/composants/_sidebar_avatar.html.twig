@@ -1,0 +1,68 @@
+<div class=" mb-3"><!-- sidebar-fix -->
+	<div class="box mb-3 shadow-sm rounded bg-white profile-box text-center">
+		<div class="text-center">
+			{% if app.user.avatar %}
+			<img class="rounded-circle"
+				src="{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('large_avatar') }}" alt='' />
+
+			{% else %}
+
+			<img class="rounded-circle" src="{{ asset('img/user.jpg') | imagine_filter('large_avatar') }}"
+				alt='' />
+
+			{% endif %}
+		</div>
+		<div class="p-3 pb-0">
+			<h5 class="h6 text-dark mb-1 mt-0 text-left">{{ app.user.nom }}
+				{{ app.user.prenom }}</h5>
+			<p class="mb-0 text-muted text-left">{{ app.user.apropos|raw }}</p>
+		</div>
+
+		<div class="p-3 pt-0">
+			{% if is_granted('ROLE_VENDEUR') %}
+			<div class="d-flex align-items-top mb-2">
+				<p class="mb-0 text-muted"><i class="fa fa-thumbs-up"></i> Avis positif</p>
+				<p class="text-muted mb-0 mt-0 ml-auto">{{ avispositif(app.user)|length }}</p>
+			</div>
+			<div class="d-flex align-items-top mb-2">
+				<p class="mb-0 text-muted"><i class="fa fa-thumbs-down"></i> Avis négatif</p>
+				<p class="text-muted mb-0 mt-0 ml-auto">{{ avisnegatif(app.user)|length }}</p>
+			</div>
+			<div class="d-flex align-items-top mb-2">
+				<p class="mb-0 text-muted"><i class="fa fa-cart-plus"></i> Commandes en cours</p>
+				<p class="text-muted mb-0 mt-0 ml-auto">{{ commandeEncours(app.user)|length }}</p>
+			</div>
+			<div class="d-flex align-items-top mb-2">
+				<p class="mb-0 text-muted"><i class="fa fa-opencart"></i> Vente au total</p>
+				<p class="text-muted mb-0 mt-0 ml-auto">{{ ventes(app.user)|length }}</p>
+			</div>
+			{% else %}
+			<div class="d-flex align-items-top mb-2">
+				<p class="mb-0 text-muted"><i class="fa fa-cart-plus"></i> Commandes en cours</p>
+				<p class="text-muted mb-0 mt-0 ml-auto">{{ clientCommandeEncours(app.user)|length }}</p>
+			</div>
+			<div class="d-flex align-items-top mb-2">
+				<p class="mb-0 text-muted"><i class="fa fa-opencart"></i> Total achat</p>
+				<p class="text-muted mb-0 mt-0 ml-auto">{{ clientAchats(app.user)|length }}</p>
+			</div>				
+			{% endif %}
+			<div class="d-flex align-items-top">
+				<p class="mb-0 text-muted"><i class="fa fa-user-circle"></i> {{ app.user.compte }}</p>
+				<p class="text-muted mb-0 mt-0 ml-auto">{{ app.user.created|ago(locale='fr') }}</p>
+			</div>
+		</div>
+
+		{% if app.request.attributes.get('_route') == 'user_edit_profil' %}
+
+		{% else %}
+
+		<div class="text-center p-3">
+			<a href="{{ path('user_edit_profil') }}" class="btn btn-dark pl-4 pr-4 btn-block rounded-btn">
+				<i class="fa fa-cog"></i> Mettre à jour mon profil
+			</a>
+		</div>
+
+		{% endif %}
+
+	</div>
+</div>

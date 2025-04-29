@@ -1,0 +1,46 @@
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+   <div style="margin: auto;background: #fff;padding: 20px;">
+      
+      {% include "mails/_logo.html.twig" %}
+
+      <p>Bonjour <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
+            vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
+      <p>
+         Suite à votre livraison de la commande du service: <strong>{{ commande.microservice.name }}</strong>, votre
+         client <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo : client.nom ~
+            ' ' ~ client.prenom }}</strong> vous a donné un avis <strong>{{ commande.avis.type }}</strong> . Vous pouvez
+         le consulter depuis la commande.
+      </p>
+
+      <div>
+         <strong>Avis du client :</strong>
+         <p>{{ commande.avis.contenu }}</p>
+      </div>
+
+      <div><br>
+         <a href="{{ absolute_url(path('commande_details', {id: commande.id})) }}#{{ commande.client.nameUrl }}"
+            style="background: #080679;
+     background: -webkit-linear-gradient(legacy-direction(to right), #080679 0%, #a9a9a9 100%);
+     background: -webkit-gradient(linear, left top, right top, from(#080679), to(#a9a9a9));
+     background: -webkit-linear-gradient(left, #080679 0%, #a9a9a9 100%);
+     background: -o-linear-gradient(left, #080679 0%, #a9a9a9 100%);
+     background: linear-gradient(to right, #080679 0%, #a9a9a9 100%);
+     border-color: #080679;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Voir
+            l'avis</a>
+      </div><br>
+
+      <p>
+         L'avis de votre client a définitivement terminé la commande et vos revenus pour cette dernière sont donc
+         désormais disponibles.
+      </p>
+
+      <p>
+         Si cet avis est négatif, vous trouverez sur notre FAQ quelques conseils pour gérer correctement cette
+         situation. Attention cependant : nous ne pouvons légalement pas retirer un avis négatif sur une seule base
+         subjective.
+      </p>
+
+      {% include "mails/_lien_cgu.html.twig" %}
+
+   </div>
+</div>

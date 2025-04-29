@@ -1,0 +1,45 @@
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+   <div style="margin: auto;background: #fff;padding: 20px;">
+
+      {% include "mails/_logo.html.twig" %}
+      
+      <p>Bonjour <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
+            vendeur.nom ~
+            ' ' ~ vendeur.prenom }}</strong>,</p>
+
+      <p>
+         Bonne nouvelle ! vous avez une nouvelle commande d'un montant de <strong>{{ commande.montant ~ currency }}</strong> du client <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
+         client.nom ~ ' ' ~ client.prenom }}</strong>. pour le service <strong>{{ commande.microservice.name }}</strong>
+      </p>
+      
+      {% if commande.disponibilite %}
+      <p>
+         Disponibilité: <strong>{{ commande.disponibilite }}</strong>
+      </p>
+      {% endif %}
+
+      <p>
+         Lorsque la commande sera terminée, vous percevrez <strong>{{ commande.montant ~ currency }}</strong>. Ce montant varie en fonction de votre offre {{ appName }}. Vous avez désormais 48 h à partir de la date de la commande pour recevoir les consignes de votre client via la messagerie, puis la valider. Le délai de livraison démarrera alors.
+      </p>
+
+      <div><br>
+         <a href="{{ absolute_url(path('commande_details', {id: commande.id})) }}" style="background: #080679;
+     background: -webkit-linear-gradient(legacy-direction(to right), #080679 0%, #a9a9a9 100%);
+     background: -webkit-gradient(linear, left top, right top, from(#080679), to(#a9a9a9));
+     background: -webkit-linear-gradient(left, #080679 0%, #a9a9a9 100%);
+     background: -o-linear-gradient(left, #080679 0%, #a9a9a9 100%);
+     background: linear-gradient(to right, #080679 0%, #a9a9a9 100%);text-decoration: none;
+     border-color: #080679;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;">Gérer cette commande</a>
+      </div><br>
+
+      <p>
+         Attention : un trop grand nombre d'annulations non justifiées et non expliquées à votre client peut entraîner
+         une désactivation de vos services. Si vous ne pouvez plus assurer vos commandes, pensez à décocher "En vente"
+         de votre
+         page Services (lien de la page service côté service).
+      </p>
+
+      {% include "mails/_lien_cgu.html.twig" %}
+   
+   </div>
+</div>
