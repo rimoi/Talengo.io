@@ -3,7 +3,7 @@ twig:
     form_themes: ['bootstrap_4_layout.html.twig']
     #form_themes: ['bootstrap_4_Horizontal_layout.html.twig']
     globals:
-        appName: 'MISSION INFINITY'
+        appName: 'MISSION C2C'
         appEmail: 'sidi.khalifa@live.fr'
         appPhone: '06 05 99 24 81'
         currency: ' €'
