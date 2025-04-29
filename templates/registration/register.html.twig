@@ -10,7 +10,8 @@
 {{ appName }}? <br> Crée gratuitement votre compte
 {% endblock %}
 
-{% block alternatiflink %}https://links-infinity.com/inscription{% endblock %}
+{% block alternatiflink %}
+	https://mission-c2c.com/inscription{% endblock %}
 
 {% block imgBg %}{{ asset('img/register.png') }}{% endblock %}
 
@@ -48,7 +49,7 @@
 </div>
 
 <div class="form-group radio">
-	<label class="mb-1">Je souhaite?</label>
+	<label class="mb-1">Je souhaite ?</label>
 	{{ form_widget(registrationForm.compte) }}
 	{{ form_errors(registrationForm.compte) }}
 </div>
@@ -82,10 +83,10 @@
 
 {{ form_end(registrationForm) }}
 
-<div class="text-center mt-3 pb-3">
+{#<div class="text-center mt-3 pb-3">#}
 
-	{% include "security/_reseaux.html.twig" %}
+{#	{% include "security/_reseaux.html.twig" %}#}
 
-</div>
+{#</div>#}
 
 {% endblock %}
