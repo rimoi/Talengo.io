@@ -62,7 +62,7 @@ class PackController extends AbstractController
 
         $order = [
             'purchase_units' => [[
-                'description'    => 'Links infinity achats de prestation',
+                'description'    => 'MISSION C2C achats de prestation',
                 'items'   =>  [
                     'name'  =>  $offre->getName(),
                     'quatity'   =>  1,

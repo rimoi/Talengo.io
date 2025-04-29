@@ -22,7 +22,7 @@ class MicroservicePublierType extends AbstractType
                 ],
             ])
             ->add('question2', CheckboxType::class, [
-                'label' => "Que celui-ci est conforme et respecte les CGU de Links Infinity",
+                'label' => "Que celui-ci est conforme et respecte les CGU de MISSION C2C",
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champ est requis!',
@@ -38,7 +38,7 @@ class MicroservicePublierType extends AbstractType
                 ],
             ])
             ->add('question4', CheckboxType::class, [
-                'label' => "Ne pas proposer ou effectuer des transactions en dehors de Links Infinity",
+                'label' => "Ne pas proposer ou effectuer des transactions en dehors de MISSION C2C",
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champ est requis!',

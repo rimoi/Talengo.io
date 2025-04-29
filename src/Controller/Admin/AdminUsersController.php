@@ -173,7 +173,7 @@ class AdminUsersController extends AbstractController
         $templateEmail = (new TemplatedEmail())
             ->from(new Address('sidilekhalifa1@gmail.com', 'MISSION INFINITY'))
             ->to(new Address($user->getEmail()))
-            ->subject('Links Infinity - Création de votre compte')
+            ->subject('MISSION C2C - Création de votre compte')
             ->htmlTemplate('mails/_generate_emails.html.twig')
             ->context([
                 'identifiant' => $user->getEmail(),

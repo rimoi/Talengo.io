@@ -44,7 +44,7 @@ class EmailIndicationPostServiceCommand extends Command
                 ->from(new Address('sidilekhalifa1@gmail.com', 'MISSION INFINITY'))
 //                ->to(new Address('sidi.khalifa@live.fr'))
                 ->to(new Address($user->getEmail()))
-                ->subject('Links Infinity - Bienvenue')
+                ->subject('MISSION C2C - Bienvenue')
                 ->htmlTemplate('mails/_valorisations.html.twig')
                 ->context([
                     'nom' => $user->getNom()

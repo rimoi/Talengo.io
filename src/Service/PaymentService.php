@@ -73,7 +73,7 @@ class PaymentService
 
       $order = [
          'purchase_units' => [[
-            'description'    => 'Links infinity achats de prestation',
+            'description'    => 'MISSION C2C achats de prestation',
             'items'   =>  [
                'name'  =>  $serviceName,
                'quatity'   =>  1,

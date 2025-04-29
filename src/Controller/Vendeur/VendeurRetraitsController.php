@@ -56,7 +56,7 @@ class VendeurRetraitsController extends AbstractController
             $mailer->sendDemandeMail(
                 'sidilekhalifa1@gmail.com',
                 $retrait->getVendeur()->getEmail(),
-                'Links Infinity - Nouveau retrait',
+                'MISSION C2C - Nouveau retrait',
                 'mails/_retrait.html.twig',
                 $retrait->getVendeur(),
                 $retrait
@@ -66,7 +66,7 @@ class VendeurRetraitsController extends AbstractController
             $mailer->sendDemandeMail(
                 'sidilekhalifa1@gmail.com',
                 'sidilekhalifa1@gmail.com',
-                'Links Infinity - Nouveau retrait',
+                'MISSION C2C - Nouveau retrait',
                 'mails/_retrait.html.twig',
                 $retrait->getVendeur(),
                 $retrait
