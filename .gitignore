@@ -32,3 +32,6 @@ yarn-error.log
 public/media/*
 
 .env
+
+/public/img/*
+!/public/img/.gitkeep

@@ -1,0 +1,37 @@
+/* color css */
+.third-menu {
+   border-color: #1a1b21 !important;
+   background: #1a1b21 !important;
+}
+
+.box-title.border-bottom, .card,
+.border, .dropdown-divider, .osahan-chat .border-right {
+   border-color: #23242a !important;
+}
+.profile-card .user-profile-image label img,
+.box, .box .box-body .bg-white, .box .box-title,
+.dropdown-menu, .bg-light, .sidebar-page-right,
+.card, .pagination .page-item .page-link,
+.dropdown-menu .dropdown-item, .bg-white,
+.list-group, .list-group-item,
+.market-wrapper .categories-list li, .message-box,
+.inner-wrapper, .select2-results__option[aria-selected], .select2-search--dropdown,
+.btn-icon, .freelancer, .freelancer-footer, .slick-arrow, .main-page .right .tab-content, .nav.nav-tabs,
+.main-page .right .nav-tabs li a, select.form-control option {
+   /*background: #23242a !important;
+   border-color: #23242a !important;
+   color: white !important;*/
+}
+
+.modal-content {
+   background: rgba(35, 36, 42, .7) !important;
+}
+
+.main-page .right .nav-tabs li a.active {
+   border-bottom: 3px solid #82a0bc !important;
+}
+
+.btn-icon {
+   background-color: #1a1b21 !important;
+   color: white !important;
+}
