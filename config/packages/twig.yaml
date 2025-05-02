@@ -3,7 +3,7 @@ twig:
     form_themes: ['bootstrap_4_layout.html.twig']
     #form_themes: ['bootstrap_4_Horizontal_layout.html.twig']
     globals:
-        appName: 'MISSION C2C'
+        appName: 'Talengo.io C2C'
         appEmail: 'sidi.khalifa@live.fr'
         appPhone: '06 05 99 24 81'
         currency: ' €'
@@ -13,7 +13,7 @@ twig:
         stripe_public_key_test: '%env(STRIPE_PUBLIC_KEY_TEST)%'
         stripe_public_key_live: '%env(STRIPE_PUBLIC_KEY_LIVE)%'
         map_box_token: '%env(MAPBOX_TOKEN)%'
-        appSite: 'https://mission-c2c.com/'
+        appSite: 'https://talengo.io/'
         appSiteLocal: 'https://127.0.0.1:8000/'
 
 when@test:

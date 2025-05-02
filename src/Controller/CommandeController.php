@@ -347,7 +347,7 @@ class CommandeController extends AbstractController
 
         $order = [
             'purchase_units' => [[
-                'description'    => 'MISSION C2C achats de prestation',
+                'description'    => 'Talengo.io achats de prestation',
                 'items'   =>  [
                     'name'  =>  $microservice->getName(),
                     'quatity'   =>  1,
@@ -686,7 +686,7 @@ class CommandeController extends AbstractController
 
         $order = [
             'purchase_units' => [[
-                'description'    => 'MISSION C2C achats de prestation',
+                'description'    => 'Talengo.io achats de prestation',
                 'items'   =>  [
                     'name'  =>  $microservice->getName(),
                     'quatity'   =>  1,

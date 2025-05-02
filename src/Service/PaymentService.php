@@ -73,7 +73,7 @@ class PaymentService
 
       $order = [
          'purchase_units' => [[
-            'description'    => 'MISSION C2C achats de prestation',
+            'description'    => 'Talengo.io achats de prestation',
             'items'   =>  [
                'name'  =>  $serviceName,
                'quatity'   =>  1,

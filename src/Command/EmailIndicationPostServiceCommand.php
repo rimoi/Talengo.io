@@ -44,7 +44,7 @@ class EmailIndicationPostServiceCommand extends Command
                 ->from(new Address('sidilekhalifa1@gmail.com', 'MISSION INFINITY'))
 //                ->to(new Address('sidi.khalifa@live.fr'))
                 ->to(new Address($user->getEmail()))
-                ->subject('MISSION C2C - Bienvenue')
+                ->subject('Talengo.io - Bienvenue')
                 ->htmlTemplate('mails/_valorisations.html.twig')
                 ->context([
                     'nom' => $user->getNom()

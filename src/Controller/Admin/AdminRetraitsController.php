@@ -70,7 +70,7 @@ class AdminRetraitsController extends AbstractController
             $mailer->sendDemandeMail(
                 'sidilekhalifa1@gmail.com',
                 $retrait->getVendeur()->getEmail(),
-                'MISSION C2C - retrait rejeté',
+                'Talengo.io - retrait rejeté',
                 'mails/_retrait_rejeter.html.twig',
                 $retrait->getVendeur(),
                 $retrait,
@@ -115,7 +115,7 @@ class AdminRetraitsController extends AbstractController
             $mailer->sendDemandeMail(
                 'sidilekhalifa1@gmail.com',
                 $retrait->getVendeur()->getEmail(),
-                'MISSION C2C - retrait validée',
+                'Talengo.io - retrait validée',
                 'mails/_retrait_valider.html.twig',
                 $retrait->getVendeur(),
                 $retrait,

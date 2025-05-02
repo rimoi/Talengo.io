@@ -62,7 +62,7 @@ class PackController extends AbstractController
 
         $order = [
             'purchase_units' => [[
-                'description'    => 'MISSION C2C achats de prestation',
+                'description'    => 'Talengo.io achats de prestation',
                 'items'   =>  [
                     'name'  =>  $offre->getName(),
                     'quatity'   =>  1,
