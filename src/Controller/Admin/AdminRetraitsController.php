@@ -68,7 +68,7 @@ class AdminRetraitsController extends AbstractController
 
             /** Envoie de mail au vendeur */
             $mailer->sendDemandeMail(
-                'sidilekhalifa1@gmail.com',
+                'talengo.contact@gmail.com',
                 $retrait->getVendeur()->getEmail(),
                 'Talengo.io - retrait rejeté',
                 'mails/_retrait_rejeter.html.twig',
@@ -113,7 +113,7 @@ class AdminRetraitsController extends AbstractController
 
             /** Envoie de mail au vendeur */
             $mailer->sendDemandeMail(
-                'sidilekhalifa1@gmail.com',
+                'talengo.contact@gmail.com',
                 $retrait->getVendeur()->getEmail(),
                 'Talengo.io - retrait validée',
                 'mails/_retrait_valider.html.twig',

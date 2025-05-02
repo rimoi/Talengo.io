@@ -18,7 +18,7 @@ class MailerService
 	{
 
 		$email = (new TemplatedEmail())
-			->from(new Address($from, 'MISSION INFINITY'))
+			->from(new Address($from, 'Talengo.io'))
 			->to($to)
 			->subject($subjet)
 			->htmlTemplate($template)
@@ -36,7 +36,7 @@ class MailerService
 
 
 		$email = (new TemplatedEmail())
-			->from(new Address($from, 'MISSION INFINITY'))
+			->from(new Address($from, 'Talengo.io'))
 			->to($to)
 			->subject($subjet)
 			->htmlTemplate('mails/_default.html.twig')
@@ -58,7 +58,7 @@ class MailerService
 		}
 
 		$email = (new TemplatedEmail())
-			->from(new Address($from, 'MISSION INFINITY'))
+			->from(new Address($from, 'Talengo.io'))
 			->to($to)
 			->subject($subjet)
 			->htmlTemplate($template)
@@ -79,7 +79,7 @@ class MailerService
 		}
 
 		$email = (new TemplatedEmail())
-			->from(new Address($from, 'MISSION INFINITY'))
+			->from(new Address($from, 'Talengo.io'))
 			->to($to)
 			->subject($subjet)
 			->htmlTemplate($template)
@@ -95,7 +95,7 @@ class MailerService
 	{
 
 		$email = (new TemplatedEmail())
-			->from(new Address($from, 'MISSION INFINITY'))
+			->from(new Address($from, 'Talengo.io'))
 			->to($to)
 			->subject($subjet)
 			->htmlTemplate($template)

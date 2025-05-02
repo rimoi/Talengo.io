@@ -91,9 +91,9 @@ class RegistrationController extends AbstractController
                 'app_verify_email',
                 $user,
                 (new TemplatedEmail())
-                    ->from(new Address('sidilekhalifa1@gmail.com', 'MISSION INFINITY'))
+                    ->from(new Address('talengo.contact@gmail.com', 'Talengo.io'))
                     ->to($user->getEmail())
-                    ->subject('Veuillez confirmer votre email')
+                    ->subject('Confirmez votre adresse email !')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
@@ -158,7 +158,7 @@ class RegistrationController extends AbstractController
 
             // generate a signed url and email it to the user
             /*$mailer->sendMailBecomeSaller(
-                'sidilekhalifa1@gmail.com',
+                'talengo.contact@gmail.com',
                 $user->getEmail(),
                 'Sujet',
                 'mails/_default.html.twig',

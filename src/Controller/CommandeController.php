@@ -153,7 +153,7 @@ class CommandeController extends AbstractController
 
             /** Envoie du mail au client */
             $mailer->sendCommandMail(
-                'sidilekhalifa1@gmail.com',
+                'talengo.contact@gmail.com',
                 $commande->getClient()->getEmail(),
                 'Votre avis sur la commande du service : ' . $commande->getMicroservice()->getName(),
                 'mails/client/_avis.html.twig',
@@ -164,7 +164,7 @@ class CommandeController extends AbstractController
 
             /** Envoie du mail au vendeur */
             $mailer->sendCommandMail(
-                'sidilekhalifa1@gmail.com',
+                'talengo.contact@gmail.com',
                 $commande->getVendeur()->getEmail(),
                 'Avis du client sur la commande du service : ' . $commande->getMicroservice()->getName(),
                 'mails/_avis.html.twig',
@@ -260,7 +260,7 @@ class CommandeController extends AbstractController
 
             /** Envoie du mail au vendeur */
             $mailer->sendCommandMail(
-                'sidilekhalifa1@gmail.com',
+                'talengo.contact@gmail.com',
                 $commande->getVendeur()->getEmail(),
                 'Commande livrée',
                 'mails/_rapport_livrer.html.twig',
@@ -454,7 +454,7 @@ class CommandeController extends AbstractController
 
         /** Envoie du mail au client */
         $mailer->sendCommandMail(
-            'sidilekhalifa1@gmail.com',
+            'talengo.contact@gmail.com',
             $commande->getClient()->getEmail(),
             'Nouvelle commande',
             'mails/_client.html.twig',
@@ -465,7 +465,7 @@ class CommandeController extends AbstractController
 
         /** Envoie du mail au vendeur */
         $mailer->sendCommandMail(
-            'sidilekhalifa1@gmail.com',
+            'talengo.contact@gmail.com',
             $commande->getVendeur()->getEmail(),
             'Nouvelle commande',
             'mails/_vendeur.html.twig',
@@ -505,7 +505,7 @@ class CommandeController extends AbstractController
 
             /** Envoie du mail au client */
             $mailer->sendCommandMail(
-                'sidilekhalifa1@gmail.com',
+                'talengo.contact@gmail.com',
                 $commande->getClient()->getEmail(),
                 'Commande validée',
                 'mails/client/_commande_valider.html.twig',
@@ -516,7 +516,7 @@ class CommandeController extends AbstractController
 
             /** Envoie du mail au vendeur */
             $mailer->sendCommandMail(
-                'sidilekhalifa1@gmail.com',
+                'talengo.contact@gmail.com',
                 $commande->getVendeur()->getEmail(),
                 'Commande validée',
                 'mails/_commande_valider.html.twig',
@@ -552,7 +552,7 @@ class CommandeController extends AbstractController
 
             /** Envoie du mail au vendeur */
             $mailer->sendCommandMail(
-                'sidilekhalifa1@gmail.com',
+                'talengo.contact@gmail.com',
                 $commande->getVendeur()->getEmail(),
                 'Commande livrée',
                 'mails/_commande_livrer.html.twig',
@@ -625,7 +625,7 @@ class CommandeController extends AbstractController
 
             /** Envoie du mail au vendeur */
             $mailer->sendCommandMail(
-                'sidilekhalifa1@gmail.com',
+                'talengo.contact@gmail.com',
                 $commande->getVendeur()->getEmail(),
                 'Commande annulée',
                 'mails/_commande_annuler.html.twig',
@@ -768,7 +768,7 @@ class CommandeController extends AbstractController
 
             /** Envoie du mail au client */
             $mailer->sendCommandMail(
-                'sidilekhalifa1@gmail.com',
+                'talengo.contact@gmail.com',
                 $commande->getClient()->getEmail(),
                 'Nouvelle commande',
                 'mails/_client.html.twig',
@@ -779,7 +779,7 @@ class CommandeController extends AbstractController
 
             /** Envoie du mail au vendeur */
             $mailer->sendCommandMail(
-                'sidilekhalifa1@gmail.com',
+                'talengo.contact@gmail.com',
                 $commande->getVendeur()->getEmail(),
                 'Nouvelle commande',
                 'mails/_vendeur.html.twig',

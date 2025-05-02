@@ -40,7 +40,7 @@ class SendEmailNewlyRegisteredCommand extends Command
         foreach ($users as $user)
         {
             $templateEmail = (new TemplatedEmail())
-                ->from(new Address('sidilekhalifa1@gmail.com', 'MISSION INFINITY'))
+                ->from(new Address('talengo.contact@gmail.com', 'Talengo.io'))
                 ->to(new Address($user->getEmail()))
                 ->subject('Bienvenue !')
                 ->htmlTemplate('mails/_newly_registred.html.twig')

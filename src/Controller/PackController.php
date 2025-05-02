@@ -152,7 +152,7 @@ class PackController extends AbstractController
 
         /** Envoie du mail au client */
         $mailer->sendPackMail(
-            'sidilekhalifa1@gmail.com',
+            'talengo.contact@gmail.com',
             $commande->getClient()->getEmail(),
             'Nouvelle commande',
             'mails/client/_pack.html.twig',

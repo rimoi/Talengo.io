@@ -40,8 +40,8 @@ class EmailIndicationPostServiceCommand extends Command
         foreach ($users as $user)
         {
             $templateEmail = (new TemplatedEmail())
-//                ->from(new Address('contact.lesextras@gmail.com', 'MISSION INFINITY'))
-                ->from(new Address('sidilekhalifa1@gmail.com', 'MISSION INFINITY'))
+//                ->from(new Address('contact.lesextras@gmail.com', 'Talengo.io'))
+                ->from(new Address('talengo.contact@gmail.com', 'Talengo.io'))
 //                ->to(new Address('sidi.khalifa@live.fr'))
                 ->to(new Address($user->getEmail()))
                 ->subject('Talengo.io - Bienvenue')

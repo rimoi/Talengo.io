@@ -141,9 +141,9 @@ class AdminUsersController extends AbstractController
                 'app_verify_email',
                 $user,
                 (new TemplatedEmail())
-                    ->from(new Address('sidilekhalifa1@gmail.com', 'MISSION INFINITY'))
+                    ->from(new Address('talengo.contact@gmail.com', 'Talengo.io'))
                     ->to($user->getEmail())
-                    ->subject('Veuillez confirmer votre email')
+                    ->subject('Confirmez votre adresse email !')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
@@ -171,7 +171,7 @@ class AdminUsersController extends AbstractController
         );
 
         $templateEmail = (new TemplatedEmail())
-            ->from(new Address('sidilekhalifa1@gmail.com', 'MISSION INFINITY'))
+            ->from(new Address('talengo.contact@gmail.com', 'Talengo.io'))
             ->to(new Address($user->getEmail()))
             ->subject('Talengo.io - Création de votre compte')
             ->htmlTemplate('mails/_generate_emails.html.twig')

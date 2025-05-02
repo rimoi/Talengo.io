@@ -156,7 +156,7 @@ class ResetPasswordController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address('sidilekhalifa1@gmail.com', 'MISSION INFINITY'))
+            ->from(new Address('talengo.contact@gmail.com', 'Talengo.io'))
             ->to($user->getEmail())
             ->subject('Votre demande de réinitialisation de mot de passe')
             ->htmlTemplate('reset_password/email.html.twig')

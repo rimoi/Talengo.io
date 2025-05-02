@@ -7,8 +7,10 @@
 
 		<p>
 
-			Vous venez de créer un compte sur <strong>{{ appName }}</strong>. Avant de pouvoir utiliser votre compte, vous devez vérifier que cette adresse e-mail est bien la vôtre en cliquant ici :
-
+			Vous venez de créer un compte sur <strong>{{ appName }}</strong>.
+		</p>
+		<p>
+			Pour compléter votre inscription, merci de confirmer votre email
 		</p>
 
 		<div><br>
@@ -18,10 +20,14 @@
      background: -webkit-linear-gradient(left, #080679 0%, #a9a9a9 100%);
      background: -o-linear-gradient(left, #080679 0%, #a9a9a9 100%);
      background: linear-gradient(to right, #080679 0%, #a9a9a9 100%);
-     border-color: #080679;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Confirmer mon e-mail</a>
+     border-color: #080679;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Confirmez votre adresse email</a>
 		</div><br>
 
-		<p>Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.</p>
+		<p>
+			À bientôt sur {{ appName }}
+		</p>
+
+{#		<p>Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.</p>#}
 
 		<p>
 			Besoin d'aide ? Consultez la <a href="{{ path('page_faqs') }}">FAQ</a>.
@@ -33,6 +39,6 @@
 			L'équipe {{ appName }}
 		</p>
 
-		<p style="text-align: center;">©{{ appName }} - Tous droits réservés</p>
+{#		<p style="text-align: center;">©{{ appName }} - Tous droits réservés</p>#}
 	</div>
 </div>
