@@ -2,54 +2,276 @@
 
 {% block body %}
 
-{% include "accueil/_banner_slider.html.twig" %}
-
-<section class="py-5">
-	<div class="view_slider recommended">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 {{ microservices|length == 0 ? 'text-center' : '' }}">
-					<h3 class="h5">
-						Services à proximité
-					</h3>
-					{% if ville %}
-					<p class="" style="margin-top: -10px!important;"><i class="fa fa-map-marker text-blue"></i> {{ ville }}
-					</p>
-					{% endif %}
-
-					{% if microservices|length > 0 %}
-
-					<div class="view recent-slider recommended-slider">
-
-						{% for microservice in microservices %}
-
-						{{ include('microservice/composants/_bloc.html.twig') }}
-
-						{% endfor %}
-
+	{% if app.user %}
+		<!--  si user est connecté  -->
+		<section class="section-services">
+			<div class="container">
+				<div class="content">
+					<div class="card">
+						<a href="" class="favoris">
+							<i class="fa-solid fa-heart-circle-plus"></i>
+						</a>
+						<a href="">
+							<img src="{{ asset('themes/layout/img/hero.jpg') }}" alt="" class="img-service">
+						</a>
+						<a href="" class="info">
+							<div class="profil">
+								<img src="{{ asset('themes/layout/img/profile1.jpg') }}" alt="">
+								<span class="user">Achraf.M</span>
+							</div>
+							<div class="level">
+								<i class="fa-solid fa-star"></i>
+								<span class="feedback">5</span>
+								<span class="feedback-nbr">(2 avis)</span>
+							</div>
+						</a>
+						<a href="" class="title">Je vais créer votre page de capture ou landing page système.io</a>
+						<p class="price">à partir de 30 €</p>
 					</div>
+					<div class="card">
+						<a href="" class="favoris">
+							<i class="fa-solid fa-heart-circle-minus"></i>
+						</a>
+						<a href="">
+							<img src="{{ asset('themes/layout/img/service1.jpg') }}" alt="" class="img-service">
+						</a>
+						<a href="" class="info">
+							<div class="profil">
+								<img src="{{ asset('themes/layout/img/profile2.jpg') }}" alt="">
+								<span class="user">Adam.M</span>
+							</div>
+							<span class="level">nouveau</span>
+						</a>
+						<a href="" class="title">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</a>
+						<p class="price">à partir de 40 €</p>
+					</div>
+					{% for microservice in microservices %}
+						{{ include('microservice/composants/_bloc.html.twig') }}
+					{% endfor %}
+				</div>
+				<div class="flexCenter">
+					<a href="{{ path('list') }}" class="btn btn-primaryBlue">Voir les meilleurs services</a>
+				</div>
+			</div>
+		</section>
+		<!--  end user est connecté  -->
+	{% endif %}
 
-					{% else %}
 
-					<div class="col-sm-8 mx-auto">
-									<p class="{{ microservices|length == 0 ? 'text-center' : '' }}">
-										Aucun professionnel trouvé à : <strong>{{ ville }}</strong><br>
-										Nous arrivons très prochainement près de chez vous !
-									</p>
-								</div>
+	<!--*************************************  si user n'est pas connecté  ************************************* -->
+	{% if not app.user %}
+		<section class="hero">
+			<div class="container">
+				<div class="content">
+					<h1 class="primary-title">Boostez vos projets avec les meilleurs freelances. </h1>
+					<h2 class="secondary-title">Parce que chaque projet mérite le meilleur du digital.</h2>
+					<form action="" class="search">
+						<input type="text" name="" id="" placeholder="Rechercher par mots-clés ou compétences">
+						<button type="submit" class="btn btn-primaryBlue">Rechercher <i class="fa-solid fa-magnifying-glass"></i></button>
+					</form>
+					<div class="tag">
+						<a href="">logo</a>
+						<a href="">montage vidéo</a>
+						<a href="">site web</a>
+						<a href="">audit seo</a>
+					</div>
+				</div>
+			</div>
+		</section>
 
-					{% endif %}
+		<section class="section-services">
+			<div class="container">
+				<h3 class="primaryTitle">Services populaires</h3>
+				<div class="content">
+					{% for microservice in microservices %}
+						{{ include('microservice/composants/_bloc.html.twig') }}
+					{% endfor %}
+				</div>
+				<div class="flexCenter">
+					<a href="{{ path('list') }}" class="btn btn-primaryBlue">Voir les meilleurs services</a>
+				</div>
+			</div>
+		</section>
 
+		<section class="section-joinUs">
+			<div class="container">
+				<div class="content">
+					<img src="{{ asset('themes/layout/img/hero.jpg') }}" alt="">
+					<div class="joinusDescription">
+						<span class="fav"></span>
+						<h3 class="title">Rejoignez Talengo, la communauté qui transforme chaque projet en réussite.</h3>
+						<p class="description">Connectez-vous à des experts passionnés et d’acheteurs ambitieux prêts à concrétiser
+						leurs projets. <strong>Boostez vos opportunités, atteignez vos objectifs, et transformez chaque mission en succès !</strong></p>
+
+						<div class="flexCenter">
+							<a href="" class="btn btn-borderBlue">Je cherche des freelances</a>
+							<a href="" class="btn btn-primaryBlue">devenez vendeur</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section-howWorks">
+			<div class="container">
+				<div class="content">
+					<div class="howContent">
+						<h3 class="primaryTitle">Talengo.io,<br> comment ca marche ?</h3>
+						<div class="steps">
+							<div class="step">
+								<span class="nbr">1</span>
+								<h4 class="title">Le client passe sa commande</h4>
+								<p class="description">Choisissez le service adapté à vos besoins et décrivez vos attentes.</p>
+							</div>
+							<div class="step">
+								<span class="nbr">2</span>
+								<h4 class="title">Le freelance accepte et réalise la mission</h4>
+								<p class="description">Le freelance expert commence à travailler sur votre projet.</p>
+							</div>
+							<div class="step">
+								<span class="nbr">3</span>
+								<h4 class="title">Le paiement est effectué seulement lorsque vous êtes satisfait !</h4>
+								<p class="description">Une fois la mission terminée et validée par vos soins, le freelance reçoit son paiement en toute sécurité.</p>
+							</div>
+						</div>
+					</div>
+					<div  class="imgBox">
+						<img src="{{ asset('themes/layout/img/profile3.jpg') }}" alt="">
+					</div>
+				</div>
+			</div>
+		</section>
+	{% endif %}
+
+	<!--*************************************  end user n'est pas connecté ************************************* -->
+
+	<!-- commun entre les deux versions du header -->
+	<section class="testimonials">
+		<div class="container">
+			<div class="content">
+				<div class="contentTitle">
+					<h4 class="primaryTitle">Témoignages</h4>
+					<p class="desc">Des témoignages inspirants de ceux qui ont
+						transformé leurs idées avec Talengo.io</p>
+				</div>
+
+				<div class="testimonials_content owl-carousel owl-theme">
+
+					<div class="card">
+						<div class="infoImg">
+							<img src="{{ asset('themes/layout/img/profile1.jpg') }}" alt="">
+							<div class="info">
+								<h5 class="name">Myriam</h5>
+								<h6 class="profile">Fondatrice d’une marque de cosmétique, Paris </h6>
+							</div>
+						</div>
+						<p class="quote secondaryParagraphe">
+							<i class="fa-solid fa-quote-left"></i>
+							Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.
+						</p>
+					</div>
+					<div class="card">
+						<div class="infoImg">
+							<img src="{{ asset('themes/layout/img/profile1.jpg') }}" alt="">
+							<div class="info">
+								<h5 class="name">Thomas</h5>
+								<h6 class="profile">Cofondateur et CEO Start-up </h6>
+							</div>
+						</div>
+						<p class="quote secondaryParagraphe">
+							<i class="fa-solid fa-quote-left"></i>
+							Talengo.io a vraiment été la clé pour faire avancer notre projet. On a déniché la perle rare et on ne pourrait pas être plus satisfaits du résultat !
+						</p>
+					</div>
+					<div class="card">
+						<div class="infoImg">
+							<img src="{{ asset('themes/layout/img/profile2.jpg') }}" alt="">
+							<div class="info">
+								<h5 class="name">Fabien C.</h5>
+								<h6 class="profile">CEO, AGA </h6>
+							</div>
+						</div>
+						<p class="quote secondaryParagraphe">
+							<i class="fa-solid fa-quote-left"></i>
+							Talengo.io a été un véritable levier pour faire avancer notre projet. Nous avons trouvé le freelance idéal, à l’écoute, réactif et ultra-compétent. Résultat : un travail de qualité et une expérience 100 % satisfaisante !
+						</p>
+					</div>
+					<div class="card">
+						<div class="infoImg">
+							<img src="{{ asset('themes/layout/img/profile2.jpg') }}" alt="">
+							<div class="info">
+								<h5 class="name">Shayne</h5>
+								<h6 class="profile">Fondateur d’un site e-commerce </h6>
+							</div>
+						</div>
+						<p class="quote secondaryParagraphe">
+							<i class="fa-solid fa-quote-left"></i>
+							Notre projet semblait compliqué au départ, mais avec Talengo.io, tout s’est parfaitement
+							aligné. Un vrai gain de temps et d’efficacité !
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
+	<!-- end commun entre les deux versions du header -->
 
-{% if servicesBloc2|length > 0 %}
-<section class="pb-5 my-4  cs-creativite-recommended">
-	<div class=" recommended">
-		<div class="container">
+
+{% endblock %}
+
+
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block body %}#}
+
+{#{% include "accueil/_banner_slider.html.twig" %}#}
+
+{#<section class="py-5">#}
+{#	<div class="view_slider recommended">#}
+{#		<div class="container">#}
+{#			<div class="row">#}
+{#				<div class="col-lg-12 {{ microservices|length == 0 ? 'text-center' : '' }}">#}
+{#					<h3 class="h5">#}
+{#						Services à proximité#}
+{#					</h3>#}
+{#					{% if ville %}#}
+{#					<p class="" style="margin-top: -10px!important;"><i class="fa fa-map-marker text-blue"></i> {{ ville }}#}
+{#					</p>#}
+{#					{% endif %}#}
+
+{#					{% if microservices|length > 0 %}#}
+
+{#					<div class="view recent-slider recommended-slider">#}
+
+{#						{% for microservice in microservices %}#}
+
+{#						{{ include('microservice/composants/_bloc.html.twig') }}#}
+
+{#						{% endfor %}#}
+
+{#					</div>#}
+
+{#					{% else %}#}
+
+{#					<div class="col-sm-8 mx-auto">#}
+{#									<p class="{{ microservices|length == 0 ? 'text-center' : '' }}">#}
+{#										Aucun professionnel trouvé à : <strong>{{ ville }}</strong><br>#}
+{#										Nous arrivons très prochainement près de chez vous !#}
+{#									</p>#}
+{#								</div>#}
+
+{#					{% endif %}#}
+
+{#				</div>#}
+{#			</div>#}
+{#		</div>#}
+{#	</div>#}
+{#</section>#}
+
+{#{% if servicesBloc2|length > 0 %}#}
+{#<section class="pb-5 my-4  cs-creativite-recommended">#}
+{#	<div class=" recommended">#}
+{#		<div class="container">#}
 {#			<div class="row">#}
 {#				<div class="col-lg-12">#}
 {#					{% for el in servicesBloc2|keys %}#}
@@ -59,223 +281,162 @@
 {#					{% endfor %}#}
 {#				</div>#}
 {#			</div>#}
-			<h3 class="h5">
-				Créativité et polyvalence, découvrez nos talents
-			</h3>
-			{% if ville %}
-				<p class="" style="margin-top: -10px!important;"><i class="fa fa-map-marker text-blue"></i> {{ ville }}
-				</p>
-			{% endif %}
-			<div class="row">
-				<div class="col-lg-12">
+{#			<h3 class="h5">#}
+{#				Créativité et polyvalence, découvrez nos talents#}
+{#			</h3>#}
+{#			{% if ville %}#}
+{#				<p class="" style="margin-top: -10px!important;"><i class="fa fa-map-marker text-blue"></i> {{ ville }}#}
+{#				</p>#}
+{#			{% endif %}#}
+{#			<div class="row">#}
+{#				<div class="col-lg-12">#}
 
-					{% for category, microservices in servicesBloc2 %}
-						<div class="col-12 col-sm-2 recommended-slider-category zoomIn cs-border-nean">
-							{% for microservice in microservices %}
-								{{ include('microservice/composants/_bloc_category.html.twig') }}
-							{% endfor %}
-						</div>
-					{% endfor %}
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+{#					{% for category, microservices in servicesBloc2 %}#}
+{#						<div class="col-12 col-sm-2 recommended-slider-category zoomIn cs-border-nean">#}
+{#							{% for microservice in microservices %}#}
+{#								{{ include('microservice/composants/_bloc_category.html.twig') }}#}
+{#							{% endfor %}#}
+{#						</div>#}
+{#					{% endfor %}#}
+{#				</div>#}
+{#			</div>#}
+{#		</div>#}
+{#	</div>#}
+{#</section>#}
 
-{% endif %}
-<!--       recent -->
+{#{% endif %}#}
+{#<!--       recent -->#}
 
-<div class="market-wrapper pb-5">
-	<div class="container {{ microservices|length == 0 ? 'text-center' : '' }}">
-		<h3 class="h5">Catégories</h3>
-		<ul class="categories-list mb-0">
-			{% for categorie in categories %}
-			<li class="my-3">
-				<a
-					href="{{ path('microservices_categories', {slug: categorie.slug}) }}?categories%5B%5D={{ categorie.id }}&ville={{ ville() }}">
-					{% if categorie.icone %}
+{#<div class="market-wrapper pb-5">#}
+{#	<div class="container {{ microservices|length == 0 ? 'text-center' : '' }}">#}
+{#		<h3 class="h5">Catégories</h3>#}
+{#		<ul class="categories-list mb-0">#}
+{#			{% for categorie in categories %}#}
+{#			<li class="my-3">#}
+{#				<a#}
+{#					href="{{ path('microservices_categories', {slug: categorie.slug}) }}?categories%5B%5D={{ categorie.id }}&ville={{ ville() }}">#}
+{#					{% if categorie.icone %}#}
 
-					<img src="{{ vich_uploader_asset(categorie, 'iconeFile') | imagine_filter('small_avatar') }}"
-						alt="{{ categorie.name }}" loading="lazy">
+{#					<img src="{{ vich_uploader_asset(categorie, 'iconeFile') | imagine_filter('small_avatar') }}"#}
+{#						alt="{{ categorie.name }}" loading="lazy">#}
 
-					{% else %}
+{#					{% else %}#}
 
-					<img src="{{ asset('themes/base/images/graphics.svg') }}" alt="{{ categorie.name }}" loading="lazy">
+{#					<img src="{{ asset('themes/base/images/graphics.svg') }}" alt="{{ categorie.name }}" loading="lazy">#}
 
-					{% endif %}
+{#					{% endif %}#}
 
-					{{ categorie.name }} <br>
+{#					{{ categorie.name }} <br>#}
 {#					<span>({{ categorie.microservices|length }} service{{ categorie.microservices|length > 1 ? 's' : '' }}#}
 {#						disponible)</span>#}
-				</a>
-			</li>
-			{% endfor %}
-		</ul>
-	</div>
-</div>
+{#				</a>#}
+{#			</li>#}
+{#			{% endfor %}#}
+{#		</ul>#}
+{#	</div>#}
+{#</div>#}
 
-<section class="bg-lightgray" id="how-works">
-	<div class="container py-5">
-		<div class="about-section">
-			<div class="row align-items-center">
-				<div class="col-md-6">
-					<img src="{{ asset('img/c-marche.jpg') }}" class="video-img img-fluid rounded"
-						alt="{{ appName }} : trouvez un studio, ingénieur de son, vidéas,">
-				</div>
-				<div class="col-md-6">
-					<h2 class="h5">Comment ça marche?</h2>
-					<p>
-						Trouvez le professionnel qui répondra à vos besoins. Parcourez de nombreuses catégories, nos filtres
-						vous permettent de planifier vos projets à
-						n'importe quel moment et n'importe où. Faites votre choix parmi de nombreux prestataires qui mettent
-						leur talent à votre disposition.
-					</p>
-					<div class="row">
-						<div class="col-sm-12">
-							<ul>
-								<li>
-									<span><i class="fa fa-check-circle text-blue"></i>
-										Choisissez un service
-								</li>
-								<li>
-									<span><i class="fa fa-check-circle text-blue"></i>
-										Réservez une date
-								</li>
-								<li>
-									<span><i class="fa fa-check-circle text-blue"></i>
-										Réalisez votre projet
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+{#<section class="bg-lightgray" id="how-works">#}
+{#	<div class="container py-5">#}
+{#		<div class="about-section">#}
+{#			<div class="row align-items-center">#}
+{#				<div class="col-md-6">#}
+{#					<img src="{{ asset('img/c-marche.jpg') }}" class="video-img img-fluid rounded"#}
+{#						alt="{{ appName }} : trouvez un studio, ingénieur de son, vidéas,">#}
+{#				</div>#}
+{#				<div class="col-md-6">#}
+{#					<h2 class="h5">Comment ça marche?</h2>#}
+{#					<p>#}
+{#						Trouvez le professionnel qui répondra à vos besoins. Parcourez de nombreuses catégories, nos filtres#}
+{#						vous permettent de planifier vos projets à#}
+{#						n'importe quel moment et n'importe où. Faites votre choix parmi de nombreux prestataires qui mettent#}
+{#						leur talent à votre disposition.#}
+{#					</p>#}
+{#					<div class="row">#}
+{#						<div class="col-sm-12">#}
+{#							<ul>#}
+{#								<li>#}
+{#									<span><i class="fa fa-check-circle text-blue"></i>#}
+{#										Choisissez un service#}
+{#								</li>#}
+{#								<li>#}
+{#									<span><i class="fa fa-check-circle text-blue"></i>#}
+{#										Réservez une date#}
+{#								</li>#}
+{#								<li>#}
+{#									<span><i class="fa fa-check-circle text-blue"></i>#}
+{#										Réalisez votre projet#}
+{#								</li>#}
+{#							</ul>#}
+{#						</div>#}
+{#					</div>#}
+{#				</div>#}
+{#			</div>#}
+{#		</div>#}
+{#	</div>#}
+{#</section>#}
 
-<section class="py-4">
-	<div class="freelance-projects pb-5">
-		<div class="container {{ vendeurs|length == 0 ? 'text-center' : '' }}">
-			<h3 class="h5">
-				Professionnels à proximité
-			</h3>
-			{% if ville %}
-			<p class="">
-				<i class="fa fa-map-marker text-blue"></i> {{ ville }}
-			</p>
-			{% endif %}
-			{% if vendeurs|length > 0 %}
+{#<section class="py-4">#}
+{#	<div class="freelance-projects pb-5">#}
+{#		<div class="container {{ vendeurs|length == 0 ? 'text-center' : '' }}">#}
+{#			<h3 class="h5">#}
+{#				Professionnels à proximité#}
+{#			</h3>#}
+{#			{% if ville %}#}
+{#			<p class="">#}
+{#				<i class="fa fa-map-marker text-blue"></i> {{ ville }}#}
+{#			</p>#}
+{#			{% endif %}#}
+{#			{% if vendeurs|length > 0 %}#}
 
-			<div class="row freelance-slider mt-4">
-				{% for vendeur in vendeurs %}
+{#			<div class="row freelance-slider mt-4">#}
+{#				{% for vendeur in vendeurs %}#}
 
-				<div class="col">
-					<div class="freelancer">
-						<a href="{{ path('vendeur_profil', {nameUrl: vendeur.nameUrl}) }}">
-							{% if vendeur.couverture %}
-							<img src="{{ vich_uploader_asset(vendeur, 'couvertureFile') | imagine_filter('midle_size') }}"
-								class="img-fluid"
-								alt="{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}">
-							{% else %}
+{#				<div class="col">#}
+{#					<div class="freelancer">#}
+{#						<a href="{{ path('vendeur_profil', {nameUrl: vendeur.nameUrl}) }}">#}
+{#							{% if vendeur.couverture %}#}
+{#							<img src="{{ vich_uploader_asset(vendeur, 'couvertureFile') | imagine_filter('midle_size') }}"#}
+{#								class="img-fluid"#}
+{#								alt="{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}">#}
+{#							{% else %}#}
 
-							<img src="{{ asset('themes/base/images/senatopcustudio.jpg') | imagine_filter('midle_size') }}">
+{#							<img src="{{ asset('themes/base/images/senatopcustudio.jpg') | imagine_filter('midle_size') }}">#}
 
-							{% endif %}
-						</a>
-						<div class="freelancer-footer">
+{#							{% endif %}#}
+{#						</a>#}
+{#						<div class="freelancer-footer">#}
 
-							{% if vendeur.avatar %}
-							<img src="{{ vich_uploader_asset(vendeur, 'imageFile') | imagine_filter('medium_avatar') }}"
-								class="img-fluid"
-								alt="{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}">
-							{% else %}
+{#							{% if vendeur.avatar %}#}
+{#							<img src="{{ vich_uploader_asset(vendeur, 'imageFile') | imagine_filter('medium_avatar') }}"#}
+{#								class="img-fluid"#}
+{#								alt="{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}">#}
+{#							{% else %}#}
 
-							<img class="img-fluid" src="{{ asset('img/user.jpg') | imagine_filter('medium_avatar') }}"
-								alt='' />
+{#							<img class="img-fluid" src="{{ asset('img/user.jpg') | imagine_filter('medium_avatar') }}"#}
+{#								alt='' />#}
 
-							{% endif %}
-							<a href="{{ path('vendeur_profil', {nameUrl: vendeur.nameUrl}) }}" class="pl-2 pt-2 text-dark">
-								<strong class="">{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom
-									}}</strong>
-							</a>
-						</div>
-					</div>
-				</div>
+{#							{% endif %}#}
+{#							<a href="{{ path('vendeur_profil', {nameUrl: vendeur.nameUrl}) }}" class="pl-2 pt-2 text-dark">#}
+{#								<strong class="">{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom#}
+{#									}}</strong>#}
+{#							</a>#}
+{#						</div>#}
+{#					</div>#}
+{#				</div>#}
 
-				{% endfor %}
-			</div>
+{#				{% endfor %}#}
+{#			</div>#}
 
-			{% else %}
+{#			{% else %}#}
 
-			<div>
-				<p class="{{ vendeurs|length == 0 ? 'text-center' : '' }}">
-					Aucun professionnel disponible dans cette zone <strong>{{ ville }}</strong>
-				</p>
-			</div>
+{#			<div>#}
+{#				<p class="{{ vendeurs|length == 0 ? 'text-center' : '' }}">#}
+{#					Aucun professionnel disponible dans cette zone <strong>{{ ville }}</strong>#}
+{#				</p>#}
+{#			</div>#}
 
-			{% endif %}
-		</div>
-	</div>
-</section>
-
-{% if packs|length > 0 %}
-<section>
-   <div class="container py-5">
-      {% for pack in packs %}
-         {% include "pack/composants/_block.html.twig" %}
-      {% endfor %}
-   </div>
-</section>
-{% endif %}
-
-{% endblock %}
-
-{% block javascripts %}
-
-{{ parent() }}
-
-{% include "partials/_location_script.html.twig" %}
-
-	<script>
-		$('.recommended-slider-category').slick({
-			slidesToShow: 1,
-			slidesToScroll: 1,
-			autoplay: true,
-			autoplaySpeed: 2000,
-		});
-
-		setTimeout(function (){
-			$('.zoom-image').removeClass('zoom-image');
-		}, 3000);
-
-
-		// $('.recommended-slider-category').slick({
-		// 	centerMode: true,
-		// 	centerPadding: '60px',
-		// 	slidesToShow: 3,
-		// 	responsive: [
-		// 		{
-		// 			breakpoint: 768,
-		// 			settings: {
-		// 				arrows: false,
-		// 				centerMode: true,
-		// 				centerPadding: '40px',
-		// 				slidesToShow: 3
-		// 			}
-		// 		},
-		// 		{
-		// 			breakpoint: 480,
-		// 			settings: {
-		// 				arrows: false,
-		// 				centerMode: true,
-		// 				centerPadding: '40px',
-		// 				slidesToShow: 1
-		// 			}
-		// 		}
-		// 	]
-		// });
-	</script>
-
-
-{% endblock %}
+{#			{% endif %}#}
+{#		</div>#}
+{#	</div>#}
+{#</section>#}

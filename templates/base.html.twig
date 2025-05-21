@@ -18,53 +18,64 @@
 
 	<!-- Favicon Icon -->
 	<link rel="icon" type="{{ asset('img/Logo.png') }}" href="images/fav.svg">
-	<!-- Bootstrap core CSS -->
-	<link href="{{ asset('themes/base/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-	<!-- Font Awesome-->
-	<link href="{{ asset('themes/base/vendor/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">
-	<!-- Material Design Icons -->
-	<link href="{{ asset('themes/base/vendor/icons/css/materialdesignicons.min.css') }}" media="all" rel="stylesheet"
-		type="text/css">
-	<!-- Slick -->
-	<link href="{{ asset('themes/base/vendor/slick-master/slick/slick.css') }}" rel="stylesheet" type="text/css">
-	<!-- Lightgallery -->
-	<link href="{{ asset('themes/base/vendor/lightgallery-master/dist/css/lightgallery.min.css') }}" rel="stylesheet">
-	<!-- Select2 CSS -->
-	<link href="{{ asset('themes/base/vendor/select2/css/select2-bootstrap.css') }}" />
-	<link href="{{ asset('themes/base/vendor/select2/css/select2.min.css') }}" rel="stylesheet">
-	<!-- Custom styles for this template -->
-	{% block stylesheets %}
-	{{ encore_entry_link_tags('app') }}
-	{{ encore_entry_link_tags('style') }}
-	{{ encore_entry_link_tags('custom') }}
-	{{ encore_entry_link_tags('responsive') }}
+	<link href="{{ asset('themes/layout/css/main.css') }}" rel="stylesheet">
+	<link href="{{ asset('themes/custom/custom.css') }}" rel="stylesheet">
+	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/jquery.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/owl.carousel.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/select2.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('themes/layout/js/script.js') }}"></script>
 
-		<link href="{{ asset('themes/base/css/custom_homepage.css') }}" rel="stylesheet">
-	{% endblock %}
+	<!-- Bootstrap core CSS -->
+{#	<link href="{{ asset('themes/base/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">#}
+{#	<!-- Font Awesome-->#}
+{#	<link href="{{ asset('themes/base/vendor/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">#}
+{#	<!-- Material Design Icons -->#}
+{#	<link href="{{ asset('themes/base/vendor/icons/css/materialdesignicons.min.css') }}" media="all" rel="stylesheet"#}
+{#		type="text/css">#}
+{#	<!-- Slick -->#}
+{#	<link href="{{ asset('themes/base/vendor/slick-master/slick/slick.css') }}" rel="stylesheet" type="text/css">#}
+{#	<!-- Lightgallery -->#}
+{#	<link href="{{ asset('themes/base/vendor/lightgallery-master/dist/css/lightgallery.min.css') }}" rel="stylesheet">#}
+{#	<!-- Select2 CSS -->#}
+{#	<link href="{{ asset('themes/base/vendor/select2/css/select2-bootstrap.css') }}" />#}
+{#	<link href="{{ asset('themes/base/vendor/select2/css/select2.min.css') }}" rel="stylesheet">#}
+{#	<!-- Custom styles for this template -->#}
+{#	{% block stylesheets %}#}
+{#	{{ encore_entry_link_tags('app') }}#}
+{#	{{ encore_entry_link_tags('style') }}#}
+{#	{{ encore_entry_link_tags('custom') }}#}
+{#	{{ encore_entry_link_tags('responsive') }}#}
+
+{#		<link href="{{ asset('themes/base/css/custom_homepage.css') }}" rel="stylesheet">#}
+{#	{% endblock %}#}
 
 	<!-- Cke editor -->
 	<script defer src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 
-	<style>
-		.slick-track {
-			margin-left: 0 !important;
-			margin-right: auto !important;
-		}
-		.flash{
-			position: fixed;
-			bottom: 10px;
-			width: auto;
-			right: 5px;
-			z-index: 100!important;
-		}
-	</style>
+{#	<style>#}
+{#		.slick-track {#}
+{#			margin-left: 0 !important;#}
+{#			margin-right: auto !important;#}
+{#		}#}
+{#		.flash{#}
+{#			position: fixed;#}
+{#			bottom: 10px;#}
+{#			width: auto;#}
+{#			right: 5px;#}
+{#			z-index: 100!important;#}
+{#		}#}
+{#	</style>#}
 
 </head>
 
-<body data-turbo="false" class="bg">
+<body data-turbo="false" class="bg {{ app.user ? 'userConnected' }} {% block body_class '' %}">
+
+{#	{% block navbar %}#}
+{#	{{ include('partials/base/_navbars.html.twig') }}#}
+{#	{% endblock %}#}
 
 	{% block navbar %}
-	{{ include('partials/base/_navbars.html.twig') }}
+		{{ include('partials/base/_header.html.twig') }}
 	{% endblock %}
 
 	{% block serviceBlocNavigation %}{% endblock %}
@@ -80,33 +91,33 @@
 
 	<!--       footer-->
 	<!-- Bootstrap core JavaScript -->
-	<script src="{{ asset('themes/base/vendor/jquery/jquery.min.js') }}"></script>
-	<script src="{{ asset('themes/base/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-	<!-- Contact form JavaScript -->
-	<!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-	<script src="{{ asset('themes/base/js/jqBootstrapValidation.js') }}"></script>
-	<script src="{{ asset('themes/base/js/contact_me.js') }}"></script>
-	<!-- Slick -->
-	<script src="{{ asset('themes/base/vendor/slick-master/slick/slick.js') }}" type="text/javascript"
-		charset="utf-8"></script>
-	<!-- lightgallery -->
-	<script src="{{ asset('themes/base/vendor/lightgallery-master/dist/js/lightgallery-all.min.js') }}"></script>
-	<!-- select2 Js -->
-	
-	<script src="{{ asset('themes/base/vendor/select2/js/select2.min.js') }}"></script>
+{#	<script src="{{ asset('themes/base/vendor/jquery/jquery.min.js') }}"></script>#}
+{#	<script src="{{ asset('themes/base/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>#}
+{#	<!-- Contact form JavaScript -->#}
+{#	<!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->#}
+{#	<script src="{{ asset('themes/base/js/jqBootstrapValidation.js') }}"></script>#}
+{#	<script src="{{ asset('themes/base/js/contact_me.js') }}"></script>#}
+{#	<!-- Slick -->#}
+{#	<script src="{{ asset('themes/base/vendor/slick-master/slick/slick.js') }}" type="text/javascript"#}
+{#		charset="utf-8"></script>#}
+{#	<!-- lightgallery -->#}
+{#	<script src="{{ asset('themes/base/vendor/lightgallery-master/dist/js/lightgallery-all.min.js') }}"></script>#}
+{#	<!-- select2 Js -->#}
+{#	#}
+{#	<script src="{{ asset('themes/base/vendor/select2/js/select2.min.js') }}"></script>#}
 
-	<!-- axios -->
-	<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
-	
-	<!-- Custom -->
-	{% block javascripts %}
-		{{ encore_entry_script_tags('app') }}
-		{{ encore_entry_script_tags('jscustom') }}
-		{{ encore_entry_script_tags('dropdown') }}
-		{{ encore_entry_script_tags('favoris') }}
-		{{ encore_entry_script_tags('btnloader') }}
-		{{ encore_entry_script_tags('file') }}
-	{% endblock %}
+{#	<!-- axios -->#}
+{#	<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>#}
+{#	#}
+{#	<!-- Custom -->#}
+{#	{% block javascripts %}#}
+{#		{{ encore_entry_script_tags('app') }}#}
+{#		{{ encore_entry_script_tags('jscustom') }}#}
+{#		{{ encore_entry_script_tags('dropdown') }}#}
+{#		{{ encore_entry_script_tags('favoris') }}#}
+{#		{{ encore_entry_script_tags('btnloader') }}#}
+{#		{{ encore_entry_script_tags('file') }}#}
+{#	{% endblock %}#}
 
 	<script>
 		// Add the following code if you want the name of the file appear on select
@@ -118,7 +129,7 @@
 			let file = $(".custom-file-input")[0].files[0].name;
 			let label = $(".label");
 			label.text(file);
-		});
+		}});
 	</script>
 
 

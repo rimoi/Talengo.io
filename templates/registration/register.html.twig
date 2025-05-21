@@ -1,4 +1,4 @@
-{% extends 'auth.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Créer un compte
 {{ appName }}
@@ -26,67 +26,47 @@
 </div>
 {% endfor %}
 
-{{ form_start(registrationForm) }}
-<div class="row">
-	<div class="col-sm-6">
-		<div class="form-group">
-			<label class="mb-1">Nom</label>
-			<div class="position-relative icon-form-control">
-				{{ form_widget(registrationForm.nom) }}
+
+	<div class="account-page">
+		<div class="container">
+			<div class="content-sign-upForm">
+				<h1 class="primaryTitle">Créer votre compte avec : </h1>
+				<div class="wrp-btn">
+					<a href="" class="btn-signUp btnGoogle">Continuer avec google</a>
+					<a href="" class="btn-signUp btnLinkedin">Continuer avec linkedin</a>
+				</div>
+				<span class="hr-or">Ou</span>
+				{{ form_start(registrationForm) }}
+					<div class="row-form">
+						{{ form_row(registrationForm.email) }}
+					</div>
+					<div class="row-form">
+						{{ form_row(registrationForm.nom) }}
+					</div>
+					<div class="row-form">
+						{{ form_row(registrationForm.prenom) }}
+					</div>
+					<div class="row-form">
+						{{ form_row(registrationForm.plainPassword) }}
+					</div>
+
+					<div class="row-form custom-checkbox">
+						{{ form_row(registrationForm.agreeTerms) }}
+
+{#						<label for="registration_form_agreeTerms" class="registration_form_agreeTerms"#}
+{#						>#}
+{#							J’accepte les#}
+{#							<a href="{{ path('page_conditions') }}" class="text-light">CGU</a>#}
+{#							et#}
+{#							<a href="{{ path('page_conditions') }}" class="text-light">conditions d'utilisations</a>#}
+{#						</label>#}
+					</div>
+
+					<button type="submit" class="btn btn-primaryBlue">Créer mon compte</button>
+				{{ form_end(registrationForm) }}
+				<p class="connexion-link">Déjà inscrit sur Talengo.io ? <a href="{{ path('app_login') }}">Se connecter</a></p>
 			</div>
-			{{ form_errors(registrationForm.nom) }}
 		</div>
 	</div>
-	<div class="col-sm-6">
-		<div class="form-group">
-			<label class="mb-1">Prénom</label>
-			<div class="position-relative icon-form-control">
-				{{ form_widget(registrationForm.prenom) }}
-			</div>
-			{{ form_errors(registrationForm.prenom) }}
-		</div>
-	</div>
-</div>
-
-<div class="form-group radio">
-	<label class="mb-1">Je souhaite ?</label>
-	{{ form_widget(registrationForm.compte) }}
-	{{ form_errors(registrationForm.compte) }}
-</div>
-
-<div class="form-group">
-	<label class="mb-1">Email</label>
-	<div class="position-relative icon-form-control">
-		{{ form_widget(registrationForm.email) }}
-	</div>
-	{{ form_errors(registrationForm.email) }}
-</div>
-
-<div class="form-group mb-0">
-	{% include "security/_password.html.twig" %}
-	<div class="position-relative icon-form-control">
-		{{ form_widget(registrationForm.plainPassword) }}
-	</div>
-</div>
-
-<div class="mb-3">
-	{{ form_widget(registrationForm.agreeTerms) }}
-	<label for="registration_form_agreeTerms" style="display: inline;margin-left:30px;vertical-align: top;">
-		J'accepte les
-		<a href="{{ path('page_conditions') }}" class="text-light">termes</a>
-		et
-		<a href="{{ path('page_conditions') }}" class="text-light">conditions d'utilisation</a>
-	</label>
-</div>
-
-<button type="submit" formnovalidate class="btn btn-success btn-block text-uppercase">S'inscrire</button>
-
-{{ form_end(registrationForm) }}
-
-{#<div class="text-center mt-3 pb-3">#}
-
-{#	{% include "security/_reseaux.html.twig" %}#}
-
-{#</div>#}
 
 {% endblock %}

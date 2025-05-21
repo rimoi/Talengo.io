@@ -1,0 +1,39 @@
+{% set page = current %}
+{% set totalPage = pageCount %}
+
+<div class="flexCenter pagination">
+        {% set queryParams = app.request.query.all %}
+        {% set range = 3 %}
+        {% set start = max(1, page - range) %}
+        {% set end = min(totalPage, page + range) %}
+
+        {% if totalPage == 1 %}
+            <span>1</span>
+        {% elseif totalPage > 0 %}
+            {% if start > 1 %}
+                    <a class="btn btn-primaryBlue" href="{{ path(app.request.attributes.get('_route'), queryParams|merge({'page': 1})) }}">1</a>
+                {% if start > 2 %}
+                    <span>...</span>
+                {% endif %}
+            {% endif %}
+
+            {% for i in start..end %}
+                <a class="btn btn-primaryBlue" href="{{ path(app.request.attributes.get('_route'), queryParams|merge({'page': i})) }}">
+                    {% if i == page %}
+                        <b>{{ i }}</b>
+                    {% else %}
+                        {{ i }}
+                    {% endif %}
+                </a>
+            {% endfor %}
+
+            {% if end < totalPage %}
+                {% if end < totalPage - 1 %}
+                    <span>...</span>
+                {% endif %}
+                    <a class="btn btn-primaryBlue" href="{{ path(app.request.attributes.get('_route'), queryParams|merge({'page': totalPage})) }}">{{ totalPage }}</a>
+            {% endif %}
+        {% else %}
+                <span>1</span>
+        {% endif %}
+</div>

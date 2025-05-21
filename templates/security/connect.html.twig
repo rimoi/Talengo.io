@@ -1,0 +1,39 @@
+<section class="flex min-h-screen">
+    <form action="" class="card bg-ui tls-shadow-md m-auto h-fit w-full max-w-sm p-1">
+        <div class="p-8">
+            <div>
+                <h1 class="text-title mb-1 text-xl font-semibold">Sign In to Tailus UI</h1>
+                <p class="text-sm">Welcome back! Sign in to continue</p>
+            </div>
+
+            <a href="{{ path('auth_oauth_connect', {service: 'google'}) }}">Connecter avec google</a>
+            <a href="{{ path('auth_oauth_connect', {service: 'facebook'}) }}">Connecter avec Facbook</a>
+
+            <hr class="my-8 border-dashed" />
+
+            <div class="space-y-6">
+                <div class="field">
+                    <label for="email2" class="text-title text-sm"> Username</label>
+                    <input type="email" required name="email2" id="email2" class="input sz-md variant-mixed" />
+                </div>
+
+                <div class="field">
+                    <div class="flex justify-between">
+                        <label for="pwd" class="text-title text-sm"> Password</label>
+                        <a href="#" class="link intent-info variant-ghost text-sm"> Forgot your Password ?</a>
+                    </div>
+                    <input type="password" required name="pwd" id="pwd" class="input sz-md variant-mixed" />
+                </div>
+
+                <button class="btn variant-primary sz-md w-full">Sign In</button>
+            </div>
+        </div>
+
+        <div data-shade="925" class="card variant-soft rounded-[calc(var(--card-radius)-4px)] dark:!bg-[--ui-bg]">
+            <p class="text-center text-sm">
+                Don't have an account ?
+                <a href="#" class="link intent-neutral variant-underlined"> Create account</a>
+            </p>
+        </div>
+    </form>
+</section>

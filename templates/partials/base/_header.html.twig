@@ -1,0 +1,174 @@
+<header>
+	<div class="container">
+		<div class="content">
+			<div class="left-content">
+				<!-- commun entre les deux versions du header -->
+				<a href="{{ path('accueil') }}" class="logo">
+					<img src="{{ asset('themes/layout/img/logo.svg') }}" alt="Logo Talengo.io">
+				</a>
+				<!-- end commun entre les deux versions du header -->
+
+
+				{% if app.user %}
+					<!--  si user est connecté  -->
+					<div class="search-header">
+						<form action="" class="search">
+							<input type="text" name="" id="" placeholder="Rechercher par mots-clés ou compétences">
+							<button type="submit" class="btn btn-primaryBlue"><i class="fa-solid fa-magnifying-glass"></i></button>
+						</form>
+					</div>
+					<!--  end  user connecté   -->
+				{% endif %}
+
+			</div>
+
+
+			<div class="content-right">
+				{% if app.user %}
+					<!--  si user est connecté  -->
+					<a href="" class="btn btn-primaryBlue btn-seller ">Devenez vendeur</a>
+					<nav>
+						<ul class="menu">
+							<li class="visibleMenuBurger">
+								<a href="{{ path('user_profil') }}">Profil</a>
+							</li>
+							<li class="visibleMenuBurger">
+								<a href="{{ path('favoris_index') }}">Favoris</a>
+							</li>
+							<li>
+								<a href="{{ path('conversations') }}"><i class="fa-solid fa-envelope"></i><span class="visibleMenuBurger">Messages</span></a>
+							</li>
+							<li class="notifications">
+								<i class="fa-solid fa-bell"></i>
+								<a href="{{ path('suivis_index') }}" class="visibleMenuBurger">Notifications</a>
+								<div class="dropdownMenu hiddenMenuBurger">
+									<ul>
+										<li class="active"><a href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a></li>
+										<li class="active"><a href="">omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</a></li>
+										<li><a href="">dolorem ipsum quia dolor sit amet, consectetur</a></li>
+										<li><a href="">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid </a></li>
+										<li class="notifLink"><a href="">voir toutes les notifications</a></li>
+									</ul>
+								</div>
+							</li>
+							<li>
+								<a href="{{ path('user_dashboard') }}">
+									<i class="fa-solid fa-shop"></i>
+									<span>Ventes</span>
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('user_dashboard') }}">
+									<i class="fa-solid fa-bag-shopping"></i>
+									<span>Achats</span>
+								</a>
+							</li>
+							<li class="profil hiddenMenuBurger">
+								{% if app.user.reseauAvatar %}
+									<img src="{{ app.user.reseauAvatar }}" class="img-fluid" alt="{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.nom ~ ' ' ~ app.user.prenom }}">
+								{% else %}
+									{% if app.user.avatar %}
+										<img src="{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('small_avatar') }}"
+											 class="img-fluid" alt="{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.nom ~ ' ' ~ app.user.prenom }}">
+									{% else %}
+										<img class="img-fluid" src="{{ asset('img/user.jpg') | imagine_filter('small_avatar') }}" alt='' />
+									{% endif %}
+								{% endif %}
+
+{#								<img src="dist/img/profile1.jpg" alt="">#}
+								<div class="dropdownMenu">
+									<ul>
+										<li><a href="{{ path('user_profil') }}">Mon profil</a></li>
+										<li><a href="{{ path('favoris_index') }}">Favoris </a></li>
+										<li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+									</ul>
+								</div>
+							</li>
+							<li class="visibleMenuBurger"><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+						</ul>
+					</nav>
+					<!--  end  user est connecté  -->
+				{% else %}
+				<!--****  si user n'est pas connecté  -->
+				 <nav>
+                    <ul class="menu">
+                        <li><a href="{{ path('app_register') }}">Inscription</a></li>
+                        <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                    </ul>
+                </nav>
+                <a href="" class="btn btn-primaryBlue btn-seller ">Devenez vendeur</a>
+				<!--  end user n'est pas connecté  -->
+				{% endif %}
+			</div>
+		</div>
+		{% if app.user %}
+			<!--  si user est connecté  -->
+			<span class="visibleMobile iconSearchMobile"><i class="fa-solid fa-magnifying-glass"></i></span>
+			<!--  end user est connecté  -->
+		{% endif %}
+
+
+		<!-- commun entre les deux versions du header -->
+		<div class="menuBurger">
+			<i class="fa-solid fa-bars"></i>
+			<i class="fa-solid fa-close"></i>
+		</div>
+		<!-- end commun entre les deux versions du header -->
+	</div>
+
+	{%
+		if app.user
+		and app.request.get('_route') == 'list'
+	%}
+		<!--  si user est connecté  -->
+		<div class="categories">
+			<div class="container">
+				<ul class="menuCategories">
+					<li class="{{ app.request.attributes.get('_route') == 'list' ? 'active' }}">
+						<a href="" >
+							<i class="fa-solid fa-star"></i>
+							<span>Top services</span>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="fa-solid fa-pen-to-square"></i>
+							<span>Design & Graphisme </span>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="fa-solid fa-laptop-code"></i>
+							<span>Site & Développement</span>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="fa-solid fa-chart-line"></i>
+							<span>Seo & Communication</span>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="fa-solid fa-file-video"></i>
+							<span>Vidéo & Animation</span>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="fa-solid fa-users"></i>
+							<span>Réseaux Sociaux</span>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="fa-solid fa-file-lines"></i>
+							<span>Rédaction</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--  End user est connecté  -->
+	{% endif %}
+</header>

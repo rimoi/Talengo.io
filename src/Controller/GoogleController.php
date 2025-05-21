@@ -11,36 +11,31 @@ use Symfony\Component\Routing\Annotation\Route;
 class GoogleController extends AbstractController
 {
 
-    /**
-     * After going to Facebook, you're redirected back here
-     * because this is the "redirect_route" you configured
-     * in config/packages/knpu_oauth2_client.yaml
-     *
-     * @Route("/google/oauth/check/{service_google}", name="connect_google_check")
-     */
-    public function connectCheckAction(Request $request, ClientRegistry $clientRegistry, $service_google)
-    {
-        // ** if you want to *authenticate* the user, then
-        // leave this method blank and create a Guard authenticator
-        // (read below)
-
-        /** @var GoogleClient $client */
-        $client = $clientRegistry->getClient('google');
-
-        try {
-            // the exact class depends on which provider you're using
-            /** @var GoogleClient $client */
-            $user = $client->fetchUser();
-
-            // do something with all this new power!
-            // e.g. $name = $user->getFirstName();
-            return $this->redirectToRoute('accueil');
-            var_dump($user); die;
-            // ...
-        } catch (IdentityProviderException $e) {
-            // something went wrong!
-            // probably you should return the reason to the user
-            var_dump($e->getMessage()); die;
-        }
-    }
+//    /**
+//     * @Route("/oauth/check/{service_google}", name="connect_google_check")
+//     */
+//    public function connectCheckAction(Request $request, ClientRegistry $clientRegistry, $service_google)
+//    {
+//        // ** if you want to *authenticate* the user, then
+//        // leave this method blank and create a Guard authenticator
+//        // (read below)
+//
+//        /** @var GoogleClient $client */
+//        $client = $clientRegistry->getClient('google');
+//
+//        try {
+//            // the exact class depends on which provider you're using
+//            /** @var GoogleClient $client */
+//            $user = $client->fetchUser();
+//
+//            // do something with all this new power!
+//            // e.g. $name = $user->getFirstName();
+//            return $this->redirectToRoute('accueil');
+//            // ...
+//        } catch (IdentityProviderException $e) {
+//            // something went wrong!
+//            // probably you should return the reason to the user
+//            dd($e->getMessage()); die;
+//        }
+//    }
 }

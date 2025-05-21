@@ -1,4 +1,4 @@
-{% extends 'auth.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Réinitialisez votre mot de passe
 {% endblock %}
@@ -12,22 +12,20 @@
 		<div class="alert alert-danger" role="alert">{{ flashError }}</div>
 	{% endfor %}
 
-	{{ form_start(requestForm) }}
-	<div class="form-group">
-		<label class="mb-1">Email</label>
-		<div class="position-relative icon-form-control">
-			{{ form_widget(requestForm.email) }}
+	<div class="account-page">
+		<div class="container">
+			<div class="content-sign-upForm">
+				<h1 class="primaryTitle">Mot de passe oublié ? </h1>
+				<p class="labelTitle">Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.</p>
+				{{ form_start(requestForm) }}
+					<div class="row-form">
+						{{ form_row(requestForm.email) }}
+					</div>
+					<button type="submit" class="btn btn-primaryBlue">Envoyer</button>
+				{{ form_end(requestForm) }}
+				<p class="connexion-link">Pas encore inscrit sur Talengo.io ? <a href="{{ path('app_register') }}">S'inscrire</a></p>
+			</div>
 		</div>
-		{{ form_errors(requestForm.email) }}
 	</div>
-
-	<div>
-		<p>
-			Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.
-		</p>
-	</div>
-
-	<button class="btn btn-success btn-block text-uppercase my-3">Envoyer un e-mail de réinitialisation</button>
-	{{ form_end(requestForm) }}
 	
 {% endblock %}

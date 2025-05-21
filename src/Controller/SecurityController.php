@@ -10,20 +10,27 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    private const SCOPES = [
+        'google' => [],
+        'facebook' => [],
+    ];
+
+
     /**
      * @Route("/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        /*if ($this->getUser()) {
+        if ($this->getUser()) {
             return $this->redirectToRoute('accueil');
-        }*/
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+//        return $this->render('security/connect.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
@@ -47,6 +54,27 @@ class SecurityController extends AbstractController
         return $client->redirect([
             'profile', 'email'
         ]);
+    }
+
+    /**
+     * @Route("/oauth/connect/{service}", name="auth_oauth_connect")
+     */
+    public function connectService(string $service, ClientRegistry $clientRegistry): Response
+    {
+
+        if (! in_array($service, array_keys(self::SCOPES), true)) {
+            throw $this->createNotFoundException();
+        }
+
+        return $clientRegistry->getClient($service)->redirect(self::SCOPES[$service]);
+    }
+
+    /**
+     * @Route("/oauth/check/{service_google}", name="auth_oauth_check")
+     */
+    public function check(): Response
+    {
+        return new Response(status: Response::HTTP_OK);
     }
 
     /**

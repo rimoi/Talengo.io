@@ -1,4 +1,4 @@
-{% extends 'auth.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Connexion{% endblock %}
 
@@ -12,42 +12,43 @@
 
 {% block alternatiflink %}https://talengo.io/login{% endblock %}
 
+{% block class_body 'stickyDisabled' %}
+
 {% block body %}
+	<div class="account-page">
+		<div class="container">
+			<div class="content-sign-upForm">
+				{% if error %}
+					<div class="alert alert-danger">
+						Identifiant ou mot de passe incorect
+					</div>
+				{% endif %}
+				<h1 class="primaryTitle">Se connecter avec : </h1>
+				<div class="wrp-btn">
+					<a href="{{ path('auth_oauth_connect', {service: 'google'}) }}" class="btn-signUp btnGoogle">Continuer avec google</a>
+					<a href="{{ path('auth_oauth_connect', {service: 'linkedin'}) }}" class="btn-signUp btnLinkedin">Continuer avec linkedin</a>
+				</div>
+				<span class="hr-or">Ou</span>
+				<form method="post">
+					<div class="row-form">
+						<label for="">adress email</label>
+						<input type="email" name="email" id="inputEmail" value="{{ last_username }}" required autofocus>
+					</div>
+					<div class="row-form">
+						<label for="">mot de passe</label>
+						<input type="password" name="password" id="inputPassword" autocomplete="current-password" required>
+						<a href="{{ path('app_forgot_password_request') }}" class="passwordLink">mot de passe oublié ?</a>
+					</div>
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-<form method="post">
-	{% if error %}
-	<div class="alert alert-danger">
-		Identifiant ou mot de passe incorect
-	</div>
-	{% endif %}
-	<div class="form-group">
-		<label class="mb-1" for="inputEmail">Email</label>
-		<div class="position-relative icon-form-control">
-			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
-				autocomplete="email" required autofocus>
+					<div class="row-form custom-checkbox">
+						<input type="checkbox" name="_remember_me" id="checkbox">
+						<label for="checkbox">Se sevenir de moi </label>
+					</div>
+					<button type="submit" class="btn btn-primaryBlue">Se connecter</button>
+				</form>
+				<p class="connexion-link">Pas encore inscrit sur Talengo.io ? <a href="{{ path('app_register') }}">S'inscrire</a></p>
+			</div>
 		</div>
 	</div>
-	<div class="form-group">
-		{% include "security/_password.html.twig" %}
-		<div class="position-relative icon-form-control">
-			<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password"
-				required>
-		</div>
-	</div>
-	<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-	<div class="custom-control custom-checkbox mb-3">
-		<input type="checkbox" class="custom-control-input" name="_remember_me" id="customCheck1">
-		<label class="custom-control-label font-weight-light text-light" for="customCheck1">Se souvenir de moi</label>
-	</div>
-	<button class="btn btn-success btn-block text-uppercase py-3" type="submit">
-		Connexion
-	</button>
-</form>
-<hr>
-<div class="text-center pb-3">
-
-	{% include "security/_reseaux.html.twig" %}
-
-</div>
 {% endblock %}

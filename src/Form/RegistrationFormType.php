@@ -24,8 +24,8 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label' => false,
-                'attr' => ['placeholder' => 'nom'],
+                'label' => 'Nom',
+                'attr' => ['placeholder' => 'Dupond'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champ est requis',
@@ -33,25 +33,11 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('prenom', TextType::class, [
-                'label' => false,
-                'attr' => ['placeholder' => 'prénom'],
+                'label' => 'Prénom',
+                'attr' => ['placeholder' => 'Jean'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champ est requis',
-                    ]),
-                ],
-            ])
-            ->add('compte', ChoiceType::class, [
-                'label' => 'Que souhaitez vous?',
-                'choices'  => [
-                    'Acheter des prestations' =>  'Client',
-                    'Vendre des prestations'    =>  'Vendeur',
-                ],
-                'expanded' => true,
-                'multiple' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Que souhaiterez-vous?',
                     ]),
                 ],
             ])
@@ -81,7 +67,7 @@ class RegistrationFormType extends AbstractType
             ])*/
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                'attr' => ['placeholder' => 'Exemple@domail.com'],
+                'attr' => ['placeholder' => 'exemple@domail.com'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champ est requis',
@@ -93,8 +79,8 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'label' => false,
-                'attr' => ['style' => 'display: inline!important;width:15px;height:15px;border: 1px solid #ededed;bottom:-18px;'],
+                'required' => true,
+                'label' => "J’accepte les CGU et les conditions d'utilisations",
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter nos conditions.',
@@ -102,9 +88,9 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
-                'label' => false,
+                'label' => 'Mot de passe',
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password', 'placeholder' => 'Mot de passe'],
+                'attr' => ['autocomplete' => 'new-password', 'placeholder' => '*******'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez entrer un mot de passe',

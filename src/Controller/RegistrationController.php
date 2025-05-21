@@ -35,8 +35,15 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/inscription', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, 
-    LoginFormAuthenticator $authenticator): Response
+    public function register(): Response
+    {
+        return $this->render('registration/switch.html.twig');
+    }
+
+
+    #[Route('/inscription/client', name: 'app_register_client')]
+    public function registerCustomer(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator,
+                             LoginFormAuthenticator $authenticator): Response
     {
         /*if ($this->getUser()) {
             return $this->redirectToRoute('accueil');
@@ -60,28 +67,8 @@ class RegistrationController extends AbstractController
             $user->setNameUrl($userNameUrl);
             //$user->setIsLocked(false);
 
-            if ($form->get('compte')->getData() == 'Vendeur') {
-
-                $user->setRoles(['ROLE_VENDEUR']);
-                $user->setCompte('Vendeur');
-
-                // Création du portefeuille si l'utilisateur choisis le compte vendeur
-                $portefeuille = new Portefeuille();
-                $portefeuille->setSoldeDisponible(0);
-                $portefeuille->setSoldeEncours(0);
-                $portefeuille->setVendeur($user);
-
-                $entityManager->persist($portefeuille);
-
-                $route = 'user_categorie';
-
-            } elseif ($form->get('compte')->getData() == 'Client') {
-
-                $route = 'register_mail_send';
-
-                $user->setRoles(['ROLE_CLIENT']);
-                $user->setCompte('Client');
-            }
+            $user->setRoles(['ROLE_CLIENT']);
+            $user->setCompte('Client');
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -104,7 +91,73 @@ class RegistrationController extends AbstractController
             );
 
             $this->addFlash('info', 'Nous devons vérifier votre adresse e-mail "' . $this->getUser()->getEmail() . '"' . ' avant que vous puissiez accéder à votre portail, Vérifiez votre adresse e-mail puis cliquez sur: Confirmer mon e-mail');
-            
+
+        }
+
+        return $this->render('registration/register.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/inscription/seller', name: 'app_register_seller')]
+    public function registerSeller(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator,
+                                     LoginFormAuthenticator $authenticator): Response
+    {
+        /*if ($this->getUser()) {
+            return $this->redirectToRoute('accueil');
+        }*/
+
+        $user = new User();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $userNameUrl = $this->sluger->slug(strtolower($user->getNom() . '-' . $user->getPrenom()));
+
+            $user->setNameUrl($userNameUrl);
+            //$user->setIsLocked(false);
+
+            $user->setRoles(['ROLE_VENDEUR']);
+            $user->setCompte('Vendeur');
+
+            // Création du portefeuille si l'utilisateur choisis le compte vendeur
+            $portefeuille = new Portefeuille();
+            $portefeuille->setSoldeDisponible(0);
+            $portefeuille->setSoldeEncours(0);
+            $portefeuille->setVendeur($user);
+
+            $entityManager->persist($portefeuille);
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // generate a signed url and email it to the user
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
+                (new TemplatedEmail())
+                    ->from(new Address('talengo.contact@gmail.com', 'Talengo.io'))
+                    ->to($user->getEmail())
+                    ->subject('Confirmez votre adresse email !')
+                    ->htmlTemplate('registration/confirmation_email.html.twig')
+            );
+
+            return $userAuthenticator->authenticateUser(
+                $user,
+                $authenticator,
+                $request
+            );
+
+            $this->addFlash('info', 'Nous devons vérifier votre adresse e-mail "' . $this->getUser()->getEmail() . '"' . ' avant que vous puissiez accéder à votre portail, Vérifiez votre adresse e-mail puis cliquez sur: Confirmer mon e-mail');
+
         }
 
         return $this->render('registration/register.html.twig', [
@@ -167,7 +220,7 @@ class RegistrationController extends AbstractController
             );*/
 
             // do anything else you need here, like send an email
-            $this->addFlash('success', "Félication vous êtes enfin devenu vendeur");
+            $this->addFlash('success', "Félicitation vous êtes enfin devenu vendeur");
 
             return $this->redirectToRoute('user_profil', []);
         }

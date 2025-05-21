@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un compte
+{{ appName }}
+{% endblock %}
+
+{% block titre %}Créer un compte{% endblock %}
+
+{% block text %}Nouveau sur
+{{ appName }}? <br> Crée gratuitement votre compte
+{% endblock %}
+
+{% block alternatiflink %}
+	https://talengo.io/inscription{% endblock %}
+
+{% block imgBg %}{{ asset('img/register.png') }}{% endblock %}
+
+{% block space %}{% endblock %}
+
+{% block body %}
+	<div class="account-page">
+		<div class="container">
+			<div class="content-sign-up">
+				<h1 class="primaryTitle">Inscrivez-vous gratuitement</h1>
+				<h2 class="labelTitle">Choisissez votre profil :</h2>
+				<div class="choose-profil">
+					<a href="{{ path('app_register_client') }}" class="profil">
+						<i class="icon fa-solid fa-briefcase"></i>
+						<div class="text">
+							<h3 class="user">client</h3>
+							<p>J'ai un projet à réaliser</p>
+						</div>
+						<i class="fa-solid fa-chevron-right"></i>
+					</a>
+					<a href="{{ path('app_register_seller') }}" class="profil">
+						<i class="icon fa-solid fa-user"></i>
+						<div class="text">
+							<h3 class="user">Freelance</h3>
+							<p>Je cherche des projets</p>
+						</div>
+						<i class="fa-solid fa-chevron-right"></i>
+					</a>
+				</div>
+				<p class="connexion-link">Déjà inscrit sur Talengo.io ? <a href="{{ path('app_login') }}">Se connecter</a></p>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -81,6 +81,8 @@ class AppExtension extends AbstractExtension
             new TwigFunction('portefeuille', [$this, 'getVendeurPortefeuille']),
             new TwigFunction('avispositif', [$this, 'getVendeurAvisPositif']),
             new TwigFunction('avisnegatif', [$this, 'getVendeurAvisNegatif']),
+            new TwigFunction('allAvis', [$this, 'getServiceAllAvis']),
+            new TwigFunction('moyenneAvis', [$this, 'moyenneAvis']),
             new TwigFunction('getMessageNonLu', [$this, 'getMessageNonLu']),
             new TwigFunction('getCommandeNonLu', [$this, 'getCommandeNonLu']),
             new TwigFunction('followers', [$this, 'getVendeurFollowers']),
@@ -152,8 +154,27 @@ class AppExtension extends AbstractExtension
         return $this->avisRepository->findBy(['vendeur' => $vendeur, 'type' => 'Negatif']);
     }
 
+    public function getServiceAllAvis($vendeur){
+        return count($this->avisRepository->findBy(['vendeur' => $vendeur]));
+    }
+
     public function getServiceAvisPositif($service){
         return $this->avisRepository->findBy(['microservice' => $service, 'type' => 'Positif']);
+    }
+
+    public function moyenneAvis($vendeur)
+    {
+        $avis = $this->avisRepository->findBy(['vendeur' => $vendeur]);
+
+        $totalNotes = 0;
+        foreach ($avis as $avisItem) {
+            $note = $avisItem->getType() === 'Positif' ? 5 : 1;
+            $totalNotes += $note;
+        }
+
+        $moyenne = count($avis) ? round($totalNotes / count($avis), 1) : 0;
+
+        return $moyenne;
     }
 
     public function getServiceAvisNegatif($service){

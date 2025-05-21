@@ -22,7 +22,7 @@ class HomeServiceType extends AbstractType
                 'required'  =>  false,
                 'mapped'  =>  true,
                 'attr'  =>  [
-                    'placeholder'   =>  'Votre ville',
+                    'placeholder'   =>  'Rechercher par mots-clés ou compétences',
                     'class' => 'form-control border-0 form-control-lg border-0 bg-transparent',
                 ]
             ])

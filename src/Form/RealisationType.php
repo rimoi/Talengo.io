@@ -38,7 +38,7 @@ class RealisationType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Ce champ est requis',
+                        'message' => 'Ce champ est réquis',
                     ])
                 ]
             ])
