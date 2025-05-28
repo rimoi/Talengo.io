@@ -1,0 +1,62 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Mes compétences
+{% endblock %}
+
+{% block bg %}{% endblock %}
+
+{% block body %}
+
+<div class="card w-100 mb-4">
+    <div class="card-header bg-dark">
+        <div class="row">
+            <div class="col-7">
+                <h2 class="h6 text-light">Mes compétences</h2>
+            </div>
+            <div class="col-5 text-right">
+                <a href="{{ path('app_vendeur_skill_new') }}" class="btn btn-dark">Ajouter</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        {% for realisation in realisations %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <small class="text-muted d-block-py-2">{{ realisation.createdAt|ago(locale='fr') }}</small>
+
+                <a href="{{ path('app_vendeur_skill_show', {id: realisation.id}) }}" target="_blank">
+                    <strong class="d-block text-dark py-3 mb-1 h6">{{ realisation.name }}</strong>
+                </a>
+                <div class="content-info text-left">
+
+                    {% if is_granted('realisation_edit', realisation) %}
+                    <a href="{{ path('app_vendeur_skill_edit', {'id': realisation.id}) }}"
+                        class="btn btn-outline-secondary">Modifier</a>
+
+                    {% include "vendeur/realisations/_delete_form.html.twig" %}
+
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="">
+            <div class="py-3 text-center bg-white ">
+                <p class="text-muted">Aucune compétence</p>
+                <div class="py-4">
+                    <i class="fa fa-search fa-3x text-muted"></i>
+                </div>
+                <a href="{{ path('app_vendeur_skill_new') }}" class="btn btn-dark">Ajouter une compétence</a>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="py-3">
+            {{ knp_pagination_render(realisations) }}
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

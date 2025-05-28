@@ -27,24 +27,26 @@
 				{{ microservice.vendeur.fullName }}
 			</span>
 		</div>
-		{% if serviceAvis(microservice) %}
-			<div class="level">
-				<i class="fa-solid fa-star"></i>
-				<span class="feedback">
+
+		{% if not page_profile|default %}
+			{% if serviceAvis(microservice) %}
+				<div class="level">
+					<i class="fa-solid fa-star"></i>
+					<span class="feedback">
 					{{ moyenneAvis(microservice.vendeur) }}
 				</span>
-				<span class="feedback-nbr">
+					<span class="feedback-nbr">
 					<span>({{ serviceAvis(microservice) }} avis)</span>
 				</span>
-			</div>
-		{% else %}
-			<div class="level">
+				</div>
+			{% else %}
+				<div class="level">
 				<span class="feedback-nbr">
 					<span>Nouveau</span>
 				</span>
-			</div>
+				</div>
+			{% endif %}
 		{% endif %}
-
 	</a>
 	<a href="{{ path('microservice_details', {slug: microservice.slug}) }}" class="title">
 		{{ microservice.name|u.truncate(61, '...') }}

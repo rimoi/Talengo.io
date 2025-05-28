@@ -1,30 +1,46 @@
 {% extends 'base.html.twig' %}
 
+{% block footer %}
+  {{ parent() }}
+
+    <script>
+        $('header').addClass('stickyMenu');
+    </script>
+{% endblock %}
+
+{%- block body_class %}
+    {{ parent() }}
+    noStickyMenu
+{% endblock -%}
+
+
 {% block body %}
 
-    <div class="filter">
-        <div class="container">
-            <div class="wrp-select">
-                <span class="label">Trier par :</span>
-                <select class="custom-select" name="">
-                    <option value="0">pertinence</option>
-                    <option value="1">meilleures ventes</option>
-                    <option value="2">dernières nouveautés</option>
-                </select>
+    <div class="cs-list-top-services">
+        <div class="filter">
+            <div class="container">
+                <div class="wrp-select">
+                    <span class="label">Trier par :</span>
+                    <select class="custom-select" name="">
+                        <option value="0">pertinence</option>
+                        <option value="1">meilleures ventes</option>
+                        <option value="2">dernières nouveautés</option>
+                    </select>
+                </div>
             </div>
         </div>
+
+        <section class="section-services">
+            <div class="container">
+                <h3 class="primaryTitle">Meilleurs services</h3>
+                <div class="content">
+                    {% for microservice in microservices %}
+                        {{ include('microservice/composants/_bloc.html.twig') }}
+                    {% endfor %}
+                </div>
+
+                {{ knp_pagination_render(microservices, '@KnpPaginator/Pagination/custom_pagination.html.twig') }}
+            </div>
+        </section>
     </div>
-
-    <section class="section-services">
-        <div class="container">
-            <h3 class="primaryTitle">Services populaires</h3>
-            <div class="content">
-                {% for microservice in microservices %}
-                    {{ include('microservice/composants/_bloc.html.twig') }}
-                {% endfor %}
-            </div>
-
-            {{ knp_pagination_render(microservices, '@KnpPaginator/Pagination/custom_pagination.html.twig') }}
-        </div>
-    </section>
 {% endblock %}

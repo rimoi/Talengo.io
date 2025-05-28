@@ -19,6 +19,13 @@ var Talengo = {
         Talengo.select2();
         Talengo.menuBurger();
         Talengo.showSearchMobile();
+        Talengo.showMore();
+        Talengo.carouselProfileTestimonial();
+        Talengo.popinPortfolio();
+        
+
+        
+
     },
 
     menuSticky : function () {
@@ -67,8 +74,105 @@ var Talengo = {
         $('.iconSearchMobile').click( function() {
             $('header').toggleClass('openSearch');
         })
-    }
+    },
 
+    showMore : function () {
+        if($('.aboutme .description').length) {
+            var original = $('.aboutme .description');
+            var textHeight = $('.aboutme .description').height();
+            var button = $('.aboutme .show-more');
+            var buttonText = $('.aboutme .show-more span');
+
+            var $clone = original.clone();
+            $clone.css({
+                position: 'absolute',
+                visibility: 'hidden',
+                height: 'auto',
+                overflow: 'visible',
+                display: 'block',
+                '-webkit-line-clamp': 'unset',
+                '-webkit-box-orient': 'initial'
+            });
+            $('body .aboutme').append($clone);
+
+            var fullHeight = $clone.height();
+
+            $clone.remove();
+    
+            if (fullHeight > 162) {
+                button.show(); 
+            }
+    
+            button.on('click', function () {
+                original.toggleClass('expanded');
+                buttonText.text(original.hasClass('expanded') ? 'Réduire' : 'Lire la suite');
+            });
+        } 
+    },
+
+    carouselProfileTestimonial : function () {
+        if($('.profilSection .testimonials_content').length) {
+            $('.profilSection .testimonials_content').owlCarousel({
+                loop:false,
+                margin:10,
+                dots:false,
+                responsive:{
+                    0:{
+                        items:1,
+                        nav:false,
+                    },
+                    991 : {
+                        items:2,
+                        nav:true,
+                    },
+                    1024 :{
+                        items:3,
+                        nav:true,
+                    },
+                    1251:{
+                        items:4,
+                        nav:true,
+                    },
+                }
+            })
+        }
+    },
+
+    popinPortfolio : function () {
+        if($('.open-popup-link').length) {
+
+            var scrollY = 0;
+
+            $('.open-popup-link').on('click', function(e) {
+                e.preventDefault();
+            
+                var popupId = $(this).data('popup-id');
+                var $popup = $('#' + popupId);
+            
+                if ($popup.length) {
+                    scrollY = $(window).scrollTop();
+                    $('body').addClass('no-scroll')
+                    $popup.addClass('active');
+                }
+            });
+            
+            $('.popup-close').on('click', function() {
+               $('body').removeClass('no-scroll').css('top', '');
+                $(window).scrollTop(scrollY);
+                var $popup = $(this).closest('.content-popup');
+                $popup.removeClass('active');
+            });
+
+            $('.content-popup').on('click', function(e) {
+                if (e.target === this) {
+                    $('body').removeClass('no-scroll').css('top', '');
+                    $(window).scrollTop(scrollY);
+                    $(this).removeClass('active');
+                }
+            });
+            
+        }
+    }
         
 }
 $(function () {

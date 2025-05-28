@@ -18,7 +18,10 @@
             {% endif %}
 
             {% for i in start..end %}
-                <a class="btn btn-primaryBlue" href="{{ path(app.request.attributes.get('_route'), queryParams|merge({'page': i})) }}">
+                <a
+                    class="btn btn-primaryBlue {{ page == i  ? 'active' }}"
+                   href="{{ path(app.request.attributes.get('_route'), queryParams|merge({'page': i})) }}"
+                >
                     {% if i == page %}
                         <b>{{ i }}</b>
                     {% else %}

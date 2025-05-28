@@ -1,0 +1,22 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Mettre à jour la réalisation{% endblock %}
+
+{% block body %}
+
+<div class="p-3 border-bottom text-left bg-light rounded">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4 class="mb-0 text-light">
+                Mettre à jour la réalisation
+            </h4>
+        </div>
+        <div class="col-sm-6 text-right">
+            {{ include('vendeur/realisations/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
+
+{{ include('vendeur/realisations/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+{% endblock %}

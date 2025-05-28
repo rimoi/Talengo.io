@@ -7,9 +7,13 @@
    href="{{ path('vendeur_microservices_index') }}">
    <i class="fa fa-briefcase"></i>&nbsp;&nbsp;&nbsp;Mes services
 </a>
+<a class="dropdown-item {{ app.request.attributes.get('_route') == 'app_vendeur_skill_index' ? 'active' : '' }}"
+   href="{{ path('app_vendeur_skill_index') }}">
+   <i class="fa fa-folder-open"></i>&nbsp;&nbsp;&nbsp;Mes compétences
+</a>
 <a class="dropdown-item {{ app.request.attributes.get('_route') == 'app_vendeur_realisation_index' ? 'active' : '' }}"
    href="{{ path('app_vendeur_realisation_index') }}">
-   <i class="fa fa-folder-open"></i>&nbsp;&nbsp;&nbsp;Mes réalisations
+   <i class="fa fa-folder-open"></i>&nbsp;&nbsp;&nbsp;Mon portfolio
 </a>
 <a class="dropdown-item {{ app.request.attributes.get('_route') == 'vendeur_commandes_index' ? 'active' : '' }}"
    href="{{ path('vendeur_commandes_index') }}"><i class="fa fa-cart-plus"></i>&nbsp;&nbsp;&nbsp;Mes

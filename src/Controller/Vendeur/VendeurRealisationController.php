@@ -3,6 +3,7 @@
 namespace App\Controller\Vendeur;
 
 use App\Entity\Realisation;
+use App\Form\PortfolioType;
 use App\Form\RealisationType;
 use App\Repository\RealisationRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -34,7 +35,7 @@ class VendeurRealisationController extends AbstractController
     public function new(Request $request, RealisationRepository $realisationRepository): Response
     {
         $realisation = new Realisation();
-        $form = $this->createForm(RealisationType::class, $realisation);
+        $form = $this->createForm(PortfolioType::class, $realisation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -68,7 +69,7 @@ class VendeurRealisationController extends AbstractController
     {
         $this->denyAccessUnlessGranted('realisation_edit', $realisation);
 
-        $form = $this->createForm(RealisationType::class, $realisation);
+        $form = $this->createForm(PortfolioType::class, $realisation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

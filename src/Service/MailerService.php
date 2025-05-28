@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Entity\Commande;
+use App\Entity\User;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,7 +52,7 @@ class MailerService
 		return $this->mailer->send($email);
 	}
 
-	public function sendCommandMail($from, $to, $subjet, ?string $template = null, $client, $vendeur, $commande)
+	public function sendCommandMail($from, $to, $subjet, ?string $template = null, ?User $client = null, ?User $vendeur = null, ?Commande $commande = null)
 	{
 
 		if (!$template) {

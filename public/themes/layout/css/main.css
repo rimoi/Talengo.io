@@ -11828,6 +11828,249 @@ readers do not read off random characters that represent icons */
   border-color: #5897fb;
 }
 
+/**
+ * Owl Carousel v2.3.4
+ * Copyright 2013-2018 David Deutsch
+ * Licensed under: SEE LICENSE IN https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE
+ */
+/*
+ *  Owl Carousel - Core
+ */
+.owl-carousel {
+  display: none;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+  /* position relative and z-index fix webkit rendering fonts issue */
+  position: relative;
+  z-index: 1;
+}
+
+.owl-carousel .owl-stage {
+  position: relative;
+  -ms-touch-action: pan-Y;
+  touch-action: manipulation;
+  -moz-backface-visibility: hidden;
+  /* fix firefox animation glitch */
+}
+
+.owl-carousel .owl-stage:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+
+.owl-carousel .owl-stage-outer {
+  position: relative;
+  overflow: hidden;
+  /* fix for flashing background */
+  -webkit-transform: translate3d(0px, 0px, 0px);
+}
+
+.owl-carousel .owl-wrapper,
+.owl-carousel .owl-item {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+}
+
+.owl-carousel .owl-item {
+  position: relative;
+  min-height: 1px;
+  float: left;
+  -webkit-backface-visibility: hidden;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+.owl-carousel .owl-item img {
+  display: block;
+  width: 100%;
+}
+
+.owl-carousel .owl-nav.disabled,
+.owl-carousel .owl-dots.disabled {
+  display: none;
+}
+
+.owl-carousel .owl-nav .owl-prev,
+.owl-carousel .owl-nav .owl-next,
+.owl-carousel .owl-dot {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.owl-carousel .owl-nav button.owl-prev,
+.owl-carousel .owl-nav button.owl-next,
+.owl-carousel button.owl-dot {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0 !important;
+  font: inherit;
+}
+
+.owl-carousel.owl-loaded {
+  display: block;
+}
+
+.owl-carousel.owl-loading {
+  opacity: 0;
+  display: block;
+}
+
+.owl-carousel.owl-hidden {
+  opacity: 0;
+}
+
+.owl-carousel.owl-refresh .owl-item {
+  visibility: hidden;
+}
+
+.owl-carousel.owl-drag .owl-item {
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.owl-carousel.owl-grab {
+  cursor: move;
+  cursor: grab;
+}
+
+.owl-carousel.owl-rtl {
+  direction: rtl;
+}
+
+.owl-carousel.owl-rtl .owl-item {
+  float: right;
+}
+
+/* No Js */
+.no-js .owl-carousel {
+  display: block;
+}
+
+/*
+ *  Owl Carousel - Animate Plugin
+ */
+.owl-carousel .animated {
+  animation-duration: 1000ms;
+  animation-fill-mode: both;
+}
+
+.owl-carousel .owl-animated-in {
+  z-index: 0;
+}
+
+.owl-carousel .owl-animated-out {
+  z-index: 1;
+}
+
+.owl-carousel .fadeOut {
+  animation-name: fadeOut;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/*
+ * 	Owl Carousel - Auto Height Plugin
+ */
+.owl-height {
+  transition: height 500ms ease-in-out;
+}
+
+/*
+ * 	Owl Carousel - Lazy Load Plugin
+ */
+.owl-carousel .owl-item {
+  /**
+			This is introduced due to a bug in IE11 where lazy loading combined with autoheight plugin causes a wrong
+			calculation of the height of the owl-item that breaks page layouts
+		 */
+}
+
+.owl-carousel .owl-item .owl-lazy {
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.owl-carousel .owl-item .owl-lazy[src^=""], .owl-carousel .owl-item .owl-lazy:not([src]) {
+  max-height: 0;
+}
+
+.owl-carousel .owl-item img.owl-lazy {
+  transform-style: preserve-3d;
+}
+
+/*
+ * 	Owl Carousel - Video Plugin
+ */
+.owl-carousel .owl-video-wrapper {
+  position: relative;
+  height: 100%;
+  background: #000;
+}
+
+.owl-carousel .owl-video-play-icon {
+  position: absolute;
+  height: 80px;
+  width: 80px;
+  left: 50%;
+  top: 50%;
+  margin-left: -40px;
+  margin-top: -40px;
+  background: url("owl.video.play.png") no-repeat;
+  cursor: pointer;
+  z-index: 1;
+  -webkit-backface-visibility: hidden;
+  transition: transform 100ms ease;
+}
+
+.owl-carousel .owl-video-play-icon:hover {
+  -ms-transform: scale(1.3, 1.3);
+  transform: scale(1.3, 1.3);
+}
+
+.owl-carousel .owl-video-playing .owl-video-tn,
+.owl-carousel .owl-video-playing .owl-video-play-icon {
+  display: none;
+}
+
+.owl-carousel .owl-video-tn {
+  opacity: 0;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: opacity 400ms ease;
+}
+
+.owl-carousel .owl-video-frame {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+}
+
 header {
   background-color: transparent;
   position: absolute;
@@ -13249,15 +13492,47 @@ footer .copyrights p {
   padding-top: 170px;
   display: flex;
 }
+@media screen and (max-width: 767px) {
+  .page-profil {
+    display: block;
+    padding-top: 140px;
+  }
+}
 
-.sticky-card {
-  position: sticky;
-  top: 149px;
+.contentSticky {
   max-width: 290px;
   width: 100%;
+}
+@media screen and (max-width: 767px) {
+  .contentSticky {
+    max-width: none;
+  }
+}
+.contentSticky .sticky-card {
+  position: sticky;
+  top: 149px;
+  padding-top: 10px;
   margin-bottom: 20px;
 }
-.sticky-card img {
+@media screen and (max-width: 767px) {
+  .contentSticky .sticky-card {
+    position: relative;
+    top: 0;
+  }
+}
+@media screen and (max-width: 767px) {
+  .contentSticky .sticky-card .stickyMobile {
+    position: fixed;
+    width: 100%;
+    background: white;
+    padding: 20px 10px;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+    box-shadow: 0 0.14px 2.29266px rgba(0, 0, 0, 0.032), 0 0.37px 4.42626px rgba(0, 0, 0, 0.048), 0 3px 7px rgba(0, 0, 0, 0.09);
+  }
+}
+.contentSticky .sticky-card img {
   width: 210px;
   height: 230px;
   border-radius: 5px;
@@ -13267,88 +13542,366 @@ footer .copyrights p {
   margin-bottom: 15px;
   object-fit: cover;
 }
-.sticky-card .name {
+.contentSticky .sticky-card .name {
   text-align: center;
   margin-bottom: 5px;
 }
-.sticky-card .user-name {
+.contentSticky .sticky-card .user-name {
   font-family: "Outfit-Regular", arial, sans-serif;
   font-style: 16px;
   color: #717189;
   text-align: center;
   margin-bottom: 15px;
 }
-.sticky-card .info {
+.contentSticky .sticky-card .info {
   background-color: #fbfbfb;
   border: solid thin #F6F5F8;
   border-radius: 5px;
   padding: 20px 10px;
   margin-bottom: 15px;
 }
-.sticky-card .info .info-text {
+.contentSticky .sticky-card .info .info-text {
   display: inline-block;
 }
-.sticky-card .info .info-text::first-letter {
+.contentSticky .sticky-card .info .info-text::first-letter {
   text-transform: uppercase;
 }
-.sticky-card .info .lightText {
+.contentSticky .sticky-card .info .lightText {
   display: flex;
   justify-content: space-between;
   color: #717189;
   margin-bottom: 10px;
 }
-.sticky-card .info .lightText:last-child {
+.contentSticky .sticky-card .info .lightText:last-child {
   margin-bottom: 0;
 }
-.sticky-card .info .lightText i {
+.contentSticky .sticky-card .info .lightText i {
   width: 22px;
   display: inline-flex;
   justify-content: center;
   margin-right: 3px;
 }
-.sticky-card .btn-primaryBlue {
+.contentSticky .sticky-card .btn-primaryBlue {
   display: block;
   text-align: center;
   margin-bottom: 5px;
 }
-.sticky-card .time {
+.contentSticky .sticky-card .time {
   text-align: center;
 }
-.sticky-card .level .feedback-nbr {
+.contentSticky .sticky-card .level .feedback-nbr {
   color: #75787b;
 }
 
 .content-profil {
   padding-left: 35px;
+  overflow-x: hidden;
+  width: calc(100% - 290px);
+}
+@media screen and (max-width: 767px) {
+  .content-profil {
+    width: 100%;
+    padding-left: 0;
+    padding-top: 30px;
+  }
 }
 .content-profil .primaryTitle {
   margin-bottom: 20px;
 }
 .content-profil .aboutme {
-  border-bottom: solid thin #dee2e6;
-  padding-bottom: 35px;
-  margin-bottom: 35px;
+  position: relative;
 }
-.content-profil .description p {
+.content-profil .aboutme .show-more {
+  cursor: pointer;
+  display: none;
+  margin-top: 25px;
+}
+.content-profil .aboutme .show-more span {
+  text-decoration: underline;
+}
+.content-profil .aboutme .show-more span:hover {
+  color: #4c8be8;
+}
+.content-profil .aboutme .description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+}
+.content-profil .aboutme .description p {
   font-family: "Outfit-Regular", arial, sans-serif;
   font-size: 17px;
   line-height: 27px;
   color: #343a40;
   margin-bottom: 10px;
 }
-.content-profil .description p:first-letter {
+.content-profil .aboutme .description p:first-letter {
   text-transform: uppercase;
 }
-.content-profil .description .btn-text {
-  text-decoration: underline;
+.content-profil .aboutme .description.expanded {
+  -webkit-line-clamp: unset;
+}
+
+.profilSection {
+  border-bottom: solid thin #E7F0FF;
+  padding-bottom: 25px;
+  margin-bottom: 35px;
+}
+.profilSection.section-services {
+  margin-top: 0;
+}
+.profilSection.section-services .content {
+  justify-content: flex-start;
+}
+.profilSection.section-services .content .card {
+  width: calc( ( 100% - 30px ) / 3) !important;
+  flex: none;
+  max-width: none;
+}
+@media screen and (max-width: 1023px) {
+  .profilSection.section-services .content .card {
+    width: calc( ( 100% - 15px ) / 2) !important;
+  }
+}
+@media screen and (max-width: 500px) {
+  .profilSection.section-services .content .card {
+    width: 100%  !important;
+  }
+}
+@media screen and (max-width: 991px) and (min-width: 501px) {
+  .profilSection.section-services .content .card .info {
+    display: block;
+  }
+}
+@media screen and (max-width: 991px) and (min-width: 501px) {
+  .profilSection.section-services .content .card .info .level {
+    padding-left: 35px;
+    margin-top: 5px;
+  }
+}
+
+.competences .secondaryTitle {
+  margin-bottom: 20px;
+}
+.competences .content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.competences .content .tag {
+  background-color: #E7F0FF;
+  padding: 5px 15px;
+  border-radius: 15px;
+  color: #717189;
+  font-family: "Outfit-Light", arial, sans-serif;
+  font-size: 16px;
+  display: inline-block;
+}
+
+.portfolio .secondaryTitle {
+  margin-bottom: 20px;
+}
+.portfolio .content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px 15px;
+}
+.portfolio .content .card {
+  background-color: #fbfbfb;
+  border: solid thin #F6F5F8;
+  border-radius: 5px;
+  padding: 10px;
+  width: calc( ( 100% - 45px ) / 4);
   cursor: pointer;
 }
-.content-profil .description .btn-text:hover {
-  color: #205cb5;
+@media screen and (max-width: 1250px) {
+  .portfolio .content .card {
+    width: calc( ( 100% - 30px ) / 3);
+  }
+}
+@media screen and (max-width: 1023px) {
+  .portfolio .content .card {
+    width: calc( ( 100% - 15px ) / 2);
+  }
+}
+.portfolio .content .card .contentCard img {
+  height: 200px;
+  width: 100%;
+  display: block;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+@media screen and (max-width: 767px) {
+  .portfolio .content .card .contentCard img {
+    height: 150px;
+  }
+}
+.portfolio .content .card .contentCard .title {
+  font-family: "Outfit-Medium", arial, sans-serif;
+  font-size: 17px;
+  color: #343a40;
+  margin-bottom: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.portfolio .content .card .contentCard .title:first-letter {
+  text-transform: uppercase;
+}
+.portfolio .content .card .contentCard p {
+  font-family: "Outfit-Regular", arial, sans-serif;
+  font-size: 15px;
+  color: #343a40;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.portfolio .content .card .contentCard p:first-letter {
+  text-transform: uppercase;
+}
+.portfolio .content-popup {
+  display: none;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+}
+.portfolio .content-popup.active {
+  display: flex;
+}
+.portfolio .content-popup .wrp-content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 75vh;
+  max-width: 700px;
+  width: 100%;
+}
+@media screen and (max-width: 991px) {
+  .portfolio .content-popup .wrp-content {
+    max-width: 80vw;
+  }
+}
+.portfolio .content-popup .content {
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+  max-height: 75vh;
+  overflow-x: hidden;
+}
+.portfolio .content-popup .popup-close {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  background: none;
+  border: none;
+  font-size: 34px;
+  cursor: pointer;
+  color: white;
+  opacity: 0.8;
+}
+.portfolio .content-popup .popup-close:hover {
+  opacity: 1;
+}
+.portfolio .content-popup .description {
+  margin: 25px 0;
+}
+.portfolio .content-popup .description p {
+  margin-bottom: 10px;
+  font-family: "Outfit-Regular", arial, sans-serif;
+  font-size: 16px;
+  color: #343a40;
+}
+.portfolio .content-popup .description p:first-letter {
+  text-transform: uppercase;
+}
+.portfolio .content-popup .repeaterImg img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 15px 0;
+}
+
+.testimonials.profilSection {
+  background: transparent;
+  border-bottom: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+.testimonials.profilSection .secondaryTitle {
+  margin-bottom: 20px;
+}
+.testimonials.profilSection .content {
+  display: block;
+}
+.testimonials.profilSection .content:before {
+  display: none;
+}
+.testimonials.profilSection .content .testimonials_content {
+  display: block;
+  padding: 0;
+}
+.testimonials.profilSection .content .testimonials_content .card {
+  width: 100%;
+  padding: 15px;
+}
+.testimonials.profilSection .content .testimonials_content .quote {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+}
+.testimonials.profilSection .content .testimonials_content .quote i {
+  font-size: 20px;
+}
+.testimonials.profilSection .owl-nav {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  gap: 5px;
+}
+.testimonials.profilSection .owl-nav.disabled {
+  display: none !important;
+}
+.testimonials.profilSection .owl-nav button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: solid 2px #4c8be8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.testimonials.profilSection .owl-nav button.disabled {
+  opacity: 0.4;
+}
+.testimonials.profilSection .owl-nav button:not(.disabled):hover {
+  background: #4c8be8;
+}
+.testimonials.profilSection .owl-nav button:not(.disabled):hover span {
+  color: white;
+}
+.testimonials.profilSection .owl-nav button span {
+  font-size: 25px;
+  color: #4c8be8;
+  margin-top: -4px;
 }
 
 body, html {
-  overflow-x: hidden;
+  height: 100%;
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 
 .container {
@@ -13411,6 +13964,21 @@ body, html {
 @media screen and (max-width: 767px) {
   .primaryTitle {
     font-size: 22px;
+  }
+}
+
+.secondaryTitle {
+  font-family: "Outfit-Regular", arial, sans-serif;
+  font-size: 27px;
+  letter-spacing: 2px;
+  color: #343a40;
+}
+.secondaryTitle:first-letter {
+  text-transform: uppercase;
+}
+@media screen and (max-width: 767px) {
+  .secondaryTitle {
+    font-size: 20px;
   }
 }
 
@@ -13521,7 +14089,7 @@ body, html {
   padding: 0;
 }
 
-.custom-checkbox input, .custom-checkbox2 input {
+.custom-checkbox input {
   padding: 0;
   height: initial;
   width: initial;
@@ -13529,18 +14097,18 @@ body, html {
   display: none;
   cursor: pointer;
 }
-.custom-checkbox label, .custom-checkbox2 label {
+.custom-checkbox label {
   position: relative;
   cursor: pointer;
   font-size: 16px !important;
 }
-.custom-checkbox label a, .custom-checkbox2 label a {
+.custom-checkbox label a {
   color: #4c8be8;
 }
-.custom-checkbox label a:hover, .custom-checkbox2 label a:hover {
+.custom-checkbox label a:hover {
   color: #20406f;
 }
-.custom-checkbox label:before, .custom-checkbox2 label:before {
+.custom-checkbox label:before {
   content: '';
   -webkit-appearance: none;
   background-color: transparent;
@@ -13553,7 +14121,7 @@ body, html {
   margin-right: 10px;
   margin-top: -4px;
 }
-.custom-checkbox input:checked + label:after, .custom-checkbox2 input:checked +  label:after {
+.custom-checkbox input:checked + label:after {
   content: '';
   display: block;
   position: absolute;
@@ -13567,6 +14135,3 @@ body, html {
 }
 
 /*# sourceMappingURL=main.css.map */
-.d-none {
-  display: none !important;
-}

@@ -1,0 +1,28 @@
+{% extends 'vendeur.html.twig' %}
+
+{% block title %}Realisation - #{{ realisation.name }} {% endblock %}
+
+{% block body %}
+
+<div class="p-3 border-bottom text-left bg-light rounded">
+    <h4 class="mb-0 text-light">
+        Realisation - <strong class="text-muted">#{{ realisation.name }}</strong>
+    </h4>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="pb-3">
+            <strong class="text-muted text-left">Désignation</strong>
+            <h6>{{ realisation.name }}</h6>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="{{ path('app_vendeur_skill_edit', {'id': realisation.id}) }}"
+            class="btn btn-outline-dark">Modifier</a>
+
+        {{ include('vendeur/realisations/_delete_form.html.twig') }}
+    </div>
+</div>
+
+{% endblock %}

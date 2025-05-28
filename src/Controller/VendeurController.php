@@ -6,6 +6,7 @@ use App\Entity\SearchService;
 use App\Entity\SearchUser;
 use App\Entity\User;
 use App\Form\VendeurType;
+use App\Repository\AvisRepository;
 use App\Repository\MicroserviceRepository;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -26,7 +27,7 @@ class VendeurController extends AbstractController
     }
 
     #[Route('/compte/vendeurs/{nameUrl}', name: 'vendeur_profil')]
-    public function profil(User $user, MicroserviceRepository $microserviceRepository, PaginatorInterface $paginator, Request $request): Response
+    public function profil(User $user, MicroserviceRepository $microserviceRepository, PaginatorInterface $paginator, Request $request, AvisRepository $avisRepository): Response
     {
         $microservices = $paginator->paginate(
             $microserviceRepository->findBy([
@@ -39,7 +40,8 @@ class VendeurController extends AbstractController
 
         return $this->render('vendeur/profil.html.twig', [
             'user' => $user,
-            'microservices' => $microservices
+            'microservices' => $microservices,
+            'avises' => $avisRepository->findBy(['vendeur' => $user]),
         ]);
     }
 

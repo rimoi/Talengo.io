@@ -27,7 +27,14 @@
                 <a href="{{ path('app_vendeur_realisation_show', {id: realisation.id}) }}" target="_blank">
                     <strong class="d-block text-dark py-3 mb-1 h6">{{ realisation.name }}</strong>
                 </a>
-                <p>#{{ realisation.type }} {{ realisation.plateForme }}</p>
+                <p>
+                    {% if realisation.file %}
+                        <img src="{{ vich_uploader_asset(realisation, 'imageFile') | imagine_filter('medium_size') }}"
+                             class="img-fluid"
+                             alt="" />
+                    {% endif %}
+
+                </p>
 
                 <div class="content-info text-left">
 

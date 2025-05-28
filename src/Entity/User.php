@@ -221,6 +221,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     #[ORM\OneToMany(mappedBy: 'vendeur', targetEntity: AvisReponse::class)]
     private Collection $avisReponses;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Competence::class)]
+    private Collection $competences;
+
     public function fullName(): string
     {
         return $this->prenom . ' ' . $this->nom;
@@ -245,6 +248,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
         $this->remboursements = new ArrayCollection();
         $this->vendeursremboursements = new ArrayCollection();
         $this->avisReponses = new ArrayCollection();
+        $this->competences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -1376,6 +1380,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
             // set the owning side to null (unless already changed)
             if ($avisReponse->getVendeur() === $this) {
                 $avisReponse->setVendeur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Competence>
+     */
+    public function getCompetences(): Collection
+    {
+        return $this->competences;
+    }
+
+    public function addCompetence(Competence $competence): self
+    {
+        if (!$this->competences->contains($competence)) {
+            $this->competences->add($competence);
+            $competence->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetence(Competence $competence): self
+    {
+        if ($this->competences->removeElement($competence)) {
+            // set the owning side to null (unless already changed)
+            if ($competence->getUser() === $this) {
+                $competence->setUser(null);
             }
         }
 

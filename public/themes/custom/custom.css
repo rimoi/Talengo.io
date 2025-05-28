@@ -1,0 +1,41 @@
+.d-none {
+    display: none !important;
+}
+
+.section-services {
+    margin: 133px 0;
+}
+
+.section-services .content {
+    justify-content: flex-start;
+}
+
+.cs-list-top-services {
+    margin-top: 124px;
+}
+
+.btn-primaryBlue.active {
+    background-color: #20406f;
+    color: white;
+}
+
+.star {
+    font-size: 24px;
+    color: #ccc; /* gris par défaut */
+}
+
+.star.filled {
+    color: #4C8BE8;
+}
+
+.cs-margin-y {
+    padding: 18px 0 1px;
+}
+
+.text-muted {
+    color: #75787b;
+}
+
+.text-small {
+    font-size: x-small;
+}

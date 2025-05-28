@@ -3,163 +3,283 @@
 {% block title %}Compte vendeur - {{ user.usePseudo == 1 ? user.pseudo : user.nom ~ ' ' ~ user.prenom }} {% endblock %}
 
 {% block body %}
-{% if user.couverture %}
-<section class="inner-header bg-degrade categorieSection"
-	style="background-image: url({{ vich_uploader_asset(user, 'couvertureFile') | imagine_filter('very_large_size') }})">
-	{% else %}
-	<section class="py-5 inner-header bg-degrade categorieSection">
-		{% endif %}
-		<div class="container">
-			<div class="row">
-				<div class="col-md-7 text-left">
-					<h1 class="mt-0 mb-3 text-dark">{{ user.usePseudo == 1 ? user.pseudo : user.nom ~ ' ' ~ user.prenom }}
-					</h1>
-					<div class="breadcrumbs text-dark">
-						<span class="badge badge-dark rounded-btn">{{ user.compte }}</span>
-						{{ user.created|ago(locale='fr') }}
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="caption"></div>
-	</section>
-	<!-- End Inner Header -->
 
-	<div class="py-5">
-		<div class="container">
-			<div class="row">
-				<aside class="col col-md-4 order-xl-1 order-lg-1 col-12">
-					<div class="mb-3"> <!-- sidebar-fix  -->
-						<div class="box mb-3 shadow-sm rounded bg-white profile-box text-center">
-							<div class="p-4">
+<div class="container page-profil">
+    <div class="contentSticky">
+        <div class="sticky-card">
+        		{% if user.reseauAvatar %}
 
-								{% if user.reseauAvatar %}
+				<img src="{{ user.reseauAvatar }}" class="img-fluid rounded-circle"
+					alt="{{ user.usePseudo == 1 ? user.pseudo : user.usePseudo == 1 ? user.pseudo : user.nom ~ ' ' ~ user.prenom }}"
+					width="150">
 
-								<img src="{{ user.reseauAvatar }}" class="img-fluid rounded-circle"
-									alt="{{ user.usePseudo == 1 ? user.pseudo : user.usePseudo == 1 ? user.pseudo : user.nom ~ ' ' ~ user.prenom }}"
-									width="150">
+				{% else %}
 
-								{% else %}
+				{% if user.avatar %}
 
-								{% if user.avatar %}
+				<img src="{{ vich_uploader_asset(user, 'imageFile') | imagine_filter('small_size') }}"
+					class="img-fluid rounded-circle"
+					alt="{{ user.usePseudo == 1 ? user.pseudo : user.usePseudo == 1 ? user.pseudo : user.nom ~ ' ' ~ user.prenom }}">
 
-								<img src="{{ vich_uploader_asset(user, 'imageFile') | imagine_filter('small_size') }}"
-									class="img-fluid rounded-circle"
-									alt="{{ user.usePseudo == 1 ? user.pseudo : user.usePseudo == 1 ? user.pseudo : user.nom ~ ' ' ~ user.prenom }}">
+				{% else %}
 
-								{% else %}
+				<img class="img-fluid rounded-circle"
+					src="{{ asset('img/user.jpg') | imagine_filter('small_size') }}" alt='' />
 
-								<img class="img-fluid rounded-circle"
-									src="{{ asset('img/user.jpg') | imagine_filter('small_size') }}" alt='' />
+				{% endif %}
 
-								{% endif %}
+				{% endif %}
+{#            <img src="dist/img/profile2.jpg" alt="">#}
+            <h2 class="primaryTitle name">{{ user.usePseudo == 1 ? user.pseudo : user.nom ~ ' ' ~ user.prenom }}</h2>
+            <h4 class="user-name">{{ user.nameUrl }}</h4>
+            <div class="info">
+                <div class="lightText">
+                    <div>
+                        <i class="fa-solid fa-cart-arrow-down"></i>
+                        <span class="info-text">Commandes en cours :</span>
+                    </div>
+                    <span>{{ commandeEncours(user)|length }}</span>
+                </div>
+                <div class="lightText">
+                    <div>
+                        <i class="fa-solid fa-shop"></i>
+                        <span class="info-text">Ventes au total :</span>
+                    </div>
+                    <span>{{ ventes(user)|length }}</span>
+                </div>
+                <div class="lightText">
+                    <div>
+                        <i class="fa-solid fa-briefcase"></i>
+                        <span class="info-text">Nombre de services :</span>
+                    </div>
+                    <span >{{ microservices|length }}</span>
+                </div>
+                <div class="lightText">
+                    <div>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span class="info-text">Date d'inscription :</span>
+                    </div>
+                    <span >{{ user.created|ago(locale='fr') }}</span>
+                </div>
+                <div class="lightText">
+                    <div>
+                        <i class="fa-solid fa-star"></i>
+                        <span class="info-text">Les avis </span>
+                    </div>
+                    <div class="level">
+                        <span class="feedback">{{ moyenneAvis(user) }}</span>
+                        <span class="feedback-nbr">({{ allAvis(user) }}  avis)</span>
+                    </div>
+                </div>
 
-								{% endif %}
+            </div>
+            <div class="stickyMobile">
+                <a href="" class="btn btn-primaryBlue">Me contacter</a>
+                <p class="time lightText">temps de réponse : <span>2h</span></p>
+            </div>
 
-							</div>
-							<div class="p-3">
-								<h5 class="h6 text-dark mb-1 mt-0 text-left">{{ user.usePseudo == 1 ? user.pseudo : user.nom ~ '
-									' ~ user.prenom }}</h5>
-								<p class="mb-0 text-muted text-left">{{ user.apropos|raw }}</p>
-							</div>
+        </div>
+    </div>
+    <div class="content-profil">
+        <div class="profilSection aboutme">
+            <h1 class="primaryTitle"> Business plans | Études de marché</h1>
+            <div class="description">
+				{{ user.apropos|raw }}
+{#                <p>Avec plus de 10 ans d’expérience en tant que responsable commerciale, j’ai exercé aussi bien dans des TPE que des groupes internationaux, en pilotant des stratégies commerciales et marketing orientées résultats. J’ai également été cheffe de projet pour les DCF (Dirigeants Commerciaux de France) et pour l’école MBway, preuve de mon engagement dans la transmission, la structuration et la valorisation des compétences commerciales.</p>#}
+{#                <p>commerciales et marketing orientées résultats. J’ai également été cheffe de projet pour les DCF (Dirigeants Commerciaux de France) et pour l’école MBway, preuve de mon engagement dans la transmission, la structuration et la valorisation des compétences commerciales.</p>#}
+{#                <p>Avec plus de 10 ans d’expérience en tant que responsable commerciale, j’ai exercé aussi bien dans des TPE que des groupes internationaux, en pilotant des stratégies commerciales et marketing orientées résultats. J’ai également été cheffe de projet pour les DCF (Dirigeants Commerciaux de France) et pour l’école MBway, preuve de mon engagement dans la transmission, la structuration et la valorisation des compétences commerciales.</p>#}
+{#                <p>commerciales et marketing orientées résultats. J’ai également été cheffe de projet pour les DCF (Dirigeants Commerciaux de France) et pour l’école MBway, preuve de mon engagement dans la transmission, la structuration et la valorisation des compétences commerciales.</p>#}
+{#                <p>Avec plus de 10 ans d’expérience en tant que responsable commerciale, j’ai exercé aussi bien dans des TPE que des groupes internationaux, en pilotant des stratégies commerciales et marketing orientées résultats. J’ai également été cheffe de projet pour les DCF (Dirigeants Commerciaux de France) et pour l’école MBway, preuve de mon engagement dans la transmission, la structuration et la valorisation des compétences commerciales.</p>#}
+{#                <p>commerciales et marketing orientées résultats. J’ai également été cheffe de projet pour les DCF (Dirigeants Commerciaux de France) et pour l’école MBway, preuve de mon engagement dans la transmission, la structuration et la valorisation des compétences commerciales.</p>#}
 
-							{% if user.compte == 'Vendeur' %}
-							<h6 class="text-left pl-3 pb-0">Statistiques vendeur</h6>
-							<div class="p-3 pt-0">
-								<div class="d-flex align-items-top mb-2">
-									<p class="mb-0 text-muted"><i class="fa fa-thumbs-up"></i> Avis positif</p>
-									<p class="text-muted mb-0 mt-0 ml-auto">{{ avispositif(user)|length }}</p>
-								</div>
-								<div class="d-flex align-items-top mb-2">
-									<p class="mb-0 text-muted"><i class="fa fa-thumbs-down"></i> Avis négatif</p>
-									<p class="text-muted mb-0 mt-0 ml-auto">{{ avisnegatif(user)|length }}</p>
-								</div>
-								<div class="d-flex align-items-top mb-2">
-									<p class="mb-0 text-muted"><i class="fa fa-cart-plus"></i> Commandes en cours</p>
-									<p class="text-muted mb-0 mt-0 ml-auto">{{ commandeEncours(user)|length }}</p>
-								</div>
-								<div class="d-flex align-items-top mb-2">
-									<p class="mb-0 text-muted"><i class="fa fa-opencart"></i> Vente au total</p>
-									<p class="text-muted mb-0 mt-0 ml-auto">{{ ventes(user)|length }}</p>
-								</div>
-								<div class="d-flex align-items-top">
-									<p class="mb-0 text-muted"><i class="fa fa-user-circle"></i> {{ user.compte }}</p>
-									<p class="text-muted mb-0 mt-0 ml-auto">{{ user.created|ago(locale='fr') }}</p>
-								</div>
-							</div>
+            </div>
+            <div class="show-more lightText"><span>lire la suite</span></div>
+        </div>
+        <div class="profilSection competences">
+            <h3 class="secondaryTitle">compétences</h3>
+            <div class="content">
+                {% for skill in user.competences %}
+                    <span class="tag">{{ skill.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
 
-							<div class="p-3">
+        <div class="profilSection portfolio">
+            <h3 class="secondaryTitle">portfolio</h3>
+            <div class="content">
+                {% for key, realisation in user.realisations %}
+                    <div class="card">
+                    <!-- dans repeater card merci de mettre un data id qui incremente avec 1  -->
+                        <div class="contentCard open-popup-link" data-popup-id="datapopup_{{ key }}">
 
-								<div class="row">
-									<div class="col-sm-6 pb-3">
-										{% include "vendeur/composants/_suivre_btn.html.twig" %}
-									</div>
-									<div class="col-sm-6 pb-3">
-										{% if app.user == user %}{% else %}
+    {#                        <img src="dist/img/service1.jpg " alt="">#}
+                             {% if realisation.file %}
+                                <img src="{{ vich_uploader_asset(realisation, 'imageFile') | imagine_filter('medium_size') }}"
+                                     class="img-fluid"
+                                     alt="" />
+                            {% endif %}
+                            <h4 class="title">{{ realisation.name }}</h4>
+                            <p>{{ realisation.description|u.truncate(150, '...') }}</p>
+                        </div>
+                        <!-- id = data-popup-id -->
+                        <div id="datapopup_{{ key }}" class="content-popup">
+                            <div class="wrp-content">
+                            <button class="popup-close">&times;</button>
+                            <div class="content">
+                                <h4 class="primaryTitle">{{ realisation.name }}</h4>
+                                <div class="description">
+                                    {{ realisation.description }}
+                                </div>
+                                <div class="repeaterImg">
+                                    <img src="dist/img/service1.jpg" alt="">
+                                    <img src="dist/img/profile1.jpg" alt="">
+                                    <img src="dist/img/service1.jpg" alt="">
+                                    <img src="dist/img/profile2.jpg" alt="">
+                                </div>
+                            </div>
+                            </div>
 
-										<a href="{{ path('conversations_new', {vendeurNameUrl: user.nameUrl}) }}"
-											class="btn btn-dark shadow-sm rounded-btn btn-block">
-											Contacter
-										</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="profilSection section-services">
+            <h3 class="secondaryTitle">services</h3>
+            <div class="content">
+                {% for microservice in user.microservices %}
+                    {{ include('microservice/composants/_bloc.html.twig', {'page_profile': true}) }}
+                {% endfor %}
+            </div>
+        </div>
 
-										{% endif %}
-									</div>
-								</div>
+        {% if avises|length %}
+            <div class="profilSection testimonials">
+                <h3 class="secondaryTitle">Témoignages</h3>
+                <div class="content">
+                    <div class="owl-carousel owl-theme testimonials_content">
+                        {% for avis in avises %}
+                            <div class="card">
+                                <div class="infoImg">
+                                    {% if avis.client.avatar %}
+                                        <img src="{{ vich_uploader_asset(avis.client, 'imageFile') | imagine_filter('midle_avatar') }}">
+                                    {% else %}
+                                        <img class="rounded-circle mr-3" src="{{ asset('img/user.jpg') | imagine_filter('midle_avatar') }}" alt='' width="50" />
+                                    {% endif %}
+                                    {#                                <img src="dist/img/profile1.jpg" alt="">#}
+                                    <div class="info">
+                                        <h5 class="name">
+                                            {{ avis.client.fullName }}
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="rating cs-margin-y">
+                                    {% if avis.type == 'Positif' %}
+                                        {% for i in 1..5 %}
+                                            <span class="star filled">&#9733;</span>
+                                        {% endfor %}
+                                    {% else %}
+                                        <span class="star filled">&#9733;</span>
+                                        <span class="star filled">&#9733;</span>
+                                        {% for i in 1..3 %}
+                                            <span class="star">&#9733;</span>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <p class="quote secondaryParagraphe">
+                                    <i class="fa-solid fa-quote-left"></i>
+                                    {{ avis.contenu }}
+                                </p>
+                                <p class="text-muted">
+                                    {{ avis.created|ago(locale='fr') }}
+                                </p>
+                            </div>
+                        {% endfor %}
+                        {#                    <div class="card">#}
+                        {#                        <div class="infoImg">#}
+                        {#                            <img src="dist/img/profile1.jpg" alt="">#}
+                        {#                            <div class="info">#}
+                        {#                                <h5 class="name">Myriam</h5>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                        {#                        <p class="quote secondaryParagraphe">#}
+                        {#                            <i class="fa-solid fa-quote-left"></i>#}
+                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
+                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
 
-							</div>
+                        {#                        </p>#}
+                        {#                    </div>#}
+                        {#                    <div class="card">#}
+                        {#                        <div class="infoImg">#}
+                        {#                            <img src="dist/img/profile1.jpg" alt="">#}
+                        {#                            <div class="info">#}
+                        {#                                <h5 class="name">Myriam</h5>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                        {#                        <p class="quote secondaryParagraphe">#}
+                        {#                            <i class="fa-solid fa-quote-left"></i>#}
+                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
+                        {#                        </p>#}
+                        {#                    </div>#}
+                        {#                    <div class="card">#}
+                        {#                        <div class="infoImg">#}
+                        {#                            <img src="dist/img/profile1.jpg" alt="">#}
+                        {#                            <div class="info">#}
+                        {#                                <h5 class="name">Myriam</h5>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                        {#                        <p class="quote secondaryParagraphe">#}
+                        {#                            <i class="fa-solid fa-quote-left"></i>#}
+                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
+                        {#                        </p>#}
+                        {#                    </div>#}
+                        {#                    <div class="card">#}
+                        {#                        <div class="infoImg">#}
+                        {#                            <img src="dist/img/profile1.jpg" alt="">#}
+                        {#                            <div class="info">#}
+                        {#                                <h5 class="name">Myriam</h5>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                        {#                        <p class="quote secondaryParagraphe">#}
+                        {#                            <i class="fa-solid fa-quote-left"></i>#}
+                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
+                        {#                        </p>#}
+                        {#                    </div>#}
+                        {#                    <div class="card">#}
+                        {#                        <div class="infoImg">#}
+                        {#                            <img src="dist/img/profile1.jpg" alt="">#}
+                        {#                            <div class="info">#}
+                        {#                                <h5 class="name">Myriam</h5>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                        {#                        <p class="quote secondaryParagraphe">#}
+                        {#                            <i class="fa-solid fa-quote-left"></i>#}
+                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
+                        {#                        </p>#}
+                        {#                    </div>#}
+                        {#                    <div class="card">#}
+                        {#                        <div class="infoImg">#}
+                        {#                            <img src="dist/img/profile1.jpg" alt="">#}
+                        {#                            <div class="info">#}
+                        {#                                <h5 class="name">Myriam</h5>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                        {#                        <p class="quote secondaryParagraphe">#}
+                        {#                            <i class="fa-solid fa-quote-left"></i>#}
+                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
+                        {#                        </p>#}
+                        {#                    </div>#}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
 
-							{% endif %}
-
-						</div>
-					</div>
-
-				</aside>
-				<!-- Main Content -->
-				<main class="col col-md-8 order-xl-2 order-lg-2 col-12">
-
-					<div class="">
-						<div class="row">
-							{% for microservice in microservices %}
-
-							<div class="col-12">
-
-								{% include "vendeur/microservices/composants/_bloc_list.html.twig" %}
-
-							</div>
-
-							{% else %}
-
-							<div class="col-12">
-								<div class="card">
-									<div class="card-body text-center bg-white">
-										<div class="py-2">
-										<p class="text-center">Aucun services disponible.</p>
-											<i class="fa fa-search fa-3x text-muted"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							{% endfor %}
-
-							<div class="col-12">
-								<div class="py-3">
-									{{ knp_pagination_render(microservices) }}
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-				</main>
-			</div>
-		</div>
-	</div>
-
+    </div>
+</div>
 	{% endblock %}
 
-	{% block javascripts %}
-	{{ parent() }}
-	<script src="{{ asset('js/suivi.js') }}"></script>
-	<script src="{{ asset('js/favoris.js') }}"></script>
-	{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/suivi.js') }}"></script>
+    <script src="{{ asset('js/favoris.js') }}"></script>
+{% endblock %}

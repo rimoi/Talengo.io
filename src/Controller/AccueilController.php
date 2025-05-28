@@ -93,7 +93,6 @@ class AccueilController extends AbstractController
     }
 
     #[Route('/top-services', name: 'list', methods: ['POST', 'GET'])]
-    #[IsGranted('ROLE_USER')]
     public function topService(
         Request $request,
         MicroserviceRepository $microserviceRepository,
@@ -158,7 +157,7 @@ class AccueilController extends AbstractController
         $services = $paginator->paginate(
             $services,
             $request->query->getInt('page', 1),
-            6
+            12
         );
 
         return $this->render('accueil/list.html.twig', [
