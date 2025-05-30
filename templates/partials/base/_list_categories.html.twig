@@ -1,0 +1,8 @@
+{% for categorie in categories %}
+    <li class="{{ categorie.slug == slug ? 'active' }}">
+        <a href="{{ path('show_service', {slug: categorie.slug}) }}">
+            <i class="{{ categorie.icone }}"></i>
+            <span>{{ categorie.name }}</span>
+        </a>
+    </li>
+{% endfor %}

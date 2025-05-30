@@ -20,8 +20,9 @@
                         <tr>
                             <th>Position</th>
                             <th>Titre</th>
-                            <th>Arrière plan</th>
-                            <th>Avant plan</th>
+{#                            <th>Emojis</th>#}
+{#                            <th>Arrière plan</th>#}
+{#                            <th>Avant plan</th>#}
                             <th>Hexa decimal</th>
                             <th>Date création</th>
                             <th>Services</th>
@@ -33,26 +34,30 @@
                         <tr>
                             <td>{{ categorie.position }}</td>
                             <td>{{ categorie.name }}</td>
-                            <td>
+{#                            <td>#}
+{#                                <i class="{{ categorie.icone }}"></i>#}
+{#                                {{ categorie.icone }}#}
+{#                            </td>#}
+{#                            <td>#}
 
-                                {% if categorie.image %}
+{#                                {% if categorie.image %}#}
 
-                                <img class="img-fluid rounded"
-                                    src="{{ vich_uploader_asset(categorie, 'imageFile') | imagine_filter('small_avatar') }}" />
+{#                                <img class="img-fluid rounded"#}
+{#                                    src="{{ vich_uploader_asset(categorie, 'imageFile') | imagine_filter('small_avatar') }}" />#}
 
-                                {% endif %}
-                                
-                            </td>
-                            <td>
+{#                                {% endif %}#}
+{#                                #}
+{#                            </td>#}
+{#                            <td>#}
 
-                                {% if categorie.icone %}
+{#                                {% if categorie.icone %}#}
 
-                                <img class="img-fluid rounded"
-                                    src="{{ vich_uploader_asset(categorie, 'iconeFile') | imagine_filter('small_avatar') }}" />
+{#                                <img class="img-fluid rounded"#}
+{#                                    src="{{ vich_uploader_asset(categorie, 'iconeFile') | imagine_filter('small_avatar') }}" />#}
 
-                                {% endif %}
-                                
-                            </td>
+{#                                {% endif %}#}
+{#                                #}
+{#                            </td>#}
                             <td>
                                 <span class="badge rounded-pill" style="background: {{ categorie.hexColor }};">{{
                                     categorie.hexColor }}</span>

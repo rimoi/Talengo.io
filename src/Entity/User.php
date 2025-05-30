@@ -224,9 +224,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Competence::class)]
     private Collection $competences;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $numberAvis = null;
+
     public function fullName(): string
     {
         return $this->prenom . ' ' . $this->nom;
+    }
+
+    public function nickName(): string
+    {
+        $prenom = ucfirst($this->prenom ?? '');
+        $initialNom = strtoupper(substr($this->nom ?? '', 0, 1));
+
+        return $prenom . '.' . $initialNom;
     }
 
     public function __construct()
@@ -1412,6 +1423,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
                 $competence->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNumberAvis(): ?int
+    {
+        return $this->numberAvis;
+    }
+
+    public function incrementAvis(): self
+    {
+        if ($this->numberAvis === null) {
+            $this->numberAvis = 0;
+        }
+
+        ++$this->numberAvis;
 
         return $this;
     }

@@ -23,8 +23,13 @@
 	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/jquery.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/owl.carousel.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/select2.js') }}"></script>
+
+	{% block javascript '' %}
+
 	<script type="text/javascript" src="{{ asset('themes/layout/js/script.js') }}"></script>
+
 	<script type="text/javascript" src="{{ asset('themes/custom/script.js') }}"></script>
+
 
 	<!-- Bootstrap core CSS -->
 {#	<link href="{{ asset('themes/base/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">#}
@@ -134,25 +139,25 @@
 	</script>
 
 
-	<script>
-		$(document).ready(function () {
-			$('.modal-location').modal({
-				backdrop: 'static',
-				keyboard: true,
-				show: true
-			});
-		})
-	</script>
+{#	<script>#}
+{#		$(document).ready(function () {#}
+{#			$('.modal-location').modal({#}
+{#				backdrop: 'static',#}
+{#				keyboard: true,#}
+{#				show: true#}
+{#			});#}
+{#		})#}
+{#	</script>#}
 
-	<script>
-		$(document).ready(function () {
-			$('.modal').modal({
-				backdrop: 'static',
-				keyboard: true,
-				show: false
-			});
-		})
-	</script>
+{#	<script>#}
+{#		$(document).ready(function () {#}
+{#			$('.modal').modal({#}
+{#				backdrop: 'static',#}
+{#				keyboard: true,#}
+{#				show: false#}
+{#			});#}
+{#		})#}
+{#	</script>#}
 
 </body>
 

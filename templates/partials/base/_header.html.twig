@@ -26,7 +26,7 @@
 			<div class="content-right">
 				{% if app.user %}
 					<!--  si user est connecté  -->
-					<a href="" class="btn btn-primaryBlue btn-seller ">Devenez vendeur</a>
+{#					<a href="" class="btn btn-primaryBlue btn-seller ">Devenez vendeur</a>#}
 					<nav>
 						<ul class="menu">
 							<li class="visibleMenuBurger">
@@ -57,12 +57,12 @@
 									<span>Ventes</span>
 								</a>
 							</li>
-							<li>
-								<a href="{{ path('user_dashboard') }}">
-									<i class="fa-solid fa-bag-shopping"></i>
-									<span>Achats</span>
-								</a>
-							</li>
+{#							<li>#}
+{#								<a href="{{ path('user_dashboard') }}">#}
+{#									<i class="fa-solid fa-bag-shopping"></i>#}
+{#									<span>Achats</span>#}
+{#								</a>#}
+{#							</li>#}
 							<li class="profil hiddenMenuBurger">
 								{% if app.user.reseauAvatar %}
 									<img src="{{ app.user.reseauAvatar }}" class="img-fluid" alt="{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.nom ~ ' ' ~ app.user.prenom }}">
@@ -96,7 +96,7 @@
                         <li><a href="{{ path('app_login') }}">Connexion</a></li>
                     </ul>
                 </nav>
-                <a href="" class="btn btn-primaryBlue btn-seller ">Devenez vendeur</a>
+{#                <a href="" class="btn btn-primaryBlue btn-seller ">Devenez vendeur</a>#}
 				<!--  end user n'est pas connecté  -->
 				{% endif %}
 			</div>
@@ -117,55 +117,20 @@
 	</div>
 
 	{%
-		if app.user
-		and app.request.get('_route') == 'list'
+		if app.request.get('_route') == 'list'
+		or app.request.get('_route') == 'show_service'
 	%}
 		<!--  si user est connecté  -->
 		<div class="categories">
 			<div class="container">
 				<ul class="menuCategories">
 					<li class="{{ app.request.attributes.get('_route') == 'list' ? 'active' }}">
-						<a href="" >
+						<a href="{{ path('list') }}">
 							<i class="fa-solid fa-star"></i>
 							<span>Top services</span>
 						</a>
 					</li>
-					<li>
-						<a href="">
-							<i class="fa-solid fa-pen-to-square"></i>
-							<span>Design & Graphisme </span>
-						</a>
-					</li>
-					<li>
-						<a href="">
-							<i class="fa-solid fa-laptop-code"></i>
-							<span>Site & Développement</span>
-						</a>
-					</li>
-					<li>
-						<a href="">
-							<i class="fa-solid fa-chart-line"></i>
-							<span>Seo & Communication</span>
-						</a>
-					</li>
-					<li>
-						<a href="">
-							<i class="fa-solid fa-file-video"></i>
-							<span>Vidéo & Animation</span>
-						</a>
-					</li>
-					<li>
-						<a href="">
-							<i class="fa-solid fa-users"></i>
-							<span>Réseaux Sociaux</span>
-						</a>
-					</li>
-					<li>
-						<a href="">
-							<i class="fa-solid fa-file-lines"></i>
-							<span>Rédaction</span>
-						</a>
-					</li>
+					{{ render(controller('App\\Controller\\AccueilController::listCategories', {slug: app.request.attributes.get('slug')})) }}
 				</ul>
 			</div>
 		</div>

@@ -72,6 +72,13 @@ class Microservice
     #[ORM\Column]
     private ?float $prix = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $numberAvis = null;
+
+    // Nombre de jour pour la réalisation
+    #[ORM\Column(nullable: true)]
+    private ?int $nombreJour = null;
+
     #[ORM\OneToMany(mappedBy: 'microservice', targetEntity: Media::class, cascade: ["persist"])]
     private Collection $medias;
 
@@ -554,5 +561,31 @@ class Microservice
         }
 
         return $this;
+    }
+
+    public function getNumberAvis(): ?int
+    {
+        return $this->numberAvis;
+    }
+
+    public function incrementAvis(): self
+    {
+        if ($this->numberAvis === null) {
+            $this->numberAvis = 0;
+        }
+
+        ++$this->numberAvis;
+
+        return $this;
+    }
+
+    public function getNombreJour(): ?int
+    {
+        return $this->nombreJour;
+    }
+
+    public function setNombreJour(?int $nombreJour): void
+    {
+        $this->nombreJour = $nombreJour;
     }
 }

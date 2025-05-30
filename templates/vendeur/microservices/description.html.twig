@@ -10,14 +10,9 @@ Prix, description et delai
 
 {% block body %}
 
-{% if microservice.categorie.slug == 'ingenieur-son' %}
 
-    {% include "vendeur/microservices/form/_ingenieur_son.html.twig" %}
 
-{% else %}
+{% include "vendeur/microservices/form/_description.html.twig" %}
 
-    {% include "vendeur/microservices/form/_description.html.twig" %}
-
-{% endif %}
 
 {% endblock %}

@@ -24,7 +24,7 @@
 			{% endif %}
 
 			<span class="user">
-				{{ microservice.vendeur.fullName }}
+				{{ microservice.vendeur.nickName }}
 			</span>
 		</div>
 
@@ -54,95 +54,3 @@
 
 	<p class="price">à partir de {{ microservice.prix ~ currency }}</p>
 </div>
-
-{#<div class="bg-white shadow-sm rounded text-muted mb-1 w-100 slider-block" id="microservice-{{ microservice.id }}">#}
-{#	<a href="{{ path('microservice_details', {slug: microservice.slug}) }}" class="image-bloc">#}
-{#		{% if microservice.medias|length > 0 %}#}
-
-{#		<img class="img-fluid shadow-0"#}
-{#			src="{{ vich_uploader_asset(microservice.medias[0], 'imageFile') | imagine_filter('medium_size') }}" />#}
-
-{#		{% else %}#}
-
-{#		<img class="img-fluid shadow-0" src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('medium_size') }}" />#}
-
-{#		{% endif %}#}
-{#	</a>#}
-{#	<div class="inner-slider shadow-0">#}
-{#		<div class="inner-wrapper shadow-0">#}
-
-{#			<div class="d-flex align-items-center">#}
-
-{#				<span class="seller-image">#}
-
-{#					{% if microservice.vendeur.reseauAvatar %}#}
-
-{#					<img src="{{ microservice.vendeur.reseauAvatar }}" class="img-fluid" alt="{{ microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo : microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo : microservice.vendeur.nom ~ ' ' ~ microservice.vendeur.prenom }}">#}
-
-{#					{% else %}#}
-
-{#						{% if microservice.vendeur.avatar %}#}
-{#						<img src="{{ vich_uploader_asset(microservice.vendeur, 'imageFile') | imagine_filter('medium_avatar') }}"#}
-{#							class="img-fluid" alt="{{ microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo : microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo : microservice.vendeur.nom ~ ' ' ~ microservice.vendeur.prenom }}">#}
-{#						{% else %}#}
-
-{#						<img class="img-fluid" src="{{ asset('img/user.jpg') | imagine_filter('medium_avatar') }}" alt='' />#}
-
-{#						{% endif %}#}
-
-{#					{% endif %}#}
-
-{#				</span>#}
-
-{#				<span class="seller-name">#}
-{#					<a href="{{ path('microservice_details', {slug: microservice.slug}) }}">#}
-{#						{{ microservice.name|u.truncate(25, '...') }}#}
-{#					</a>#}
-{#				</span>#}
-
-{#			</div>#}
-
-{#			<div class="content-info">#}
-
-
-{#				<a href="{{ path('favoris_new', {id: microservice.id}) }}">#}
-{#					<div class="rating-wrapper">#}
-{#						<span class="gig-rating text-body-2">#}
-{#							<a href="{{ path('microservices_categories', {slug: microservice.categorie.slug}) }}?categories%5B%5D={{ microservice.categorie.id }}"#}
-{#								class="badge badge-blue text-light badge-pill my-2 categorie">#}
-{#								#{{ microservice.categorie.name }}#}
-{#							</a>#}
-{#						</span>#}
-{#					</div>#}
-{#				</a>#}
-
-{#				<div class="rating-wrapper">#}
-{#					<span class="gig-rating">#}
-{#						{% if serviceAvis(microservice)|length > 0 %}#}
-{#							{% include "microservice/composants/_etoilles.html.twig" %}#}
-{#						{% endif %}#}
-{#						<span>({{ serviceAvis(microservice) }})</span>#}
-{#					</span>#}
-{#				</div>#}
-{#			</div>#}
-
-{#			<span class="level hint--top level-one-seller">#}
-{#				<i class="fa fa-map-marker text-blue"></i>#}
-{#				<span class="text-dark">#}
-{#					{{ microservice.vendeur.ville }}#}
-{#				</span>#}
-{#			</span>#}
-
-{#			<div class="footer mt-2">#}
-
-{#				{% include "microservice/composants/_favoris_btn.html.twig" %}#}
-
-{#				<div class="price text-capitalize">#}
-{#					A partir de#}
-{#					<strong class="cs-font-weight">{{ microservice.prix ~ currency }}</strong>#}
-{#				</div>#}
-
-{#			</div>#}
-{#		</div>#}
-{#	</div>#}
-{#</div>#}

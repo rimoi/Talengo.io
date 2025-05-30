@@ -17,22 +17,22 @@
 {% block body %}
 
     <div class="cs-list-top-services">
-        <div class="filter">
-            <div class="container">
-                <div class="wrp-select">
-                    <span class="label">Trier par :</span>
-                    <select class="custom-select" name="" data-url="{{ path('list') }}">
-                        <option value="0">Pertinence</option>
-                        <option value="1">Meilleures ventes</option>
-                        <option value="2">Dernières nouveautés</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+{#        <div class="filter">#}
+{#            <div class="container">#}
+{#                <div class="wrp-select">#}
+{#                    <span class="label">Trier par :</span>#}
+{#                    <select class="custom-select" name="" data-url="{{ path('list') }}">#}
+{#                        <option value="0">Pertinence</option>#}
+{#                        <option value="1">Meilleures ventes</option>#}
+{#                        <option value="2">Dernières nouveautés</option>#}
+{#                    </select>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
 
         <section class="section-services">
             <div class="container">
-                <h3 class="primaryTitle">Meilleurs services</h3>
+                <h3 class="primaryTitle">Services de la catégorie '{{ categorie.name }}'</h3>
                 <div class="content">
                     {% for microservice in microservices %}
                         {{ include('microservice/composants/_bloc.html.twig') }}

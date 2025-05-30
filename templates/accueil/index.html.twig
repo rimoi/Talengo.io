@@ -7,44 +7,6 @@
 		<section class="section-services">
 			<div class="container">
 				<div class="content">
-					<div class="card">
-						<a href="" class="favoris">
-							<i class="fa-solid fa-heart-circle-plus"></i>
-						</a>
-						<a href="">
-							<img src="{{ asset('themes/layout/img/hero.jpg') }}" alt="" class="img-service">
-						</a>
-						<a href="" class="info">
-							<div class="profil">
-								<img src="{{ asset('themes/layout/img/profile1.jpg') }}" alt="">
-								<span class="user">Achraf.M</span>
-							</div>
-							<div class="level">
-								<i class="fa-solid fa-star"></i>
-								<span class="feedback">5</span>
-								<span class="feedback-nbr">(2 avis)</span>
-							</div>
-						</a>
-						<a href="" class="title">Je vais créer votre page de capture ou landing page système.io</a>
-						<p class="price">à partir de 30 €</p>
-					</div>
-					<div class="card">
-						<a href="" class="favoris">
-							<i class="fa-solid fa-heart-circle-minus"></i>
-						</a>
-						<a href="">
-							<img src="{{ asset('themes/layout/img/service1.jpg') }}" alt="" class="img-service">
-						</a>
-						<a href="" class="info">
-							<div class="profil">
-								<img src="{{ asset('themes/layout/img/profile2.jpg') }}" alt="">
-								<span class="user">Adam.M</span>
-							</div>
-							<span class="level">nouveau</span>
-						</a>
-						<a href="" class="title">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</a>
-						<p class="price">à partir de 40 €</p>
-					</div>
 					{% for microservice in microservices %}
 						{{ include('microservice/composants/_bloc.html.twig') }}
 					{% endfor %}

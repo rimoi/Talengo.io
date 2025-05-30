@@ -29,6 +29,18 @@ class DescriptionType extends AbstractType
                 ],
                 'attr' => ['class' => 'border-0']
             ])
+            ->add('nombreJour', IntegerType::class, [
+                'label' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Ce champ ne peut pas être vide'
+                    ]),
+                    new GreaterThan([
+                        'value' => 0,
+                    ])
+                ],
+                'attr' => ['class' => 'border-0']
+            ])
             ->add('description', CKEditorType::class, [
                 'label' => false,
                 'required' => false,

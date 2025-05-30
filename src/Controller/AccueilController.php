@@ -3,16 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Categorie;
-use App\Entity\SearchService;
-use App\Form\HomeServiceType;
-use App\Helper\ArrayHelper;
+use App\Repository\CategorieRepository;
 use App\Repository\MicroserviceRepository;
-use App\Repository\OffreRepository;
-use App\Repository\UserRepository;
-use App\Service\HomePageService;
-use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,73 +15,12 @@ class AccueilController extends AbstractController
 {
     #[Route('/', name: 'accueil', methods: ['POST', 'GET'])]
     public function index(
-        Request $request,
         MicroserviceRepository $microserviceRepository,
-        UserRepository $userRepository,
-        OffreRepository $offreRepository,
-        EntityManagerInterface $entityManager,
-        HomePageService $homePageService
     ): Response
     {
-        
-        $categories = $entityManager->getRepository(Categorie::class)->findBy([], ['position' => 'ASC'], 6);
 
-        $categories = ArrayHelper::sortBy($categories, 'position');
-
-        foreach ($categories as $category) {
-            $servicesBloc2[$category->getId()] = [];
-        }
-
-        $prestataires = $userRepository->findBy(['compte' => 'vendeur'], ['id' => 'DESC'], 6);
-
-        $searchService = new SearchService();
-        $form = $this->createForm(HomeServiceType::class, $searchService);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $ville = $searchService->getVille();
-            setcookie('LINKS-VILLE', $ville, time()+31556926 , "/", "",  0);
-            if (trim($ville)) {
-                setcookie('LINKS-VILLE', $ville, time()+31556926 , "/", "",  0);
-
-                $services = $microserviceRepository->findBylocation($ville);
-
-                [$services, $servicesBloc2] = $homePageService->getMicroService($services);
-
-                $prestataires = $userRepository->searchSeller($ville);
-            } else  {
-
-                unset($_COOKIE['LINKS-VILLE']);
-
-                $microservices = $microserviceRepository->findBy(['online' => true, 'categorie' => $categories], ['id' => 'ASC'], 50);
-
-                [$services, $servicesBloc2] = $homePageService->getMicroService($microservices);
-            }
-
-        } elseif ( $_COOKIE['LINKS-VILLE'] ?? false ) {
-            $ville = $_COOKIE['LINKS-VILLE'];
-            $searchService->setQ($ville);
-
-            $services = $microserviceRepository->findBylocation($ville);
-
-            [$services, $servicesBloc2] = $homePageService->getMicroService($services);
-
-            $prestataires = $userRepository->searchSeller($ville);
-
-        } else {
-            $microservices = $microserviceRepository->findBy(['online' => true, 'categorie' => $categories], ['id' => 'ASC'], 50);
-
-            [$services, $servicesBloc2] = $homePageService->getMicroService($microservices);
-        }
         return $this->render('accueil/index.html.twig', [
-            'microservices' => array_slice($services, 1, 8),
-            'vendeurs' => $prestataires,
-            'servicesBloc2' => $servicesBloc2,
-            'form' => $form->createView(),
-            'ville' => $searchService->getVille(),
-            'packs' => $offreRepository->findBy(['online' => 1], ['created' => 'DESC']),
-            'categories' => $categories
+            'microservices' => $microserviceRepository->sortByAvis(8),
         ]);
     }
 
@@ -96,62 +28,23 @@ class AccueilController extends AbstractController
     public function topService(
         Request $request,
         MicroserviceRepository $microserviceRepository,
-        UserRepository $userRepository,
-        OffreRepository $offreRepository,
-        EntityManagerInterface $entityManager,
-        HomePageService $homePageService,
         PaginatorInterface $paginator
     ): Response
     {
-        $categories = $entityManager->getRepository(Categorie::class)->findBy([], ['position' => 'ASC'], 6);
 
-        $categories = ArrayHelper::sortBy($categories, 'position');
 
-        foreach ($categories as $category) {
-            $servicesBloc2[$category->getId()] = [];
-        }
 
-        $prestataires = $userRepository->findBy(['compte' => 'vendeur'], ['id' => 'DESC'], 6);
+        if ($request->get('q') === '2') {
+            // Dernières nouveauté
+            $services = $microserviceRepository->findBy([], ['id' => 'DESC']);
+        } elseif ($request->get('q') === '1') {
+            // Meuilleur ventes
 
-        $searchService = new SearchService();
-        $form = $this->createForm(HomeServiceType::class, $searchService);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $ville = $searchService->getVille();
-            setcookie('LINKS-VILLE', $ville, time()+31556926 , "/", "",  0);
-            if (trim($ville)) {
-                setcookie('LINKS-VILLE', $ville, time()+31556926 , "/", "",  0);
-
-                $services = $microserviceRepository->findBylocation($ville);
-
-                [$services, $servicesBloc2] = $homePageService->getMicroService($services);
-
-                $prestataires = $userRepository->searchSeller($ville);
-            } else  {
-
-                unset($_COOKIE['LINKS-VILLE']);
-
-                $microservices = $microserviceRepository->findBy(['online' => true, 'categorie' => $categories], ['id' => 'ASC'], 50);
-
-                [$services, $servicesBloc2] = $homePageService->getMicroService($microservices);
-            }
-
-        } elseif ( $_COOKIE['LINKS-VILLE'] ?? false ) {
-            $ville = $_COOKIE['LINKS-VILLE'];
-            $searchService->setQ($ville);
-
-            $services = $microserviceRepository->findBylocation($ville);
-
-            [$services, $servicesBloc2] = $homePageService->getMicroService($services);
-
-            $prestataires = $userRepository->searchSeller($ville);
+            // A voir cela une fois connaitre comment on créer une commande
+            $services = $microserviceRepository->sortByAvis();
 
         } else {
-            $microservices = $microserviceRepository->findBy(['online' => true, 'categorie' => $categories], ['id' => 'ASC'], 50);
-
-            [$services, $servicesBloc2] = $homePageService->getMicroService($microservices);
+            $services = $microserviceRepository->sortByAvis();
         }
 
         $services = $paginator->paginate(
@@ -162,13 +55,42 @@ class AccueilController extends AbstractController
 
         return $this->render('accueil/list.html.twig', [
             'microservices' => $services,
-            'vendeurs' => $prestataires,
-            'servicesBloc2' => $servicesBloc2,
-            'form' => $form->createView(),
-            'ville' => $searchService->getVille(),
-            'packs' => $offreRepository->findBy(['online' => 1], ['created' => 'DESC']),
+        ]);
+    }
+
+    #[Route('/list-categories', name: 'list_categories', methods: ['POST', 'GET'])]
+    public function listCategories(
+        Request $request,
+        CategorieRepository $categorieRepository
+    ): Response
+    {
+        $slug = $request->get('slug');
+        $categories = $categorieRepository->findAll();
+
+        return $this->render('partials/base/_list_categories.html.twig', [
             'categories' => $categories,
-            'page' => $request->get('page', 1)
+            'slug' =>   $slug
+        ]);
+    }
+
+    #[Route('/show-service/{slug}', name: 'show_service', methods: ['POST', 'GET'])]
+    public function showService(
+        Categorie $categorie,
+        Request $request,
+        MicroserviceRepository $microserviceRepository,
+        PaginatorInterface $paginator
+    ): Response
+    {
+        $services = $paginator->paginate(
+            $microserviceRepository->findBy(['categorie' => $categorie], ['id' => 'DESC']),
+            $request->query->getInt('page', 1),
+            12
+        );
+
+
+        return $this->render('accueil/show_service.html.twig', [
+            'microservices' => $services,
+            'categorie' => $categorie
         ]);
     }
 }

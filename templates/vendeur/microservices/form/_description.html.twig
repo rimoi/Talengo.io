@@ -7,7 +7,7 @@
             Prix
          </h6>
          <p class="text-muted">
-            Indiquez le prix pour ce service, c’est-à-dire le prix de la prestation que vous vendez.
+            Indiquez le prix basique pour ce service, c’est-à-dire le prix de la prestation que vous vendez.
          </p>
          <div class="form-group">
             <div class="input-group mb-3 border border-light rounded">
@@ -17,6 +17,24 @@
                {{ form_widget(form.prix) }}
             </div>
             {{ form_errors(form.prix) }}
+         </div>
+      </div>
+
+      <div class="mb-4">
+         <h6 class="font-weight-bold">
+            Nombre de jour
+         </h6>
+         <p class="text-muted">
+            Indiquez le nombre de jours nécessaires pour réaliser le service basique.
+         </p>
+         <div class="form-group">
+            <div class="input-group mb-3 border border-light rounded">
+               <div class="input-group-prepend">
+                  <span class="input-group-text border-0 bg-white">📆</span>
+               </div>
+               {{ form_widget(form.nombreJour) }}
+            </div>
+            {{ form_errors(form.nombreJour) }}
          </div>
       </div>
 

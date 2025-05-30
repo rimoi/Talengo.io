@@ -2,7 +2,7 @@
 {% set totalPage = pageCount %}
 
 <div class="flexCenter pagination">
-        {% set queryParams = app.request.query.all %}
+        {% set queryParams = app.request.attributes.all|merge(app.request.query.all) %}
         {% set range = 3 %}
         {% set start = max(1, page - range) %}
         {% set end = min(totalPage, page + range) %}

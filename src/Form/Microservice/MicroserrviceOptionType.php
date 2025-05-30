@@ -19,14 +19,14 @@ class MicroserrviceOptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('realisations', CollectionType::class, [
-                'entry_type' => RealisationType::class,
-                'by_reference' => false,
-                'required' => false,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'error_bubbling' => false
-            ])
+//            ->add('realisations', CollectionType::class, [
+//                'entry_type' => RealisationType::class,
+//                'by_reference' => false,
+//                'required' => false,
+//                'allow_add' => true,
+//                'allow_delete' => true,
+//                'error_bubbling' => false
+//            ])
             ->add('promo', CheckboxType::class, [
                 'label' => 'En promootion',
                 'help' => "Cocher pour mettre se service en promotion",

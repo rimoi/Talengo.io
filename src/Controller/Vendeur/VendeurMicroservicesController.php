@@ -165,14 +165,6 @@ class VendeurMicroservicesController extends AbstractController
 
         $formType = DescriptionType::class;
 
-        if ($microservice->getCategorie()->getSlug() == 'ingenieur-son') {
-
-            $formType = IngenieurSonType::class;
-
-        }else{
-            $formType = DescriptionType::class;
-        }
-
         $form = $this->createForm($formType, $microservice);
         $form->handleRequest($request);
 

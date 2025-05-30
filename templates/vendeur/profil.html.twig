@@ -2,6 +2,11 @@
 
 {% block title %}Compte vendeur - {{ user.usePseudo == 1 ? user.pseudo : user.nom ~ ' ' ~ user.prenom }} {% endblock %}
 
+{% block javascript %}
+    <script type="text/javascript" src="{{ asset('themes/layout/js/lib/jquery.magnific-popup.min.js') }}"></script>
+{% endblock %}
+
+
 {% block body %}
 
 <div class="container page-profil">
@@ -112,7 +117,6 @@
                     <!-- dans repeater card merci de mettre un data id qui incremente avec 1  -->
                         <div class="contentCard open-popup-link" data-popup-id="datapopup_{{ key }}">
 
-    {#                        <img src="dist/img/service1.jpg " alt="">#}
                              {% if realisation.file %}
                                 <img src="{{ vich_uploader_asset(realisation, 'imageFile') | imagine_filter('medium_size') }}"
                                      class="img-fluid"
@@ -131,10 +135,10 @@
                                     {{ realisation.description }}
                                 </div>
                                 <div class="repeaterImg">
-                                    <img src="dist/img/service1.jpg" alt="">
-                                    <img src="dist/img/profile1.jpg" alt="">
-                                    <img src="dist/img/service1.jpg" alt="">
-                                    <img src="dist/img/profile2.jpg" alt="">
+{#                                    <img src="dist/img/service1.jpg" alt="">#}
+{#                                    <img src="dist/img/profile1.jpg" alt="">#}
+{#                                    <img src="dist/img/service1.jpg" alt="">#}
+{#                                    <img src="dist/img/profile2.jpg" alt="">#}
                                 </div>
                             </div>
                             </div>
@@ -145,7 +149,7 @@
             </div>
         </div>
         <div class="profilSection section-services">
-            <h3 class="secondaryTitle">services</h3>
+            <h3 class="secondaryTitle">Services</h3>
             <div class="content">
                 {% for microservice in user.microservices %}
                     {{ include('microservice/composants/_bloc.html.twig', {'page_profile': true}) }}
@@ -195,80 +199,6 @@
                                 </p>
                             </div>
                         {% endfor %}
-                        {#                    <div class="card">#}
-                        {#                        <div class="infoImg">#}
-                        {#                            <img src="dist/img/profile1.jpg" alt="">#}
-                        {#                            <div class="info">#}
-                        {#                                <h5 class="name">Myriam</h5>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
-                        {#                        <p class="quote secondaryParagraphe">#}
-                        {#                            <i class="fa-solid fa-quote-left"></i>#}
-                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
-                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
-
-                        {#                        </p>#}
-                        {#                    </div>#}
-                        {#                    <div class="card">#}
-                        {#                        <div class="infoImg">#}
-                        {#                            <img src="dist/img/profile1.jpg" alt="">#}
-                        {#                            <div class="info">#}
-                        {#                                <h5 class="name">Myriam</h5>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
-                        {#                        <p class="quote secondaryParagraphe">#}
-                        {#                            <i class="fa-solid fa-quote-left"></i>#}
-                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
-                        {#                        </p>#}
-                        {#                    </div>#}
-                        {#                    <div class="card">#}
-                        {#                        <div class="infoImg">#}
-                        {#                            <img src="dist/img/profile1.jpg" alt="">#}
-                        {#                            <div class="info">#}
-                        {#                                <h5 class="name">Myriam</h5>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
-                        {#                        <p class="quote secondaryParagraphe">#}
-                        {#                            <i class="fa-solid fa-quote-left"></i>#}
-                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
-                        {#                        </p>#}
-                        {#                    </div>#}
-                        {#                    <div class="card">#}
-                        {#                        <div class="infoImg">#}
-                        {#                            <img src="dist/img/profile1.jpg" alt="">#}
-                        {#                            <div class="info">#}
-                        {#                                <h5 class="name">Myriam</h5>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
-                        {#                        <p class="quote secondaryParagraphe">#}
-                        {#                            <i class="fa-solid fa-quote-left"></i>#}
-                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
-                        {#                        </p>#}
-                        {#                    </div>#}
-                        {#                    <div class="card">#}
-                        {#                        <div class="infoImg">#}
-                        {#                            <img src="dist/img/profile1.jpg" alt="">#}
-                        {#                            <div class="info">#}
-                        {#                                <h5 class="name">Myriam</h5>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
-                        {#                        <p class="quote secondaryParagraphe">#}
-                        {#                            <i class="fa-solid fa-quote-left"></i>#}
-                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
-                        {#                        </p>#}
-                        {#                    </div>#}
-                        {#                    <div class="card">#}
-                        {#                        <div class="infoImg">#}
-                        {#                            <img src="dist/img/profile1.jpg" alt="">#}
-                        {#                            <div class="info">#}
-                        {#                                <h5 class="name">Myriam</h5>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
-                        {#                        <p class="quote secondaryParagraphe">#}
-                        {#                            <i class="fa-solid fa-quote-left"></i>#}
-                        {#                            Ce qui me plaît sur Talengo.io, c’est la fluidité des échanges et la qualité des prestations.#}
-                        {#                        </p>#}
-                        {#                    </div>#}
                     </div>
                 </div>
             </div>

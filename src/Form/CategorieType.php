@@ -20,39 +20,43 @@ class CategorieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', ChoiceType::class, [
-                'label' => 'Désignation',
-                'choices' => [
-                    'Ingénieur de son' => 'Ingenieur son',
-                    'Studio' => 'Studio',
-                    'Videaste' => 'Vidéaste',
-                    'Figurants / Danseurs' => 'Figurants / danseurs',
-                    'Photographe' => 'Photographe',
-                ],
+            ->add('name', TextType::class, [
+                'label' => 'Nom',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Ce champ est obligatoir',
+                        'message' => 'Ce champ est obligatoire',
                     ])
                 ]
             ])
-            ->add('imageFile', VichImageType::class, [
-                'label' => "Image de couverture (Png, jpg et jpeg)",
-                'required' =>  false,
-                'allow_delete' =>  false,
-                'download_label'     =>  false,
-                'image_uri'     =>  false,
-                'download_uri'     =>  false,
-                'imagine_pattern'   =>  'large_avatar',
+            ->add('icone', TextType::class, [
+                'label' => 'Emoji font-awesome',
+                'attr' => [
+                    'placeholder' => 'fa-solid fa-pen-to-square',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Ce champ est obligatoire',
+                    ])
+                ]
             ])
-            ->add('iconeFile', VichImageType::class, [
-                'label' => "Image d'avant plan (Png, jpg et jpeg)",
-                'required' =>  false,
-                'allow_delete' =>  false,
-                'download_label'     =>  false,
-                'image_uri'     =>  false,
-                'download_uri'     =>  false,
-                'imagine_pattern'   =>  'large_avatar',
-            ])
+//            ->add('imageFile', VichImageType::class, [
+//                'label' => "Image de couverture (Png, jpg et jpeg)",
+//                'required' =>  false,
+//                'allow_delete' =>  false,
+//                'download_label'     =>  false,
+//                'image_uri'     =>  false,
+//                'download_uri'     =>  false,
+//                'imagine_pattern'   =>  'large_avatar',
+//            ])
+//            ->add('iconeFile', VichImageType::class, [
+//                'label' => "Icon (Png, jpg et jpeg)",
+//                'required' =>  false,
+//                'allow_delete' =>  false,
+//                'download_label'     =>  false,
+//                'image_uri'     =>  false,
+//                'download_uri'     =>  false,
+//                'imagine_pattern'   =>  'large_avatar',
+//            ])
             ->add('description', CKEditorType::class, [
                 'required' => false,
             ])

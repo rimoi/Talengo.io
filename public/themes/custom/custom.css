@@ -39,3 +39,15 @@
 .text-small {
     font-size: x-small;
 }
+
+.menuCategories .active {
+    background-color: #205cb5;
+}
+
+.userConnected header .categories .menuCategories li.active a {
+    color: white;
+}
+
+.cs-list-top-services {
+    margin-top: 173px;
+}

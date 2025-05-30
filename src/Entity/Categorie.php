@@ -6,6 +6,7 @@ use App\Entity\Traits\Timestamp;
 use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -77,6 +78,10 @@ class Categorie
         $this->microservices = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->offres = new ArrayCollection();
+
+        $slugger = new AsciiSlugger('fr_FR');
+
+        $this->slug = $slugger->slug(strtolower($this->name)  .'-' . time());
     }
 
     public function getId(): ?int

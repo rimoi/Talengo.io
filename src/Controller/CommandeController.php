@@ -141,6 +141,11 @@ class CommandeController extends AbstractController
 
         if ($avisForm->isSubmitted() && $avisForm->isValid()) {
 
+            if ($avis->getType() == 'Positif') {
+                $commande->getMicroservice()->getVendeur()->incrementAvis();
+                $commande->getMicroservice()->incrementAvis();
+            }
+
             $avis->setVendeur($commande->getMicroservice()->getVendeur());
             $avis->setMicroservice($commande->getMicroservice());
             $avis->setClient($user);

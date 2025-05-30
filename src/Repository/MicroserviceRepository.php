@@ -299,4 +299,20 @@ class MicroserviceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function sortByAvis(?int $maxResult = null): array
+    {
+        $qb = $this->createQueryBuilder('m');
+
+        $qb->join('m.vendeur', 'v')
+            ->where('m.online = :true')
+            ->setParameter('true', true)
+            ->orderBy('m.numberAvis', 'DESC');
+
+        if ($maxResult) {
+            $qb->setMaxResults($maxResult);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

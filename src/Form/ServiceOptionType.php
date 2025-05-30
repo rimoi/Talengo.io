@@ -21,6 +21,10 @@ class ServiceOptionType extends AbstractType
                 'label' => 'Désignation',
                 'attr' => ['placeholder' => "Titre pour cette option"]
             ])
+            ->add('delai', IntegerType::class, [
+                'label' => 'Nombre de jour',
+                'attr' => ['placeholder' => "Nombre de jour de réalisation"]
+            ])
             ->add('montant', IntegerType::class, [
                 
                 'constraints' => [
