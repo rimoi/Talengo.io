@@ -124,43 +124,42 @@ class MicroserviceController extends AbstractController
     #[Route('/{slug}', name: 'microservice_details', methods: ['GET', 'POST'])]
     public function details(Microservice $microservice, Request $request, EntityManagerInterface $entityManager, MicroserviceRepository $microserviceRepository, AvisRepository $avisRepository, ServiceOptionRepository $serviceOptionRepository, ServiceSignaleRepository $serviceSignaleRepository, DisponibiliteRepository $disponibiliteRepository, CommandeRepository $commandeRepository): Response
     {
+//        $similaires = $microserviceRepository->findBy(['vendeur' => $this->getUser()], ['created' => 'DESC'], 12);
+//        /** @var ServiceOption $option */
+//        $options = $microservice->getServiceOptions();
+//        $categories = ['Ingénieur son', 'Studio'];
+//        $isHiden = null;
+//        $tauxHoraire = '';
+//        $jours = [];
+//
+//        $erreurmessage = '';
+//        $indisponible = '';
+//
+//        $serviceSignale = new ServiceSignale();
+//        $servicesignaleForm = $this->createForm(ServiceSignaleType::class, $serviceSignale);
+//        $servicesignaleForm->handleRequest($request);
 
-        $similaires = $microserviceRepository->findBy(['vendeur' => $this->getUser()], ['created' => 'DESC'], 12);
-        /** @var ServiceOption $option */
-        $options = $microservice->getServiceOptions();
-        $categories = ['Ingénieur son', 'Studio'];
-        $isHiden = null;
-        $tauxHoraire = '';
-        $jours = [];
+//        if ($servicesignaleForm->isSubmitted() && $servicesignaleForm->isValid()) {
+//
+//            $serviceSignale->setUser($this->getUser());
+//            $serviceSignale->setMicroservice($microservice);
+//            $serviceSignaleRepository->save($serviceSignale, true);
+//            $this->addFlash('success', 'Le service à bien été signalé merci pour votre collaboration');
+//
+//            return $this->redirectToRoute('microservice_details', [
+//                'slug' => $microservice->getSlug()
+//            ], Response::HTTP_SEE_OTHER);
+//
+//            $this->addFlash('success', 'le contenu a bien été enregistré');
+//        }
 
-        $erreurmessage = '';
-        $indisponible = '';
-
-        $serviceSignale = new ServiceSignale();
-        $servicesignaleForm = $this->createForm(ServiceSignaleType::class, $serviceSignale);
-        $servicesignaleForm->handleRequest($request);
-
-        if ($servicesignaleForm->isSubmitted() && $servicesignaleForm->isValid()) {
-
-            $serviceSignale->setUser($this->getUser());
-            $serviceSignale->setMicroservice($microservice);
-            $serviceSignaleRepository->save($serviceSignale, true);
-            $this->addFlash('success', 'Le service à bien été signalé merci pour votre collaboration');
-
-            return $this->redirectToRoute('microservice_details', [
-                'slug' => $microservice->getSlug()
-            ], Response::HTTP_SEE_OTHER);
-
-            $this->addFlash('success', 'le contenu a bien été enregistré');
-        }
-
-        if (in_array($microservice->getCategorie(), $categories)) {
-
-            $commandeFormType = CommandeType::class;
-        } else {
+//        if (in_array($microservice->getCategorie(), $categories)) {
+//
+//            $commandeFormType = CommandeType::class;
+//        } else {
             $commandeFormType = Commande2Type::class;
             $isHiden = true;
-        }
+//        }
 
         $commande = new Commande();
         $commandeForm = $this->createForm($commandeFormType, $commande);
@@ -198,96 +197,36 @@ class MicroserviceController extends AbstractController
 
                     $this->addFlash('danger', $indisponible);
                 }
-
-                //dd($jourAutorises);
             }
 
             $tauxHoraire = 24;
 
-            /** Traitement pour cette catégorie */
-            if (in_array($microservice->getCategorie(), $categories)) {
+            $commande->setMicroservice($microservice);
+//            $commande->setTauxHoraire($tauxHoraire);
+            $commande->setClient($this->getUser());
+            $commande->setVendeur($microservice->getVendeur());
+            $commande->setDestinataire($microservice->getVendeur());
+            $commande->setConfirmationClient(false);
+            $commande->setLu(false);
+            $commande->setStatut('Non payée');
+            $commande->setOffre('Reservation');
+            $commande->setValidate(false);
+            $commande->setDeliver(false);
+            $commande->setCancel(false);
+            $entityManager->persist($commande);
+            $entityManager->flush();
 
-                $startHoure = $commandeForm->get('startHoure')->getData();
-                $endHoure = $commandeForm->get('endHoure')->getData();
-
-                if ($startHoure > $endHoure) {
-                    $tauxHoraire = $startHoure - $endHoure;
-                } elseif ($endHoure > $startHoure) {
-                    $tauxHoraire = $endHoure - $startHoure;
-                }
-
-                $reservationStart = $startHoure;
-                $reservationEnd = $endHoure;
-
-                /** @var Commande $reservation Verification de l"existatnce de la resvation */
-                $reservation = $commandeRepository->findOneBy([
-                    'reservationDate' => $dateReservation,
-                    'vendeur' => $microservice->getVendeur()
-                ]);
-
-                if ($reservation) {
-
-                    $newReservationStart = $startHoure;
-                    $heureDebutReservee = $reservation->getStartHoure();
-
-                    if ($newReservationStart == $heureDebutReservee) {
-
-                        $date = date_format($dateReservation, 'd/m/Y');
-
-                        /** Injection de l'erreur */
-                        $erreurmessage = "Ce prestataire a déjà une reservation ce $date à partir de $heureDebutReservee" . 'h';
-
-                        //dd("Ce prestataire a déjà une reservation ce $date à partir de $heureDebutReservee" . 'h');
-                    }
-                }
-
-                if (in_array($microservice->getCategorie(), $categories) && $tauxHoraire < 2) {
-                    $erreurmessage = "Le taux horaire minimal pour les studios et ingenieurs de son est de 2heure, de $reservationStart h à $reservationEnd h, fait $tauxHoraire heure";
-                }
-            }
-
-            /** S'il y a une reservation relative, on notifi l'utilisateur */
-            if ($erreurmessage) {
-                $this->addFlash('warning', $erreurmessage);
-            } elseif ($indisponible) {
-                $this->addFlash('warning', $indisponible);
-            } else {
-
-                $commande->setMicroservice($microservice);
-                $commande->setTauxHoraire($tauxHoraire);
-                $commande->setClient($this->getUser());
-                $commande->setVendeur($microservice->getVendeur());
-                $commande->setDestinataire($microservice->getVendeur());
-                $commande->setConfirmationClient(false);
-                $commande->setLu(false);
-                $commande->setStatut('Non payée');
-                $commande->setOffre('Reservation');
-                $commande->setValidate(false);
-                $commande->setDeliver(false);
-                $commande->setCancel(false);
-                $entityManager->persist($commande);
-                $entityManager->flush();
-
-                return $this->redirectToRoute('commander_microservice_reservation', [
-                    'slug' => $microservice->getSlug(),
-                    'commande' => $commande->getId(),
-                ]);
-            }
+            return $this->redirectToRoute('commander_microservice_reservation', [
+                'slug' => $microservice->getSlug(),
+                'commande' => $commande->getId(),
+            ]);
         }
 
         return $this->render('microservice/details.html.twig', [
             'microservice' => $microservice,
-            'similaires' => $similaires,
-            'servicesignaleForm' => $servicesignaleForm->createView(),
             'commandeForm' => $commandeForm->createView(),
             'prix' => $microservice->getPrix(),
-            'options' => $options,
-            'isHiden' => $isHiden,
-            'erreurmessage' => $erreurmessage,
-            'indisponible' => $indisponible,
-            'jours' => $jours,
-            'avisPositifs' => $avisRepository->findOneBy(['microservice' => $microservice, 'type' => 'Positif']),
-            'disponibilites' => $disponibiliteRepository->findBy(['service' => $microservice], ['created' => 'ASC']),
+            'isHiden' => $isHiden
         ]);
     }
 

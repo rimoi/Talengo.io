@@ -18,7 +18,6 @@ class AccueilController extends AbstractController
         MicroserviceRepository $microserviceRepository,
     ): Response
     {
-
         return $this->render('accueil/index.html.twig', [
             'microservices' => $microserviceRepository->sortByAvis(8),
         ]);
@@ -31,9 +30,6 @@ class AccueilController extends AbstractController
         PaginatorInterface $paginator
     ): Response
     {
-
-
-
         if ($request->get('q') === '2') {
             // Dernières nouveauté
             $services = $microserviceRepository->findBy([], ['id' => 'DESC']);
@@ -69,7 +65,8 @@ class AccueilController extends AbstractController
 
         return $this->render('partials/base/_list_categories.html.twig', [
             'categories' => $categories,
-            'slug' =>   $slug
+            'slug' =>   $slug,
+            'is_footer' => $request->get('isFooter'),
         ]);
     }
 
@@ -86,7 +83,6 @@ class AccueilController extends AbstractController
             $request->query->getInt('page', 1),
             12
         );
-
 
         return $this->render('accueil/show_service.html.twig', [
             'microservices' => $services,

@@ -24,7 +24,7 @@ class VendeurDisponibilitesController extends AbstractController
             $this->addFlash('success', "La disponibilité pour ce service a bien été supprimer");
         }
 
-        return $this->redirectToRoute('vendeur_microservices_disponibilite', [
+        return $this->redirectToRoute('vendeur_microservices_faq', [
             'id' => $service->getId(),
         ], Response::HTTP_SEE_OTHER);
     }

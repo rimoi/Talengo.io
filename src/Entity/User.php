@@ -240,6 +240,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
         return $prenom . '.' . $initialNom;
     }
 
+    public function hasRole(string $role): string
+    {
+        return in_array($role, $this->roles, true);
+    }
+
+    public function showOnlyOnlineService(int $max = 3): array
+    {
+        $res = [];
+       foreach ($this->microservices as $microservice) {
+           if ($microservice->getOnline() && !$microservice->getOffline()) {
+               $res[] = $microservice;
+
+               if (count($res) >= 3) {
+                   break;
+               }
+           }
+       }
+
+       return $res;
+    }
+
     public function __construct()
     {
         $this->microservices = new ArrayCollection();

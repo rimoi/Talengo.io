@@ -18,7 +18,7 @@ class ServiceOptionType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Désignation',
+                'label' => 'Nom',
                 'attr' => ['placeholder' => "Titre pour cette option"]
             ])
             ->add('delai', IntegerType::class, [

@@ -97,6 +97,12 @@ class Microservice
     #[ORM\OneToMany(mappedBy: 'microservice', targetEntity: Realisation::class, cascade: ["persist"])]
     private Collection $realisations;
 
+    #[ORM\OneToMany(mappedBy: 'microservice', targetEntity: Tag::class, orphanRemoval: true, cascade: ["persist"])]
+    private Collection $tags;
+
+    #[ORM\OneToMany(mappedBy: 'microservice', targetEntity: FAQ::class, cascade: ["persist"])]
+    private Collection $faq;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -108,6 +114,8 @@ class Microservice
         $this->emploitemps = new ArrayCollection();
         $this->disponibilites = new ArrayCollection();
         $this->realisations = new ArrayCollection();
+        $this->tag = new ArrayCollection();
+        $this->faq = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -587,5 +595,65 @@ class Microservice
     public function setNombreJour(?int $nombreJour): void
     {
         $this->nombreJour = $nombreJour;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+            $tag->setMicroservice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->removeElement($tag)) {
+            // set the owning side to null (unless already changed)
+            if ($tag->getMicroservice() == $this) {
+                $tag->setMicroservice(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FAQ>
+     */
+    public function getFaq(): Collection
+    {
+        return $this->faq;
+    }
+
+    public function addFaq(FAQ $faq): self
+    {
+        if (!$this->faq->contains($faq)) {
+            $this->faq->add($faq);
+            $faq->setMicroservice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFaq(FAQ $faq): self
+    {
+        if ($this->faq->removeElement($faq)) {
+            // set the owning side to null (unless already changed)
+            if ($faq->getMicroservice() === $this) {
+                $faq->setMicroservice(null);
+            }
+        }
+
+        return $this;
     }
 }

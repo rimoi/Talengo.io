@@ -51,3 +51,7 @@
 .cs-list-top-services {
     margin-top: 173px;
 }
+
+footer ul.isFooter li.active a {
+    color: #205cb5 !important;
+}

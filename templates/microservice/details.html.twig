@@ -2,7 +2,7 @@
 
 {% block title %}{{ microservice.name|u.truncate(60, '...') }}{% endblock %}
 
-{% block alternatiflink %}https://talengo.io/microservices/{{ microservice.name }}{% endblock %}
+{% block alternatiflink %}https://talengo.io/microservices/{{ microservice.slug }}{% endblock %}
 
 {% block meta %}
 <meta name="author" content="{{ appName }}" />
@@ -11,41 +11,49 @@
 	content="{{ microservice.name|u.truncate(150, '...') }}: {{ (microservice.description|raw)|u.truncate(100, '...') }}" />
 {% endblock %}
 
+{% block javascript %}
+	<link href="{{ asset('themes/layout/css/plyr.css') }}" rel="stylesheet">
+	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/plyr.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/plyr.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/magnific-popup.js') }}"></script>
+{% endblock %}
+
+
 {% block serviceBlocNavigation %}
 <div class="third-menu border-top">
 	<div class="container">
 		<div class="row d-flex align-items-center justify-content-between">
-			<div class="col-sm-8 left">
-				<ul>
-					<li class="nav-description">
-						<a href="#description">Description</a>
-					</li>
-					<li class="nav-aboutSeller">
-						<a href="#serviceOptions">Réservation</a>
-					</li>
-					<li class="nav-recommendations">
-						<a href="#recommendations">Autres services</a>
-					</li>
-				</ul>
-			</div>
-			{% if is_granted('microservice_edit', microservice) %}{% else %}
-			<div class="col-sm-4 right">
-				<ul class="d-flex align-items-center justify-content-end">
-					<li>
-						<button class="btn btn-sm bg-white border">
-							{% include "microservice/composants/_favoris_btn.html.twig" %}
-						</button>
-					</li>
-					<li class="ml-2">
-						<button class="btn btn-sm bg-white text-dark border" data-toggle="modal"
-							data-target="#serivesignaleModal">
-							<i class="fa fa-bell" aria-hidden="true"></i>
-							Signalez
-						</button>
-					</li>
-				</ul>
-			</div>
-			{% endif %}
+{#			<div class="col-sm-8 left">#}
+{#				<ul>#}
+{#					<li class="nav-description">#}
+{#						<a href="#description">Description</a>#}
+{#					</li>#}
+{#					<li class="nav-aboutSeller">#}
+{#						<a href="#serviceOptions">Réservation</a>#}
+{#					</li>#}
+{#					<li class="nav-recommendations">#}
+{#						<a href="#recommendations">Autres services</a>#}
+{#					</li>#}
+{#				</ul>#}
+{#			</div>#}
+{#			{% if is_granted('microservice_edit', microservice) %}{% else %}#}
+{#			<div class="col-sm-4 right">#}
+{#				<ul class="d-flex align-items-center justify-content-end">#}
+{#					<li>#}
+{#						<button class="btn btn-sm bg-white border">#}
+{#							{% include "microservice/composants/_favoris_btn.html.twig" %}#}
+{#						</button>#}
+{#					</li>#}
+{#					<li class="ml-2">#}
+{#						<button class="btn btn-sm bg-white text-dark border" data-toggle="modal"#}
+{#							data-target="#serivesignaleModal">#}
+{#							<i class="fa fa-bell" aria-hidden="true"></i>#}
+{#							Signalez#}
+{#						</button>#}
+{#					</li>#}
+{#				</ul>#}
+{#			</div>#}
+{#			{% endif %}#}
 		</div>
 	</div>
 </div>
@@ -59,118 +67,281 @@
 
 {% else %}
 
-<div class="main-page py-5">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8 left">
-				<span class="text-muted">{{ microservice.created|ago(locale='fr') }}</span>
-				<h2>{{ microservice.name }}</h2>
-				<div id="overview" class="seller-overview d-flex align-items-center">
-					<div class="user-profile-image d-flex">
-						<label class="profile-pict" for="profile_image">
-							<img
-								src="{{ microservice.vendeur.avatar ? vich_uploader_asset(microservice.vendeur, 'imageFile') : asset('img/user.jpg') | imagine_filter('large_avatar') }}"
-								class="profile-pict-img" width="40" height="40"
-								alt="{{ appName }} {{ microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo : microservice.vendeur.nom ~ ' ' ~ microservice.vendeur.prenom }}">
-						</label>
-						<div class="profile-name">
-							<div class="seller-level">
-								({{ commandeEncours(microservice.vendeur)|length }}) commande{{
-								commandeEncours(microservice.vendeur)|length > 1 ? 's' : '' }} en cours
+	<div class="page-service">
+		<div class="container">
+			<div class="breadcrumb">
+				<div class="content">
+					<a href="{{ path('accueil') }}"><i class="fa-solid fa-house"></i></a>
+					<a href="{{ path('show_service', {slug: microservice.categorie.slug }) }}">{{ microservice.categorie.name }}</a>
+{#					<a href="">linkedin</a>#}
+{#					<a href="">création de comptes</a>#}
+				</div>
+			</div>
+			<div class="wrp-service">
+				<div class="details-service">
+					<h1 class="secondaryTitle">{{ microservice.name }}</h1>
+					<div class="header-service">
+						<div class="short-info">
+							<div class="feedback-info lightText">
+								<i class="fa-solid fa-star"></i>
+								<span class="feedback">{{ moyenneAvisByService(microservice) }}</span>
+								<span class="feedback-nbr">({{ allServiceAvis(microservice) }} avis)</span>
+							</div>
+							<div class="shop lightText">
+								<i class="fa-solid fa-shop"></i>
+								<span class="info-text">ventes : {{ ventes(microservice.vendeur)|length }}</span>
+							</div>
+						</div>
+						<div class="link-info">
+							<a href="{{ path('favoris_new', {id: microservice.id}) }}" class="favoris" class="{{ app.user ? 'js-favoris' : '' }}">
+								{% if app.user and microservice.isAddedByUser(app.user) %}
+									<i class="fa-solid fa-heart-circle-minus"></i>
+								{% else %}
+									<i class="fa-solid fa-heart-circle-plus"></i>
+								{% endif %}
+							</a>
+							<a href="https://www.facebook.com/sharer/sharer.php?u={{ absolute_url(path(app.request.attributes.get('_route'), {
+								slug: microservice.slug
+							})) }}" class="share"><i class="fa-solid fa-share-nodes"></i></a>
+						</div>
+					</div>
+					<!-- merci d'ajouter magnific-popup.js sur le header dans votre version dynamic, j'ai déja l'intégerer sur le header de la version static -->
+					<div class="carousel">
+						<div class="main-carousel owl-carousel">
+
+							{% for media in microservice.medias %}
+
+								{% if media.imageName %}
+
+									<div class="item">
+										<img src="{{ vich_uploader_asset(media, 'imageFile') | imagine_filter('rectangle_size') }}" alt="" class="itemGallery">
+									</div>
+
+								{% else %}
+
+									<div class="item">
+										<img src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('rectangle_size') }}" alt="" class="itemGallery">
+									</div>
+
+								{% endif %}
+
+							{% endfor %}
+
+						</div>
+						<div class="navigation-thumbs owl-carousel">
+
+							{% for media in microservice.medias %}
+
+								{% if media.imageName %}
+
+									<div class="item">
+										<img src="{{ vich_uploader_asset(media, 'imageFile') | imagine_filter('rectangle_size') }}" alt="">
+									</div>
+
+								{% else %}
+
+									<div class="item">
+										<img src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('rectangle_size') }}" alt="">
+									</div>
+
+								{% endif %}
+
+							{% endfor %}
+						</div>
+					</div>
+					<div class="description wysiwyg">
+						{{ microservice.description|raw }}
+					</div>
+					<div class="options-price">
+						<form action="">
+							<div class="option">
+								<div class="custom-checkbox">
+									<input type="checkbox" name="checkbox-service" id="basic" checked onclick="return false;">
+									<label for="basic">
+										<span class="label">Service basique</span>
+										<span class="days">{{ microservice.nombreJour }} jours de réalisation</span>
+									</label>
+								</div>
+								<span class="price basicprice">{{ microservice.prix }} {{ currency }}</span>
+							</div>
+							<h4 class="title">Personnaliser le service</h4>
+
+							{% for key,serviceOption in microservice.serviceOptions %}
+								<div class="custom-service option">
+									<div class="custom-checkbox">
+										<input type="checkbox" name="checkbox-service" id="custom{{ key }}">
+										<label for="custom{{ key }}">
+											<span class="label">{{ serviceOption.name }}</span>
+											<span class="days"><span class="nbr-op">{{ serviceOption.delai }}</span> jours de réalisation</span>
+										</label>
+									</div>
+									<span class="price">{{ serviceOption.montant}} €</span>
+								</div>
+							{% endfor %}
+						</form>
+					</div>
+					<div class="faq section-service">
+						<h3 class="title">Questions fréquentes</h3>
+						<div class="accordion">
+
+							{% for key,faq in microservice.faq %}
+								<div class="accordion-item">
+									<button id="accordion-button-{{ key }}" aria-expanded="false">
+										<span class="accordion-title">{{ faq.name }}</span>
+										<span class="icon" aria-hidden="true"></span>
+									</button>
+									<div class="accordion-content">
+										<p>
+											{{ faq.description|raw }}
+										</p>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+					<div class="seller-info section-service">
+						<h3 class="title">À propos du vendeur</h3>
+						<div class="content">
+
+							<img src="{{ microservice.vendeur.avatar ? vich_uploader_asset(microservice.vendeur, 'imageFile') : asset('img/user.jpg') | imagine_filter('large_avatar') }}"
+									alt="{{ appName }} {{ microservice.vendeur.usePseudo == 1 ? microservice.vendeur.pseudo : microservice.vendeur.nom ~ ' ' ~ microservice.vendeur.prenom }}">
+
+							<div class="info">
+								<h4 class="name"><a href="">{{ microservice.vendeur.nickName }}</a></h4>
+								<div>
+									<div class="moreinfo">
+										<p><i class="fa-solid fa-cart-arrow-down"></i><span>Commandes en cours :  {{ commandeEncours(microservice.vendeur)|length }}</span></p>
+										<p><i class="fa-solid fa-shop"></i><span>Ventes au total : {{ ventes(microservice.vendeur)|length }}</span></p>
+										<p><i class="fa-solid fa-calendar-days"></i><span>Date d'inscription : {{ microservice.vendeur.created|date('d/m/Y') }}</span></p>
+									</div>
+									<a href="{{ path('vendeur_profil', {nameUrl: microservice.vendeur.nameUrl }) }}" class="btn btn-borderBlue">En savoir plus</a>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="user-info d-flex">
-						<span class="user-info-rating d-flex border-0 text-left">
-							<div class="star-rating-s15-wrapper text-success">
-								{% include "microservice/composants/_etoilles.html.twig" %}
+					<div class="testimonials section-service">
+						<h3 class="title">Témoignages</h3>
+						<div class="content">
+							<div class="testimonials_content">
+
+								{% for avisPositif in serviceAvisAll(microservice) %}
+
+
+									<div class="card" id="{{ avisPositif.client.nameUrl }}">
+										<div class="infoImg">
+											{% if avisPositif.client.reseauAvatar %}
+												<img src="{{ avisPositif.client.reseauAvatar }}" class="rounded-circle mr-3" alt="{{ avisPositif.client.usePseudo == 1 ? avisPositif.client.pseudo : avisPositif.client.nom ~ ' ' ~ avisPositif.client.prenom }}" width="50" height="50">
+											{% else %}
+												{% if avisPositif.client.avatar %}
+													<img src="{{ vich_uploader_asset(avisPositif.client, 'imageFile') | imagine_filter('midle_avatar') }}" class="rounded-circle mr-3" width="50" alt="{{ avisPositif.client.prenom }}">
+												{% else %}
+													<img class="rounded-circle mr-3" src="{{ asset('img/user.jpg') | imagine_filter('midle_avatar') }}" alt='' width="50" />
+												{% endif %}
+											{% endif %}
+
+											<div class="info">
+												<h5 class="name">{{ avisPositif.client.nickName }}</h5>
+												<p class="quote secondaryParagraphe">
+													<i class="fa-solid fa-quote-left"></i>
+													{{ avisPositif.contenu }}
+												</p>
+												<p class="date lightText">{{ avisPositif.created|ago(locale='fr') }}</p>
+												{% if avisPositif.avisReponses %}
+
+													{% for reponse in avisPositif.avisReponses %}
+														<div class="relay">
+															<div class="infoImg">
+{#																<img src="dist/img/profile1.jpg" alt="">#}
+																{% if reponse.vendeur.reseauAvatar %}
+																	<img src="{{ reponse.vendeur.reseauAvatar }}" class="rounded-circle mr-3" alt="{{ reponse.vendeur.usePseudo == 1 ? reponse.vendeur.pseudo : reponse.vendeur.nom ~ ' ' ~ reponse.vendeur.prenom }}" width="50" height="50">
+																{% else %}
+																	{% if reponse.vendeur.avatar %}
+																		<img src="{{ vich_uploader_asset(reponse.vendeur, 'imageFile') | imagine_filter('midle_avatar') }}"
+																			 class="rounded-circle mr-3" width="50" alt="{{ reponse.vendeur.prenom }}">
+																	{% else %}
+																		<img class="rounded-circle mr-3" src="{{ asset('img/user.jpg') | imagine_filter('midle_avatar') }}" alt='' width="50" />
+																	{% endif %}
+
+																{% endif %}
+																<div class="info">
+																	<h5 class="name">{{ reponse.vendeur.nickName }}</h5>
+																	<p class="quote secondaryParagraphe">
+																		{{ reponse.contenu }}
+																	</p>
+																</div>
+															</div>
+														</div>
+													{% endfor %}
+
+												{% endif %}
+											</div>
+										</div>
+									</div>
+
+								{% else %}
+									<div>
+										<p>Aucun avis...</p>
+									</div>
+								{% endfor %}
+
 							</div>
-							<span class="total-rating pl-2">
-								({{ serviceAvis(microservice) }} Avis)
-							</span>
-						</span>
+						</div>
+					</div>
+					<div class="section-service section-services">
+						<h3 class="title">Mes autres services</h3>
+						<div class="content">
+							{% for micros in microservice.vendeur.showOnlyOnlineService(3) %}
+								{{ include('microservice/composants/_bloc.html.twig', {microservice: micros}) }}
+							{% endfor %}
+						</div>
+						<div class="flexCenter">
+							<a href="{{ path('vendeur_profil', {nameUrl: microservice.vendeur.nameUrl }) }}" class="btn btn-borderBlue">Tous mes services</a>
+						</div>
 					</div>
 				</div>
-
-				{% include "microservice/composants/_galerie.html.twig" %}
-
-				<div id="description" class="mb-3">
-					<h6 style="margin-top: -30px;">Description</h6>
-					<p class="p-0 m-0">{{ microservice.description|raw }}</p>
-				</div>
-
-				<!-- Réalisations liée à ce service -->
-				{% include "microservice/composants/_realisations.html.twig" %}
-
-				<!-- Personaliser le service et commander -->
-				{% if microservice.categorie.slug == 'ingenieur-son' %}{% else %}
-				
-				{% endif %}
-				
-				{% include "microservice/composants/_custom_form.html.twig" %}
-
-				<!-- Avis -->
-				{% include "microservice/composants/_avis.html.twig" %}<br>
-				
-				<div class="view_slider recommended">
-					<h6 class="pb-3" id="recommendations">Autres services de ce vendeur</h6>
-					<div class="view recommended-slider">
-						{% for similaire in similaires %}
-
-						{% if similaire == microservice %}{% else %}
-
-						{% include "microservice/composants/_similar_bloc.html.twig" %}
-
-						{% endif %}
-
-						{% endfor %}
-					</div>
-				</div>
-
-			</div>
-			<div class="col-md-4 right">
-
-				{% include "microservice/composants/_trafic.html.twig" %}
-
-			</div>
-		</div>
-
-		<div class="modal fade" id="serivesignaleModal" tabindex="-1" role="dialog"
-			aria-labelledby="serivesignaleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
-				<div class="modal-content">
-					<div class="modal-header border-0">
-						<h6 class="h6 text-light" id="serivesignaleModalLabel">Signalez ce service</h6>
-						<button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body text-light">
-						{{ form_start(servicesignaleForm) }}
-						{{ form_widget(servicesignaleForm) }}
-						<button type="submit" class="btn btn-dark btn-block">
-							<span id="btnFetch"><i class="mdi mdi-send"></i> Envoyer</span>
-						</button>
-						{{ form_end(servicesignaleForm) }}
+				<div class="sticky-details">
+					<div class="content">
+						<div class="card">
+							<form action="">
+								<div class="header-tab hiddenMobile">
+									<div class="custom-radio">
+										<input type="radio" name="option-price" id="basic-option" checked>
+										<label for="basic-option"> basique</label>
+									</div>
+									<div class="custom-radio">
+										<input type="radio" name="option-price" id="custom-option">
+										<label for="custom-option"> personnalisé</label>
+									</div>
+								</div>
+								<div class="content-tab hiddenMobile">
+									<p class="time"></p>
+									<ul class="basic">
+										<li><i class="fa-solid fa-clock"></i> <span class="nbr">{{ microservice.nombreJour }}</span> <span>jours</span></li>
+										{% for item in microservice.tags %}
+											<li><i class="fa-solid fa-check"></i> <span>{{ item.name }}</span></li>
+										{% endfor %}
+									</ul>
+									<ul class="custom">
+										<li><i class="fa-solid fa-clock"></i> <span class="nbr">{{ microservice.nombreJour }}</span> <span>jours</span></li>
+									</ul>
+								</div>
+								<div class="priceBtn">
+									<button type="submit" class="btn btn-Yellow">Commander</button>
+									<span class="price"><span class="nbr">{{ microservice.prix }}</span> {{ currency }}</span>
+								</div>
+							</form>
+							<p class="info-security hiddenMobile"><i class="fa-solid fa-lock"></i> Paiement Sécurisé</p>
+							<span class="info hiddenMobile">Tous les prix sont H.T et hors frais bancaires. Le prix définitif est calculé sur la page de paiement.</span>
+						</div>
+						<div class="flexCenter">
+							<a href="{{ path('microservice_conversations', {vendeurNameUrl: microservice.vendeur.nameUrl, microserviceId: microservice.id }) }}" class="btn btn-primaryBlue hiddenMobile">Me contacter</a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-
 {% endif %}
 
 {% endblock %}
 
-{% block javascripts %}
-
-{{ parent() }}
-
-{% if isHiden == true %}
-	{% include "microservice/composants/_script_2.html.twig" %}
-{% else %}
-	{% include "microservice/composants/_script.html.twig" %}
-{% endif %}
-
-{% endblock %}

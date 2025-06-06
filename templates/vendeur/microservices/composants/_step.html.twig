@@ -28,9 +28,9 @@
             4. Galerie &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
          </a>
 
-         <a class="dropdown-item p-2 {{ app.request.attributes.get('_route') == 'vendeur_microservices_disponibilite' ? 'active' : '' }} {{ microservice.disponibilites|length > 0 ? 'tache-terminer' : 'tache-encours' }}"
-            href="{{ path('vendeur_microservices_disponibilite', {id: microservice.id}) }}">
-            5. Disponiblité &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
+         <a class="dropdown-item p-2 {{ app.request.attributes.get('_route') == 'vendeur_microservices_faq' ? 'active' : '' }} {{ microservice.faq|length > 0 ? 'tache-terminer' : 'tache-encours' }}"
+            href="{{ path('vendeur_microservices_faq', {id: microservice.id}) }}">
+            5. FAQ &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
          </a>
 
          <a class="dropdown-item p-2 {{ app.request.attributes.get('_route') ==  'vendeur_microservices_publication' ? 'active' : '' }} {{ microservice.online == 1 ? 'tache-terminer' : 'tache-encours' }}"
@@ -56,8 +56,8 @@
          </div>
 
          <div
-            class="dropdown-item tache-encours p-2 {{ app.request.attributes.get('_route') == '' ? 'active' : 'vendeur_microservices_disponibilite' }}">
-            4. Disponibilité &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
+            class="dropdown-item tache-encours p-2 {{ app.request.attributes.get('_route') == '' ? 'active' : 'vendeur_microservices_faq' }}">
+            4. FAQ &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
          </div>
 
          <div

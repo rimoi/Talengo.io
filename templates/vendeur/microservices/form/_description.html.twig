@@ -38,6 +38,30 @@
          </div>
       </div>
 
+      <div class="mb-4">
+         <div class="form-group">
+            <h6 class="font-weight-bold">Elément</h6>
+            <p class="text-muted">
+               Ici, vous pouvez ajouter les éléments que vous proposez dans votre pack basique. Exemple : 500 mots, 2 pages.
+            </p>
+
+            <div id="serviceOptions" class="row" data-prototype="{{ include("vendeur/microservices/form/_tag.html.twig", {form:
+               form.tags.vars.prototype})|e("html_attr") }}"
+                 data-index="{{ form.tags|length > 0 ? form.tags|last.vars.name + 1 : 0 }}">
+               {% for option in form.tags %}
+                  <div class="col-sm-6">
+                     {{ include("vendeur/microservices/form/_tag.html.twig", {form: option}) }}
+                  </div>
+               {% endfor %}
+            </div>
+            <br>
+            <button type="button" class="btn btn-light btn-new" data-collection="#serviceOptions">
+               <i class="fa fa-plus"></i> Ajouter un élément
+            </button>
+
+         </div>
+      </div>
+
       <div class=" mb-4">
          <div class="">
             <div class="">

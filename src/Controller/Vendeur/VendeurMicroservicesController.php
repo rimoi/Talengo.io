@@ -15,6 +15,7 @@ use App\Form\Microservice\MicroserviceGalerieType;
 use App\Form\Microservice\MicroservicePublierType;
 use App\Form\Microservice\MicroserviceTitreType;
 use App\Form\Microservice\MicroserviceType;
+use App\Form\MicroserviceFAQType;
 use App\Repository\DisponibiliteRepository;
 use App\Repository\MicroserviceRepository;
 use App\Repository\SuivisRepository;
@@ -227,7 +228,7 @@ class VendeurMicroservicesController extends AbstractController
 
             $this->addFlash('success', "La galérie a bien été mise à jour");
 
-            return $this->redirectToRoute('vendeur_microservices_disponibilite', [
+            return $this->redirectToRoute('vendeur_microservices_faq', [
                 'id' => $microservice->getId()
             ], Response::HTTP_SEE_OTHER);
         }
@@ -238,12 +239,16 @@ class VendeurMicroservicesController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/disponibilite', name: 'vendeur_microservices_disponibilite', methods: ['GET', 'POST'])]
-    public function planning(Request $request, EntityManagerInterface $entityManager, Microservice $microservice, DisponibiliteRepository $disponibiliteRepository): Response
+    #[Route('/{id}/FAQ', name: 'vendeur_microservices_faq', methods: ['GET', 'POST'])]
+    public function planning(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        Microservice $microservice
+    ): Response
     {
         $this->denyAccessUnlessGranted('microservice_edit', $microservice);
         
-        $form = $this->createForm(MicroserviceDisponibiliteType::class, $microservice);
+        $form = $this->createForm(MicroserviceFAQType::class, $microservice);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -258,7 +263,7 @@ class VendeurMicroservicesController extends AbstractController
             ], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('vendeur/microservices/disponibilite.html.twig', [
+        return $this->render('vendeur/microservices/faq.html.twig', [
             'microservice' => $microservice,
             'form' => $form->createView(),
         ]);

@@ -11,10 +11,9 @@
     <div class="card-body">
 
         <div class="form-group">
-            <h6 class="font-weight-bold">Disponibilités pour ce service</h6>
+            <h6 class="font-weight-bold">FAQ</h6>
             <p class="text-muted">
-                Afin de compléter et personnaliser votre service, vous pouvez indiquez votre disponibilités en
-                     relation directe avec ce service pour permettre aux clients de prendre des rendez-vous avec vous.
+                Afin de compléter et personnaliser votre service, vous pouvez indiquer une FAQ pour ce dernier. Cela permet d'anticiper les questions que les clients pourraient poser, facilitant ainsi la prise de commande. Vous gagnerez du temps et des efforts !
             </p>
         </div>
 
@@ -22,18 +21,18 @@
             {{ form_start(form) }}
             {{ form_widget(form._token) }}
             {{ form_errors(form) }}
-            <div id="disponibilites" class="row" data-prototype="{{ include("vendeur/microservices/form/_disponibilites.html.twig", {form:
-                form.disponibilites.vars.prototype})|e("html_attr") }}"
-                data-index="{{ form.disponibilites|length > 0 ? form.disponibilites|last.vars.name + 1 : 0 }}">
-                {% for disponibilite in form.disponibilites %}
+            <div id="disponibilites" class="row" data-prototype="{{ include("vendeur/microservices/form/_faq.html.twig", {form:
+                form.faq.vars.prototype})|e("html_attr") }}"
+                data-index="{{ form.faq|length > 0 ? form.faq|last.vars.name + 1 : 0 }}">
+                {% for question in form.faq %}
                 <div class="col-sm-6">
-                    {{ include("vendeur/microservices/form/_disponibilites.html.twig", {form: disponibilite}) }}
+                    {{ include("vendeur/microservices/form/_faq.html.twig", {form: question}) }}
                 </div>
                 {% endfor %}
             </div>
             <br>
             <button type="button" class="btn btn-light btn-new" data-collection="#disponibilites">
-                <i class="fa fa-plus"></i> Ajouter une disponibilité
+                <i class="fa fa-plus"></i> Ajouter une FAQ
             </button>
 
             <div class="form-group text-left mt-5">

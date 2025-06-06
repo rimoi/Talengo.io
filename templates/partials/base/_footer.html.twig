@@ -4,9 +4,9 @@
 			<div class="infoWebsite">
 				<img src="{{ asset('themes/layout/img/logo.svg') }}" alt="Logo Talengo.io" class="logo">
 				<h4 class="description">Freelance ? Trouve ta prochaine mission sur Talengo.io.</h4>
-				<div class="">
-					<a href="" class="btn btn-borderWhite">devenez vendeur</a>
-				</div>
+{#				<div class="">#}
+{#					<a href="" class="btn btn-borderWhite">devenez vendeur</a>#}
+{#				</div>#}
 				<h4 class="titleFolow">SUIVEZ NOUS SUR</h4>
 				<div class="socialMedia">
 					<a href=""><i class="fa-brands fa-square-facebook"></i></a>
@@ -18,14 +18,10 @@
 			<div class="linksWebsite">
 				<div class="links">
 					<h3 class="title">Catégories</h3>
-					<ul>
-						<li><a href="">Design & Graphisme</a></li>
-						<li><a href="">Site & Développement</a></li>
-						<li><a href="">Seo & Communication</a></li>
-						<li><a href="">Vidéo & Animation</a></li>
-						<li><a href="">Réseaux Sociaux</a></li>
-						<li><a href="">Rédaction</a></li>
-					</ul>
+					{{ render(controller('App\\Controller\\AccueilController::listCategories', {
+						slug: app.request.attributes.get('slug'),
+						isFooter: 1
+					})) }}
 				</div>
 				<div class="links">
 					<h3 class="title">Talengo</h3>
@@ -39,9 +35,9 @@
 				<div class="links">
 					<h3 class="title">terms</h3>
 					<ul>
-						<li><a href="">Politique de Confidentialité</a></li>
-						<li><a href="">Termes et Conditions</a></li>
-						<li><a href="">Mentions légales</a></li>
+						<li><a href="{{ path('page_politiques') }}">Politique de Confidentialité</a></li>
+						<li><a href="{{ path('page_conditions') }}">Termes et Conditions</a></li>
+						<li><a href="{{ path('page_mentions') }}">Mentions légales</a></li>
 					</ul>
 				</div>
 			</div>
@@ -49,7 +45,7 @@
 	</div>
 	<div class="copyrights">
 		<div class="container">
-			<p>© freelance.com 2025 - Tous droits réservés</p>
+			<p>© {{ appName }} 2025 - Tous droits réservés</p>
 		</div>
 	</div>
 </footer>

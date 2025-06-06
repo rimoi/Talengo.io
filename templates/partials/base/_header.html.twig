@@ -52,10 +52,18 @@
 								</div>
 							</li>
 							<li>
-								<a href="{{ path('user_dashboard') }}">
-									<i class="fa-solid fa-shop"></i>
-									<span>Ventes</span>
-								</a>
+								{% if app.user.hasRole('ROLE_VENDEUR') %}
+									<a href="{{ path('user_dashboard') }}">
+										<i class="fa-solid fa-shop"></i>
+										<span>Ventes</span>
+									</a>
+								{% endif %}
+								{% if app.user.hasRole('ROLE_CLIENT') %}
+									<a href="{{ path('vendeur_achats_index') }}">
+										<i class="fa-solid fa-bag-shopping"></i>
+										<span>Achats</span>
+									</a>
+								{% endif %}
 							</li>
 {#							<li>#}
 {#								<a href="{{ path('user_dashboard') }}">#}

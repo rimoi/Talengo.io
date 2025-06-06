@@ -81,8 +81,10 @@ class AppExtension extends AbstractExtension
             new TwigFunction('portefeuille', [$this, 'getVendeurPortefeuille']),
             new TwigFunction('avispositif', [$this, 'getVendeurAvisPositif']),
             new TwigFunction('avisnegatif', [$this, 'getVendeurAvisNegatif']),
-            new TwigFunction('allAvis', [$this, 'getServiceAllAvis']),
+            new TwigFunction('allAvis', [$this, 'getAllAvis']),
+            new TwigFunction('allServiceAvis', [$this, 'allServiceAvis']),
             new TwigFunction('moyenneAvis', [$this, 'moyenneAvis']),
+            new TwigFunction('moyenneAvisByService', [$this, 'moyenneAvisByService']),
             new TwigFunction('getMessageNonLu', [$this, 'getMessageNonLu']),
             new TwigFunction('getCommandeNonLu', [$this, 'getCommandeNonLu']),
             new TwigFunction('followers', [$this, 'getVendeurFollowers']),
@@ -96,6 +98,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('clientAchats', [$this, 'getClientTotalAchats']),
             new TwigFunction('serviceAvisPositifs', [$this, 'getServiceAvisPositif']),
             new TwigFunction('serviceAvisNegatifs', [$this, 'getServiceAvisNegatif']),
+            new TwigFunction('serviceAvisAll', [$this, 'getServiceAvisAll']),
             new TwigFunction('emploistemps', [$this, 'getVendeurEmploisTemps']),
             new TwigFunction('alertesNonLu', [$this, 'getAlertesNonLu']),
             new TwigFunction('userRemboursements', [$this, 'getUserRemboursements']),
@@ -154,17 +157,42 @@ class AppExtension extends AbstractExtension
         return $this->avisRepository->findBy(['vendeur' => $vendeur, 'type' => 'Negatif']);
     }
 
-    public function getServiceAllAvis($vendeur){
+    public function getAllAvis($vendeur){
         return count($this->avisRepository->findBy(['vendeur' => $vendeur]));
+    }
+
+    public function allServiceAvis($service){
+        return count($this->avisRepository->findBy(['microservice' => $service]));
     }
 
     public function getServiceAvisPositif($service){
         return $this->avisRepository->findBy(['microservice' => $service, 'type' => 'Positif']);
     }
 
+    public function getServiceAvisAll($service){
+        return $this->avisRepository->findBy(['microservice' => $service]);
+    }
+
+
+
     public function moyenneAvis($vendeur)
     {
         $avis = $this->avisRepository->findBy(['vendeur' => $vendeur]);
+
+        $totalNotes = 0;
+        foreach ($avis as $avisItem) {
+            $note = $avisItem->getType() === 'Positif' ? 5 : 1;
+            $totalNotes += $note;
+        }
+
+        $moyenne = count($avis) ? round($totalNotes / count($avis), 1) : 0;
+
+        return $moyenne;
+    }
+
+    public function moyenneAvisByService(Microservice $service)
+    {
+        $avis = $this->avisRepository->findBy(['microservice' => $service]);
 
         $totalNotes = 0;
         foreach ($avis as $avisItem) {

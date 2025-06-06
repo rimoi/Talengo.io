@@ -1,6 +1,10 @@
 <div class="card">
-	<a href="{{ path('microservice_details', {slug: microservice.slug}) }}" class="favoris">
-		<i class="fa-solid fa-heart-circle-plus"></i>
+	<a href="{{ path('favoris_new', {id: microservice.id}) }}" class="favoris" class="{{ app.user ? 'js-favoris' : '' }}">
+		{% if app.user and microservice.isAddedByUser(app.user) %}
+			<i class="fa-solid fa-heart-circle-minus"></i>
+		{% else %}
+			<i class="fa-solid fa-heart-circle-plus"></i>
+		{% endif %}
 	</a>
 	<a href="{{ path('microservice_details', {slug: microservice.slug}) }}">
 		{% if microservice.medias|length > 0 %}

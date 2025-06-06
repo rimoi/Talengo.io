@@ -37,7 +37,6 @@ class PagesController extends AbstractController
     public function conditions(): Response
     {
         return $this->render('pages/conditions.html.twig', [
-            
         ]);
     }
 

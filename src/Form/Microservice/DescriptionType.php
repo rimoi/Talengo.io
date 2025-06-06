@@ -3,9 +3,12 @@
 namespace App\Form\Microservice;
 
 use App\Entity\Microservice;
+use App\Entity\Tag;
 use App\Form\PrixType;
+use App\Form\TagType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -40,6 +43,16 @@ class DescriptionType extends AbstractType
                     ])
                 ],
                 'attr' => ['class' => 'border-0']
+            ])
+            ->add('tags', CollectionType::class, [
+                'entry_type' => TagType::class,
+                'label' => false,
+                'entry_options' => [
+                    'label' => false,
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false
             ])
             ->add('description', CKEditorType::class, [
                 'label' => false,

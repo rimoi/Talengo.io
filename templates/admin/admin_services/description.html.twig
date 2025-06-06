@@ -17,17 +17,7 @@ Prix, description et delai
         <div class="email-rightbar">
             <div class="card">
                 <div class="card-body">
-
-                    {% if microservice.categorie.slug == 'ingenieur-son' %}
-
-                        {% include "admin/admin_services/form/_ingenieur_son.html.twig" %}
-
-                    {% else %}
-
                         {% include "admin/admin_services/form/_description.html.twig" %}
-
-                    {% endif %}
-
                 </div>
             </div> <!-- panel -->
 
