@@ -19,7 +19,6 @@ $(function () {
             Talengo.menuSticky();
             Talengo.testimonialsMobileCarousel();
             Talengo.select2();
-            Talengo.menuBurger();
             Talengo.showSearchMobile();
             Talengo.changeTopService();
         },
@@ -61,12 +60,6 @@ $(function () {
             if($(".custom-select").length) {
                 $('.custom-select').select2();
             }
-        },
-
-        menuBurger : function() {
-            $('.menuBurger').click( function() {
-                $('body').toggleClass('activeMenuBurger');
-            });
         },
 
         showSearchMobile : function() {
