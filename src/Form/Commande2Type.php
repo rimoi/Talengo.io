@@ -17,15 +17,8 @@ class Commande2Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('montant', HiddenType::class)
-            ->add('reservationDate', DateType::class, [
-                'label' => 'Date de la reservation',
-                'attr' => [
-                    'class' => "js-datepicker",
-                ],
-                'widget' => 'single_text', 'constraints' => [
-                    new NotBlank()
-                ],
+            ->add('montant', HiddenType::class, [
+                'required' => false,
             ]);
     }
 

@@ -26,6 +26,7 @@ use App\Service\MailerService;
 use App\Service\PaymentService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Omnipay\Omnipay;
 use PHPUnit\TextUI\Command;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,6 +34,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route('/commandes')]
 class CommandeController extends AbstractController
@@ -43,20 +45,9 @@ class CommandeController extends AbstractController
 
     public function __construct()
     {
-        /**
-         * Vérification de l'environnement
-         */
-        if ($_ENV['APP_ENV'] === 'dev') {
+        $this->privateKey = $_ENV['STRIPE_SECRET_KEY'];
 
-            $this->privateKey = $_ENV['STRIPE_SECRET_KEY_TEST'];
-
-            $this->paypalkey = $_ENV['PAYPAL_SECRET_KEY_TEST'];
-        } else {
-
-            $this->privateKey = $_ENV['STRIPE_SECRET_KEY_LIVE'];
-
-            $this->paypalkey = $_ENV['PAYPAL_SECRET_KEY_LIVE'];
-        }
+        $this->paypalkey = $_ENV['PAYPAL_SECRET'];
     }
 
     #[Route('/suivis', name: 'commandes_chats')]
@@ -299,14 +290,69 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    #[Route('/success/commande_id={id}', name: 'commande_success')]
-    public function success(Commande $commande): Response
+    #[Route('/success/str/commande_id={id}', name: 'commande_str_success')]
+    public function successStripe(Commande $commande): Response
     {
         if ($commande->getClient() != $this->getUser()) {
             return $this->redirectToRoute('accueil', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('commande/success.html.twig', [
+            'commande' => $commande
+        ]);
+    }
+
+    #[Route('/success/pyp/commande_id={id}', name: 'commande_pyp_success')]
+    public function successPaypal(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
+    {
+        if ($commande->getClient() != $this->getUser()) {
+            return $this->redirectToRoute('accueil', [], Response::HTTP_SEE_OTHER);
+        }
+
+        if ($request->get('paymentId') && $request->get('PayerID')) {
+            $gateway = Omnipay::create('PayPal_Rest');
+            $gateway->setClientId($_ENV['PAYPAL_CLIENT_ID']);
+            $gateway->setSecret($_ENV['PAYPAL_SECRET']);
+
+            if ($_ENV['APP_ENV'] === 'dev') {
+                $gateway->setTestMode(true);
+            }
+
+            $operation = $gateway->completePurchase([
+                'payer_id' => $request->get('PayerID'),
+                'transactionReference' => $request->get('paymentId'),
+            ]);
+
+            $response = $operation->send();
+
+            if ($response->isSuccessful()) {
+                $payment = $response->getData();
+
+                $commande->setReferencePaypalId($payment['id'] ?? null);
+                $commande->setPayerPaypalId($payment['payer']['payer_info']['payer_id'] ?? null);
+
+                $entityManager->flush();
+            }
+
+            return $this->render('commande/success.html.twig', [
+                'commande' => $commande
+            ]);
+        }
+
+
+        return $this->render('commande/error.html.twig', [
+            'commande' => $commande
+        ]);
+    }
+
+    #[Route('/error/commande_id={id}', name: 'commande_error')]
+    public function error(Commande $commande): Response
+    {
+        if ($commande->getClient() != $this->getUser()) {
+            return $this->redirectToRoute('accueil', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('commande/error.html.twig', [
             'commande' => $commande
         ]);
     }
@@ -479,7 +525,7 @@ class CommandeController extends AbstractController
             $commande
         );
 
-        return $this->redirectToRoute('commande_success', [
+        return $this->redirectToRoute('commande_str_success', [
             'id' => $commande->getId()
         ], Response::HTTP_SEE_OTHER);
     }
@@ -648,30 +694,23 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/reservation/{slug}/{commande}', name: 'commander_microservice_reservation', methods: ['GET', 'POST'])]
-    public function reservation(Request $request, EntityManagerInterface $entityManager, CommandeRepository $commandeRepository, MicroserviceRepository $microserviceRepository, $slug, PaymentService $paymentService, Commande $commande): Response
+    public function reservation(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        MicroserviceRepository $microserviceRepository,
+        $slug,
+        Commande $commande,
+        PaymentService $paymentService
+    ): Response
     {
         $microservice = $microserviceRepository->findOneBy(['slug' => $slug]);
-        $montantTotal = $commande->getMontant();
-        $tauxHoraire = false;
 
-        if ($commande->getTauxHoraire()) {
-
-            $tauxHoraire = $commande->getTauxHoraire();
-
-            /** Si taux erreur == 0 taux erreur == 1 */
-            if ($tauxHoraire == 0)
-                $tauxHoraire = 1;
-
-            $montantTotal = $commande->getMontant();
-        }
 
         $directory = $this->redirectToRoute('microservices');
 
         if (!$microservice) {
             return $directory;
         }
-
-        $options = $microservice->getServiceOptions();
 
         $portefeuille = $microservice->getVendeur()->getPortefeuille();
 
@@ -684,66 +723,78 @@ class CommandeController extends AbstractController
             $entityManager->flush();
         }
 
-        // Calcul des taxes
-        $taux = (0.015 * $montantTotal) + 0.25;
-        $frais = 0.30;
-        $somme = $montantTotal + $taux + $frais;
+        $errorMessage = null;
 
-        $order = [
-            'purchase_units' => [[
-                'description'    => 'Talengo.io achats de prestation',
-                'items'   =>  [
-                    'name'  =>  $microservice->getName(),
-                    'quatity'   =>  1,
-                    'unit_amount'   =>  [
-                        'value'     =>  $somme,
-                        'currency_code' =>  'EUR',
-                    ],
-                ],
-
-                'amount'  =>  [
-                    'currency_code' =>  'EUR',
-                    'value'         =>  $somme,
-                ]
-            ]]
-        ];
-
-        // Paypal infos
-        $userTest = 'sb-rw3oo17429039@personal.example.com';
-        $sandBoxId = $this->paypalkey;
-
-        // Instanciation Stripe
-        \Stripe\Stripe::setApiKey($this->privateKey);
-
-        $intent = \Stripe\PaymentIntent::create([
-            'amount'    =>  number_format((float)$somme, 2, '.', '') * 100,
-            'currency'  =>  'eur',
-            'payment_method_types'  =>  ['card']
-        ]);
-        // Traitement du formulaire Stripe
-        //dd($intent['id']);
 
         if ($request->getMethod() === "POST") {
 
-            if ($intent['status'] === "requires_payment_method") {
-                // TODO
+            if ($this->isCsrfTokenValid('reserver' . $commande->getId(), $request->request->get('_token'))) {
+                if ($request->get('payment') === 'card') {
 
+                    $paymentService->hydrateInfo($request, $this->getUser());
+
+                    $entityManager->flush();
+
+                    $gateway = Omnipay::create('Stripe');
+                    $gateway->setApiKey($this->privateKey);
+
+                    $response = $gateway->purchase([
+                        'amount' => $commande->getMontant(),
+                        'currency' => 'EUR',
+                        'token' => $request->get('stripeToken'),
+                    ])->send();
+
+                    if ($response->isSuccessful()) {
+                        return $this->redirectToRoute('commande_str_success', [
+                            'id' => $commande->getId()
+                        ], Response::HTTP_SEE_OTHER);
+                    } else {
+                        return $this->redirectToRoute('commande_error', [
+                            'id' => $commande->getId()
+                        ], Response::HTTP_SEE_OTHER);
+                    }
+                } else {
+
+                    $gateway = Omnipay::create('PayPal_Rest');
+                    $gateway->setClientId($_ENV['PAYPAL_CLIENT_ID']);
+                    $gateway->setSecret($_ENV['PAYPAL_SECRET']);
+
+                    if ($_ENV['APP_ENV'] === 'dev') {
+                        $gateway->setTestMode(true);
+                    }
+
+                    $response = $gateway->purchase([
+                        'amount' => $commande->getMontant(),
+                        'currency' => $_ENV['PAYPAL_CURRENCY'],
+                        'returnUrl' => $this->generateUrl('commande_pyp_success', ['id' =>  $commande->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
+                        'cancelUrl' => $this->generateUrl('commande_error', ['id' =>  $commande->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
+                    ])->send();
+
+//                    try {
+                        if ($response->isRedirect()) {
+                            return $response->redirect();
+                        } elseif ($response->isSuccessful()) {
+                            return $this->redirectToRoute('commande_pyp_success', [
+                                'id' => $commande->getId()
+                            ], Response::HTTP_SEE_OTHER);
+                        } else {
+                            return $this->redirectToRoute('commande_error', [
+                                'id' => $commande->getId()
+                            ], Response::HTTP_SEE_OTHER);
+                        }
+//                    } catch (\Exception $e) {
+//
+//                    }
+                }
             }
         }
 
-        return $this->render('commande/reservation.html.twig', [
-            'intentSecret'    =>  $intent['client_secret'],
-            'intent'    => $intent,
-            'intentId'    => $intent['id'],
+        return $this->render('commande/reservation2.html.twig', [
             'commande'    => $commande,
-            'frais'    => number_format((float)$frais, 2, '.', ''),
-            'taux'    => number_format((float)$taux, 2, '.', ''),
-            'total'    => number_format((float)$somme, 2, '.', ''),
             'microservice' => $microservice,
-            'type_offre' => 'reservation',
-            'montant' => $montantTotal,
-            'tauxHoraire' => $tauxHoraire,
-            'clientId' => $sandBoxId,
+            'errorMessage' => $errorMessage,
+            'stripe_public_key' => $_ENV['STRIPE_PUBLIC_KEY'],
+            'paypal_client_secret' => $_ENV['PAYPAL_CLIENT_ID'],
         ]);
     }
 
@@ -794,7 +845,7 @@ class CommandeController extends AbstractController
             );
         }
 
-        return $this->redirectToRoute('commande_success', [
+        return $this->redirectToRoute('commande_str_success', [
             'id' => $commande->getId()
         ], Response::HTTP_SEE_OTHER);
     }

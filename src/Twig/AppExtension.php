@@ -3,6 +3,7 @@
 namespace App\Twig;
 
 use App\Entity\Avis;
+use App\Entity\Categorie;
 use App\Entity\Microservice;
 use App\Entity\User;
 use App\Repository\AbonnementRepository;
@@ -19,6 +20,8 @@ use App\Repository\RemboursementRepository;
 use App\Repository\RetraitRepository;
 use App\Repository\ServiceSignaleRepository;
 use App\Repository\SuivisRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -52,9 +55,11 @@ class AppExtension extends AbstractExtension
     private $favorisRepository;
 
     private $reponseavisRepository;
+    private EntityManagerInterface $entityManager;
+    private RequestStack $requestStack;
 
     public function __construct(CategorieRepository $categorieRepositorye, AbonnementRepository $abonnementRepository, PortefeuilleRepository $portefeuilleRepository, AvisRepository $avisRepository, ConversationRepository $conversationRepository, CommandeRepository $commandeRepository, SuivisRepository $suivisRepository, MicroserviceRepository $microserviceRepository, EmploisTempsRepository $emploisTempsRepository, ServiceSignaleRepository $serviceSignaleRepository
-    , RemboursementRepository $remboursementRepository, RetraitRepository $retraitRepository, FavorisRepository $favorisRepository, AvisReponseRepository $reponseavisRepository){
+    , RemboursementRepository $remboursementRepository, RetraitRepository $retraitRepository, FavorisRepository $favorisRepository, AvisReponseRepository $reponseavisRepository, EntityManagerInterface $entityManager, RequestStack $requestStack){
 
         $this->abonnementRepository = $abonnementRepository;
         $this->categorieRepositorye = $categorieRepositorye;
@@ -71,6 +76,8 @@ class AppExtension extends AbstractExtension
         $this->favorisRepository = $favorisRepository;
         $this->reponseavisRepository = $reponseavisRepository;
 
+        $this->entityManager = $entityManager;
+        $this->requestStack = $requestStack;
     }
 
     public function getFunctions(): array
@@ -110,6 +117,8 @@ class AppExtension extends AbstractExtension
             new TwigFunction('clientRemboursements', [$this, 'getClientRemboursements']),
             new TwigFunction('useravisoncommande', [$this, 'getUserAvisOnCommande']),
             new TwigFunction('vendeuravisreponse', [$this, 'getVendeurReponseOnAvis']),
+            new TwigFunction('categories', [$this, 'categories']),
+            new TwigFunction('shouldDisplayContent', [$this, 'shouldDisplayContent']),
         ];
     }
 
@@ -285,5 +294,31 @@ class AppExtension extends AbstractExtension
         $ville = isset($_COOKIE['LINKS-VILLE']) ? $_COOKIE['LINKS-VILLE'] : '';
 
         return $ville;
+    }
+
+    /**
+     * @return Categorie[]
+     */
+    public function categories(): array
+    {
+        return $this->entityManager->getRepository(Categorie::class)->findBy([], ['id' => 'ASC'], 4);
+    }
+
+    public function shouldDisplayContent(): bool
+    {
+        $request = $this->requestStack->getCurrentRequest();
+        $route = $request?->attributes->get('_route');
+
+        // Vérifie que la route N'EST PAS l'une des routes exclues
+        $excludedRoutes = [
+            'accueil',
+            'app_login',
+            'app_register',
+            'app_register_client',
+            'app_register_seller',
+            'app_forgot_password_request',
+        ];
+
+        return !in_array($route, $excludedRoutes, true);
     }
 }

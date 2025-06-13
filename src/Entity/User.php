@@ -227,6 +227,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     #[ORM\Column(nullable: true)]
     private ?int $numberAvis = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $denomination = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $numeroTVA = null;
+
     public function fullName(): string
     {
         return $this->prenom . ' ' . $this->nom;
@@ -1460,6 +1466,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
         }
 
         ++$this->numberAvis;
+
+        return $this;
+    }
+
+    public function getDenomination(): ?string
+    {
+        return $this->denomination;
+    }
+
+    public function setDenomination(?string $denomination): self
+    {
+        $this->denomination = $denomination;
+
+        return $this;
+    }
+
+    public function getNumeroTVA(): ?string
+    {
+        return $this->numeroTVA;
+    }
+
+    public function setNumeroTVA(?string $numeroTVA): self
+    {
+        $this->numeroTVA = $numeroTVA;
 
         return $this;
     }

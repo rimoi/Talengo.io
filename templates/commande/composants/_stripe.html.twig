@@ -29,11 +29,11 @@
 
 		{% if app_environement == "dev" %}
 
-		let stripeToken = "{{ stripe_public_key_test }}"
+		let stripeToken = "{{ stripe_public_key }}"
 
 		{% else %}
 
-		let stripeToken = "{{ stripe_public_key_live }}"
+		let stripeToken = "{{ stripe_public_key }}"
 
 		{% endif %}
 

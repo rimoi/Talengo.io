@@ -124,48 +124,13 @@ class MicroserviceController extends AbstractController
     #[Route('/{slug}', name: 'microservice_details', methods: ['GET', 'POST'])]
     public function details(Microservice $microservice, Request $request, EntityManagerInterface $entityManager, MicroserviceRepository $microserviceRepository, AvisRepository $avisRepository, ServiceOptionRepository $serviceOptionRepository, ServiceSignaleRepository $serviceSignaleRepository, DisponibiliteRepository $disponibiliteRepository, CommandeRepository $commandeRepository): Response
     {
-//        $similaires = $microserviceRepository->findBy(['vendeur' => $this->getUser()], ['created' => 'DESC'], 12);
-//        /** @var ServiceOption $option */
-//        $options = $microservice->getServiceOptions();
-//        $categories = ['Ingénieur son', 'Studio'];
-//        $isHiden = null;
-//        $tauxHoraire = '';
-//        $jours = [];
-//
-//        $erreurmessage = '';
-//        $indisponible = '';
-//
-//        $serviceSignale = new ServiceSignale();
-//        $servicesignaleForm = $this->createForm(ServiceSignaleType::class, $serviceSignale);
-//        $servicesignaleForm->handleRequest($request);
-
-//        if ($servicesignaleForm->isSubmitted() && $servicesignaleForm->isValid()) {
-//
-//            $serviceSignale->setUser($this->getUser());
-//            $serviceSignale->setMicroservice($microservice);
-//            $serviceSignaleRepository->save($serviceSignale, true);
-//            $this->addFlash('success', 'Le service à bien été signalé merci pour votre collaboration');
-//
-//            return $this->redirectToRoute('microservice_details', [
-//                'slug' => $microservice->getSlug()
-//            ], Response::HTTP_SEE_OTHER);
-//
-//            $this->addFlash('success', 'le contenu a bien été enregistré');
-//        }
-
-//        if (in_array($microservice->getCategorie(), $categories)) {
-//
-//            $commandeFormType = CommandeType::class;
-//        } else {
-            $commandeFormType = Commande2Type::class;
-            $isHiden = true;
-//        }
+        $commandeFormType = Commande2Type::class;
+        $isHiden = true;
 
         $commande = new Commande();
         $commandeForm = $this->createForm($commandeFormType, $commande);
         $commandeForm->handleRequest($request);
 
-        $categories = ['Ingenieur son', 'Studio'];
 
         if ($commandeForm->isSubmitted() && $commandeForm->isValid()) {
 
@@ -173,36 +138,22 @@ class MicroserviceController extends AbstractController
                 return $this->redirectToRoute('app_login', ['redirect' => $microservice->getSlug()]);
             }
 
-            $dateReservation = $commandeForm->get('reservationDate')->getData();
 
-            $jour = $this->getJour(date_format($dateReservation, 'D'));
-            /** @var Disponibilite */
-            $disponibilites = $disponibiliteRepository->findBy(['service' => $microservice]);
-            $jourAutorises = [];
-            $indisponible = "";
+            if ($options = $request->get('options')) {
+                $options = $entityManager->getRepository(ServiceOption::class)->findBy(['id' => $options]);
 
-            $jour = $this->getJour(date_format($dateReservation, 'D'));
-
-            if (!empty($disponibilites)) {
-
-                foreach ($disponibilites as $dispo) {
-                    foreach ($dispo->getJours() as $value) {
-                        $jourAutorises[] = $value;
-                    }
-                }
-
-                if (!in_array($jour, $jourAutorises)) {
-                    $indisponible = "Il n'y a aucune disponibilité pour ce prestataire $jour";
-                    $jours = $jourAutorises;
-
-                    $this->addFlash('danger', $indisponible);
+                foreach ($options as $option) {
+                    $commande->addServiceOption($option);
+                    $option->addCommande($commande);
                 }
             }
 
-            $tauxHoraire = 24;
+            if ($request->get('total')) {
+                $commande->setMontant($request->get('total'));
+            }
 
+            $commande->setReservationDate(new \DateTime());
             $commande->setMicroservice($microservice);
-//            $commande->setTauxHoraire($tauxHoraire);
             $commande->setClient($this->getUser());
             $commande->setVendeur($microservice->getVendeur());
             $commande->setDestinataire($microservice->getVendeur());
@@ -230,37 +181,4 @@ class MicroserviceController extends AbstractController
         ]);
     }
 
-    public function getJour($date)
-    {
-        $resultat = null;
-
-        switch ($date) {
-            case "Mon":
-                $resultat = "Lundi";
-                break;
-            case "Tue":
-                $resultat = "Mardi";
-                break;
-            case "Wed":
-                $resultat = "Mercredi";
-                break;
-            case "Thu":
-                $resultat = "Jeudi";
-                break;
-            case "Fri":
-                $resultat = "Vendredi";
-                break;
-            case "Sat":
-                $resultat = "Samedi";
-                break;
-            case "Sun":
-                $resultat = "Dimanche";
-                break;
-            default:
-                # code...
-                break;
-        }
-
-        return $resultat;
-    }
 }

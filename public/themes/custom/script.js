@@ -21,6 +21,9 @@ $(function () {
             Talengo.select2();
             Talengo.showSearchMobile();
             Talengo.changeTopService();
+            Talengo.checkboxService();
+            Talengo.stripe();
+            Talengo.paypal();
         },
 
         menuSticky : function () {
@@ -76,8 +79,125 @@ $(function () {
                     window.location.href = path + '?q=' + param
                 });
             }
-        }
+        },
 
+        checkboxService : function () {
+            var additional = parseInt($('.basic .nbr').text().trim(), 10);
+
+            var basicPrice =  parseInt($('.options-price .basicprice').text().trim(), 10);
+
+            $('.custom-service input[type="checkbox"]').change(function () {
+                const checkbox = $(this);
+                const isChecked = checkbox.is(':checked');
+                const labelText = checkbox.siblings('label').find('.label').text().trim();
+                const checkboxId = checkbox.attr('id');
+                const listSelector = '.custom';
+                const listNbr = '.custom .nbr';
+
+                const listItemId = 'list-item-' + checkboxId;
+                $('#basic-option').prop('checked', true).trigger('change');
+                if (isChecked) {
+
+                    if ($('#' + listItemId).length === 0) {
+                        $(listSelector).append(
+                            `<li id="${listItemId}"><i class="fa-solid fa-check"></i> <span>${labelText}</span></li>`
+                        );
+                    }
+                } else {
+
+                    $('#' + listItemId).remove();
+                }
+
+
+
+                var val = parseInt($(this).siblings('label').find('.nbr-op').text().trim(), 10);
+
+                var valprice = parseInt($(this).closest('.option').find('.price').text().trim(), 10);
+
+
+                if ($(this).is(':checked')) {
+                    additional += val;
+                    basicPrice += valprice;
+                } else {
+                    additional -= val;
+                    basicPrice -= valprice;
+                }
+
+                $('.custom .nbr').text(additional);
+                $('.priceBtn .price .nbr').text(basicPrice);
+                $('.priceBtn .js-total').val(basicPrice);
+
+                if ($('.custom-service input[type="checkbox"]:checked').length > 0) {
+                    $('#custom-option').prop('checked', true).trigger('change');
+                    $('#basic-option').prop('checked', false).trigger('change');
+                } else {
+                    $('#basic-option, #custom-option').prop('checked', false);
+                    $('#basic-option').prop('checked', true).trigger('change');
+                }
+
+            });
+        },
+
+        stripe : function () {
+            if ($('#stripe-token').length) {
+
+
+
+                    const publicKey = $('.card-form').data('publicKey');
+                    const stripe = Stripe(publicKey);
+                    const elements = stripe.elements({
+                        appearance: {
+                            theme: 'flat',
+                            variables: {
+                                colorPrimary: '#f06292',
+                                colorBackground: '#fbe9e7',
+                                colorText: '#4a148c',
+                                colorDanger: '#ff5252',
+                                fontFamily: '"Comic Sans MS", cursive, sans-serif',
+                                spacingUnit: '4px',
+                                borderRadius: '4px'
+                            },
+                            rules: {
+                                '.Input': {
+                                    border: '1px solid #f06292',
+                                    boxShadow: 'none'
+                                }
+                            }
+                        }
+                    });
+                    const cardElement = elements.create('card', {
+                        hidePostalCode: true,
+                        style: {
+                            base: {
+                                iconColor: '#f06292',
+                                fontWeight: '500'
+                            }
+                        }
+                    });
+                    cardElement.mount('#card-element');
+
+                    $('form.payment-methods').on('submit', function (e) {
+                        const selectedPayment = $('input[name="payment"]:checked').val();
+
+                        if (selectedPayment === 'card') {
+                            e.preventDefault(); // Bloque la soumission
+
+                            stripe.createToken(cardElement).then(function (result) {
+                                if (result.error) {
+                                    alert(result.error.message);
+                                } else {
+                                    $('#stripe-token').val(result.token.id);
+                                    e.currentTarget.submit(); // Soumets le formulaire avec le token
+                                }
+                            });
+
+                        } // Sinon (PayPal), le formulaire se soumet normalement
+                    });
+                }
+        },
+        paypal : function () {
+
+        },
     }
 
     Talengo.init();

@@ -8,7 +8,11 @@
         {% set end = min(totalPage, page + range) %}
 
         {% if totalPage == 1 %}
-            <span>1</span>
+            <a href="{{ path(app.request.attributes.get('_route'), queryParams|merge({'page': 1})) }}" class="btn btn-primaryBlue"
+               style="pointer-events: none; cursor: default;"
+            >
+                <span>1</span>
+            </a>
         {% elseif totalPage > 0 %}
             {% if start > 1 %}
                     <a class="btn btn-primaryBlue" href="{{ path(app.request.attributes.get('_route'), queryParams|merge({'page': 1})) }}">1</a>
@@ -37,6 +41,10 @@
                     <a class="btn btn-primaryBlue" href="{{ path(app.request.attributes.get('_route'), queryParams|merge({'page': totalPage})) }}">{{ totalPage }}</a>
             {% endif %}
         {% else %}
+            <a href="{{ path(app.request.attributes.get('_route'), queryParams|merge({'page': 1})) }}" class="btn btn-primaryBlue"
+               style="pointer-events: none; cursor: default;"
+            >
                 <span>1</span>
+            </a>
         {% endif %}
 </div>

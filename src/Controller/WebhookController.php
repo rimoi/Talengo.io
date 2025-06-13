@@ -22,10 +22,10 @@ class WebhookController extends AbstractController
          */
         if ($_ENV['APP_ENV'] === 'dev') {
 
-            $this->secretKey = $_ENV['STRIPE_SECRET_KEY_TEST'];
+            $this->secretKey = $_ENV['STRIPE_SECRET_KEY'];
         } else {
 
-            $this->secretKey = $_ENV['STRIPE_SECRET_KEY_LIVE'];
+            $this->secretKey = $_ENV['STRIPE_SECRET_KEY'];
         }
     }
 

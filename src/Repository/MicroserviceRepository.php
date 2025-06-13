@@ -8,6 +8,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @method Microservice|null find($id, $lockMode = null, $lockVersion = null)
@@ -42,6 +43,17 @@ class MicroserviceRepository extends ServiceEntityRepository
             $search->page,
             16
         );
+    }
+
+    public function search(Request $request): array
+    {
+        $qb = $this->createQueryBuilder('ms');
+
+        return $qb->where('ms.name LIKE :name')
+            ->setParameter('name', '%' . $request->get('search') . '%')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     /**

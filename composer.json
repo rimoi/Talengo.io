@@ -19,7 +19,10 @@
         "league/oauth2-facebook": "^2.2",
         "league/oauth2-google": "^4.0",
         "league/oauth2-instagram": "^3.1",
+        "league/omnipay": "^3",
         "liip/imagine-bundle": "^2.7",
+        "omnipay/paypal": "^3.0",
+        "omnipay/stripe": "^3.2",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.2",
         "sensio/framework-extra-bundle": "^6.1",
@@ -83,7 +86,8 @@
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "php-http/discovery": true
         },
         "optimize-autoloader": true,
         "preferred-install": {

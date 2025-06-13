@@ -123,6 +123,12 @@ class Commande
     #[ORM\Column(nullable: true)]
     private ?int $endHoure = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $payerPaypalId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $referencePaypalId = null;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -594,6 +600,28 @@ class Commande
     public function setEndHoure(?int $endHoure): self
     {
         $this->endHoure = $endHoure;
+
+        return $this;
+    }
+
+    public function getPayerPaypalId(): ?string
+    {
+        return $this->payerPaypalId;
+    }
+
+    public function setPayerPaypalId(?string $payerPaypalId): void
+    {
+        $this->payerPaypalId = $payerPaypalId;
+    }
+
+    public function getReferencePaypalId(): ?string
+    {
+        return $this->referencePaypalId;
+    }
+
+    public function setReferencePaypalId(?string $referencePaypalId): self
+    {
+        $this->referencePaypalId = $referencePaypalId;
 
         return $this;
     }

@@ -8,18 +8,14 @@
 				</a>
 				<!-- end commun entre les deux versions du header -->
 
-
-				{% if app.user %}
-					<!--  si user est connecté  -->
+				{% if app.user or shouldDisplayContent() %}
 					<div class="search-header">
-						<form action="" class="search">
-							<input type="text" name="" id="" placeholder="Rechercher par mots-clés ou compétences">
+						<form action="{{ path('search_list') }}" class="search" method="post">
+							<input type="text" name="search" id="search" placeholder="Rechercher par mots-clés ou compétences" value="{{ app.request.get('search') }}">
 							<button type="submit" class="btn btn-primaryBlue"><i class="fa-solid fa-magnifying-glass"></i></button>
 						</form>
 					</div>
-					<!--  end  user connecté   -->
 				{% endif %}
-
 			</div>
 
 
@@ -65,12 +61,6 @@
 									</a>
 								{% endif %}
 							</li>
-{#							<li>#}
-{#								<a href="{{ path('user_dashboard') }}">#}
-{#									<i class="fa-solid fa-bag-shopping"></i>#}
-{#									<span>Achats</span>#}
-{#								</a>#}
-{#							</li>#}
 							<li class="profil hiddenMenuBurger">
 								{% if app.user.reseauAvatar %}
 									<img src="{{ app.user.reseauAvatar }}" class="img-fluid" alt="{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.nom ~ ' ' ~ app.user.prenom }}">
@@ -83,9 +73,9 @@
 									{% endif %}
 								{% endif %}
 
-{#								<img src="dist/img/profile1.jpg" alt="">#}
 								<div class="dropdownMenu">
 									<ul>
+										<li><a href="{{ path('user_dashboard') }}">Tableau de bord</a></li>
 										<li><a href="{{ path('user_profil') }}">Mon profil</a></li>
 										<li><a href="{{ path('favoris_index') }}">Favoris </a></li>
 										<li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
@@ -98,12 +88,15 @@
 					<!--  end  user est connecté  -->
 				{% else %}
 				<!--****  si user n'est pas connecté  -->
-				 <nav>
-                    <ul class="menu">
-                        <li><a href="{{ path('app_register') }}">Inscription</a></li>
-                        <li><a href="{{ path('app_login') }}">Connexion</a></li>
-                    </ul>
-                </nav>
+				{% if shouldDisplayContent() %}
+					<nav>
+						<ul class="menu">
+							<li><a href="{{ path('app_register') }}">Inscription</a></li>
+							<li><a href="{{ path('app_login') }}">Connexion</a></li>
+						</ul>
+					</nav>
+				{% endif %}
+
 {#                <a href="" class="btn btn-primaryBlue btn-seller ">Devenez vendeur</a>#}
 				<!--  end user n'est pas connecté  -->
 				{% endif %}
@@ -127,6 +120,7 @@
 	{%
 		if app.request.get('_route') == 'list'
 		or app.request.get('_route') == 'show_service'
+		or app.request.get('_route') == 'search_list'
 	%}
 		<!--  si user est connecté  -->
 		<div class="categories">

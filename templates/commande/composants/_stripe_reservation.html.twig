@@ -1,6 +1,6 @@
 <!-- Stripe Payment Form -->
-<form id="payment-form" method="post" action="" class="text-light" id="stripe-section">
 
+<form id="payment-form" method="post" action="" class="text-light" >
 	<div class="border rounded p-3 border-light mb-3">
 
 		<div id="card-errors" class="w-100 text-danger" role="alert"></div>
@@ -9,17 +9,44 @@
 
 	</div>
 
-
-	<div class="p2-5">
-		<div class="form-group">
-			<button type="submit" class="btn btn-success btn-block text-center btn-lg">
-				<span id="btnFetch">
-					<i class="fa fa-credit-card fa-2x"></i>&nbsp;Payer <strong>{{ total ~ currency }}</strong>
-				</span>
-			</button>
+	<div class="payment-form card-form">
+		<h3 class="regularText">Informations de la carte</h3>
+		<div class="row-form">
+			<input type="text" name="card_number" placeholder="Numéro de la carte" required>
+		</div>
+		<div class="row-form">
+			<input type="text" name="card_name" placeholder="Nom sur la carte" required>
+		</div>
+		<div class="row-form flex-row">
+			<input type="text" name="card_expiry" placeholder="Date d'expiration (MM/AA)" class="card_expiry" required>
+			<input type="text" name="card_cvv" placeholder="CVV" required>
 		</div>
 	</div>
 </form>
+
+
+
+{#<form id="payment-form" method="post" action="" class="text-light" id="stripe-section">#}
+
+{#	<div class="border rounded p-3 border-light mb-3">#}
+
+{#		<div id="card-errors" class="w-100 text-danger" role="alert"></div>#}
+
+{#		<div id="card-elements" class="text-white rounded" style="color: white!important;"></div>#}
+
+{#	</div>#}
+
+
+{#	<div class="p2-5">#}
+{#		<div class="form-group">#}
+{#			<button type="submit" class="btn btn-success btn-block text-center btn-lg">#}
+{#				<span id="btnFetch">#}
+{#					<i class="fa fa-credit-card fa-2x"></i>&nbsp;Payer <strong>{{ total ~ currency }}</strong>#}
+{#				</span>#}
+{#			</button>#}
+{#		</div>#}
+{#	</div>#}
+{#</form>#}
 <!-- Stripe Payment Form -->
 
 <script src="https://js.stripe.com/v3/"></script>
@@ -29,11 +56,11 @@
 
 		{% if app_environement == "dev" %}
 
-		let stripeToken = "{{ stripe_public_key_test }}"
+		let stripeToken = "{{ stripe_public_key }}"
 
 		{% else %}
 
-		let stripeToken = "{{ stripe_public_key_live }}"
+		let stripeToken = "{{ stripe_public_key }}"
 
       {% endif %}
 

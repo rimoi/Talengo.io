@@ -12889,6 +12889,29 @@ header .menuBurger .fa-close {
   display: block;
 }
 
+.header-payment {
+  display: flex;
+  justify-content: center;
+  padding-top: 80px;
+  margin-bottom: 50px;
+}
+@media screen and (max-height: 900px) {
+  .header-payment {
+    padding-top: 70px;
+    margin-bottom: 0px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .header-payment {
+    padding-top: 40px;
+    margin-bottom: 20px;
+  }
+}
+.header-payment img {
+  display: block;
+  width: 180px;
+}
+
 footer {
   background-color: #20406f;
 }
@@ -14975,6 +14998,194 @@ footer .copyrights p {
   }
 }
 
+.page-payment {
+  padding-bottom: 80px;
+}
+.page-payment .primaryTitle {
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+.page-payment .content {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+@media screen and (max-width: 767px) {
+  .page-payment .content {
+    display: block;
+  }
+}
+.page-payment .left-content {
+  width: calc( 50% - 10px );
+}
+@media screen and (max-width: 767px) {
+  .page-payment .left-content {
+    width: 100%;
+  }
+}
+.page-payment .wrp-section {
+  border: solid thin #F6F5F8;
+  margin-bottom: 25px;
+}
+.page-payment .wrp-section .secondaryTitle {
+  font-size: 20px;
+  background-color: #20406f;
+  color: white;
+  padding: 15px;
+}
+.page-payment .wrp-section input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+}
+.page-payment .recap-section .title-service {
+  color: #20406f;
+  display: block;
+}
+.page-payment .recap-section .title-service:hover {
+  text-decoration: underline;
+}
+.page-payment .recap-section .content-recap {
+  padding: 20px;
+}
+.page-payment .recap-section .content-recap .info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  gap: 15px;
+}
+.page-payment .recap-section .content-recap .info span {
+  display: inline-block;
+}
+.page-payment .recap-section .content-recap .info span:first-letter {
+  text-transform: uppercase;
+}
+.page-payment .recap-section .info_span {
+  min-width: 100px;
+  text-align: right;
+}
+.page-payment .payment-methods .card-form {
+  display: block;
+  padding: 20px;
+}
+.page-payment .payment-methods .card-form .regularText {
+  margin-bottom: 15px;
+  color: #717189;
+}
+.page-payment .payment-methods .card-form .flex-row {
+  display: flex;
+  gap: 10px;
+}
+@media screen and (max-width: 767px) {
+  .page-payment .payment-methods .card-form .flex-row {
+    display: block;
+  }
+  .page-payment .payment-methods .card-form .flex-row .card_expiry {
+    margin-bottom: 15px;
+  }
+}
+.page-payment .payment-methods .payment-option .labelRadio {
+  padding: 20px;
+  background-color: #fbfbfb;
+  border-bottom: solid thin #F6F5F8;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #343a40;
+  margin-bottom: 0;
+}
+.page-payment .payment-methods .payment-option .paypal-form {
+  padding: 20px;
+}
+.page-payment .payment-methods .payment-option .paypal-form .regularText {
+  margin-bottom: 8px;
+}
+.page-payment .facturation-section {
+  width: calc( 50% - 10px );
+}
+@media screen and (max-width: 767px) {
+  .page-payment .facturation-section {
+    width: 100%;
+  }
+}
+.page-payment .facturation-section .desc {
+  padding: 20px;
+}
+.page-payment .facturation-section .facturation-form {
+  padding: 20px;
+}
+.page-payment .facturation-section .facturation-form .type-client label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.page-payment .facturation-section .facturation-form .hidden {
+  display: none;
+}
+.page-payment .facturation-section .facturation-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.7em 1.5em;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+.page-payment .facturation-section .facturation-form button:hover {
+  background-color: #0056b3;
+}
+.page-payment .divInfoBtn p {
+  border: solid thin #F6F5F8;
+  background-color: #fbfbfb;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.page-payment .divInfoBtn .paypalPayment {
+  display: none;
+}
+.page-payment .divInfoBtn .btn-primaryBlue {
+  font-size: 20px;
+  padding: 13px 29px;
+  margin-bottom: 25px;
+}
+
+.content-confirmation {
+  max-width: 550px;
+  margin: auto;
+  margin-bottom: 50px;
+}
+@media screen and (max-width: 767px) {
+  .content-confirmation {
+    margin-bottom: 30px;
+  }
+}
+.content-confirmation img {
+  height: 350px;
+  display: block;
+  margin: auto;
+  margin-bottom: 20px;
+}
+@media screen and (max-height: 900px) {
+  .content-confirmation img {
+    height: 300px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .content-confirmation img {
+    height: 250px;
+  }
+}
+.content-confirmation .primaryTitle {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.content-confirmation p {
+  text-align: center;
+  font-size: 18px;
+  line-height: 33px;
+  margin-bottom: 25px;
+}
+
 body, html {
   height: 100%;
 }
@@ -14985,6 +15196,14 @@ body, html {
 
 .container {
   max-width: 1490px;
+  width: 100%;
+  padding-left: 25px;
+  padding-right: 25px;
+  margin: auto;
+}
+
+.container-small {
+  max-width: 1270px;
   width: 100%;
   padding-left: 25px;
   padding-right: 25px;
@@ -15401,6 +15620,24 @@ a.favoris:hover i {
 
 .plyr--video .plyr__control:focus-visible, .plyr--video .plyr__control:hover, .plyr--video .plyr__control[aria-expanded=true] {
   background: #4c8be8;
+}
+
+.global-form-style label {
+  font-family: "Outfit-Regular", arial, sans-serif;
+  font-size: 16px;
+  color: #717189;
+  margin-bottom: 5px;
+  display: block;
+}
+.global-form-style input {
+  border: solid thin #dee2e6;
+  border-radius: 5px;
+  height: 40px;
+  width: 100%;
+  padding-left: 10px;
+}
+.global-form-style .row-form {
+  margin-bottom: 15px;
 }
 
 /*# sourceMappingURL=main.css.map */

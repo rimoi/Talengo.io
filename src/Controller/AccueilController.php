@@ -23,7 +23,8 @@ class AccueilController extends AbstractController
         ]);
     }
 
-    #[Route('/top-services', name: 'list', methods: ['POST', 'GET'])]
+    #[Route('/top-services', name: 'list', methods: ['GET'])]
+    #[Route('/search-services', name: 'search_list', methods: ['POST'])]
     public function topService(
         Request $request,
         MicroserviceRepository $microserviceRepository,
@@ -39,6 +40,8 @@ class AccueilController extends AbstractController
             // A voir cela une fois connaitre comment on créer une commande
             $services = $microserviceRepository->sortByAvis();
 
+        } elseif ($request->attributes->get('_route') == 'search_list') {
+            $services = $microserviceRepository->search($request);
         } else {
             $services = $microserviceRepository->sortByAvis();
         }

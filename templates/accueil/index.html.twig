@@ -27,15 +27,14 @@
 				<div class="content">
 					<h1 class="primary-title">Boostez vos projets avec les meilleurs freelances. </h1>
 					<h2 class="secondary-title">Parce que chaque projet mérite le meilleur du digital.</h2>
-					<form action="" class="search">
-						<input type="text" name="" id="" placeholder="Rechercher par mots-clés ou compétences">
-						<button type="submit" class="btn btn-primaryBlue">Rechercher <i class="fa-solid fa-magnifying-glass"></i></button>
+					<form action="{{ path('search_list') }}" class="search" method="post">
+						<input type="text" name="search" id="search" placeholder="Rechercher par mots-clés ou compétences" value="{{ app.request.get('search') }}">
+						<button type="submit" class="btn btn-primaryBlue"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</form>
 					<div class="tag">
-						<a href="">logo</a>
-						<a href="">montage vidéo</a>
-						<a href="">site web</a>
-						<a href="">audit seo</a>
+						{% for categorie in categories() %}
+							<a href="{{ path('show_service', {slug: categorie.slug}) }}">{{ categorie.name }}</a>
+						{% endfor %}
 					</div>
 				</div>
 			</div>

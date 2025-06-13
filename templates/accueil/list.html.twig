@@ -16,23 +16,32 @@
 
 {% block body %}
 
+
     <div class="cs-list-top-services">
-        <div class="filter">
-            <div class="container">
-                <div class="wrp-select">
-                    <span class="label">Trier par :</span>
-                    <select class="custom-select" name="" data-url="{{ path('list') }}">
-                        <option value="0">Pertinence</option>
-                        <option value="1">Meilleures ventes</option>
-                        <option value="2">Dernières nouveautés</option>
-                    </select>
+
+        {% if app.request.attributes.get('_route') == "list" %}
+            <div class="filter">
+                <div class="container">
+                    <div class="wrp-select">
+                        <span class="label">Trier par :</span>
+                        <select class="custom-select" name="" data-url="{{ path('list') }}">
+                            <option value="0">Pertinence</option>
+                            <option value="1">Meilleures ventes</option>
+                            <option value="2">Dernières nouveautés</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
 
         <section class="section-services">
             <div class="container">
-                <h3 class="primaryTitle">Meilleurs services</h3>
+                {% if app.request.get('_route') == 'search_list' %}
+                    <h3 class="primaryTitle">Résultat de recherche du mots : '{{ app.request.request.get('search') }}'</h3>
+                {% else %}
+                    <h3 class="primaryTitle">Meilleurs services</h3>
+                {% endif %}
+
                 <div class="content">
                     {% for microservice in microservices %}
                         {{ include('microservice/composants/_bloc.html.twig') }}

@@ -2,7 +2,9 @@
 
 namespace App\Service;
 
+use App\Entity\User;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,20 +17,9 @@ class PaymentService
 
    public function __construct()
    {
-      /**
-       * Vérification de l'environnement
-       */
-      if ($_ENV['APP_ENV'] === 'dev') {
+     $this->privateKey = $_ENV['STRIPE_SECRET_KEY'];
 
-         $this->privateKey = $_ENV['STRIPE_SECRET_KEY_TEST'];
-
-         $this->paypalkey = $_ENV['PAYPAL_SECRET_KEY_TEST'];
-      } else {
-
-         $this->privateKey = $_ENV['STRIPE_SECRET_KEY_LIVE'];
-
-         $this->paypalkey = $_ENV['PAYPAL_SECRET_KEY_LIVE'];
-      }
+     $this->paypalkey = $_ENV['PAYPAL_SECRET'];
    }
 
    public function startStripePayment($montant, $request, $intent)
@@ -90,4 +81,30 @@ class PaymentService
          ]]
       ];
    }
+
+
+    public function hydrateInfo(Request $request, User $user): void
+    {
+        if ($request->get('nom')) {
+            $user->setNom($request->get('nom'));
+        }
+        if ($request->get('prenom')) {
+            $user->setPrenom($request->get('prenom'));
+        }
+        if ($request->get('adresse')) {
+            $user->setAdresse($request->get('adresse'));
+        }
+        if ($request->get('ville')) {
+            $user->setVille($request->get('ville'));
+        }
+        if ($request->get('code_postal')) {
+            $user->setCodePostal($request->get('code_postal'));
+        }
+        if ($request->get('denomination')) {
+            $user->setDenomination($request->get('denomination'));
+        }
+        if ($request->get('numero_tva')) {
+            $user->setNumeroTVA($request->get('numero_tva'));
+        }
+    }
 }

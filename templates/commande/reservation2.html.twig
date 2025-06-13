@@ -1,0 +1,165 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle reservation{% endblock %}
+
+{% block titre %}Nouvelle reservation{% endblock %}
+
+{% block space %}{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}
+	<script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="header-payment" style="margin-top: 128px;">
+		<a href="{{ path('accueil') }}">
+			<img src="{{ asset('themes/layout/img/logo-blue.svg') }}" alt="">
+		</a>
+	</div>
+
+	{% if errorMessage|default %}
+		<div class="alert alert-warning">
+			<button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+			{{ errorMessage }}
+		</div>
+	{% endif %}
+	<div class="page-payment">
+		<div class="container-small">
+			<h1 class="primaryTitle">Paiement et facturation de votre commande</h1>
+			<form class="payment-methods global-form-style" method="post">
+
+				<input type="hidden" name="_token" value="{{ csrf_token('reserver' ~ commande.id) }}">
+
+				<div class="content">
+					<div class="facturation-section wrp-section">
+						<h2 class="secondaryTitle">Coordonnées de facturation</h2>
+						<p class="desc regularText">Les informations ci-dessous seront utilisées pour l’édition de votre facture une fois la commande finalisée. Veillez à bien les vérifier, car elles ne pourront plus être modifiées après validation de votre commande.</p>
+						<div class="facturation-form global-form-style">
+							<div class="type-client row-form">
+								<label class="regularText"><input type="radio" name="client_type" value="particulier" checked> Particulier</label>
+								<label class="regularText"><input type="radio" name="client_type" value="societe"> Société</label>
+							</div>
+
+							<div class="common-fields">
+								<div class="row-form">
+									<label class="regularText">Nom</label>
+									<input type="text" name="nom" required value="{{ app.user ? app.user.nom }}">
+								</div>
+								<div class="row-form">
+									<label class="regularText">Prénom</label>
+									<input type="text" name="prenom" required value="{{ app.user ? app.user.prenom }}">
+								</div>
+								<div class="row-form">
+									<label>Adresse</label>
+									<input type="text" name="adresse" required value="{{ app.user ? app.user.adresse }}">
+								</div>
+								<div class="row-form">
+									<label>Ville</label>
+									<input type="text" name="ville" required value="{{ app.user ? app.user.ville }}">
+								</div>
+								<div class="row-form">
+									<label>Code postal</label>
+									<input type="text" name="code_postal" required value="{{ app.user ? app.user.codePostal }}">
+								</div>
+							</div>
+
+							<div class="societe-fields hidden">
+								<div class="row-form">
+									<label>Dénomination</label>
+									<input type="text" name="denomination" value="{{ app.user ? app.user.denomination }}">
+								</div>
+								<div class="row-form">
+									<label>Numéro de TVA</label>
+									<input type="text" name="numero_tva" value="{{ app.user ? app.user.numeroTVA }}">
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="left-content">
+						<div class="recap-section wrp-section">
+							<h2 class="secondaryTitle">Récaputilatif de votre commande</h2>
+							<div class="content-recap">
+								<p class="info regularText">
+									<span>Date de votre commande</span>
+									<span>{{ commande.reservationDate|date("d/m/Y") }}</span>
+								</p>
+								<h3 class="info">
+									<a href="{{ path('microservice_details', {slug: commande.microservice.slug}) }}" class="title-service regularText">
+										{{ commande.microservice.name|u.truncate(43, '...') }}
+									</a>
+									<span class="info_span"><span class="frais_service regularText">{{ commande.montant }}</span> {{ currency }}</span>
+								</h3>
+								<p class="info regularText">
+									<span>Commission Talengo</span>
+									<span class="info_span"><span class="commission_talengo">{{ commande.montant * 0.01 }}</span> {{ currency }}</span>
+								</p>
+								<p class="info regularText">
+									<span>Frais bancaires</span>
+									<span class="info_span"><span class="frais_bancaires">{{ commande.montant * 0.02 }}</span> {{ currency }}</span>
+								</p>
+								<p class="info regularText">
+									<span>TVA (20%)</span>
+									<span class="info_span"><span class="tva">{{ commande.montant * 0.20 }}</span> {{ currency }}</span>
+								</p>
+								<p class="info regularText">
+									<span>Total TTC</span>
+									<span class="info_span total">{{
+										commande.montant
+										+ commande.montant * 0.01
+										+ commande.montant * 0.02
+										+ commande.montant * 0.20
+										}}
+									</span>
+								</p>
+							</div>
+						</div>
+						<div class="payment-section wrp-section">
+							<h2 class="secondaryTitle">Méthode de paiement</h2>
+							<div class="payment-methods global-form-style">
+								<div class="payment-option">
+									<label class="regularText labelRadio">
+										<input type="radio" name="payment" value="card" checked>
+										Paiement par carte
+									</label>
+
+
+										<div class="payment-form card-form" data-public-key="{{ stripe_public_key }}">
+											<h3 class="regularText">Informations de la carte</h3>
+											<div class="row-form">
+												<div id="card-element" class="stripe-input"></div>
+											</div>
+										</div>
+								</div>
+
+								<input type="hidden" name="stripeToken" id="stripe-token">
+
+								<div class="payment-option">
+									<label class="regularText labelRadio">
+										<input type="radio" name="payment" value="paypal">
+										Paiement par PayPal
+									</label>
+
+									<div class="payment-form paypal-form">
+										<h3 class="regularText">Connexion PayPal</h3>
+										<p class="lightText">Vous serez redirigé vers PayPal pour finaliser le paiement.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="divInfoBtn">
+							<button type="submit" class="btn btn-primaryBlue defaultPayment">Confirmer et payer</button>
+							<button type="submit" class="btn btn-primaryBlue paypalPayment"><i class="fa-brands fa-paypal"></i> Payer par paypal</button>
+							<p class="lightText"><i class="fa-solid fa-shield-halved"></i> Une fois votre commande passée, vous pourrez facilement transmettre vos consignes et fichiers au vendeur, en toute sécurité et en toute simplicité.</p>
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+{% endblock %}

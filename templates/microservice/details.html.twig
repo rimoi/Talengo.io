@@ -66,7 +66,7 @@
 {% include "microservice/composants/_indisponible.html.twig" %}
 
 {% else %}
-
+	{{ form_start(commandeForm) }}
 	<div class="page-service">
 		<div class="container">
 			<div class="breadcrumb">
@@ -153,7 +153,6 @@
 						{{ microservice.description|raw }}
 					</div>
 					<div class="options-price">
-						<form action="">
 							<div class="option">
 								<div class="custom-checkbox">
 									<input type="checkbox" name="checkbox-service" id="basic" checked onclick="return false;">
@@ -166,11 +165,12 @@
 							</div>
 							<h4 class="title">Personnaliser le service</h4>
 
-							{% for key,serviceOption in microservice.serviceOptions %}
+							{% for serviceOption in microservice.serviceOptions %}
+								{% set key = serviceOption.id  %}
 								<div class="custom-service option">
 									<div class="custom-checkbox">
-										<input type="checkbox" name="checkbox-service" id="custom{{ key }}">
-										<label for="custom{{ key }}">
+										<input type="checkbox" name="options[{{ key }}]" id="options[{{ key }}]" value="{{ key }}">
+										<label for="options[{{ key }}]">
 											<span class="label">{{ serviceOption.name }}</span>
 											<span class="days"><span class="nbr-op">{{ serviceOption.delai }}</span> jours de réalisation</span>
 										</label>
@@ -178,7 +178,6 @@
 									<span class="price">{{ serviceOption.montant}} €</span>
 								</div>
 							{% endfor %}
-						</form>
 					</div>
 					<div class="faq section-service">
 						<h3 class="title">Questions fréquentes</h3>
@@ -302,7 +301,7 @@
 				<div class="sticky-details">
 					<div class="content">
 						<div class="card">
-							<form action="">
+
 								<div class="header-tab hiddenMobile">
 									<div class="custom-radio">
 										<input type="radio" name="option-price" id="basic-option" checked>
@@ -327,9 +326,13 @@
 								</div>
 								<div class="priceBtn">
 									<button type="submit" class="btn btn-Yellow">Commander</button>
-									<span class="price"><span class="nbr">{{ microservice.prix }}</span> {{ currency }}</span>
+									<span class="price">
+										<input type="hidden" class="js-total" name="total" value="{{ microservice.prix }}">
+										<span class="nbr">{{ microservice.prix }}</span>
+										{{ currency }}
+									</span>
 								</div>
-							</form>
+
 							<p class="info-security hiddenMobile"><i class="fa-solid fa-lock"></i> Paiement Sécurisé</p>
 							<span class="info hiddenMobile">Tous les prix sont H.T et hors frais bancaires. Le prix définitif est calculé sur la page de paiement.</span>
 						</div>
@@ -341,6 +344,7 @@
 			</div>
 		</div>
 	</div>
+	{{ form_end(commandeForm) }}
 {% endif %}
 
 {% endblock %}

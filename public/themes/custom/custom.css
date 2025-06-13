@@ -55,3 +55,84 @@
 footer ul.isFooter li.active a {
     color: #205cb5 !important;
 }
+/*
+
+ALERT
+
+	<div class="alert alert-error">
+		<button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+		Une erreur est survenue lors du traitement de votre paiement.
+	</div>
+
+	<div class="alert alert-success">
+		<button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+		Paiement effectué avec succès !
+	</div>
+
+	<!-- Avertissement -->
+	<div class="alert alert-warning">
+		<button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+		Attention : votre session va bientôt expirer.
+	</div>
+
+ */
+
+.alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 600px;
+    font-family: sans-serif;
+    color: #fff;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.alert .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.alert .close-btn:hover {
+    opacity: 0.8;
+}
+
+.alert-error {
+    background-color: #f44336;
+}
+
+.alert-success {
+    background-color: #4CAF50;
+}
+
+.alert-warning {
+    background-color: #ff9800;
+    color: #000;
+}
+
+.alert-error::before {
+    content: "❌ ";
+    font-weight: bold;
+}
+
+.alert-success::before {
+    content: "✅ ";
+    font-weight: bold;
+}
+
+.alert-warning::before {
+    content: "⚠️ ";
+    font-weight: bold;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

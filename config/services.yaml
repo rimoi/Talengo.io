@@ -5,6 +5,9 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     stripe_webhook_secret: '%env(resolve:STRIPE_WEBHOOK_SECRET)%'
+    paypal_secret_id: '%env(resolve:PAYPAL_CLIENT_ID)%'
+    paypal_key_id: '%env(resolve:PAYPAL_SECRET)%'
+    paypal_currency: '%env(resolve:PAYPAL_CURRENCY)%'
 
 services:
     # default configuration for services in *this* file

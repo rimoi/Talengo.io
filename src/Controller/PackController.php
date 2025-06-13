@@ -27,12 +27,12 @@ class PackController extends AbstractController
          */
         if ($_ENV['APP_ENV'] === 'dev') {
 
-            $this->privateKey = $_ENV['STRIPE_SECRET_KEY_TEST'];
+            $this->privateKey = $_ENV['STRIPE_SECRET_KEY'];
 
-            $this->paypalkey = $_ENV['PAYPAL_SECRET_KEY_TEST'];
+            $this->paypalkey = $_ENV['PAYPAL_SECRET'];
         } else {
 
-            $this->privateKey = $_ENV['STRIPE_SECRET_KEY_LIVE'];
+            $this->privateKey = $_ENV['STRIPE_SECRET_KEY'];
 
             $this->paypalkey = $_ENV['PAYPAL_SECRET_KEY_LIVE'];
         }

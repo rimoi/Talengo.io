@@ -27,10 +27,10 @@ class StripeAbonnementController extends AbstractController
 
       if ($_ENV['APP_ENV'] === 'dev') {
 
-         $this->privateKey = $_ENV['STRIPE_SECRET_KEY_TEST'];
+         $this->privateKey = $_ENV['STRIPE_SECRET_KEY'];
       } else {
 
-         $this->privateKey = $_ENV['STRIPE_SECRET_KEY_LIVE'];
+         $this->privateKey = $_ENV['STRIPE_SECRET_KEY'];
       }
 
       $this->urlHelper = $urlHelper;
