@@ -49,7 +49,7 @@ class AccueilController extends AbstractController
         $services = $paginator->paginate(
             $services,
             $request->query->getInt('page', 1),
-            12
+            48
         );
 
         return $this->render('accueil/list.html.twig', [
@@ -84,7 +84,7 @@ class AccueilController extends AbstractController
         $services = $paginator->paginate(
             $microserviceRepository->findBy(['categorie' => $categorie], ['id' => 'DESC']),
             $request->query->getInt('page', 1),
-            12
+            48
         );
 
         return $this->render('accueil/show_service.html.twig', [

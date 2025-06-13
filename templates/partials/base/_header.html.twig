@@ -3,9 +3,16 @@
 		<div class="content">
 			<div class="left-content">
 				<!-- commun entre les deux versions du header -->
-				<a href="{{ path('accueil') }}" class="logo">
-					<img src="{{ asset('themes/layout/img/logo.svg') }}" alt="Logo Talengo.io">
-				</a>
+				{% if app.user %}
+					<a href="{{ path('list') }}" class="logo">
+						<img src="{{ asset('themes/layout/img/logo.svg') }}" alt="Logo Talengo.io">
+					</a>
+				 {% else %}
+					 <a href="{{ path('accueil') }}" class="logo">
+						 <img src="{{ asset('themes/layout/img/logo.svg') }}" alt="Logo Talengo.io">
+					 </a>
+				{% endif %}
+
 				<!-- end commun entre les deux versions du header -->
 
 				{% if app.user or shouldDisplayContent() %}
@@ -88,7 +95,11 @@
 					<!--  end  user est connecté  -->
 				{% else %}
 				<!--****  si user n'est pas connecté  -->
-				{% if shouldDisplayContent() %}
+
+				{% if
+					shouldDisplayContent()
+					or app.request.attributes.get('_route') == 'accueil' and not app.user
+				%}
 					<nav>
 						<ul class="menu">
 							<li><a href="{{ path('app_register') }}">Inscription</a></li>
@@ -121,6 +132,7 @@
 		if app.request.get('_route') == 'list'
 		or app.request.get('_route') == 'show_service'
 		or app.request.get('_route') == 'search_list'
+		or app.request.get('_route') == 'microservice_details'
 	%}
 		<!--  si user est connecté  -->
 		<div class="categories">
