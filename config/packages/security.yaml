@@ -29,6 +29,7 @@ security:
             custom_authenticators:
                 - App\Security\LoginFormAuthenticator
                 - App\Security\GoogleAuthenticator
+                - App\Security\LinkedinAuthenticator
                 - App\Security\FacebookAuthenticator
                 - App\Security\InstagramAuthenticator
 

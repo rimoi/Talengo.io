@@ -32,8 +32,8 @@
 			<div class="content-sign-upForm">
 				<h1 class="primaryTitle">Créer votre compte avec : </h1>
 				<div class="wrp-btn">
-					<a href="" class="btn-signUp btnGoogle">Continuer avec google</a>
-					<a href="" class="btn-signUp btnLinkedin">Continuer avec linkedin</a>
+					<a href="{{ path('auth_oauth_connect', {service: 'google'}) }}" class="btn-signUp btnGoogle">Continuer avec google</a>
+					<a href="{{ path('auth_oauth_connect', {service: 'linkedin'}) }}" class="btn-signUp btnLinkedin">Continuer avec linkedin</a>
 				</div>
 				<span class="hr-or">Ou</span>
 				{{ form_start(registrationForm) }}

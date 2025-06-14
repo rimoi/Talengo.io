@@ -19,6 +19,7 @@
         "league/oauth2-facebook": "^2.2",
         "league/oauth2-google": "^4.0",
         "league/oauth2-instagram": "^3.1",
+        "league/oauth2-linkedin": "^5.1",
         "league/omnipay": "^3",
         "liip/imagine-bundle": "^2.7",
         "omnipay/paypal": "^3.0",

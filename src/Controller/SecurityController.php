@@ -13,6 +13,7 @@ class SecurityController extends AbstractController
     private const SCOPES = [
         'google' => [],
         'facebook' => [],
+        'linkedin' => ['openid', 'profile', 'email'],
     ];
 
 
@@ -30,7 +31,6 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-//        return $this->render('security/connect.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
@@ -55,6 +55,35 @@ class SecurityController extends AbstractController
             'profile', 'email'
         ]);
     }
+
+    #[Route('/linkedin/connect', name: 'connect_linkedin')]
+    public function googleLinkedin(ClientRegistry $clientRegistry)
+    {
+        return $clientRegistry
+            ->getClient('linkedin')
+            ->redirect(['email', 'profile', 'w_member_social', 'openid']); // Scopes demandés
+    }
+    #[Route('/oauth/linkedin/check', name: 'connect_linkedin_check')]
+    public function checkLinkedin( ClientRegistry $clientRegistry)
+    {
+        $client = $clientRegistry->getClient('linkedin');
+        $accessToken = $client->getAccessToken(); // ou récupère depuis la session
+
+        $response = $client->getOAuth2Provider()->getAuthenticatedRequest(
+            'GET',
+            'https://api.linkedin.com/v2/userinfo',
+            $accessToken
+        );
+
+        $userinfo = $client->getOAuth2Provider()->getParsedResponse($response);
+
+        dump($userinfo); die;
+        // Traitez les données utilisateur ($user->getFirstName(), etc.)
+        // Exemple : stockez en session ou BDD
+        return $this->redirectToRoute('accueil');
+    }
+
+
 
     /**
      * @Route("/oauth/connect/{service}", name="auth_oauth_connect")

@@ -133,6 +133,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     private ?string $googleId = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    private ?string $linkedinId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $etat = null;
 
     #[ORM\Column(nullable: true)]
@@ -1490,6 +1493,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     public function setNumeroTVA(?string $numeroTVA): self
     {
         $this->numeroTVA = $numeroTVA;
+
+        return $this;
+    }
+
+    public function getLinkedinId(): ?string
+    {
+        return $this->linkedinId;
+    }
+
+    public function setLinkedinId(?string $linkedinId): self
+    {
+        $this->linkedinId = $linkedinId;
 
         return $this;
     }

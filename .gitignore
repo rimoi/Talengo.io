@@ -9,6 +9,7 @@
 /var/
 /var/cache/*
 /vendor/
+/public/uploads/linkedin
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
