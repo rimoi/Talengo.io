@@ -1,0 +1,119 @@
+
+@font-face {
+    font-family: 'Outfit-Thin';
+    src: url("../fonts/Outfit-Thin.woff2") format("woff2"), url("../fonts/Outfit-Thin.woff") format("woff");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Outfit-ExtraLight';
+    src: url("../fonts/Outfit-ExtraLight.woff2") format("woff2"), url("../fonts/Outfit-ExtraLight.woff") format("woff");
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Outfit-Light';
+    src: url("../fonts/Outfit-Light.woff2") format("woff2"), url("../fonts/Outfit-Light.woff") format("woff");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Outfit-Regular';
+    src: url("../fonts/Outfit-Regular.woff2") format("woff2"), url("../fonts/Outfit-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Outfit-medium';
+    src: url("../fonts/Outfit-Medium.woff2") format("woff2"), url("../fonts/Outfit-Medium.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Outfit-SemiBold';
+    src: url("../fonts/Outfit-SemiBold.woff2") format("woff2"), url("../fonts/Outfit-SemiBold.woff") format("woff");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Outfit-Bold';
+    src: url("../fonts/Outfit-Bold.woff2") format("woff2"), url("../fonts/Outfit-Bold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Outfit-ExtraBold';
+    src: url("../fonts/Outfit-ExtraBold.woff2") format("woff2"), url("../fonts/Outfit-ExtraBold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Outfit-Black';
+    src: url("../fonts/Outfit-Black.woff2") format("woff2"), url("../fonts/Outfit-Black.woff") format("woff");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+body, h1,h2,h3,h4,h5,h6 {
+    font-family: "Outfit-Regular", arial, sans-serif !important;
+    --font-family-sans-serif: "Outfit-Regular", arial, sans-serif !important;
+}
+
+.navbar.navbar-expand-lg {
+    background-color: #4c8be8 !important;
+}
+
+.bg-dark {
+    background-color: #4c8be8 !important;
+}
+
+.text-dark {
+    color: #4c8be8 !important;
+}
+
+.badge.badge-blue {
+    background: #4c8be8 !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    background: #4c8be8 !important;
+}
+
+.dropdown-item.active i.fa, .dropdown-item:active i.fa {
+    color: white !important;
+}
+
+.btn.btn-icon {
+    background: #4c8be8 !important;
+}
+
+.white-icon {
+    stroke: white;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background: #4c8be8 !important;
+}
+
+.btn-dark, .btn-success {
+    background: linear-gradient(90deg, #4c8be8 0, #4c8be8);
+    border-color: #4c8be8;
+}
+.btn.btn-success:hover {
+    border-color: #4c8be8 !important;
+}
+
+.bg-blue, .osahan-post-header:hover {
+    background: #4c8be8 !important;
+    border-color: #4c8be8 !important;
+    color: #fff !important;
+}
