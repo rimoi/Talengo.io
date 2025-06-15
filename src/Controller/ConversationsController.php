@@ -193,7 +193,7 @@ class ConversationsController extends AbstractController
         $user = $this->getUser();
 
         if (!$microservice) {
-            dd('aucune microservice');
+            throw $this->createNotFoundException('microservice is missing!');
         }
 
         $findconversation = $conversationsRepository->findOneBy([

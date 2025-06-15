@@ -299,9 +299,9 @@ class AppExtension extends AbstractExtension
     /**
      * @return Categorie[]
      */
-    public function categories(): array
+    public function categories(int $limit = 4): array
     {
-        return $this->entityManager->getRepository(Categorie::class)->findBy([], ['id' => 'ASC'], 4);
+        return $this->entityManager->getRepository(Categorie::class)->findBy([], ['id' => 'ASC'], $limit);
     }
 
     public function shouldDisplayContent(): bool

@@ -79,8 +79,12 @@
 
             </div>
             <div class="stickyMobile">
-                <a href="" class="btn btn-primaryBlue">Me contacter</a>
-                <p class="time lightText">temps de réponse : <span>2h</span></p>
+                {% if app.user != user %}
+                    <a class="btn btn-primaryBlue" href="{{ path('conversations_new', {vendeurNameUrl: user.nameUrl}) }}">
+                        Me contacter
+                    </a>
+                {% endif %}
+                <p class="time lightText">Temps de réponse : <span>2h</span></p>
             </div>
 
         </div>

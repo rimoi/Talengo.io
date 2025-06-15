@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends "old_base.html.twig" %}
 
 {% block title %}Conversations{% endblock %}
 
@@ -57,19 +57,9 @@
 
                   <p class="mb-0 text-muted">A partir de</p>
 
-                  {% if microservice.categorie.slug == 'ingenieur-son' %}
-                  
-                  <span class="badge badge-light border badge-pill ml-auto">
-                     {{ microservice.prixMixage ~ currency }}
-                  </span>
-
-                  {% else %}
-
                   <span class="badge badge-light border badge-pill ml-auto">
                      {{ microservice.prix ~ currency }}
                   </span>
-
-                  {% endif %}
                </div>
             </div>
             <div class="list-group-item">

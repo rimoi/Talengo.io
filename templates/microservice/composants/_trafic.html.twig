@@ -4,49 +4,49 @@
 
    {% if microservice.categorie.slug == 'ingenieur-son' %}
    <!-- Ingénieur de son uniquement-->   
-   <ul class="nav nav-tabs bg-light small">
-   
-      {% if microservice.prixMastering > 0 %}
-      <li><a class="active" data-toggle="tab" href="#Mastering" class="bg-dark">Mastering</a></li>
-      {% endif %}
+         <ul class="nav nav-tabs bg-light small">
 
-      {% if microservice.prixMixage > 0 %}
-      <li><a data-toggle="tab" href="#Mixage">Mixage</a></li>
-      {% endif %}
+            {% if microservice.prixMastering > 0 %}
+            <li><a class="active" data-toggle="tab" href="#Mastering" class="bg-dark">Mastering</a></li>
+            {% endif %}
 
-      {% if microservice.prixBeatmaking > 0 %}
-      <li><a data-toggle="tab" href="#Beatmaking">Beatmaking</a></li>
-      {% endif %}
+            {% if microservice.prixMixage > 0 %}
+            <li><a data-toggle="tab" href="#Mixage">Mixage</a></li>
+            {% endif %}
 
-      {% if microservice.prixComposition > 0 %}
-      <li><a data-toggle="tab" href="#Composition">Composition</a></li>
-      {% endif %}
-   </ul>
+            {% if microservice.prixBeatmaking > 0 %}
+            <li><a data-toggle="tab" href="#Beatmaking">Beatmaking</a></li>
+            {% endif %}
 
-   {% if (microservice.prixMastering > 0) or (microservice.prixMixage > 0) or (microservice.prixBeatmaking > 0) or (microservice.prixComposition > 0) %}
-   <div class="tab-content mb-0 pb-1 mb-3">
+            {% if microservice.prixComposition > 0 %}
+            <li><a data-toggle="tab" href="#Composition">Composition</a></li>
+            {% endif %}
+         </ul>
 
-      {% if microservice.prixMastering > 0 %}
-      <div id="Mastering" class="tab-pane fade show active">
-         <div class="header">
-            <h3 class="h6"><b class="title">{{ microservice.name }}</b><span class="price badge">
-                  {{ microservice.prixMastering ~ currency }}</span>
-            </h3>
-            <p></p>
-         </div>
+         {% if (microservice.prixMastering > 0) or (microservice.prixMixage > 0) or (microservice.prixBeatmaking > 0) or (microservice.prixComposition > 0) %}
+         <div class="tab-content mb-0 pb-1 mb-3">
 
-         {% if is_granted('microservice_edit', microservice) %}
+            {% if microservice.prixMastering > 0 %}
+            <div id="Mastering" class="tab-pane fade show active">
+               <div class="header">
+                  <h3 class="h6"><b class="title">{{ microservice.name }}</b><span class="price badge">
+                        {{ microservice.prixMastering ~ currency }}</span>
+                  </h3>
+                  <p></p>
+               </div>
 
-         {% include "microservice/composants/_edit_btn.html.twig" %}
+               {% if is_granted('microservice_edit', microservice) %}
 
-         {% else %}
+               {% include "microservice/composants/_edit_btn.html.twig" %}
 
-         <a href="{{ path('commander_microservice', {slug: microservice.slug, offre: 'Mastering'}) }}">
-            <button>{{ microservice.prixMastering ~ currency }} commander</button>
-         </a>
+               {% else %}
 
-         {% endif %}
-      </div>
+               <a href="{{ path('commander_microservice', {slug: microservice.slug, offre: 'Mastering'}) }}">
+                  <button>{{ microservice.prixMastering ~ currency }} commander</button>
+               </a>
+
+               {% endif %}
+            </div>
       {% endif %}
 
       {% if microservice.prixMixage > 0 %}

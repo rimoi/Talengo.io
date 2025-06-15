@@ -26,6 +26,7 @@
 	<!-- Select2 CSS -->
 	<link href="{{ asset('themes/base/vendor/select2/css/select2-bootstrap.css') }}" />
 	<link href="{{ asset('themes/base/vendor/select2/css/select2.min.css') }}" rel="stylesheet">
+
 	<!-- Custom styles for this template -->
 	{% block stylesheets %}
 	{{ encore_entry_link_tags('app') }}
@@ -33,6 +34,8 @@
 	{{ encore_entry_link_tags('custom') }}
 	{{ encore_entry_link_tags('responsive') }}
 	{% endblock %}
+
+	<link href="{{ asset('themes/custom/vendeur.css') }}" rel="stylesheet">
 
 	<!-- map box -->
 	<script id="search-js" defer src="https://api.mapbox.com/search-js/v1.0.0-beta.14/web.js">
