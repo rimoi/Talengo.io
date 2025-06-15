@@ -2,96 +2,99 @@
 
 {% block title %}Conversations{% endblock %}
 
+{% block footer '' %}
+
 {% block body %}
 
-<section class="container py-5">
 
-   <div class="row">
-
+<section class="container ">
+   <div class="breadcrumb">
+      <div class="content">
+         <a href="{{ path('accueil') }}"><i class="fa fa-home"></i></a>
+         <a href="{{ path('conversations') }}"><i class="fa fa-comments"></i> Liste des conversations</a>
+      </div>
+   </div>
+   <div class="row py-5">
       <div class="col-sm-{{ microservice ? 9 : 12 }}">
-
          {% include "conversations/composants/_chat.html.twig" %}
-
       </div>
 
       {% if microservice %}
+            <div class="col-sm-3">
+               <div class="list-group">
+                  <div class="list-group-item bg-dark">
+                     <h4 class="h6 text-light">Détails du service</h4>
+                  </div>
+                  <div class="list-group-item">
+                     <div class="d-flex">
+                        <div class="media">
+                           {% if microservice.medias|length > 0 %}
 
-      <div class="col-sm-3">
-         <div class="list-group">
-            <div class="list-group-item bg-dark">
-               <h4 class="h6 text-light">Détails du service</h4>
-            </div>
-            <div class="list-group-item">
-               <div class="d-flex">
-                  <div class="media">
-                     {% if microservice.medias|length > 0 %}
+                           <img class="rounded"
+                              src="{{ vich_uploader_asset(microservice.medias[0], 'imageFile') | imagine_filter('midle_avatar') }}" />
 
-                     <img class="rounded"
-                        src="{{ vich_uploader_asset(microservice.medias[0], 'imageFile') | imagine_filter('midle_avatar') }}" />
+                           {% else %}
 
-                     {% else %}
-                     
-                     <img class="rounded"
-                        src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('midle_avatar') }}" />
+                           <img class="rounded"
+                              src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('midle_avatar') }}" />
 
-                     {% endif %}
-                     <div class="media-body pl-3">
-                        <a href="{{ path('microservice_details', {slug: microservice.slug}) }}">
-                           <strong>{{ microservice.name }}</strong>
+                           {% endif %}
+                           <div class="media-body pl-3">
+                              <a href="{{ path('microservice_details', {slug: microservice.slug}) }}">
+                                 <strong>{{ microservice.name }}</strong>
+                              </a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="list-group-item">
+
+                     <div class="d-flex align-items-top py-2">
+                        <p class="mb-0 text-muted">Catégorie</p>
+                        <a href="{{ path('microservices_categories', {slug: microservice.categorie.slug}) }}?categories%5B%5D={{ microservice.categorie.id }}" class="badge badge-blue border badge-pill ml-auto">
+                           #{{ microservice.categorie.name }}
                         </a>
+                     </div>
+
+
+                     <div class="d-flex align-items-top py-2">
+
+                        <p class="mb-0 text-muted">A partir de</p>
+
+                        <span class="badge badge-light border badge-pill ml-auto">
+                           {{ microservice.prix ~ currency }}
+                        </span>
+                     </div>
+                  </div>
+                  <div class="list-group-item">
+                     <div class="d-flex">
+                        <div class="seller-image">
+                           {% if microservice.vendeur.avatar %}
+
+                           <img src="{{ vich_uploader_asset(microservice.vendeur, 'imageFile') | imagine_filter('small_avatar') }}" class="img-fluid rounded" alt="{{ microservice.vendeur.prenom ?? '' }}">
+
+                           {% else %}
+
+                           <img class="img-fluid rounded" src="{{ asset('img/user.jpg') | imagine_filter('small_avatar') }}" alt="" />
+
+                           {% endif %}
+
+                        </div>
+                        <div class="pl-2">
+
+                           <span class="level hint--top level-one-seller">
+                              {{ microservice.vendeur.compte }}
+                           </span> <br>
+
+                           <a href="{{ path('vendeur_profil', {nameUrl: microservice.vendeur.nameUrl}) }}">
+                              {{ microservice.vendeur.nom ~ ' ' ~ microservice.vendeur.prenom }}
+                           </a>
+
+                        </div>
                      </div>
                   </div>
                </div>
             </div>
-            <div class="list-group-item">
-
-               <div class="d-flex align-items-top py-2">
-                  <p class="mb-0 text-muted">Catégorie</p>
-                  <a href="{{ path('microservices_categories', {slug: microservice.categorie.slug}) }}?categories%5B%5D={{ microservice.categorie.id }}" class="badge badge-blue border badge-pill ml-auto">
-                     #{{ microservice.categorie.name }}
-                  </a>
-               </div>
-
-
-               <div class="d-flex align-items-top py-2">
-
-                  <p class="mb-0 text-muted">A partir de</p>
-
-                  <span class="badge badge-light border badge-pill ml-auto">
-                     {{ microservice.prix ~ currency }}
-                  </span>
-               </div>
-            </div>
-            <div class="list-group-item">
-               <div class="d-flex">
-                  <div class="seller-image">
-                     {% if microservice.vendeur.avatar %}
-
-                     <img src="{{ vich_uploader_asset(microservice.vendeur, 'imageFile') | imagine_filter('small_avatar') }}" class="img-fluid rounded" alt="{{ microservice.vendeur.prenom ?? '' }}">
-                     
-                     {% else %}
-
-                     <img class="img-fluid rounded" src="{{ asset('img/user.jpg') | imagine_filter('small_avatar') }}" alt="" />
-
-                     {% endif %}
-
-                  </div>
-                  <div class="pl-2">
-
-                     <span class="level hint--top level-one-seller">
-                        {{ microservice.vendeur.compte }}
-                     </span> <br>
-
-                     <a href="{{ path('vendeur_profil', {nameUrl: microservice.vendeur.nameUrl}) }}">
-                        {{ microservice.vendeur.nom ~ ' ' ~ microservice.vendeur.prenom }}
-                     </a>
-
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-
       {% endif %}
 
    </div>

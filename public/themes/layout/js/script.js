@@ -28,7 +28,7 @@ var Talengo = {
         Talengo.checkboxService();
         Talengo.openGallery();
         Talengo.radioPayments();
-        Talengo.priceOrder();
+        // Talengo.priceOrder();
         Talengo.radioOrderBuyer();
     },
 
@@ -419,26 +419,6 @@ $('.main-carousel').magnificPopup({
               $('.paypalPayment').show();
             }
           });
-    },
-
-    priceOrder : function () {
-        if($('.recap-section .total').length) {
-            function parseNumber(value) {
-                return parseFloat(value.replace(/\s/g, '').replace(',', '.')) || 0;
-            }
-        
-            function calculerTotal() {
-                let fraisService = parseNumber($('.frais_service').text());
-        
-                let tva = fraisService * 0.20;
-                let totalTTC = fraisService + tva;
-        
-                $('.tva').text(tva.toFixed(2).replace('.', ','));
-                $('.total').text(totalTTC.toFixed(2).replace('.', ',') + ' €');
-            }
-        
-            calculerTotal();
-        }
     },
 
     radioOrderBuyer :function () {

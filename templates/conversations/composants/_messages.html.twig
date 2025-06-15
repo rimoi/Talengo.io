@@ -11,7 +11,8 @@
 	<div class="media-body ml-2">
 		<div class="d-flex text-truncate p-0 m-0 align-items-top">
 			<strong>
-				{{ message.auteur == app.user ? 'Vous' : message.auteur.nom ~ ' ' ~ message.auteur.prenom }}
+				{{ message.auteur == app.user ? 'Vous' : message.auteur.usePseudo == 1 ? message.auteur.pseudo : message.auteur.nickName }}
+
 			</strong>
 			&nbsp;&nbsp;
 			<span class="ml-auto text-muted small font-italic">

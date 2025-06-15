@@ -1,0 +1,14 @@
+<div class="card rounded bg-white border mb-3 osahan-chat">
+	<div class="card-header bg-dark ">
+		<h5 class="h6 text-light">Choisir une conversation</h5>
+	</div>
+	<div class="card-body p-0">
+		<div class="row m-0">
+			<div class="border-right col-md-12 col-xl-12 px-0 bg-white {{ app.request.attributes.get('_route') == 'conversations_show' ? 'd-none d-sm-block' : '' }}">
+				<div class="osahan-chat-left">
+					{% include "conversations/composants/_user_conversations.html.twig" %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

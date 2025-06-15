@@ -4,12 +4,18 @@
 
 {% block body %}
 
-	<div class="py-5">
+	<div class="">
 		<div class="container">
+			<div class="breadcrumb">
+				<div class="content">
+					<a href="{{ path('accueil') }}"><i class="fa fa-home"></i></a>
+					<a href=""></a>
+				</div>
+			</div>
 			<div class="row">
 				<!-- Main Content -->
 				<main class="col-lg-12 col-md-12 col-sm-12 col-12">
-					{% include "conversations/composants/_chat.html.twig" %}
+					{% include "conversations/composants/_list_conversations.html.twig" %}
 				</main>
 			</div>
 		</div>

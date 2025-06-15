@@ -1,10 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'old_base.html.twig' %}
 
 {% block title %}Commandes {{ commande.id }}{% endblock %}
 
 {% block titre %}Commandes {{ commande.id }}{% endblock %}
 
 {% block col %}6{% endblock %}
+
+{% block footer '' %}
 
 {% block body %}
 
@@ -69,13 +71,13 @@
                         {% if commande.vendeur.reseauAvatar %}
 
                         <img src="{{ commande.vendeur.reseauAvatar }}" class="rounded-circle"
-                           alt="{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.nom ~ ' ' ~ commande.vendeur.prenom }}" width="60">
+                           alt="{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.nickName }}" width="60">
 
                         {% else %}
 
                            {% if commande.vendeur.avatar %}
                            <img src="{{ vich_uploader_asset(commande.vendeur, 'imageFile') | imagine_filter('medium_avatar') }}" class="rounded-circle"
-                              alt="{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.nom ~ ' ' ~ commande.vendeur.prenom }}">
+                              alt="{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.nickName }}">
                            {% else %}
 
                            <img class="rounded-circle" src="{{ asset('img/user.jpg') | imagine_filter('medium_avatar') }}"
@@ -87,7 +89,7 @@
 
                         <div class="media-body pl-3 ">
                            <strong class="d-block">{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo :
-                              commande.vendeur.nom ~ ' ' ~ commande.vendeur.prenom }}</strong>
+                              commande.vendeur.nickName }}</strong>
                            <p class="mb-0 text-muted text-left">
                               {{ commande.vendeur.apropos|u.truncate(60, '...') }}
                            </p>

@@ -729,9 +729,19 @@ class CommandeController extends AbstractController
         if ($request->getMethod() === "POST") {
 
             if ($this->isCsrfTokenValid('reserver' . $commande->getId(), $request->request->get('_token'))) {
+
+                if ($request->get('montant')) {
+                    $commande->setMontant((float) $request->get('montant'));
+                    $entityManager->flush();
+                }
+
                 if ($request->get('payment') === 'card') {
 
                     $paymentService->hydrateInfo($request, $this->getUser());
+
+                    if ($request->get('montant')) {
+                        $commande->setMontant((float) $request->get('montant'));
+                    }
 
                     $entityManager->flush();
 
@@ -745,6 +755,11 @@ class CommandeController extends AbstractController
                     ])->send();
 
                     if ($response->isSuccessful()) {
+
+                        $commande->setPayed(true);
+
+                        $entityManager->flush();
+
                         return $this->redirectToRoute('commande_str_success', [
                             'id' => $commande->getId()
                         ], Response::HTTP_SEE_OTHER);
@@ -754,6 +769,11 @@ class CommandeController extends AbstractController
                         ], Response::HTTP_SEE_OTHER);
                     }
                 } else {
+
+                    if ($request->get('montant')) {
+                        $commande->setMontant((float) $request->get('montant'));
+                        $entityManager->flush();
+                    }
 
                     $gateway = Omnipay::create('PayPal_Rest');
                     $gateway->setClientId($_ENV['PAYPAL_CLIENT_ID']);
@@ -770,21 +790,26 @@ class CommandeController extends AbstractController
                         'cancelUrl' => $this->generateUrl('commande_error', ['id' =>  $commande->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
                     ])->send();
 
-//                    try {
-                        if ($response->isRedirect()) {
-                            return $response->redirect();
-                        } elseif ($response->isSuccessful()) {
-                            return $this->redirectToRoute('commande_pyp_success', [
-                                'id' => $commande->getId()
-                            ], Response::HTTP_SEE_OTHER);
-                        } else {
-                            return $this->redirectToRoute('commande_error', [
-                                'id' => $commande->getId()
-                            ], Response::HTTP_SEE_OTHER);
-                        }
-//                    } catch (\Exception $e) {
-//
-//                    }
+                    if ($response->isRedirect()) {
+                        $commande->setPayed(true);
+
+                        $entityManager->flush();
+
+                        return $response->redirect();
+                    } elseif ($response->isSuccessful()) {
+
+                        $commande->setPayed(true);
+
+                        $entityManager->flush();
+
+                        return $this->redirectToRoute('commande_pyp_success', [
+                            'id' => $commande->getId()
+                        ], Response::HTTP_SEE_OTHER);
+                    } else {
+                        return $this->redirectToRoute('commande_error', [
+                            'id' => $commande->getId()
+                        ], Response::HTTP_SEE_OTHER);
+                    }
                 }
             }
         }

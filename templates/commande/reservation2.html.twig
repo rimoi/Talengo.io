@@ -95,25 +95,29 @@
 								</h3>
 								<p class="info regularText">
 									<span>Commission Talengo</span>
-									<span class="info_span"><span class="commission_talengo">{{ commande.montant * 0.01 }}</span> {{ currency }}</span>
+									{% set commision = commande.montant * 0.06 %}
+									<span class="info_span"><span class="commission_talengo">{{ commision| round(2) }}</span> {{ currency }}</span>
 								</p>
 								<p class="info regularText">
 									<span>Frais bancaires</span>
-									<span class="info_span"><span class="frais_bancaires">{{ commande.montant * 0.02 }}</span> {{ currency }}</span>
+									{% set fee = commande.montant * 0.08 %}
+									<span class="info_span"><span class="frais_bancaires">{{ fee| round(2) }}</span> {{ currency }}</span>
 								</p>
 								<p class="info regularText">
 									<span>TVA (20%)</span>
-									<span class="info_span"><span class="tva">{{ commande.montant * 0.20 }}</span> {{ currency }}</span>
+									{% set commision_fee = (commision + fee) %}
+									{% set tva = (commision_fee * 0.20) %}
+									<span class="info_span"><span>{{ tva| round(2) }}</span> {{ currency }}</span>
 								</p>
 								<p class="info regularText">
 									<span>Total TTC</span>
-									<span class="info_span total">{{
-										commande.montant
-										+ commande.montant * 0.01
-										+ commande.montant * 0.02
-										+ commande.montant * 0.20
-										}}
+									{% set montant = (commande.montant
+										+ commision
+										+ fee
+										+ tva) | round(2) %}
+									<span class="info_span">{{ montant }}
 									</span>
+									<input type="hidden" name="montant" value="{{ montant }}"/>
 								</p>
 							</div>
 						</div>

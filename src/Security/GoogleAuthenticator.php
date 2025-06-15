@@ -128,7 +128,7 @@ class GoogleAuthenticator extends OAuth2Authenticator implements AuthenticationE
        }
 
       // change "accueil" to some route in your app
-      $targetUrl = $this->router->generate('user_dashboard');
+      $targetUrl = $this->router->generate('list');
 
       return new RedirectResponse($targetUrl);
 

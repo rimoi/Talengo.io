@@ -159,7 +159,7 @@ class LinkedinAuthenticator extends OAuth2Authenticator implements Authenticatio
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         // change "accueil" to some route in your app
-        $targetUrl = $this->router->generate('user_dashboard');
+        $targetUrl = $this->router->generate('list');
 
         return new RedirectResponse($targetUrl);
     }

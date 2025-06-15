@@ -1,9 +1,16 @@
 <nav class="navbar d-none d-sm-block navbar-expand-lg navbar-light {% if app.request.attributes.get('_route') == 'accueil' %}navtop-home{% elseif app.request.attributes.get('_route') == 'microservices' %}navtop-home{% elseif app.request.attributes.get('_route') == 'vendeur_profil' %}navtop-home{% elseif app.request.attributes.get('_route') == 'microservices_categories' %}navtop-home{% else %}shadow-sm{% endif %}  topbar static-top bg-tranparent osahan-nav-top py-1">
 	<div class="container">
 		<!-- Sidebar Toggle (Topbar) -->
-		<a class="navbar-brand" href="{{ path('accueil') }}">
-			<img src="{{ asset('themes/layout/img/logo.svg') }}" alt="Logo Talengo.io">
-		</a>
+		{% if app.user %}
+			<a href="{{ path('list') }}" class="logo">
+				<img src="{{ asset('themes/layout/img/logo.svg') }}" alt="Logo Talengo.io" height="45px">
+			</a>
+		{% else %}
+			<a class="navbar-brand" href="{{ path('accueil') }}">
+				<img src="{{ asset('themes/layout/img/logo.svg') }}" alt="Logo Talengo.io" height="45px">
+			</a>
+		{% endif %}
+
 {#		<form class="d-none d-sm-inline-block form-inline bg-light border rounded border-blue mr-auto my-2 my-md-0 mw-100 navbar-search"#}
 {#			style="width: 40%;margin-right: 0!important;" action="{{ path('microservices') }}" method="get">#}
 {#			<div class="input-group w-100 rounded bg-white"> <!-- radius -->#}

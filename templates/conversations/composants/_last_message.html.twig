@@ -23,8 +23,14 @@
     		</span>
     	</span>
     {% endif %}
-    	
 	<small class="ml-2 small conversation-time" data-value="{{ userconversation.lastmessage.created|date('d/m/Y') }}">
+		{% if userconversation.lastmessage and not userconversation.lastmessage.lu %}
+			<span title="Nouveau message" class="badge badge-blue" style="font-size: 109%">Non lu</span>
+		{% elseif userconversation.lastmessage and userconversation.lastmessage.lu %}
+			<span title="Nouveau message" class="badge badge-secondary" style="font-size: 109%">Déjà lu</span>
+		{% endif %}
+
+		<br>
 		{{ userconversation.lastmessage.created|ago(locale='fr') }}
 	</small>
 </div>

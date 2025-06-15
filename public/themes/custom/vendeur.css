@@ -117,3 +117,50 @@ body, h1,h2,h3,h4,h5,h6 {
     border-color: #4c8be8 !important;
     color: #fff !important;
 }
+
+/* FIL ARIANNE */
+
+.breadcrumb {
+    margin-bottom: 25px;
+    background-color: #FFFFFF !important;
+}
+.breadcrumb .content {
+    padding-left: 34px;
+    position: relative;
+}
+.breadcrumb .content a {
+    font-family: "Outfit-Medium", arial, sans-serif;
+    font-size: 15px;
+    color: #75787b;
+    padding-right: 15px;
+    padding-left: 5px;
+    position: relative;
+    display: inline-block;
+}
+.breadcrumb .content a::first-letter {
+    text-transform: uppercase;
+}
+.breadcrumb .content a:first-child {
+    position: absolute;
+    left: 0;
+    padding-left: 0;
+}
+.breadcrumb .content a:after {
+    content: "/";
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #75787b;
+}
+.breadcrumb .content a:last-child {
+    padding-right: 0;
+}
+.breadcrumb .content a:last-child::after {
+    display: none;
+}
+.breadcrumb .content a:not(:first-child):hover {
+    text-decoration: underline;
+}
+.breadcrumb .content a:hover {
+    color: #343a40;
+}
