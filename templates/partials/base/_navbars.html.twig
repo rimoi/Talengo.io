@@ -1,5 +1,5 @@
 <nav class="navbar d-none d-sm-block navbar-expand-lg navbar-light {% if app.request.attributes.get('_route') == 'accueil' %}navtop-home{% elseif app.request.attributes.get('_route') == 'microservices' %}navtop-home{% elseif app.request.attributes.get('_route') == 'vendeur_profil' %}navtop-home{% elseif app.request.attributes.get('_route') == 'microservices_categories' %}navtop-home{% else %}shadow-sm{% endif %}  topbar static-top bg-tranparent osahan-nav-top py-1">
-	<div class="container">
+	<div class="container py-sm-4 py-0">
 		<!-- Sidebar Toggle (Topbar) -->
 		{% if app.user %}
 			<a href="{{ path('list') }}" class="logo">
@@ -23,44 +23,19 @@
 {#				</div>#}
 {#			</div>#}
 {#		</form>#}
-		<!-- catégorie -->
-		<ul class="navbar-nav align-items-center mr-auto">
-			<!-- Catégories -->
-			{% include "partials/base/_nav_categorie.html.twig" %}
-		</ul>
-		
 		<ul class="navbar-nav align-items-center ml-auto">
-			<li class="nav-item dropdown no-arrow no-caret mr-3 dropdown-notifications d-sm-none">
-				<a class="btn btn-icon btn-transparent-dark dropdown-toggle" href="#" id="searchDropdown" role="button"
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fa fa-search fa-fw"></i>
-				</a>
-				<!-- Dropdown - Messages -->
-				<div class="dropdown-menu dropdown-menu-right p-3 shadow-sm animated--grow-in"
-					aria-labelledby="searchDropdown">
-					<form class="form-inline mr-auto w-100 navbar-search">
-						<div class="input-group">
-							<input type="text" name="q" class="form-control bg-light border-0 small" placeholder="Je cherche..."
-								aria-label="Search" aria-describedby="basic-addon2">
-							<div class="input-group-append">
-								<button class="btn btn-primary" type="button">
-									<i class="fa fa-search fa-sm"></i>
-								</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</li>
 
 			{% if app.user %}
-			<li class="nav-item dropdown no-arrow no-caret mr-3 dropdown-notifications position-relative">
+			<li class="nav-item dropdown no-arrow no-caret mr-3 dropdown-notifications position-relative" title="Mes commande de suivie">
 				<a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownAlerts"
 					href="{{ path('commandes_chats') }}">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
-						stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-						class="feather feather-bell">
-						<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-						<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+						 stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+						 class="icon icon-tabler icons-tabler-outline icon-tabler-bell">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+						<path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/>
+						<path d="M9 17v1a3 3 0 0 0 6 0v-1"/>
 					</svg>
 				</a>
 				{% if getCommandeNonLu(app.user)|length > 0 %}
@@ -70,14 +45,16 @@
 			</li>
 
 			<!-- Messages -->
-			<li class="nav-item dropdown no-arrow no-caret dropdown-notifications mr-3 position-relative">
+			<li class="nav-item dropdown no-arrow no-caret dropdown-notifications mr-3 position-relative" title="Mes discussions">
 				<a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownMessages"
-					href="{{ path('conversations') }}">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
-						stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-						class="feather feather-mail">
-						<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-						<polyline points="22,6 12,13 2,6"></polyline>
+					href="{{ path('conversations') }}" >
+
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+						 stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+						 class="icon icon-tabler icons-tabler-outline icon-tabler-mail">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+						<path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+						<path d="M3 7l9 6l9 -6"/>
 					</svg>
 				</a>
 				{% if getMessageNonLu(app.user)|length > 0 %}
@@ -86,6 +63,25 @@
 				</span>
 				{% endif %}
 			</li>
+
+
+			<li class="nav-item dropdown no-arrow no-caret dropdown-notifications mr-3 position-relative" >
+				{% if app.user.hasRole('ROLE_VENDEUR') %}
+					<a href="{{ path('user_dashboard') }}" title="Mes ventes">
+						<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="white"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-building-store"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l18 0" /><path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" /><path d="M5 21l0 -10.15" /><path d="M19 21l0 -10.15" /><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" /></svg>
+{#						<span>Ventes</span>#}
+					</a>
+				{% endif %}
+				{% if app.user.hasRole('ROLE_CLIENT') %}
+					<a href="{{ path('vendeur_achats_index') }}" class="btn btn-icon btn-transparent-dark dropdown-toggle" title="Mes achats">
+						<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="white"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-bag"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.331 8h11.339a2 2 0 0 1 1.977 2.304l-1.255 8.152a3 3 0 0 1 -2.966 2.544h-6.852a3 3 0 0 1 -2.965 -2.544l-1.255 -8.152a2 2 0 0 1 1.977 -2.304z" /><path d="M9 11v-5a3 3 0 0 1 6 0v5" /></svg>
+{#						<span>Achats</span>#}
+
+					</a>
+{#					<span class="text-white">Achats</span>#}
+				{% endif %}
+			</li>
+
 			<li class="nav-item dropdown no-arrow no-caret dropdown-user">
 				<a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage"
 					href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -119,52 +115,58 @@
 						</div>
 					</h6>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item {{ app.request.attributes.get('_route') == 'user_dashboard' ? 'active' :'' }}" href="{{ path('user_dashboard') }}">
-						<i class="fa fa-dashboard"></i>&nbsp;&nbsp;&nbsp;Tableau de bord
-					</a>
-					<a class="dropdown-item" href="{{ path('user_profil') }}">
-						<i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;
-						Mon compte
-					</a>
-
 					{% if is_granted('ROLE_ADMIN') %}
 
-					<a class="dropdown-item" href="{{ path('admin_dashboard') }}" target="_blank">
-						<div class="dropdown-item-icon">
-							<i class="fa fa-dashboard"></i>
-						</div>
-						Administration
+						<a class="dropdown-item" href="{{ path('admin_dashboard') }}" target="_blank">
+							<div class="dropdown-item-icon">
+								{#							<i class="fa fa-dashboard"></i>#}
+							</div>
+							Administration
+						</a>
+
+					{% endif %}
+					<a class="dropdown-item {{ app.request.attributes.get('_route') == 'user_dashboard' ? 'active' :'' }}" href="{{ path('user_dashboard') }}">
+{#						<i class="fa fa-dashboard"></i>&nbsp;&nbsp;&nbsp;#}
+						Tableau de bord
 					</a>
-
-					{% endif %}
-
-					{% if is_granted('ROLE_VENDEUR') %}
-
-					{% if app.user.endRegister == true and app.user.isVerified == true %}
-
-						{% include "partials/vendeur/_menu.html.twig" %}
-
-					{% endif %}
-
-					{% else %}
-						
-						{% include "partials/base/_user_menu.html.twig" %}
-
-					{% endif %}
-
-					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="{{ path('user_profil') }}">
+{#						<i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;#}
+						Mon profil
+					</a>
+					<a class="dropdown-item" href="{{ path('favoris_index') }}">
+						Favoris
+					</a>
 					<a class="dropdown-item text-danger" href="{{ path('app_logout') }}">
-						<div class="dropdown-item-icon">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
-								stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-								class="feather feather-log-out">
-								<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-								<polyline points="16 17 21 12 16 7"></polyline>
-								<line x1="21" y1="12" x2="9" y2="12"></line>
-							</svg>
-						</div>
 						Se déconnecter
 					</a>
+
+{#					{% if is_granted('ROLE_VENDEUR') %}#}
+
+{#						{% if app.user.endRegister == true and app.user.isVerified == true %}#}
+{#	#}
+{#							{% include "partials/vendeur/_menu.html.twig" %}#}
+{#	#}
+{#						{% endif %}#}
+
+{#					{% else %}#}
+{#						#}
+{#						{% include "partials/base/_user_menu.html.twig" %}#}
+
+{#					{% endif %}#}
+
+{#					<div class="dropdown-divider"></div>#}
+{#					<a class="dropdown-item text-danger" href="{{ path('app_logout') }}">#}
+{#						<div class="dropdown-item-icon">#}
+{#							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"#}
+{#								stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"#}
+{#								class="feather feather-log-out">#}
+{#								<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>#}
+{#								<polyline points="16 17 21 12 16 7"></polyline>#}
+{#								<line x1="21" y1="12" x2="9" y2="12"></line>#}
+{#							</svg>#}
+{#						</div>#}
+{#						Se déconnecter#}
+{#					</a>#}
 				</div>
 			</li>
 
@@ -187,36 +189,23 @@
 <!-- Navigation mobile -->
 <nav class="navbar d-block d-sm-none navbar-expand-lg navbar-light bg-white osahan-nav-mid px-0 border-top shadow-sm">
 	<div class="container">
-		<button class="navbar-toggler navbar-toggler-right ml-2" type="button" data-toggle="collapse"
-			data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarResponsive">
-			<ul class="navbar-nav">
-				<!-- Catégories -->
-				{% include "partials/base/_nav_categorie.html.twig" %}
 
+		<div class="">
+			<ul class="navbar-nav">
 				{% include "partials/base/_navmobile_links.html.twig" %}
 			</ul>
 		</div>
 
-{#		<ul class="navbar-nav align-items-center">#}
-{#			{% include "partials/base/_nav_search_form.html.twig" %}#}
-{#		</ul>#}
 
-		<ul class="navbar-nav align-items-center mx-auto">
+		<ul class="navbar-nav align-items-center mr-auto mx-sm-auto">
 			<li class="nav-item text-center">
 				<a href="{{ path('accueil') }}" class="nav-link">
-					<img src="{{ asset('themes/layout/img/logo.svg') }}" width="100px" height="40px" alt="Glog {{ appName }}" style="margin-left: 20px;display:inline-block;">
-{#					<h6 class="text-blue text-uppercase pt-2 text-logo">{{ appName }}</h6>#}
-
-					<!--<img src="{{ asset('img/header-logo.png') }}" width="40px" height="40px" alt="Glog {{ appName }}" class="border rounded-circle" style="margin-left: 20px;display:inline-block;">-->
+					<img src="{{ asset('themes/layout/img/logo.svg') }}" width="120px" height="40px" alt="Glog {{ appName }}" style="margin-left: 20px;display:inline-block;">
 				</a>
 			</li>
 		</ul>
 
-		<ul class="navbar-nav align-items-center ml-auto">
+		<ul class="navbar-nav align-items-center ml-auto invisibleMenuBurger">
 			{% if app.user %}
 			<li class="nav-item dropdown no-arrow no-caret dropdown-notifications mr-3 position-relative">
 				<a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownMessages"
@@ -306,7 +295,7 @@
 					{% endif %}
 
 					{% else %}
-						
+
 						{% include "partials/base/_user_menu.html.twig" %}
 
 					{% endif %}
@@ -334,5 +323,12 @@
 			</li>
 			{% endif %}
 		</ul>
+
+
+		<button class="navbar-toggler navbar-toggler-right mr-2 menuBurger" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+			<svg  xmlns="http://www.w3.org/2000/svg"  width="30"  height="30"  viewBox="0 0 24 24"  fill="none"  stroke="white"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 6l16 0" /><path d="M4 12l16 0" /><path d="M4 18l16 0" /></svg>
+		</button>
 	</div>
 </nav>

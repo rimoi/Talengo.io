@@ -37,6 +37,8 @@
 
 	<link href="{{ asset('themes/custom/vendeur.css') }}" rel="stylesheet">
 
+	{# NOUVEAU THEME #}
+
 	<!-- map box -->
 	<script id="search-js" defer src="https://api.mapbox.com/search-js/v1.0.0-beta.14/web.js">
 	</script>
@@ -46,6 +48,11 @@
 
 
 	{{ include('partials/base/_navbars.html.twig') }}
+
+
+{#	{% block navbar %}#}
+{#		{{ include('partials/base/_header.html.twig') }}#}
+{#	{% endblock %}#}
 
 	{% block filters %}{% endblock %}
 
@@ -149,6 +156,13 @@
 					.html(
 							filename
 					);
+		});
+
+
+		$(function () {
+			$('.menuBurger').click( function() {
+				$('body').toggleClass('activeMenuBurger');
+			});
 		});
 	</script>
 </body>

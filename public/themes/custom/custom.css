@@ -55,8 +55,69 @@
 footer ul.isFooter li.active a {
     color: #205cb5 !important;
 }
-/*
 
+body.userConnected header ul.menu > li .dropdownMenu li {
+    border-bottom: none !important;
+}
+
+body.userConnected header ul.menu {
+    padding-left: 5px;
+}
+
+body.userConnected header ul.menu .nav_item_link:hover {
+    background: #4c8be8 !important;
+    color: white !important;
+}
+body.userConnected header ul.menu .nav_item_link:hover a {
+    color: white !important;
+}
+
+body.userConnected header ul.menu .dropdown-user-details-name {
+    font-weight: 500;
+    font-size: 0.9rem;
+    max-width: 10rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 0 !important;
+    color: #4c8be8 !important;
+}
+
+body.userConnected header ul.menu .dropdown-user-details-email {
+    color: #687281;
+    font-size: 0.75rem;
+    max-width: 10rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-danger  {
+    color: #ff5722!important;
+}
+
+body.userConnected header ul.menu > li {
+    height: 44px !important;
+}
+
+.invisibleMenuBurger {
+    display: block;
+}
+
+@media screen and (min-width: 769px) {
+    .invisibleMenuBurger {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .invisibleMenuBurger {
+        display: none !important;
+    }
+}
+
+
+/*
 ALERT
 
 	<div class="alert alert-error">

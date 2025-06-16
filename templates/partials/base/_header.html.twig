@@ -32,20 +32,19 @@
 {#					<a href="" class="btn btn-primaryBlue btn-seller ">Devenez vendeur</a>#}
 					<nav>
 						<ul class="menu">
-							<li class="visibleMenuBurger">
-								<a href="{{ path('user_profil') }}">Profil</a>
-							</li>
-							<li class="visibleMenuBurger">
-								<a href="{{ path('favoris_index') }}">Favoris</a>
-							</li>
-							<li>
-								<a href="{{ path('conversations') }}"><i class="fa-solid fa-envelope"></i><span class="visibleMenuBurger">Messages</span></a>
-							</li>
-							<li class="notifications">
-								<a href="{{ path('commandes_chats') }}" title="Commande suivie">
-									<i class="fa-solid fa-bell"></i>
+							<li class="notifications" title="Le suivi de mes commandes">
+								<a href="{{ path('commandes_chats') }}" title="Le suivi de mes commandes">
+									<span class="invisibleMenuBurger">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+											 stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+											 class="icon icon-tabler icons-tabler-outline icon-tabler-bell">
+											<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+											<path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/>
+											<path d="M9 17v1a3 3 0 0 0 6 0v-1"/>
+										</svg>
+									</span>
+									<span class="visibleMenuBurger">Suivi commande</span>
 								</a>
-
 {#								<a href="{{ path('commandes_chats') }}" class="visibleMenuBurger">Notifications</a>#}
 {#								<div class="dropdownMenu hiddenMenuBurger">#}
 {#									<ul>#}
@@ -57,20 +56,54 @@
 {#									</ul>#}
 {#								</div>#}
 							</li>
+							<li title="Mes discussions">
+								<a href="{{ path('conversations') }}">
+									<span class="invisibleMenuBurger">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+											 stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+											 class="icon icon-tabler icons-tabler-outline icon-tabler-mail">
+											<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+											<path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+											<path d="M3 7l9 6l9 -6"/>
+										</svg>
+									</span>
+									<span class="visibleMenuBurger">Messages</span>
+								</a>
+							</li>
 							<li>
 								{% if app.user.hasRole('ROLE_VENDEUR') %}
-									<a href="{{ path('user_dashboard') }}">
-										<i class="fa-solid fa-shop"></i>
-										<span>Ventes</span>
+									<a href="{{ path('user_dashboard') }}" title="Mes ventes">
+										<span class="invisibleMenuBurger">
+											<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="white"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-building-store"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l18 0" /><path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" /><path d="M5 21l0 -10.15" /><path d="M19 21l0 -10.15" /><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" /></svg>
+										</span>
+
+										<span class="visibleMenuBurger">Ventes</span>
 									</a>
 								{% endif %}
 								{% if app.user.hasRole('ROLE_CLIENT') %}
-									<a href="{{ path('vendeur_achats_index') }}">
-										<i class="fa-solid fa-bag-shopping"></i>
-										<span>Achats</span>
+									<a href="{{ path('vendeur_achats_index') }}" title="Mes achats">
+										<span class="invisibleMenuBurger">
+											<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="white"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-bag"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.331 8h11.339a2 2 0 0 1 1.977 2.304l-1.255 8.152a3 3 0 0 1 -2.966 2.544h-6.852a3 3 0 0 1 -2.965 -2.544l-1.255 -8.152a2 2 0 0 1 1.977 -2.304z" /><path d="M9 11v-5a3 3 0 0 1 6 0v5" /></svg>
+										</span>
+										<span class="visibleMenuBurger">Achats</span>
 									</a>
 								{% endif %}
 							</li>
+							{% if is_granted('ROLE_ADMIN') %}
+								<li class="visibleMenuBurger">
+									<a href="{{ path('admin_dashboard') }}">Administration</a>
+								</li>
+							{% endif %}
+							<li class="visibleMenuBurger">
+								<a href="{{ path('user_dashboard') }}">Tableau de bord</a>
+							</li>
+							<li class="visibleMenuBurger">
+								<a href="{{ path('user_profil') }}">Profil</a>
+							</li>
+							<li class="visibleMenuBurger">
+								<a href="{{ path('favoris_index') }}">Favoris</a>
+							</li>
+
 							<li class="profil hiddenMenuBurger">
 								{% if app.user.reseauAvatar %}
 									<img src="{{ app.user.reseauAvatar }}" class="img-fluid" alt="{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.nom ~ ' ' ~ app.user.prenom }}">
@@ -85,14 +118,28 @@
 
 								<div class="dropdownMenu">
 									<ul>
-										<li><a href="{{ path('user_dashboard') }}">Tableau de bord</a></li>
-										<li><a href="{{ path('user_profil') }}">Mon profil</a></li>
-										<li><a href="{{ path('favoris_index') }}">Favoris </a></li>
-										<li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+
+										<li>
+											<div class="text-small">
+												<span class="dropdown-user-details-name text-dark">
+													{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.nickName }}
+												</span>
+												<div class="dropdown-user-details-email">{{ app.user.email }}</div>
+											</div>
+										</li>
+										{% if is_granted('ROLE_ADMIN') %}
+											<li><a href="{{ path('admin_dashboard') }}">
+													Administration
+												</a></li>
+										{% endif %}
+										<li class="nav_item_link"><a href="{{ path('user_dashboard') }}">Tableau de bord</a></li>
+										<li class="nav_item_link"><a href="{{ path('user_profil') }}">Mon profil</a></li>
+										<li class="nav_item_link"><a href="{{ path('favoris_index') }}">Favoris </a></li>
+										<li class="nav_item_link"><a class="text-danger" href="{{ path('app_logout') }}">Déconnexion</a></li>
 									</ul>
 								</div>
 							</li>
-							<li class="visibleMenuBurger"><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+							<li class="visibleMenuBurger"><a href="{{ path('app_logout') }}" class="text-danger">Déconnexion</a></li>
 						</ul>
 					</nav>
 					<!--  end  user est connecté  -->
