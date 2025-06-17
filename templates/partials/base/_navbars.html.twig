@@ -26,7 +26,7 @@
 		<ul class="navbar-nav align-items-center ml-auto">
 
 			{% if app.user %}
-			<li class="nav-item dropdown no-arrow no-caret mr-3 dropdown-notifications position-relative" title="Mes commande de suivie">
+			<li class="nav-item dropdown no-arrow no-caret mr-4 dropdown-notifications position-relative" title="Mes commande de suivie">
 				<a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownAlerts"
 					href="{{ path('commandes_chats') }}">
 
@@ -45,7 +45,7 @@
 			</li>
 
 			<!-- Messages -->
-			<li class="nav-item dropdown no-arrow no-caret dropdown-notifications mr-3 position-relative" title="Mes discussions">
+			<li class="nav-item dropdown no-arrow no-caret dropdown-notifications mr-4 position-relative" title="Mes discussions">
 				<a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownMessages"
 					href="{{ path('conversations') }}" >
 
@@ -65,7 +65,7 @@
 			</li>
 
 
-			<li class="nav-item dropdown no-arrow no-caret dropdown-notifications mr-3 position-relative" >
+			<li class="nav-item dropdown no-arrow no-caret dropdown-notifications mr-4 position-relative" >
 				{% if app.user.hasRole('ROLE_VENDEUR') %}
 					<a href="{{ path('user_dashboard') }}" title="Mes ventes">
 						<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="white"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-building-store"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l18 0" /><path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" /><path d="M5 21l0 -10.15" /><path d="M19 21l0 -10.15" /><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" /></svg>
@@ -119,18 +119,15 @@
 
 						<a class="dropdown-item" href="{{ path('admin_dashboard') }}" target="_blank">
 							<div class="dropdown-item-icon">
-								{#							<i class="fa fa-dashboard"></i>#}
 							</div>
 							Administration
 						</a>
 
 					{% endif %}
 					<a class="dropdown-item {{ app.request.attributes.get('_route') == 'user_dashboard' ? 'active' :'' }}" href="{{ path('user_dashboard') }}">
-{#						<i class="fa fa-dashboard"></i>&nbsp;&nbsp;&nbsp;#}
 						Tableau de bord
 					</a>
 					<a class="dropdown-item" href="{{ path('user_profil') }}">
-{#						<i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;#}
 						Mon profil
 					</a>
 					<a class="dropdown-item" href="{{ path('favoris_index') }}">

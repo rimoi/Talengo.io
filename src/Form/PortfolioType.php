@@ -32,13 +32,6 @@ class PortfolioType extends AbstractType
                     ])
                 ]
             ])
-            ->add('link', UrlType::class, [
-                'label' => 'Lien vers la réalisation',
-                'help' => 'Copiez vos liens de siteweb, Vimeo,... pour referencer vos réalisations',
-                'constraints' => [
-                    new Url()
-                ]
-            ])
             ->add('description', TextareaType::class, [
                 'required' => false,
             ])

@@ -18,17 +18,17 @@ class InformationUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('lieuPrestation', TextType::class, [
-                'label' => 'Lieu de la prestation',
-                'help' => 'Exemple: studio privé',
-                'required' => false,
-                'attr' => ['class' => '', 'placeholder' => 'Lieu de la prestation'],
-            ])
-            ->add('homeStudio', CheckboxType::class, [
-                'label'     =>  'Home studio',
-                'required' => false,
-                'help'     =>  "Cocher uniquement s'il s'agit d'un Home studio",
-            ])
+//            ->add('lieuPrestation', TextType::class, [
+//                'label' => 'Lieu de la prestation',
+//                'help' => 'Exemple: studio privé',
+//                'required' => false,
+//                'attr' => ['class' => '', 'placeholder' => 'Lieu de la prestation'],
+//            ])
+//            ->add('homeStudio', CheckboxType::class, [
+//                'label'     =>  'Home studio',
+//                'required' => false,
+//                'help'     =>  "Cocher uniquement s'il s'agit d'un Home studio",
+//            ])
             ->add('couvertureFile', VichImageType::class, [
                 'label' => '(Png, jpg et jpeg)',
                 'required'  =>  false,

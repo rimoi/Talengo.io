@@ -45,6 +45,11 @@
 									</span>
 									<span class="visibleMenuBurger">Suivi commande</span>
 								</a>
+								{% if getCommandeNonLu(app.user)|length > 0 %}
+									<span class="badge badge-danger font-weight-light badge-message">
+										{{ getCommandeNonLu(app.user)|length }}
+									</span>
+								{% endif %}
 {#								<a href="{{ path('commandes_chats') }}" class="visibleMenuBurger">Notifications</a>#}
 {#								<div class="dropdownMenu hiddenMenuBurger">#}
 {#									<ul>#}
@@ -68,6 +73,11 @@
 										</svg>
 									</span>
 									<span class="visibleMenuBurger">Messages</span>
+									{% if getMessageNonLu(app.user)|length > 0 %}
+										<span class="badge badge-danger font-weight-light badge-message">
+											{{ getMessageNonLu(app.user)|length }}
+										</span>
+									{% endif %}
 								</a>
 							</li>
 							<li>

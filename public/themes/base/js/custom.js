@@ -4,7 +4,6 @@ Author: Askbootstrap
 Author URI: https://themeforest.net/user/askbootstrap
 Version: 1.0
 */
-debugger
 $(document).ready(function () {
 	"use strict";
 

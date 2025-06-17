@@ -23,7 +23,7 @@ $(function () {
             Talengo.changeTopService();
             Talengo.checkboxService();
             Talengo.stripe();
-            Talengo.paypal();
+            Talengo.afficherOuReduire();
         },
 
         menuSticky : function () {
@@ -190,8 +190,25 @@ $(function () {
                     });
                 }
         },
-        paypal : function () {
+        afficherOuReduire : function () {
+            if ($('.profilSection').length) {
+                var $desc = $('.profilSection.aboutme .description');
+                var fullText = $desc.text();
+                var truncated = fullText.length > 800 ? fullText.substring(0,800) + '...' : fullText;
 
+                // Initialement afficher texte tronqué
+                $desc.text(truncated);
+
+                $('.show-more .toggle-btn').on('click', function() {
+                    if ($(this).text() === 'lire la suite') {
+                        $desc.text(fullText);
+                        $(this).text('réduire');
+                    } else {
+                        $desc.text(truncated);
+                        $(this).text('lire la suite');
+                    }
+                });
+            }
         },
     }
 

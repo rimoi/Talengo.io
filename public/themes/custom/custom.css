@@ -96,10 +96,6 @@ body.userConnected header ul.menu .dropdown-user-details-email {
     color: #ff5722!important;
 }
 
-body.userConnected header ul.menu > li {
-    height: 44px !important;
-}
-
 .invisibleMenuBurger {
     display: block;
 }
@@ -117,6 +113,45 @@ body.userConnected header ul.menu > li {
 
     header.openSearch .search-header {
         display: block;
+    }
+}
+
+.badge-message {
+    border-radius: 8px;
+    font-size: .7em !important;
+    height: 16px;
+    line-height: 16px;
+    margin-left: auto;
+    position: absolute;
+    right: 5px;
+    text-align: center;
+    top: 4px;
+    width: 18px;
+}
+.badge-danger {
+    color: #fff;
+    background-color: #dc3545;
+}
+.font-weight-light {
+    font-weight: 300 !important;
+}
+
+
+@media screen and (max-width: 768px) {
+    .userConnected header ul.menu > li {
+        align-items: flex-start;
+    }
+    .badge-message {
+        border-radius: 8px;
+        font-size: .7em !important;
+        height: 21px;
+        line-height: 21px;
+        margin-left: auto;
+        position: absolute;
+        right: 143px;
+        text-align: center;
+        top: 4px;
+        width: 31px;
     }
 }
 

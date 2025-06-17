@@ -93,16 +93,11 @@
         <div class="profilSection aboutme">
             <h1 class="primaryTitle"> Business plans | Études de marché</h1>
             <div class="description">
-				{{ user.apropos|raw }}
-{#                <p>Avec plus de 10 ans d’expérience en tant que responsable commerciale, j’ai exercé aussi bien dans des TPE que des groupes internationaux, en pilotant des stratégies commerciales et marketing orientées résultats. J’ai également été cheffe de projet pour les DCF (Dirigeants Commerciaux de France) et pour l’école MBway, preuve de mon engagement dans la transmission, la structuration et la valorisation des compétences commerciales.</p>#}
-{#                <p>commerciales et marketing orientées résultats. J’ai également été cheffe de projet pour les DCF (Dirigeants Commerciaux de France) et pour l’école MBway, preuve de mon engagement dans la transmission, la structuration et la valorisation des compétences commerciales.</p>#}
-{#                <p>Avec plus de 10 ans d’expérience en tant que responsable commerciale, j’ai exercé aussi bien dans des TPE que des groupes internationaux, en pilotant des stratégies commerciales et marketing orientées résultats. J’ai également été cheffe de projet pour les DCF (Dirigeants Commerciaux de France) et pour l’école MBway, preuve de mon engagement dans la transmission, la structuration et la valorisation des compétences commerciales.</p>#}
-{#                <p>commerciales et marketing orientées résultats. J’ai également été cheffe de projet pour les DCF (Dirigeants Commerciaux de France) et pour l’école MBway, preuve de mon engagement dans la transmission, la structuration et la valorisation des compétences commerciales.</p>#}
-{#                <p>Avec plus de 10 ans d’expérience en tant que responsable commerciale, j’ai exercé aussi bien dans des TPE que des groupes internationaux, en pilotant des stratégies commerciales et marketing orientées résultats. J’ai également été cheffe de projet pour les DCF (Dirigeants Commerciaux de France) et pour l’école MBway, preuve de mon engagement dans la transmission, la structuration et la valorisation des compétences commerciales.</p>#}
-{#                <p>commerciales et marketing orientées résultats. J’ai également été cheffe de projet pour les DCF (Dirigeants Commerciaux de France) et pour l’école MBway, preuve de mon engagement dans la transmission, la structuration et la valorisation des compétences commerciales.</p>#}
-
+                {{ user.apropos|raw }}
             </div>
-            <div class="show-more lightText"><span>lire la suite</span></div>
+            {% if user.apropos|length > 800 %}
+                <div class="show-more lightText"><span class="toggle-btn">lire la suite</span></div>
+            {% endif %}
         </div>
         <div class="profilSection competences">
             <h3 class="secondaryTitle">compétences</h3>

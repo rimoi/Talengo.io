@@ -21,6 +21,12 @@
 											<path d="M9 17v1a3 3 0 0 0 6 0v-1"/>
 										</svg>
 									</span>
+                      {% if getCommandeNonLu(app.user)|length > 0 %}
+                          <span class="badge badge-danger cs-badge-respo">
+                            {{ getCommandeNonLu(app.user)|length }}
+                          </span>
+                      {% endif %}
+
                      <span class="visibleMenuBurger">Suivi commande</span>
                   </a>
                </li>
@@ -35,6 +41,11 @@
 											<path d="M3 7l9 6l9 -6"/>
 										</svg>
 									</span>
+                      {% if getMessageNonLu(app.user)|length > 0 %}
+                          <span class="badge badge-danger cs-badge-respo">
+                            {{ getMessageNonLu(app.user)|length }}
+                          </span>
+                      {% endif %}
                      <span class="visibleMenuBurger">Messages</span>
                   </a>
                </li>

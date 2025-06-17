@@ -84,7 +84,8 @@ body, h1,h2,h3,h4,h5,h6 {
     background: #4c8be8 !important;
 }
 
-.dropdown-item.active, .dropdown-item:active {
+.dropdown-item.active, .dropdown-item:active
+{
     background: #4c8be8 !important;
 }
 
@@ -116,6 +117,11 @@ body, h1,h2,h3,h4,h5,h6 {
     background: #4c8be8 !important;
     border-color: #4c8be8 !important;
     color: #fff !important;
+}
+
+.btn.btn-icon {
+    height: 38px !important;
+    width: 38px !important;
 }
 
 /* FIL ARIANNE */
@@ -462,4 +468,10 @@ footer .copyrights {
 footer .copyrights p {
     color: #dee2e6;
     font-size: 14px;
+}
+
+@media screen and (max-width: 768px) {
+    .badge-danger.cs-badge-respo {
+        margin-left: -22px;
+    }
 }

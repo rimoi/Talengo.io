@@ -5,39 +5,24 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>
-		{% block title %}Erreur 500{% endblock %}
+		{% block title %}Erreur 404{% endblock %}
 	</title>
 
 	{% block meta %}{% endblock %}
 
 	<!-- Favicon Icon -->
 	<link rel="icon" type="{{ asset('img/Logo.png') }}" href="images/fav.svg">
-	<!-- Bootstrap core CSS -->
+	<link href="{{ asset('themes/layout/css/main.css') }}" rel="stylesheet">
+	<link href="{{ asset('themes/custom/custom.css') }}" rel="stylesheet">
+	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/jquery.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/owl.carousel.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/select2.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/magnific-popup.js') }}"></script>
+
+
 	<link href="{{ asset('themes/base/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 	<!-- Font Awesome-->
 	<link href="{{ asset('themes/base/vendor/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">
-	<!-- Material Design Icons -->
-	<link href="{{ asset('themes/base/vendor/icons/css/materialdesignicons.min.css') }}" media="all" rel="stylesheet"
-		type="text/css">
-	<!-- Slick -->
-	<link href="{{ asset('themes/base/vendor/slick-master/slick/slick.css') }}" rel="stylesheet" type="text/css">
-	<!-- Lightgallery -->
-	<link href="{{ asset('themes/base/vendor/lightgallery-master/dist/css/lightgallery.min.css') }}" rel="stylesheet">
-	<!-- Select2 CSS -->
-	<link href="{{ asset('themes/base/vendor/select2/css/select2-bootstrap.css') }}" />
-	<link href="{{ asset('themes/base/vendor/select2/css/select2.min.css') }}" rel="stylesheet">
-	<!-- Custom styles for this template -->
-	<link href="{{ asset('themes/base/css/style.css') }}" rel="stylesheet">
-	<link href="{{ asset('themes/base/css/custom.css') }}" rel="stylesheet">
-	<link href="{{ asset('themes/base/css/responsive.css') }}" rel="stylesheet">
-	<link href="{{ asset('themes/base/css/mapbox.css') }}" rel="stylesheet">
-
-	<!-- Cke editor -->
-	<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
-
-	{% block stylesheets %}
-	{{ encore_entry_link_tags('app') }}
-	{% endblock %}
 
 	<style>
 		.slick-track {
@@ -49,82 +34,97 @@
 </head>
 
 <body data-turbo="false">
-	{% block navbar %}
-	{{ include('partials/base/_navbars.html.twig') }}
-	{% endblock %}
+{#	{% block navbar %}#}
+{#	{{ include('partials/base/_navbars.html.twig') }}#}
+{#	{% endblock %}#}
 
-	<!-- 404 Page -->
-	<section class="py-5 bg-white border-top border-bottom">
-		<div class="container">
-			<div class="row py-lg-5">
-				<div class="col-lg-8 col-md-8 mx-auto text-center">
-					<div><img class="img-fluid" src="{{ asset('themes/base/images/404.png') }}" alt="404"></div>
-					<h1>Une erreur est survenue</h1>
-					<p class="land">Quelque chose s'est cassé. Retourner à l'accueil.</p>
-					<div class="mt-5">
-						<a href="{{ path('accueil') }}" class="btn btn-success"><i class="mdi mdi-home"></i> Revenir à l'accueil</a>
+<!-- 404 Page -->
+<section class="py-5 bg-white border-top border-bottom">
+	<div class="container">
+		<div class="row py-lg-5">
+			<div class="col-lg-8 col-md-8 mx-auto text-center">
+				<div><img  src="{{ asset('img/error/500.svg') }}" alt="500" height="400px"></div>
+				<h1 class="display-4 font-weight-bold text-primary mt-5">Oups ! Problème technique 🚧</h1>
+
+
+				<div class="lead mb-4 p-4 bg-white error-card shadow-sm mx-auto" style="max-width: 700px;">
+					<p class="mb-3">Notre équipe de petits robots est en train de travailler dur pour résoudre le problème.</p>
+					<p>Il semble que notre serveur ait rencontré une difficulté imprévue. Ce n'est pas vous, c'est nous !</p>
+
+					<div class="alert alert-warning mt-3 text-left">
+						<strong>Que faire maintenant ?</strong>
+						<ul class="mb-0 pl-3">
+							<li>Rafraîchissez la page dans quelques instants</li>
+							<li>Vérifiez votre connexion internet</li>
+							<li>Si le problème persiste, revenez plus tard</li>
+							<li>Sinon, contactez-nous</li>
+						</ul>
 					</div>
 				</div>
+
+				<div class="d-flex justify-content-center flex-wrap">
+					<a href="{{ path('accueil') }}" class="btn btn-outline-danger btn-lg mx-2 my-1">
+						<i class="fas fa-home mr-2"></i>Retour à l'accueil
+					</a>
+					<a href="mailto:talengo.contact@gmail.com" class="btn btn-outline-secondary btn-lg mx-2 my-1">
+						<i class="fas fa-life-ring mr-2"></i>Urgence technique
+					</a>
+				</div>
+
+				<div class="mt-5 text-muted small">
+					<p class="mt-2">Nos excuses pour la gêne occasionnée.</p>
+				</div>
+
 			</div>
 		</div>
-	</section>
-	<!-- End 404 Page -->
+	</div>
+</section>
+<!-- End 404 Page -->
 
-	<!--       footer -->
-	{% block footer %}
-	{{ include('partials/base/_footer.html.twig') }}
-	{% endblock %}
+<!--       footer -->
 
-	<!--       footer-->
-	<!-- Bootstrap core JavaScript -->
-	<script src="{{ asset('themes/base/vendor/jquery/jquery.min.js') }}"> </script>
-	<script src="{{ asset('themes/base/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-	<!-- Contact form JavaScript -->
-	<!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-	<script src="{{ asset('themes/base/js/jqBootstrapValidation.js') }}"></script>
-	<script src="{{ asset('themes/base/js/contact_me.js') }}"></script>
-	<!-- Slick -->
-	<script src="{{ asset('themes/base/vendor/slick-master/slick/slick.js') }}" type="text/javascript"
+
+<!--       footer-->
+<!-- Bootstrap core JavaScript -->
+<script src="{{ asset('themes/base/vendor/jquery/jquery.min.js') }}"> </script>
+<script src="{{ asset('themes/base/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- Contact form JavaScript -->
+<!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+<script src="{{ asset('themes/base/js/jqBootstrapValidation.js') }}"></script>
+<script src="{{ asset('themes/base/js/contact_me.js') }}"></script>
+<!-- Slick -->
+<script src="{{ asset('themes/base/vendor/slick-master/slick/slick.js') }}" type="text/javascript"
 		charset="utf-8"></script>
-	<!-- lightgallery -->
-	<script src="{{ asset('themes/base/vendor/lightgallery-master/dist/js/lightgallery-all.min.js') }}"></script>
-	<!-- select2 Js -->
-	<script src="{{ asset('themes/base/vendor/select2/js/select2.min.js') }}"></script>
-	<!-- Custom -->
-	<script src="{{ asset('themes/base/js/custom.js') }}"></script>
-	<script src="{{ asset('themes/base/js/dropdown.js') }}"></script>
-	<script src="{{ asset('js/btnloader.js') }}"></script>
+<!-- lightgallery -->
+<script src="{{ asset('themes/base/vendor/lightgallery-master/dist/js/lightgallery-all.min.js') }}"></script>
+<!-- select2 Js -->
+<script src="{{ asset('themes/base/vendor/select2/js/select2.min.js') }}"></script>
+<!-- Custom -->
+<script src="{{ asset('themes/base/js/custom.js') }}"></script>
+<script src="{{ asset('themes/base/js/dropdown.js') }}"></script>
+<script src="{{ asset('js/btnloader.js') }}"></script>
 
-	{% block javascripts %}
+{% block javascripts %}
 	{{ encore_entry_script_tags('app') }}
-	{% endblock %}
+{% endblock %}
 
-	<!-- axios -->
-	<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+<!-- axios -->
+<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
 
-	<script>
-		$(document).ready(function () {
-			$('#modalLocations').modal('show')
-		})
-	</script>
+<script>
+	$(document).ready(function () {
+		$('#modalLocations').modal('show')
+	})
+</script>
 
-	<script>
-		// Add the following code if you want the name of the file appear on select
-		$(".custom-file-input").on("change", function () {
-			var fileName = $(this).val().split("\\").pop();
-			$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-		});
-	</script>
+<script>
+	// Add the following code if you want the name of the file appear on select
+	$(".custom-file-input").on("change", function () {
+		var fileName = $(this).val().split("\\").pop();
+		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+	}});
+</script>
 
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-TBWPH2ZDRB"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
-
-		gtag('config', 'G-TBWPH2ZDRB');
-	</script>
 </body>
 
 </html>
