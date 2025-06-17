@@ -65,11 +65,6 @@ $(function () {
             }
         },
 
-        showSearchMobile : function() {
-            $('.iconSearchMobile').click( function() {
-                $('header').toggleClass('openSearch');
-            })
-        },
 
         changeTopService : function() {
             if ($('.custom-select').length) {

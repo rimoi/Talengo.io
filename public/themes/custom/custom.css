@@ -114,6 +114,10 @@ body.userConnected header ul.menu > li {
     .invisibleMenuBurger {
         display: none !important;
     }
+
+    header.openSearch .search-header {
+        display: block;
+    }
 }
 
 

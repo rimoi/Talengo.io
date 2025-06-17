@@ -345,3 +345,121 @@ nav ul.menu > li > a:first-letter {
 nav ul.menu > li > a:hover {
     color: #20406f;
 }
+
+
+
+footer {
+    background-color: #20406f;
+}
+footer .content {
+    display: flex;
+    padding: 70px 0;
+    justify-content: space-between;
+    gap: 50px;
+}
+@media screen and (max-width: 991px) {
+    footer .content {
+        display: block;
+    }
+}
+footer .content .infoWebsite {
+    width: 250px;
+}
+@media screen and (max-width: 991px) {
+    footer .content .infoWebsite {
+        width: 100%;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+}
+footer .content .infoWebsite .logo {
+    width: 200px;
+}
+footer .content .infoWebsite .description {
+    font-family: "Outfit-Light", arial, sans-serif;
+    color: #dee2e6;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    font-size: 14px;
+}
+footer .content .infoWebsite .description:first-letter {
+    text-transform: uppercase;
+}
+footer .content .infoWebsite .titleFolow {
+    text-transform: uppercase;
+    color: white;
+    font-size: 17px;
+    margin-top: 40px;
+}
+footer .content .infoWebsite .socialMedia {
+    margin-top: 10px;
+    display: flex;
+    gap: 15px;
+}
+@media screen and (max-width: 991px) {
+    footer .content .infoWebsite .socialMedia {
+        justify-content: center;
+    }
+}
+footer .content .infoWebsite .socialMedia i {
+    font-size: 38px;
+    color: white;
+}
+footer .content .infoWebsite .socialMedia a:hover i {
+    color: #4c8be8;
+}
+footer .content .linksWebsite {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 400px);
+}
+@media screen and (max-width: 991px) {
+    footer .content .linksWebsite {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 660px) {
+    footer .content .linksWebsite {
+        display: block;
+    }
+}
+footer .content .linksWebsite .links {
+    max-width: 350px;
+    width: 100%;
+}
+@media screen and (max-width: 660px) {
+    footer .content .linksWebsite .links {
+        margin-bottom: 20px;
+    }
+}
+footer .content .linksWebsite .title {
+    font-family: "Outfit-Medium", arial, sans-serif;
+    color: white;
+    font-size: 21px;
+    margin-bottom: 15px;
+}
+footer .content .linksWebsite .title::first-letter {
+    text-transform: uppercase;
+}
+footer .content .linksWebsite ul li a {
+    font-family: "Outfit-Regular", arial, sans-serif;
+    color: #dee2e6;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 17px;
+    transition: all .3s;
+}
+footer .content .linksWebsite ul li a::first-letter {
+    text-transform: uppercase;
+}
+footer .content .linksWebsite ul li a:hover {
+    text-decoration: underline;
+}
+footer .copyrights {
+    border-top: solid thin #717189;
+    padding: 20px 0;
+}
+footer .copyrights p {
+    color: #dee2e6;
+    font-size: 14px;
+}

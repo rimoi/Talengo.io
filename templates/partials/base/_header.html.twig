@@ -15,7 +15,7 @@
 
 				<!-- end commun entre les deux versions du header -->
 
-				{% if app.user or shouldDisplayContent() %}
+				{% if shouldDisplayContent() %}
 					<div class="search-header">
 						<form action="{{ path('search_list') }}" class="search" method="post">
 							<input type="text" name="search" id="search" placeholder="Rechercher par mots-clés ou compétences" value="{{ app.request.get('search') }}">
@@ -163,7 +163,8 @@
 				{% endif %}
 			</div>
 		</div>
-		{% if app.user %}
+
+		{% if shouldDisplayContent() %}
 			<!--  si user est connecté  -->
 			<span class="visibleMobile iconSearchMobile"><i class="fa-solid fa-magnifying-glass"></i></span>
 			<!--  end user est connecté  -->
