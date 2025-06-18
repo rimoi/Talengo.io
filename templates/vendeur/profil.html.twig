@@ -91,7 +91,7 @@
     </div>
     <div class="content-profil">
         <div class="profilSection aboutme">
-            <h1 class="primaryTitle"> Business plans | Études de marché</h1>
+            <h3 class="secondaryTitle"> A propos de <span style="color: #4c8be8">{{ (user.usePseudo == 1 ? user.pseudo : user.nickName)|capitalize }}</span></h3>
             <div class="description">
                 {{ user.apropos|raw }}
             </div>

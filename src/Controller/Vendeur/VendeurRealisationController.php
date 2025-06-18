@@ -45,7 +45,7 @@ class VendeurRealisationController extends AbstractController
             $this->addFlash('success', 'Le contenu a bien été créé');
             return $this->redirectToRoute('app_vendeur_realisation_index', [], Response::HTTP_SEE_OTHER);
 
-            $this->addFlash('success', 'le contenu a bien été enregistré');
+
         }
         
         return $this->renderForm('vendeur/realisations/new.html.twig', [
@@ -75,9 +75,9 @@ class VendeurRealisationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $realisationRepository->save($realisation, true);
 
-            return $this->redirectToRoute('app_vendeur_realisation_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'le contenu a bien été enregistré');
 
-            $this->addFlash('success', 'Le contenu a bien été mise à jour');
+            return $this->redirectToRoute('app_vendeur_realisation_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('vendeur/realisations/edit.html.twig', [
@@ -92,7 +92,10 @@ class VendeurRealisationController extends AbstractController
         $this->denyAccessUnlessGranted('realisation_edit', $realisation);
 
         if ($this->isCsrfTokenValid('delete'.$realisation->getId(), $request->request->get('_token'))) {
+            $this->addFlash('success', 'le contenu a bien été supprimé');
             $realisationRepository->remove($realisation, true);
+        } else {
+            $this->addFlash('danger', "Le contenu n'a pas pu être supprimé.");
         }
 
         return $this->redirectToRoute('app_vendeur_realisation_index', [], Response::HTTP_SEE_OTHER);

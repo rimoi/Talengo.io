@@ -24,16 +24,14 @@
             <div class="card-body">
                 <small class="text-muted d-block-py-2">{{ realisation.createdAt|ago(locale='fr') }}</small>
 
-                <a href="{{ path('app_vendeur_skill_show', {id: realisation.id}) }}" target="_blank">
-                    <strong class="d-block text-dark py-3 mb-1 h6">{{ realisation.name }}</strong>
-                </a>
+                <strong class="d-block text-dark py-3 mb-1 h6">{{ realisation.name }}</strong>
                 <div class="content-info text-left">
 
                     {% if is_granted('realisation_edit', realisation) %}
-                    <a href="{{ path('app_vendeur_skill_edit', {'id': realisation.id}) }}"
-                        class="btn btn-outline-secondary">Modifier</a>
+                        <a href="{{ path('app_vendeur_skill_edit', {'id': realisation.id}) }}"
+                            class="btn btn-outline-secondary">Modifier</a>
 
-                    {% include "vendeur/realisations/_delete_form.html.twig" %}
+                         {% include "vendeur/competence/_delete_form.html.twig" %}
 
                     {% endif %}
 

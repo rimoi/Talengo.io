@@ -2,14 +2,14 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Realisation;
+use App\Entity\Competence;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class RealisationsVoter extends Voter
+class CompetenceVoter extends Voter
 {
     const REALISATION_EDIT = "realisation_edit";
     const REALISATION_DELETE = "realisation_delete";
@@ -26,12 +26,13 @@ class RealisationsVoter extends Voter
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
         return in_array($attribute, [self::REALISATION_EDIT, self::REALISATION_DELETE])
-            && $realisation instanceof Realisation;
+            && $realisation instanceof Competence;
     }
 
     protected function voteOnAttribute(string $attribute, $realisation, TokenInterface $token): bool
     {
         $user = $token->getUser();
+
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;
@@ -41,7 +42,7 @@ class RealisationsVoter extends Voter
         /*if ($this->security->isGranted("ROLE_ADMIN")) return true;*/
 
         //Verifie si une realisation a un auteur
-        if (null === $realisation->getVendeur()) return false;
+        if (null === $realisation->getUser()) return false;
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
@@ -58,12 +59,12 @@ class RealisationsVoter extends Voter
         return false;
     }
 
-    private function canEdit(Realisation $realisation, User $user){
-        return $user === $realisation->getVendeur();
+    private function canEdit(Competence $realisation, User $user){
+        return $user->getId() === $realisation->getUser()->getId();
     }
 
-    private function canDelete(Realisation $realisation, User $user){
+    private function canDelete(Competence $realisation, User $user){
         if($this->security->isGranted("ROLE_ADMIN")) return true;
-        return $user === $realisation->getVendeur();
+        return $user->getId() === $realisation->getUser()->getId();
     }
 }

@@ -1,6 +1,6 @@
 {% extends 'vendeur.html.twig' %}
 
-{% block title %}Mes réalisations
+{% block title %}Mon portfolio
 {% endblock %}
 
 {% block bg %}{% endblock %}
@@ -11,7 +11,7 @@
     <div class="card-header bg-dark">
         <div class="row">
             <div class="col-7">
-                <h2 class="h6 text-light">Mes réalisations</h2>
+                <h2 class="h6 text-light">Mon portfolio</h2>
             </div>
             <div class="col-5 text-right">
                 <a href="{{ path('app_vendeur_realisation_new') }}" class="btn btn-dark">Ajouter</a>
@@ -38,13 +38,13 @@
 
                 <div class="content-info text-left">
 
-                    <a href="{{ realisation.link }}" target="_blank" class="btn btn-outline-secondary">Details</a>
+{#                    <a href="{{ realisation.link }}" target="_blank" class="btn btn-outline-secondary">Details</a>#}
 
                     {% if is_granted('realisation_edit', realisation) %}
-                    <a href="{{ path('app_vendeur_realisation_edit', {'id': realisation.id}) }}"
-                        class="btn btn-outline-secondary">Modifier</a>
+                        <a href="{{ path('app_vendeur_realisation_edit', {'id': realisation.id}) }}"
+                            class="btn btn-outline-secondary">Modifier</a>
 
-                    {% include "vendeur/realisations/_delete_form.html.twig" %}
+                        {% include "vendeur/realisations/_delete_form.html.twig" %}
 
                     {% endif %}
 

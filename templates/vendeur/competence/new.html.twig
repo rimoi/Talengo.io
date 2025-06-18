@@ -1,14 +1,14 @@
 {% extends 'vendeur.html.twig' %}
 
-{% block title %}Nounvelle Réalisation{% endblock %}
+{% block title %}Nounvelle compétence{% endblock %}
 
 {% block body %}
     <div class="p-3 border-bottom text-left bg-dark rounded">
 		<h4 class="mb-0 h6 text-light">
-			Nounvelle Réalisation
+			{{ block('title') }}
 		</h4>
 	</div>
 
-    {{ include('vendeur/realisations/_form.html.twig') }}
+    {{ include('vendeur/competence/_form.html.twig') }}
 
 {% endblock %}

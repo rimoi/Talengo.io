@@ -73,10 +73,9 @@ class VendeurCompetenceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $realisationRepository->save($realisation, true);
+            $this->addFlash('success', 'Le contenu a bien été mise à jour');
 
             return $this->redirectToRoute('app_vendeur_skill_index', [], Response::HTTP_SEE_OTHER);
-
-            $this->addFlash('success', 'Le contenu a bien été mise à jour');
         }
 
         return $this->renderForm('vendeur/competence/edit.html.twig', [
@@ -85,13 +84,17 @@ class VendeurCompetenceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_vendeur_skill_delete', methods: ['POST'])]
+    #[Route('/{id}/deleted', name: 'app_vendeur_skill_deleted', methods: ['POST'])]
     public function delete(Request $request, Competence $realisation, CompetenceRepository $realisationRepository): Response
     {
         $this->denyAccessUnlessGranted('realisation_edit', $realisation);
 
         if ($this->isCsrfTokenValid('delete'.$realisation->getId(), $request->request->get('_token'))) {
+            $this->addFlash('success', 'Le contenu a bien été supprimé ');
+
             $realisationRepository->remove($realisation, true);
+        } else {
+            $this->addFlash('danger', "Le contenu n'a pas pu être supprimé.");
         }
 
         return $this->redirectToRoute('app_vendeur_skill_index', [], Response::HTTP_SEE_OTHER);

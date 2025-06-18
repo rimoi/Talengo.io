@@ -3,33 +3,33 @@
 {#   <i class="fa fa-calendar"></i>&nbsp;&nbsp;&nbsp;Planning#}
 {#</a>#}
 
-<a class="dropdown-item {{ app.request.attributes.get('_route') == 'vendeur_microservices_index' ? 'active' : '' }}"
+<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'vendeur_microservices_' ? 'active' : '' }}"
    href="{{ path('vendeur_microservices_index') }}">
    <i class="fa fa-briefcase"></i>&nbsp;&nbsp;&nbsp;Mes services
 </a>
-<a class="dropdown-item {{ app.request.attributes.get('_route') == 'app_vendeur_skill_index' ? 'active' : '' }}"
+<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'app_vendeur_skill_' ? 'active' : '' }}"
    href="{{ path('app_vendeur_skill_index') }}">
    <i class="fa fa-folder-open"></i>&nbsp;&nbsp;&nbsp;Mes compétences
 </a>
-<a class="dropdown-item {{ app.request.attributes.get('_route') == 'app_vendeur_realisation_index' ? 'active' : '' }}"
+<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'app_vendeur_realisation_' ? 'active' : '' }}"
    href="{{ path('app_vendeur_realisation_index') }}">
    <i class="fa fa-folder-open"></i>&nbsp;&nbsp;&nbsp;Mon portfolio
 </a>
-<a class="dropdown-item {{ app.request.attributes.get('_route') == 'vendeur_commandes_index' ? 'active' : '' }}"
+<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'vendeur_commandes_' ? 'active' : '' }}"
    href="{{ path('vendeur_commandes_index') }}"><i class="fa fa-cart-plus"></i>&nbsp;&nbsp;&nbsp;Mes
    commandes</a>
 
-<a class="dropdown-item {{ app.request.attributes.get('_route') == 'vendeur_achats_index' ? 'active' : '' }}"
+<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'vendeur_achats_' ? 'active' : '' }}"
    href="{{ path('vendeur_achats_index') }}"><i class="fa fa-opencart"></i>&nbsp;&nbsp;&nbsp;Mes achats</a>
 
-<a class="dropdown-item {{ app.request.attributes.get('_route') == 'favoris_index' ? 'active' : '' }}"
+<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'favoris_' ? 'active' : '' }}"
    href="{{ path('favoris_index') }}"><i class="fa fa-heart"></i>&nbsp;&nbsp;&nbsp;Favoris</a>
 
-<a class="dropdown-item {{ app.request.attributes.get('_route') == 'suivis_index' ? 'active' : '' }}"
+<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'suivis_' ? 'active' : '' }}"
    href="{{ path('suivis_index') }}"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Suivis</a>
-<a class="dropdown-item {{ app.request.attributes.get('_route') == 'app_vendeur_remboursements_index' ? 'active' : '' }}"
+<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'app_vendeur_remboursements_' ? 'active' : '' }}"
    href="{{ path('app_vendeur_remboursements_index') }}"><i
       class="fa fa-backward"></i>&nbsp;&nbsp;&nbsp;Remboursements</a>
       
-<a class="dropdown-item py-2 {{ app.request.attributes.get('_route') == 'app_vendeur_retraits_index' ? 'active' : '' }}"
+<a class="dropdown-item py-2 {{ app.request.attributes.get('_route') starts with 'app_vendeur_retraits_' ? 'active' : '' }}"
    href="{{ path('app_vendeur_retraits_index') }}"><i class="fa fa-credit-card"></i>&nbsp;&nbsp;&nbsp;Retraits</a>
