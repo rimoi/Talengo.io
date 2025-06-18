@@ -1,196 +1,199 @@
 <div class="card rounded bg-white border mb-3 osahan-chat">
-	<div class="card-header bg-dark ">
-		<h5 class="h6 text-light">Suivis commande</h5>
-	</div>
-	<div class="card-body p-0">
-		<div class="row m-0">
-{#			<div#}
-{#				class="col-sm-4 border-right px-0 bg-white {{ app.request.attributes.get('_route') == 'commande_details' ? 'd-none d-sm-block' : '' }}">#}
-{#				<div class="osahan-chat-left">#}
-{#					<div class="osahan-chat-list">#}
+    <div class="card-header bg-dark ">
+        <h5 class="h6 text-light">Suivis commande</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="row m-0">
+            {#            <div #}
+            {#                class="col-sm-4 border-right px-0 bg-white {{ app.request.attributes.get('_route') == 'commande_details' ? 'd-none d-sm-block' : '' }}"> #}
+            {#                <div class="osahan-chat-left"> #}
+            {#                    <div class="osahan-chat-list"> #}
 
-{#						{% for usercommande in usercommandes %}#}
+            {#                        {% for usercommande in usercommandes %} #}
 
-{#							{% if usercommande.vendeur != null %}#}
-{#							#}
-{#								{% if usercommande.vendeur.id == app.user.id %}#}
+            {#                            {% if usercommande.vendeur != null %} #}
+            {#                            #}
+            {#                                {% if usercommande.vendeur.id == app.user.id %} #}
 
-{#									{% if usercommande.client != null %}#}
-{#									#}
-{#									<div class="p-1 align-items-center border-bottom osahan-post-header overflow-hidden {{ usercommande == commande ? 'bg-blue' : '' }}">#}
+            {#                                    {% if usercommande.client != null %} #}
+            {#                                    #}
+            {#                                    <div class="p-1 align-items-center border-bottom osahan-post-header overflow-hidden {{ usercommande == commande ? 'bg-blue' : '' }}"> #}
 
-{#										<a href="{{ path('commande_details', {id: usercommande.id}) }}" class="media">#}
+            {#                                        <a href="{{ path('commande_details', {id: usercommande.id}) }}" class="media"> #}
 
-{#											{% if usercommande.client.reseauAvatar %}#}
+            {#                                            {% if usercommande.client.reseauAvatar %} #}
 
-{#											<img src="{{ usercommande.client.reseauAvatar }}"#}
-{#												alt="{{ usercommande.client.usePseudo == 1 ? usercommande.client.pseudo : usercommande.client.nom ~ ' ' ~ usercommande.client.prenom }}">#}
+            {#                                            <img src="{{ usercommande.client.reseauAvatar }}" #}
+            {#                                                alt="{{ usercommande.client.usePseudo == 1 ? usercommande.client.pseudo : usercommande.client.nom ~ ' ' ~ usercommande.client.prenom }}"> #}
 
-{#											{% else %}#}
+            {#                                            {% else %} #}
 
-{#											{% if usercommande.client.avatar %}#}
-{#											<img src="{{ vich_uploader_asset(usercommande.client) | imagine_filter('small_avatar') }}"#}
-{#												alt="{{ usercommande.client.prenom ?? '' }}" class="rounded-circle border">#}
-{#											{% else %}#}
-{#											<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">#}
-{#											{% endif %}#}
+            {#                                            {% if usercommande.client.avatar %} #}
+            {#                                            <img src="{{ vich_uploader_asset(usercommande.client) | imagine_filter('small_avatar') }}" #}
+            {#                                                alt="{{ usercommande.client.prenom ?? '' }}" class="rounded-circle border"> #}
+            {#                                            {% else %} #}
+            {#                                            <img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border"> #}
+            {#                                            {% endif %} #}
 
-{#											{% endif %}#}
+            {#                                            {% endif %} #}
 
-{#											<span class="media-body pl-2">#}
-{#												<span class="text-truncate d-inline">#}
-{#													{{ usercommande.client.nom ~ ' ' ~ usercommande.client.prenom }}#}
-{#												</span>#}
-{#												<small class="small">#}
-{#													{{ usercommande.created|ago(locale='fr') }}#}
-{#												</small>#}
-{#												<br>#}
-{#												<span class="small text-truncate overflow-hidden text-black-50">#}
-{#													{{ usercommande.offre }}#}
-{#												</span>#}
-{#											</span>#}
-{#										</a>#}
+            {#                                            <span class="media-body pl-2"> #}
+            {#                                                <span class="text-truncate d-inline"> #}
+            {#                                                    {{ usercommande.client.nom ~ ' ' ~ usercommande.client.prenom }} #}
+            {#                                                </span> #}
+            {#                                                <small class="small"> #}
+            {#                                                    {{ usercommande.created|ago(locale='fr') }} #}
+            {#                                                </small> #}
+            {#                                                <br> #}
+            {#                                                <span class="small text-truncate overflow-hidden text-black-50"> #}
+            {#                                                    {{ usercommande.offre }} #}
+            {#                                                </span> #}
+            {#                                            </span> #}
+            {#                                        </a> #}
 
-{#									</div>#}
+            {#                                    </div> #}
 
-{#									{% endif %}#}
+            {#                                    {% endif %} #}
 
-{#								{% else %}#}
+            {#                                {% else %} #}
 
-{#									<div#}
-{#										class="p-3 align-items-center border-bottom osahan-post-header overflow-hidden {{ usercommande == commande ? 'bg-blue' : '' }}">#}
+            {#                                    <div #}
+            {#                                        class="p-3 align-items-center border-bottom osahan-post-header overflow-hidden {{ usercommande == commande ? 'bg-blue' : '' }}"> #}
 
-{#										<a href="{{ path('commande_details', {id: usercommande.id}) }}" class="media">#}
+            {#                                        <a href="{{ path('commande_details', {id: usercommande.id}) }}" class="media"> #}
 
-{#											{% if usercommande.vendeur.reseauAvatar %}#}
+            {#                                            {% if usercommande.vendeur.reseauAvatar %} #}
 
-{#											<img src="{{ usercommande.vendeur.reseauAvatar }}"#}
-{#												alt="{{ usercommande.vendeur.usePseudo == 1 ? usercommande.vendeur.pseudo : usercommande.vendeur.nom ~ ' ' ~ usercommande.vendeur.prenom }}">#}
+            {#                                            <img src="{{ usercommande.vendeur.reseauAvatar }}" #}
+            {#                                                alt="{{ usercommande.vendeur.usePseudo == 1 ? usercommande.vendeur.pseudo : usercommande.vendeur.nom ~ ' ' ~ usercommande.vendeur.prenom }}"> #}
 
-{#											{% else %}#}
+            {#                                            {% else %} #}
 
-{#											{% if usercommande.vendeur.avatar %}#}
-{#											<img src="{{ vich_uploader_asset(usercommande.vendeur) | imagine_filter('small_avatar') }}"#}
-{#												alt="{{ usercommande.vendeur.prenom ?? '' }}" class="rounded-circle border">#}
-{#											{% else %}#}
-{#											<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">#}
-{#											{% endif %}#}
+            {#                                            {% if usercommande.vendeur.avatar %} #}
+            {#                                            <img src="{{ vich_uploader_asset(usercommande.vendeur) | imagine_filter('small_avatar') }}" #}
+            {#                                                alt="{{ usercommande.vendeur.prenom ?? '' }}" class="rounded-circle border"> #}
+            {#                                            {% else %} #}
+            {#                                            <img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border"> #}
+            {#                                            {% endif %} #}
 
-{#											{% endif %}#}
+            {#                                            {% endif %} #}
 
-{#											<span class="media-body pl-2">#}
-{#												<span class="text-truncate d-inline">#}
-{#													{{ usercommande.vendeur.nom ~ ' ' ~ usercommande.vendeur.prenom }}#}
-{#												</span>#}
-{#												<small class="text-right small">#}
-{#													{{ usercommande.created|ago(locale='fr') }}#}
-{#												</small><br>#}
-{#												<span class="small text-truncate overflow-hidden text-black-50">#}
-{#													{{ usercommande.offre }}#}
-{#												</span>#}
-{#											</span>#}
-{#										</a>#}
-{#									</div>#}
+            {#                                            <span class="media-body pl-2"> #}
+            {#                                                <span class="text-truncate d-inline"> #}
+            {#                                                    {{ usercommande.vendeur.nom ~ ' ' ~ usercommande.vendeur.prenom }} #}
+            {#                                                </span> #}
+            {#                                                <small class="text-right small"> #}
+            {#                                                    {{ usercommande.created|ago(locale='fr') }} #}
+            {#                                                </small><br> #}
+            {#                                                <span class="small text-truncate overflow-hidden text-black-50"> #}
+            {#                                                    {{ usercommande.offre }} #}
+            {#                                                </span> #}
+            {#                                            </span> #}
+            {#                                        </a> #}
+            {#                                    </div> #}
 
-{#								{% endif %}#}
+            {#                                {% endif %} #}
 
-{#							{% endif %}#}
+            {#                            {% endif %} #}
 
-{#						{% else %}#}
+            {#                        {% else %} #}
 
-{#						<div class="p-3 d-flex align-items-center border-bottom osahan-post-header overflow-hidden">#}
-{#							<p>Aucune commande</p>#}
-{#						</div>#}
+            {#                        <div class="p-3 d-flex align-items-center border-bottom osahan-post-header overflow-hidden"> #}
+            {#                            <p>Aucune commande</p> #}
+            {#                        </div> #}
 
-{#						{% endfor %}#}
+            {#                        {% endfor %} #}
 
-{#					</div>#}
-{#				</div>#}
-{#			</div>#}
+            {#                    </div> #}
+            {#                </div> #}
+            {#            </div> #}
 
-{#			<div class="col-sm-8 px-0 {{ app.request.attributes.get('_route') == 'commandes_chats' ? 'd-none d-sm-block' : '' }}">#}
-			<div class="col-sm-12 px-0 {{ app.request.attributes.get('_route') == 'commandes_chats' ? 'd-none d-sm-block' : '' }}">
+            {#            <div class="col-sm-8 px-0 {{ app.request.attributes.get('_route') == 'commandes_chats' ? 'd-none d-sm-block' : '' }}"> #}
+            <div class="col-sm-12 px-0 {{ app.request.attributes.get('_route') == 'commandes_chats' ? 'd-none d-sm-block' : '' }}">
 
-				{% if app.request.attributes.get('_route') == 'commande_details' %}
+                {% if app.request.attributes.get('_route') == 'commande_details' %}
 
-					<div class="p-1 d-flex align-items-center  border-bottom osahan-post-header">
-						{% if commande.client != null %}
+                    <div class="p-1 d-flex align-items-center  border-bottom">
+                        {% if commande.client != null %}
 
-					<div class="font-weight-bold mr-1 overflow-hidden">
-						
-						{% if commande.client.id == app.user.id %}
+                            <div class="font-weight-bold mr-1 overflow-hidden">
 
-						<div class="text-truncate">
-							{% if commande.vendeur.reseauAvatar %}
+                                {% if commande.client.id == app.user.id %}
 
-								<img src="{{ commande.vendeur.reseauAvatar }}"
-									alt="{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.nom ~ ' ' ~ commande.vendeur.prenom }}">
+                                    <div class="text-truncate">
+                                        {% if commande.vendeur.reseauAvatar %}
 
-							{% else %}
+                                            <img src="{{ commande.vendeur.reseauAvatar }}"
+                                                 alt="{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.nom ~ ' ' ~ commande.vendeur.prenom }}">
 
-							{% if commande.vendeur.avatar %}
-							<img src="{{ vich_uploader_asset(commande.vendeur) | imagine_filter('small_avatar') }}"
-								alt="{{ commande.vendeur.prenom ?? '' }}" class="rounded-circle border">
-							{% else %}
-							<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
-							{% endif %}
+                                        {% else %}
 
-							{% endif %}
+                                            {% if commande.vendeur.avatar %}
+                                                <img src="{{ vich_uploader_asset(commande.vendeur) | imagine_filter('small_avatar') }}"
+                                                     alt="{{ commande.vendeur.prenom ?? '' }}"
+                                                     class="rounded-circle border">
+                                            {% else %}
+                                                <img src="{{ asset('img/user.jpg') }}" width="40" height="40"
+                                                     class="rounded-circle border">
+                                            {% endif %}
 
-							{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.nickName }}
+                                        {% endif %}
 
-						</div>
+                                        {{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.nickName }}
 
-						{% else %}
+                                    </div>
 
-						<div class="text-truncate">
+                                {% else %}
 
-							{% if commande.client.avatar %}
-							<img src="{{ vich_uploader_asset(commande.client) | imagine_filter('small_avatar') }}"
-								alt="{{ commande.client.prenom ?? '' }}" class="rounded-circle border">
-							{% else %}
-							<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
-							{% endif %}
+                                    <div class="text-truncate">
 
-							{{ commande.client.usePseudo == 1 ? commande.client.pseudo : commande.client.nickName }}
+                                        {% if commande.client.avatar %}
+                                            <img src="{{ vich_uploader_asset(commande.client) | imagine_filter('small_avatar') }}"
+                                                 alt="{{ commande.client.prenom ?? '' }}" class="rounded-circle border">
+                                        {% else %}
+                                            <img src="{{ asset('img/user.jpg') }}" width="40" height="40"
+                                                 class="rounded-circle border">
+                                        {% endif %}
 
-						</div>
+                                        {{ commande.client.usePseudo == 1 ? commande.client.pseudo : commande.client.nickName }}
 
-						{% endif %}
-					</div>
-					
-					{% endif %}
+                                    </div>
 
-					</div>
-					<div class="osahan-chat-box p-3 bg-light">
+                                {% endif %}
+                            </div>
 
-						{% include "conversations/composants/_security.html.twig" %}
+                        {% endif %}
 
-						<!-- Listing message -->
-						{% include "commande/composants/_messages.html.twig" %}
+                    </div>
+                    <div class="osahan-chat-box p-3 bg-light">
 
-					</div>
+                        {% include "conversations/composants/_security.html.twig" %}
 
-					{% if commande.deliver == false %}
+                        <!-- Listing message -->
+                        {% include "commande/composants/_messages.html.twig" %}
 
-						{% include "conversations/composants/_message_form.html.twig" %}
+                    </div>
 
-					{% endif %}
+                    {% if commande.deliver == false %}
 
-				{% else %}
+                        {% include "conversations/composants/_message_form.html.twig" %}
 
-					<div class="py-5 text-center">
-						<div class="row">
-							<div class="col-sm-6 mx-auto">
-								<h6 class="h5">Choisir une commande à suivre</h6>
-								<img src="{{ asset('img/commande.svg') }}" class="img-fluid" alt="">
-							</div>
-						</div>
-					</div>
+                    {% endif %}
 
-				{% endif %}
+                {% else %}
 
-			</div>
-		</div>
-	</div>
+                    <div class="py-5 text-center">
+                        <div class="row">
+                            <div class="col-sm-6 mx-auto">
+                                <h6 class="h5">Choisir une commande à suivre</h6>
+                                <img src="{{ asset('img/commande.svg') }}" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
 </div>

@@ -19,7 +19,6 @@ $(function () {
             Talengo.menuSticky();
             Talengo.testimonialsMobileCarousel();
             Talengo.select2();
-            Talengo.showSearchMobile();
             Talengo.changeTopService();
             Talengo.checkboxService();
             Talengo.stripe();

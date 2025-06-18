@@ -10,227 +10,226 @@
 
 {% block body %}
 
-<section class="container py-5">
-   <div class="row">
-      <div class="col-sm-4">
+    <section class="container py-5">
+        <div class="row">
+            <div class="col-sm-4">
 
-         <div class="card mb-4">
-            <div class="card-header bg-dark">
-               <h5 class="h6 text-light float-left">Suivis commande</h5>
-               
-		         <div class="float-right ">
-                  <span class="badge badge-light">#{{ commande.id }}</span>
-               </div>
+                <div class="card mb-4">
+                    <div class="card-header bg-dark">
+                        <h5 class="h6 text-light float-left">Suivis commande</h5>
+
+                        <div class="float-right ">
+                            <span class="badge badge-light">#{{ commande.id }}</span>
+                        </div>
+
+                    </div>
+                    <div class="card-body p-0">
+
+                        <div class="p-3">
+                            {% if commande.offre == 'Reservation' %}
+
+                                {% include "commande/composants/_reservation_detail.html.twig" %}
+
+                            {% else %}
+
+                                {% include "commande/composants/_details.html.twig" %}
+
+                            {% endif %}
+                        </div>
+
+                        <hr class="m-0 p-0">
+                        <div class="card mb-4">
+                            <div class="card-body">
+
+                                {% if commande.payed == true %}
+                                    <div class="">
+                                        <h3 class="h6 custom-size">1 - Commande payée</h3>
+                                        <span class="text-muted">{{ commande.created|ago(locale='fr') }}</span>
+                                    </div>
+                                {% endif %}
+
+                                {% if commande.validate == 1 %}
+
+                                    <div class="py-3" id="valider">
+                                        <h3 class="h6 custom-size">2 - Commande validée</h3>
+                                        <span class="text-muted">{{ commande.validateAt|ago(locale='fr') }}</span>
+                                    </div>
+
+
+                                    <div class="py-3">
+                                        <h3 class="h6 custom-size">3 - Commande en cours</h3>
+                                        <span class="text-muted">{{ commande.validateAt|ago(locale='fr') }}</span>
+                                    </div>
+
+                                {% endif %}
+
+                                {% if is_granted('microservice_edit', commande.microservice) %}
+
+                                    {% if commande.deliver == 0 %}
+
+                                        {% if commande.cancel == 0 %}
+
+                                            <div class="py-3">
+
+                                                {% if commande.validate == 0 %}
+
+                                                    {{ include('commande/composants/_validate_form.html.twig') }}
+
+                                                {% endif %}
+
+                                                {% if commande.validate == 1 %}
+
+                                                    {{ include('commande/composants/_livrer_form.html.twig') }}
+
+                                                {% endif %}
+
+                                                {{ include('commande/composants/_annuler_form.html.twig') }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                {% endif %}
+
+                                {% if commande.deliver == 1 %}
+
+                                    <div class="py-3">
+                                        <h3 class="h6 custom-size">4 - Commande livrée</h3>
+                                        <span class="text-muted">{{ commande.deliverAt|ago(locale='fr') }}</span>
+                                    </div>
+
+                                {% endif %}
+
+                                {% if commande.cancel == 1 %}
+
+                                    <div class="py-3">
+                                        <h3 class="h6 custom-size">5 - Commande annuler</h3>
+                                        <span class="text-muted">{{ commande.cancelAt|ago(locale='fr') }}</span>
+                                        <p>Pour une raison ou une autre, la commande à été annulée par le vendeur</p>
+                                    </div>
+
+                                {% endif %}
+
+
+
+                            </div>
+
+                        </div>
+                        <hr class="m-0 p-0">
+                        <div class="p-3">
+                            <div class="media mb-2 rounded">
+                                {% if commande.microservice.medias|length > 0 %}
+
+                                    <img class="img-fluid rounded"
+                                         src="{{ vich_uploader_asset(commande.microservice.medias[0], 'imageFile') | imagine_filter('medium_avatar') }}"/>
+
+                                {% else %}
+
+                                    <img class="img-fluid rounded"
+                                         src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('medium_avatar') }}"/>
+
+                                {% endif %}
+                                <div class="media-body pl-3">
+                                    <a href="{{ path('microservice_details', {slug: commande.microservice.slug}) }}"
+                                       class="text-dark ml-auto">
+                                        {{ commande.microservice.name }}
+                                    </a> <br>
+                                    <a href="{{ path('microservices_categories', {slug: commande.microservice.categorie.slug}) }}?categories%5B%5D={{ commande.microservice.categorie.id }}"
+                                       class="badge badge-blue rounded-pill">
+                                        #{{ commande.microservice.categorie.name }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="m-0 p-0">
+                        <div class="p-3">
+                            <div class="box mb-3 rounded bg-white profile-box text-left">
+                                <div class="media mb-2">
+
+                                    {% if commande.vendeur.reseauAvatar %}
+
+                                        <img src="{{ commande.vendeur.reseauAvatar }}" class="rounded-circle"
+                                             alt="{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.nickName }}"
+                                             width="60">
+
+                                    {% else %}
+
+                                        {% if commande.vendeur.avatar %}
+                                            <img src="{{ vich_uploader_asset(commande.vendeur, 'imageFile') | imagine_filter('medium_avatar') }}"
+                                                 class="rounded-circle"
+                                                 alt="{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.nickName }}">
+                                        {% else %}
+
+                                            <img class="rounded-circle"
+                                                 src="{{ asset('img/user.jpg') | imagine_filter('medium_avatar') }}"
+                                                 alt=''/>
+
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                    <div class="media-body pl-3 ">
+                                        <strong class="d-block">{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo :
+                                            commande.vendeur.nickName }}</strong>
+                                        <p class="mb-0 text-muted text-left">
+                                            {{ commande.vendeur.apropos|u.truncate(60, '...') }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {% if commande.vendeur.compte == 'Vendeur' %}
+                                    <div class="pt-0">
+                                        <div class="d-flex align-items-top mb-2">
+                                            <p class="mb-0 "><i class="fa fa-thumbs-up"></i> Avis positif</p>
+                                            <p class="mb-0 mt-0 ml-auto">{{ avispositif(commande.vendeur)|length }}</p>
+                                        </div>
+                                        <div class="d-flex align-items-top mb-2">
+                                            <p class="mb-0 "><i class="fa fa-thumbs-down"></i> Avis négatif</p>
+                                            <p class="mb-0 mt-0 ml-auto">{{ avisnegatif(commande.vendeur)|length }}</p>
+                                        </div>
+                                        <div class="d-flex align-items-top mb-2">
+                                            <p class="mb-0 "><i class="fa fa-cart-plus"></i> Commandes en cours</p>
+                                            <p class="mb-0 mt-0 ml-auto">{{ commandeEncours(commande.vendeur)|length }}</p>
+                                        </div>
+                                        <div class="d-flex align-items-top mb-2">
+                                            <p class="mb-0 "><i class="fa fa-opencart"></i> Vente au total</p>
+                                            <p class="mb-0 mt-0 ml-auto">{{ ventes(commande.vendeur)|length }}</p>
+                                        </div>
+                                        <div class="d-flex align-items-top mb-2">
+                                            <p class="mb-0 "><i
+                                                        class="fa fa-user-circle"></i> {{ commande.vendeur.compte }}</p>
+                                            <p class="mb-0 mt-0 ml-auto">{{ commande.vendeur.created|ago(locale='fr') }}</p>
+                                        </div>
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        {{ include('commande/composants/_question_frequentes.html.twig') }}
+                    </div>
+                </div>
 
             </div>
-            <div class="card-body p-0">
+            <div class="col-sm-8">
+                <!-- Chat -->
+                {% include "commande/composants/_chat.html.twig" %}
 
-               <div class="p-3">
-                  {% if commande.offre == 'Reservation' %}
-                     
-                  {% include "commande/composants/_reservation_detail.html.twig" %}
-                  
-                  {% else %}
+                <!--- Rapport de prestation -->
+                {% include "commande/composants/_rapport.html.twig" %}
 
-                  {% include "commande/composants/_details.html.twig" %}
-
-                  {% endif %}
-               </div>
-
-               <hr class="m-0 p-0">
-               <div class="p-3">
-                  <div class="media mb-2 rounded">
-                     {% if commande.microservice.medias|length > 0 %}
-
-                     <img class="img-fluid rounded"
-                        src="{{ vich_uploader_asset(commande.microservice.medias[0], 'imageFile') | imagine_filter('medium_avatar') }}" />
-
-                     {% else %}
-
-                     <img class="img-fluid rounded"
-                        src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('medium_avatar') }}" />
-
-                     {% endif %}
-                     <div class="media-body pl-3">
-                        <a href="{{ path('microservice_details', {slug: commande.microservice.slug}) }}"
-                           class="text-dark ml-auto">
-                           {{ commande.microservice.name }}
-                        </a> <br>
-                        <a href="{{ path('microservices_categories', {slug: commande.microservice.categorie.slug}) }}?categories%5B%5D={{ commande.microservice.categorie.id }}"
-                           class="badge badge-blue rounded-pill">
-                           #{{ commande.microservice.categorie.name }}
-                        </a>
-                     </div>
-                  </div>
-               </div>
-               <hr class="m-0 p-0">
-               <div class="p-3">
-                  <div class="box mb-3 rounded bg-white profile-box text-left">
-                     <div class="media mb-2">
-
-                        {% if commande.vendeur.reseauAvatar %}
-
-                        <img src="{{ commande.vendeur.reseauAvatar }}" class="rounded-circle"
-                           alt="{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.nickName }}" width="60">
-
-                        {% else %}
-
-                           {% if commande.vendeur.avatar %}
-                           <img src="{{ vich_uploader_asset(commande.vendeur, 'imageFile') | imagine_filter('medium_avatar') }}" class="rounded-circle"
-                              alt="{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo : commande.vendeur.nickName }}">
-                           {% else %}
-
-                           <img class="rounded-circle" src="{{ asset('img/user.jpg') | imagine_filter('medium_avatar') }}"
-                              alt='' />
-
-                           {% endif %}
-
-                        {% endif %}
-
-                        <div class="media-body pl-3 ">
-                           <strong class="d-block">{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo :
-                              commande.vendeur.nickName }}</strong>
-                           <p class="mb-0 text-muted text-left">
-                              {{ commande.vendeur.apropos|u.truncate(60, '...') }}
-                           </p>
-                        </div>
-                     </div>
-
-                     {% if commande.vendeur.compte == 'Vendeur' %}
-                     <div class="pt-0">
-                        <div class="d-flex align-items-top mb-2">
-                           <p class="mb-0 "><i class="fa fa-thumbs-up"></i> Avis positif</p>
-                           <p class="mb-0 mt-0 ml-auto">{{ avispositif(commande.vendeur)|length }}</p>
-                        </div>
-                        <div class="d-flex align-items-top mb-2">
-                           <p class="mb-0 "><i class="fa fa-thumbs-down"></i> Avis négatif</p>
-                           <p class="mb-0 mt-0 ml-auto">{{ avisnegatif(commande.vendeur)|length }}</p>
-                        </div>
-                        <div class="d-flex align-items-top mb-2">
-                           <p class="mb-0 "><i class="fa fa-cart-plus"></i> Commandes en cours</p>
-                           <p class="mb-0 mt-0 ml-auto">{{ commandeEncours(commande.vendeur)|length }}</p>
-                        </div>
-                        <div class="d-flex align-items-top mb-2">
-                           <p class="mb-0 "><i class="fa fa-opencart"></i> Vente au total</p>
-                           <p class="mb-0 mt-0 ml-auto">{{ ventes(commande.vendeur)|length }}</p>
-                        </div>
-                        <div class="d-flex align-items-top mb-2">
-                           <p class="mb-0 "><i class="fa fa-user-circle"></i> {{ commande.vendeur.compte }}</p>
-                           <p class="mb-0 mt-0 ml-auto">{{ commande.vendeur.created|ago(locale='fr') }}</p>
-                        </div>
-                        <div class="d-flex align-items-top mb-2">
-                           <p class="mb-0 "><i class="fa fa-map-marker"></i> Ville</p>
-                           <p class="mb-0 mt-0 ml-auto">{{ commande.vendeur.ville }}</p>
-                        </div>
-                        <div class="d-flex align-items-top mb-2">
-                           <p class="mb-0 "><i class="fa fa-map"></i> Adresse</p>
-                           <p class="mb-0 mt-0 ml-auto">{{ commande.vendeur.adresse }}</p>
-                        </div>
-                        <div class="d-flex align-items-top">
-                           <p class="mb-0 "><i class="fa fa-phone"></i> Téléphone</p>
-                           <p class="mb-0 mt-0 ml-auto">{{ commande.vendeur.telephone }}</p>
-                        </div>
-                     </div>
-
-                     {% endif %}
-
-                  </div>
-               </div>
-            </div>
-         </div>
-
-         <div class="card mb-4">
-            <div class="card-body">
-
-               {% if commande.payed == true %}
-               <div class="">
-                  <h3 class="h6 custom-size">1 - Commande payée</h3>
-                  <span class="text-muted">{{ commande.created|ago(locale='fr') }}</span>
-               </div>
-               {% endif %}
-
-               {% if commande.validate == 1 %}
-
-               <div class="py-3" id="valider">
-                  <h3 class="h6 custom-size">2 - Commande validée</h3>
-                  <span class="text-muted">{{ commande.validateAt|ago(locale='fr') }}</span>
-               </div>
-
-
-               <div class="py-3">
-                  <h3 class="h6 custom-size">3 - Commande en cours</h3>
-                  <span class="text-muted">{{ commande.validateAt|ago(locale='fr') }}</span>
-               </div>
-
-               {% endif %}
-
-               {% if is_granted('microservice_edit', commande.microservice) %}
-
-               {% if commande.deliver == 0 %}
-
-               {% if commande.cancel == 0 %}
-
-               <div class="py-3">
-
-                  {% if commande.validate == 0 %}
-
-                  {{ include('commande/composants/_validate_form.html.twig') }}
-
-                  {% endif %}
-
-                  {% if commande.validate == 1 %}
-
-                  {{ include('commande/composants/_livrer_form.html.twig') }}
-
-                  {% endif %}
-
-                  {{ include('commande/composants/_annuler_form.html.twig') }}
-
-               </div>
-
-               {% endif %}
-
-               {% endif %}
-
-               {% endif %}
-
-               {% if commande.deliver == 1 %}
-
-               <div class="py-3">
-                  <h3 class="h6 custom-size">4 - Commande livrée</h3>
-                  <span class="text-muted">{{ commande.deliverAt|ago(locale='fr') }}</span>
-               </div>
-
-               {% endif %}
-
-               {% if commande.cancel == 1 %}
-
-               <div class="py-3">
-                  <h3 class="h6 custom-size">5 - Commande annuler</h3>
-                  <span class="text-muted">{{ commande.cancelAt|ago(locale='fr') }}</span>
-                  <p>Pour une raison ou une autre, la commande à été annulée par le vendeur</p>
-               </div>
-
-               {% endif %}
-
-               {{ include('commande/composants/_question_frequentes.html.twig') }}
+                <div>
+                    {% include "commande/composants/_avis_form.html.twig" %}
+                </div>
 
             </div>
-
-         </div>
-      </div>
-      <div class="col-sm-8">
-         <!-- Chat -->
-         {% include "commande/composants/_chat.html.twig" %}
-
-         <!--- Rapport de prestation -->
-         {% include "commande/composants/_rapport.html.twig" %}
-
-         <div>
-            {% include "commande/composants/_avis_form.html.twig" %}
-         </div>
-
-      </div>
-   </div>
-</section>
+        </div>
+    </section>
 {% endblock %}

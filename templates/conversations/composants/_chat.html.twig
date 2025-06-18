@@ -34,8 +34,8 @@
 			<!-- Partie droite -->
 			<div class="col-md-12 col-xl-12 px-0 {{ app.request.attributes.get('_route') == 'conversations' ? 'd-none d-sm-block' : '' }}">
 				{% if app.request.attributes.get('_route') == 'conversations_show' %}
-					<div class="p-3 d-flex align-items-center  border-bottom osahan-post-header">
-						<div class="font-weight-bold mr-1 overflow-hidden">
+{#					<div class="p-3 d-flex align-items-center  border-bottom osahan-post-header">#}
+{#						<div class="font-weight-bold mr-1 overflow-hidden">#}
 
 {#							{% if conversation.user1.id == app.user.id %}#}
 {#								<div class="text-truncate">#}
@@ -69,8 +69,8 @@
 {#								</div>#}
 {#							{% endif %}#}
 
-						</div>
-					</div>
+{#						</div>#}
+{#					</div>#}
 					<div class="osahan-chat-box p-3 bg-light">
 
 						{% include "conversations/composants/_security.html.twig" %}

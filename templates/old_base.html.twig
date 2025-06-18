@@ -141,6 +141,13 @@
 				keyboard: true,
 				show: false
 			});
+
+			var chatBox = document.querySelector('.osahan-chat-box');
+
+			// Défilement vers le bas dans la messagerie de discussion quand on actualise la pagee
+			if (chatBox) {
+				chatBox.scrollTop = chatBox.scrollHeight;
+			}
 		})
 	</script>
 

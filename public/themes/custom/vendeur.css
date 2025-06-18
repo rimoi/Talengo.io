@@ -475,3 +475,36 @@ footer .copyrights p {
         margin-left: -22px;
     }
 }
+
+footer .content .linksWebsite .title {
+    font-family: "Outfit-Medium", arial, sans-serif !important;
+    font-weight: bold !important;
+}
+
+footer .copyrights p {
+    margin-bottom: 0;
+}
+
+.message-box {
+    margin-top: 15px;
+}
+
+.date-separator {
+    display: flex;
+    align-items: center;
+    color: #666; /* Couleur du texte */
+    margin: 20px 0;
+    font-size: 0.9em;
+}
+
+.date-separator::before,
+.date-separator::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd; /* Style de la ligne */
+    margin: 0 10px;
+}
+
+.date-text {
+    color: #4c8be8;
+}

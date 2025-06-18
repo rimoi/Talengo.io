@@ -1,59 +1,36 @@
 <div class="">
-   <div class="d-flex align-items-top mb-2">
-      <p class="mb-0 text-muted"><i class="fa fa-calendar"></i> Date de reservation</p>
-      <p class="text-muted mb-0 mt-0 ml-auto">
-         {{ commande.reservationDate|date("d/m/Y") }}
-      </p>
-   </div>
-   {% if tauxHoraire %}
-
-   {% if startHoure is defined %}
-   
-   <div class="d-flex align-items-top mb-2">
-      <p class="mb-0 text-muted">Heure debut</p>
-      <p class="text-muted mb-0 mt-0 ml-auto">
-         {{ commande.startHoure }}h
-      </p>
-   </div>
-
-   {% endif %}
-
-   {% if endHoure is defined %}
-   
-   <div class="d-flex align-items-top mb-2">
-      <p class="mb-0 text-muted">Heure fin</p>
-      <p class="text-muted mb-0 mt-0 ml-auto">
-         {{ commande.endHoure }}h
-      </p>
-   </div>
-
-   {% endif %}
-
-   {% if startHoure is defined %}
-   <div class="d-flex align-items-top mb-2">
-      <p class="mb-0 text-muted">Taux horaire</p>
-      <p class="text-muted mb-0 mt-0 ml-auto">
-         {{ tauxHoraire }}h
-      </p>
-   </div>
-   {% endif %}
-
-   {% endif %}
-
-   <div class="d-flex align-items-top mb-2">
-         <p class="mb-0 text-dark">
+    <div class="d-flex align-items-top mb-2">
+        <p class="mb-0 text-muted"><i class="fa fa-calendar"></i> Date de réservation</p>
+        <p class="text-muted mb-0 mt-0 ml-auto">
+            {{ commande.reservationDate|date("d/m/Y") }}
+        </p>
+    </div>
+    <div class="d-flex align-items-top mb-2">
+        <p class="mb-0 text-dark">
             <span>TOTAL 
-            {% if startHoure is defined %}
-               <br> (Taux horaire inclus)</span>
-            {% endif %}
-         </p>
-      <strong class="text-dark mb-0 mt-0 ml-auto">{{ commande.montant }} {{ currency }}</strong>
-   </div>
-   <div class="d-flex align-items-top mb-2">
-      <p class="mb-0 text-muted">Statut</p>
-      <p class="ml-auto">
+        </p>
+        <strong class="text-dark mb-0 mt-0 ml-auto">{{ commande.montant }} {{ currency }}</strong>
+    </div>
+    <div class="d-flex align-items-top mb-2">
+        <p class="mb-0 text-muted">Statut</p>
+        <p class="ml-auto">
          <span class="badge badge-pill badge-{{ commande.payed == true ? 'success' : 'warning' }}">
             {{ commande.payed == true ? 'Payée' : 'Non payée' }}
+         </span>
+        </p>
+    </div>
+   <div class="d-flex align-items-top mb-2">
+      <p class="mb-0 text-muted">Commande</p>
+      <p class="ml-auto">
+         <span class="badge badge-pill badge-{{ commande.validate ? 'success' : 'warning' }}"
+               {% if commande.validate %}
+                 title="Commande accepté par le vendeur"
+                 {% else %}
+                 title="Commande en attente d'acceptation par le vendeur"
+                 {% endif %}
+
+         >
+            {{ commande.validate ? 'Confirmer' : 'En attente' }}
          </span>
       </p>
    </div>

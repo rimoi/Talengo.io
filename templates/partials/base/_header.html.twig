@@ -129,14 +129,14 @@
 								<div class="dropdownMenu">
 									<ul>
 
-										<li>
-											<div class="text-small">
-												<span class="dropdown-user-details-name text-dark">
-													{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.nickName }}
-												</span>
-												<div class="dropdown-user-details-email">{{ app.user.email }}</div>
-											</div>
-										</li>
+{#										<li>#}
+{#											<div class="text-small">#}
+{#												<span class="dropdown-user-details-name text-dark">#}
+{#													{{ app.user.usePseudo == 1 ? app.user.pseudo : app.user.nickName }}#}
+{#												</span>#}
+{#												<div class="dropdown-user-details-email">{{ app.user.email }}</div>#}
+{#											</div>#}
+{#										</li>#}
 										{% if is_granted('ROLE_ADMIN') %}
 											<li><a href="{{ path('admin_dashboard') }}">
 													Administration

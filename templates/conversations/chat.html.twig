@@ -8,12 +8,12 @@
 
 
 <section class="container ">
-   <div class="breadcrumb">
-      <div class="content">
-         <a href="{{ path('accueil') }}"><i class="fa fa-home"></i></a>
-         <a href="{{ path('conversations') }}"><i class="fa fa-comments"></i> Liste des conversations</a>
-      </div>
-   </div>
+{#   <div class="breadcrumb">#}
+{#      <div class="content">#}
+{#         <a href="{{ path('accueil') }}"><i class="fa fa-home"></i></a>#}
+{#         <a href="{{ path('conversations') }}"><i class="fa fa-comments"></i> Liste des conversations</a>#}
+{#      </div>#}
+{#   </div>#}
    <div class="row py-5">
       <div class="col-sm-{{ microservice ? 9 : 12 }}">
          {% include "conversations/composants/_chat.html.twig" %}

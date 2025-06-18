@@ -76,6 +76,11 @@ class Message
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $file = null;
 
+    public function getUser(): ?User
+    {
+        return $this->auteur;
+    }
+
     public function __construct()
     {
         $this->conversations = new ArrayCollection();

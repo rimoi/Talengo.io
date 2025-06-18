@@ -1,33 +1,39 @@
 {% for message in messages %}
 
-<div class="media w-75 p-2 bg-white message-box {{ message.user == app.user ? 'ml-auto' : '' }}">
-	{% if message.user.avatar %}
-	<img src="{{ vich_uploader_asset(message.user) | imagine_filter('small_avatar') }}"
-		alt="{{ message.user.prenom ?? '' }}" class="rounded-circle border">
-	{% else %}
-	<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
-	{% endif %}
+	{% if message.id %}
+		<div class="media w-75 p-2 bg-white message-box {{ message.user == app.user ? 'ml-auto' : '' }}">
+			{% if message.user.avatar %}
+				<img src="{{ vich_uploader_asset(message.user) | imagine_filter('small_avatar') }}"
+					 alt="{{ message.user.prenom ?? '' }}" class="rounded-circle border">
+			{% else %}
+				<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+			{% endif %}
 
-	<div class="media-body ml-2">
-		<div class="d-flex text-truncate p-0 m-0 align-items-top">
-			<strong>
-				{{ message.user == app.user ? 'Vous' : message.user.nom ~ ' ' ~ message.user.prenom }}
-			</strong>
-			&nbsp;&nbsp;
-			<span class="ml-auto text-muted small font-italic">
+			<div class="media-body ml-2">
+				<div class="d-flex text-truncate p-0 m-0 align-items-top">
+					<strong>
+						{{ message.user == app.user ? 'Vous' : message.user.nom ~ ' ' ~ message.user.prenom }}
+					</strong>
+					&nbsp;&nbsp;
+					<span class="ml-auto text-muted small font-italic">
 				{{ message.created|ago(locale='fr') }}
 			</span>
-		</div>
-		<p class="font-italic font-weight-light">{{ message.contenu }}</p>
+				</div>
+				<p class="font-italic font-weight-light">{{ message.contenu }}</p>
 
-		{% if message.file %}
-			<div class="py-2">
-				<p class="pb-0 mb-0 text-dark"><i class="fa fa-download"></i> Fichier joint</p>
-				<a href="{{ vich_uploader_asset(message, 'messageFile') }}" target="_blank">{{ message.file }}</a>
+				{% if message.file %}
+					<div class="py-2">
+						<p class="pb-0 mb-0 text-dark"><i class="fa fa-download"></i> Fichier joint</p>
+						<a href="{{ vich_uploader_asset(message, 'messageFile') }}" target="_blank">{{ message.file }}</a>
+					</div>
+				{% endif %}
+
 			</div>
-		{% endif %}
-
-	</div>
-</div>
+		</div>
+	{% else %}
+		<div class="date-separator">
+			<span class="date-text">{{ message.contenu }}</span>
+		</div>
+	{% endif %}
 
 {% endfor %}

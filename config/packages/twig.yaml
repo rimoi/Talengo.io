@@ -12,8 +12,8 @@ twig:
         app_environement: '%env(APP_ENV)%'
         stripe_public_key: '%env(STRIPE_PUBLIC_KEY)%'
         map_box_token: '%env(MAPBOX_TOKEN)%'
-        appSite: 'https://talengo.io/'
-        appSiteLocal: 'https://127.0.0.1:8000/'
+        appSite: 'https://talengo.io'
+        appSiteLocal: 'https://127.0.0.1:8000'
 
 when@test:
     twig:

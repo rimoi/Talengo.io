@@ -336,9 +336,12 @@
 							<p class="info-security hiddenMobile"><i class="fa-solid fa-lock"></i> Paiement Sécurisé</p>
 							<span class="info hiddenMobile">Tous les prix sont H.T et hors frais bancaires. Le prix définitif est calculé sur la page de paiement.</span>
 						</div>
-						<div class="flexCenter">
-							<a href="{{ path('microservice_conversations', {vendeurNameUrl: microservice.vendeur.nameUrl, microserviceId: microservice.id }) }}" class="btn btn-primaryBlue hiddenMobile">Me contacter</a>
-						</div>
+
+						{% if not app.user or app.user.id != microservice.vendeur.id %}
+							<div class="flexCenter">
+								<a href="{{ path('microservice_conversations', {vendeurNameUrl: microservice.vendeur.nameUrl, microserviceId: microservice.id }) }}" class="btn btn-primaryBlue hiddenMobile">Me contacter</a>
+							</div>
+						{% endif %}
 					</div>
 				</div>
 			</div>

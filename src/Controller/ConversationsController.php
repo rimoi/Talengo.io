@@ -29,7 +29,7 @@ class ConversationsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'conversations_show', methods: ['GET', 'POST'])]
+    #[Route('/{id}/show', name: 'conversations_show', methods: ['GET', 'POST'])]
     public function chat(
         Conversation $conversation,
         ConversationRepository $conversationsRepository,

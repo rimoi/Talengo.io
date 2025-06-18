@@ -6,6 +6,7 @@ use App\Entity\Avis;
 use App\Entity\AvisReponse;
 use App\Entity\Commande;
 use App\Entity\CommandeMessage;
+use App\Entity\Conversation;
 use App\Entity\Message;
 use App\Entity\Portefeuille;
 use App\Entity\Rapport;
@@ -95,8 +96,8 @@ class CommandeController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
 
+        /** @var Commande $commande */
         $commande = $commandeRepository->find($id);
-        $tauxHoraire = $commande->getTauxHoraire() ? $commande->getTauxHoraire() : null;
         $somme = $commande->getMontant();
         $montantTotal = $somme;
 
@@ -122,9 +123,43 @@ class CommandeController extends AbstractController
         $usercommandes = $commandeRepository->findWhereUserIsClientOrVendeur($user);
 
         // Recupération des méssages liés à cette commande
+
+        $conversation = $entityManager->getRepository(Conversation::class)->findOneBy([
+            'user1' => $commande->getClient()->getId(),
+            'user2' => $commande->getVendeur()->getId(),
+            'microservice' => $commande->getMicroservice()->getId()
+        ]);
+
+
+        $oldMessages = [];
+        if ($conversation) {
+            $oldMessages = $entityManager->getRepository(Message::class)->findBy(['conversation' => $conversation]);
+        }
+
         $messages = $commandeMessageRepository->findBy([
             'commande' => $commande
         ]);
+
+        if (count($oldMessages)) {
+            $messageSeparated = new Message();
+
+            $date = $commande->getReservationDate();
+
+            $formatter = new \IntlDateFormatter(
+                'fr_FR',
+                \IntlDateFormatter::MEDIUM,
+                \IntlDateFormatter::SHORT,
+                'Europe/Paris', // Fuseau horaire
+                \IntlDateFormatter::GREGORIAN,
+                "d MMM y à HH:mm"
+            );
+
+            $messageSeparated->setContenu(
+                sprintf('Commande passée le %s', $formatter->format($date))
+            );
+
+            $messages = array_merge($oldMessages, [$messageSeparated], $messages);
+        }
 
         $avis = new Avis();
         $avisForm = $this->createForm(AvisType::class, $avis);
@@ -227,11 +262,8 @@ class CommandeController extends AbstractController
 
             $portefeuille = $commande->getVendeur()->getPortefeuille();
 
-            //dd($conversation);
 
             $somme = $commande->getMontant() + $portefeuille->getSoldeDisponible();
-
-            $difference = null;
 
             if ($commande->getMontant() >= $portefeuille->getSoldeEncours()) {
 
@@ -286,7 +318,6 @@ class CommandeController extends AbstractController
             'messages' => $messages,
             'form' => $form->createView(),
             'montant' => $montantTotal,
-            'tauxHoraire' => $tauxHoraire,
         ]);
     }
 

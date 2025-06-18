@@ -159,6 +159,11 @@ body.userConnected header ul.menu .dropdown-user-details-email {
     margin-bottom: 20px;
 }
 
+footer div ul li:not(:last-child) {
+    padding-bottom: 16px;
+
+}
+
 
 /*
 ALERT
