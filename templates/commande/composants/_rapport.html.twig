@@ -1,33 +1,32 @@
 {% if is_granted('microservice_edit', commande.microservice) %}
-{% if commande.deliver == true %}
-<div class="card my-4" id="rapport">
-   <div class="card-header bg-dark">
-      <h6 class="h6 text-light">
-         Rapport de fin de prestation de service
-      </h6>
-   </div>
-   <div class="card-body">
-      {% if rapport == false %}
-      <div class="pt-0">
-         {{ form_start(rapportForm) }}
+    {% if commande.deliver == true %}
+        <div class="card my-4" id="rapport">
+            <div class="card-header bg-dark">
+                <h6 class="h6 text-light">
+                    Rapport de fin de prestation de service
+                </h6>
+            </div>
+            <div class="card-body">
+                {% if rapport == false %}
+                    <div class="pt-0">
+                        {{ form_start(rapportForm) }}
 
-         {{ form_widget(rapportForm) }}
+                        {{ form_widget(rapportForm) }}
 
-         <button type="submit" class="btn btn-dark">
+                        <button type="submit" class="btn btn-dark">
             <span id="btnFetch" class="w-100">
                <i class="mdi mdi-send"></i> Envoyer
             </span>
-         </button>
+                        </button>
 
-         {{ form_end(rapportForm) }}
-      </div>
-      {% else %}
-      <p class="font-italic p-3 bg-light pt-0 d-block rounded">
-         Nous accusons une bonne réception de votre rapport, merci pour votre
-         éventuel collaboration.
-      </p>
-      {% endif %}
-   </div>
-</div>
-{% endif %}
+                        {{ form_end(rapportForm) }}
+                    </div>
+                {% else %}
+                    <p class="font-italic p-3 bg-light pt-0 d-block rounded">
+                       Nous accusons réception de votre rapport et vous remercions pour votre collaboration.
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
 {% endif %}

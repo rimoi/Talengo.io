@@ -37,7 +37,6 @@ class AccueilController extends AbstractController
         } elseif ($request->get('q') === '1') {
             // Meuilleur ventes
 
-            // A voir cela une fois connaitre comment on créer une commande
             $services = $microserviceRepository->sortByAvis();
 
         } elseif ($request->attributes->get('_route') == 'search_list') {
@@ -81,8 +80,24 @@ class AccueilController extends AbstractController
         PaginatorInterface $paginator
     ): Response
     {
+
+        if ($request->get('q') === '2') {
+            // Dernières nouveauté
+            $services = $microserviceRepository->findBy([
+                'categorie' => $categorie,
+                'online' => true
+            ], ['id' => 'DESC']);
+        } elseif ($request->get('q') === '1') {
+            // Meuilleur ventes
+
+            $services = $microserviceRepository->sortByAvis(null, $categorie);
+
+        } else {
+            $services = $microserviceRepository->sortByAvis(null, $categorie);
+        }
+
         $services = $paginator->paginate(
-            $microserviceRepository->findBy(['categorie' => $categorie], ['id' => 'DESC']),
+            $services,
             $request->query->getInt('page', 1),
             48
         );

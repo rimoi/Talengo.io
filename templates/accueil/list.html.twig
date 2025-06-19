@@ -18,16 +18,17 @@
 
 
     <div class="cs-list-top-services">
-
-        {% if app.request.attributes.get('_route') == "list" %}
+        {% if
+            app.request.attributes.get('_route') == "list"
+        %}
             <div class="filter">
                 <div class="container">
                     <div class="wrp-select">
                         <span class="label">Trier par :</span>
-                        <select class="custom-select" name="" data-url="{{ path('list') }}">
+                        <select class="custom-select" name="" data-url="{{ path('list') }}" >
                             <option value="0">Pertinence</option>
-                            <option value="1">Meilleures ventes</option>
-                            <option value="2">Dernières nouveautés</option>
+                            <option value="1" {{ app.request.get('q') == '1' ? 'selected' }}>Meilleures ventes</option>
+                            <option value="2" {{ app.request.get('q') == '2' ? 'selected' }}>Dernières nouveautés</option>
                         </select>
                     </div>
                 </div>

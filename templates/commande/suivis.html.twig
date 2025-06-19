@@ -40,15 +40,15 @@
                         <div class="card mb-4">
                             <div class="card-body">
 
-                                {% if commande.payed == true %}
-                                    <div class="d-flex justify-content-between">
+{#                                {% if commande.payed == true %}#}
+                                    <div class="d-flex py-3 justify-content-between">
                                         <h3 class="h6 custom-size">1 - Commande payée</h3>
                                         <div class="text-muted mt-n2px">
                                             {{ commande.created|date('d/m/Y à H:i') }}
                                         </div>
 {#                                       <span class="text-muted">{{ commande.created|ago(locale='fr') }}</span>#}
                                     </div>
-                                {% endif %}
+{#                                {% endif %}#}
 
                                 {% if commande.validate == 1 %}
 

@@ -17,18 +17,18 @@
 {% block body %}
 
     <div class="cs-list-top-services">
-{#        <div class="filter">#}
-{#            <div class="container">#}
-{#                <div class="wrp-select">#}
-{#                    <span class="label">Trier par :</span>#}
-{#                    <select class="custom-select" name="" data-url="{{ path('list') }}">#}
-{#                        <option value="0">Pertinence</option>#}
-{#                        <option value="1">Meilleures ventes</option>#}
-{#                        <option value="2">Dernières nouveautés</option>#}
-{#                    </select>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
+        <div class="filter">
+            <div class="container">
+                <div class="wrp-select">
+                    <span class="label">Trier par :</span>
+                    <select class="custom-select" name="" data-url="{{ path('show_service', {slug: app.request.attributes.get('slug')}) }}" >
+                        <option value="0">Pertinence</option>
+                        <option value="1" {{ app.request.get('q') == '1' ? 'selected' }}>Meilleures ventes</option>
+                        <option value="2" {{ app.request.get('q') == '2' ? 'selected' }}>Dernières nouveautés</option>
+                    </select>
+                </div>
+            </div>
+        </div>
 
         <section class="section-services">
             <div class="container">

@@ -28,7 +28,7 @@ class AvisType extends AbstractType
                 'label' => false,
                 'choices'  => [
                     'Positif' =>  'Positif',
-                    'Negatif'    =>  'Negatif',
+                    'Négatif'    =>  'Negatif',
                 ],
                 'expanded' => true,
                 'multiple' => false,

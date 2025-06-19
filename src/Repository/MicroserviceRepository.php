@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Categorie;
 use App\Entity\Microservice;
 use App\Entity\SearchService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -49,8 +50,16 @@ class MicroserviceRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('ms');
 
-        return $qb->where('ms.name LIKE :name')
+        return $qb
+            ->leftJoin('ms.commandes', 'c')
+            ->where('ms.online = :true')
+            ->andWhere('ms.name LIKE :name')
+            ->setParameter('true', true)
             ->setParameter('name', '%' . $request->get('search') . '%')
+            ->groupBy('ms.id')
+            ->orderBy('COUNT(DISTINCT c.id)', 'DESC')
+            ->addOrderBy('ms.numberAvis', 'DESC')
+            ->addOrderBy('ms.id', 'DESC')
             ->getQuery()
             ->getResult()
         ;
@@ -312,17 +321,27 @@ class MicroserviceRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function sortByAvis(?int $maxResult = null): array
+    public function sortByAvis(?int $maxResult = null, ?Categorie $categorie = null): array
     {
         $qb = $this->createQueryBuilder('m');
 
-        $qb->join('m.vendeur', 'v')
+        $qb
+            ->leftJoin('m.commandes', 'c')
             ->where('m.online = :true')
             ->setParameter('true', true)
-            ->orderBy('m.numberAvis', 'DESC');
+            ->groupBy('m.id')
+            ->orderBy('COUNT(DISTINCT c.id)', 'DESC')
+            ->addOrderBy('m.numberAvis', 'DESC')
+            ->addOrderBy('m.id', 'DESC');
 
         if ($maxResult) {
             $qb->setMaxResults($maxResult);
+        }
+
+        if ($categorie) {
+            $qb->join('m.categorie', 'ct')
+                ->andWhere('ct.id = :categorie')
+                ->setParameter('categorie', $categorie);
         }
 
         return $qb->getQuery()->getResult();

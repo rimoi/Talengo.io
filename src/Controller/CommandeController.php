@@ -298,7 +298,7 @@ class CommandeController extends AbstractController
                 $commande
             );
 
-            $this->addFlash('success', 'Rapport envoyé avec succès');
+            $this->addFlash('success', 'Le rapport a été envoyé avec succès.');
             return $this->redirectToRoute('commande_details', [
                 'id' => $commande->getId()
             ], Response::HTTP_SEE_OTHER);
