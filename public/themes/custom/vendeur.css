@@ -508,3 +508,7 @@ footer .copyrights p {
 .date-text {
     color: #4c8be8;
 }
+
+.mt-n2px {
+    margin-top: -2px;
+}

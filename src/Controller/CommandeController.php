@@ -29,6 +29,7 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Omnipay\Omnipay;
 use PHPUnit\TextUI\Command;
+use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -322,11 +323,33 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/success/str/commande_id={id}', name: 'commande_str_success')]
-    public function successStripe(Commande $commande): Response
+    public function successStripe(Commande $commande, MailerService $mailer): Response
     {
         if ($commande->getClient() != $this->getUser()) {
             return $this->redirectToRoute('accueil', [], Response::HTTP_SEE_OTHER);
         }
+
+        /** Envoie du mail au client */
+        $mailer->sendCommandMail(
+            'talengo.contact@gmail.com',
+            $commande->getClient()->getEmail(),
+            'Nouvelle commande',
+            'mails/_client.html.twig',
+            $commande->getClient(),
+            $commande->getVendeur(),
+            $commande
+        );
+
+        /** Envoie du mail au vendeur */
+        $mailer->sendCommandMail(
+            'talengo.contact@gmail.com',
+            $commande->getVendeur()->getEmail(),
+            'Nouvelle commande',
+            'mails/_vendeur.html.twig',
+            $commande->getClient(),
+            $commande->getVendeur(),
+            $commande
+        );
 
         return $this->render('commande/success.html.twig', [
             'commande' => $commande
@@ -334,7 +357,7 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/success/pyp/commande_id={id}', name: 'commande_pyp_success')]
-    public function successPaypal(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
+    public function successPaypal(Request $request, Commande $commande, EntityManagerInterface $entityManager, MailerService $mailer): Response
     {
         if ($commande->getClient() != $this->getUser()) {
             return $this->redirectToRoute('accueil', [], Response::HTTP_SEE_OTHER);
@@ -359,10 +382,42 @@ class CommandeController extends AbstractController
             if ($response->isSuccessful()) {
                 $payment = $response->getData();
 
-                $commande->setReferencePaypalId($payment['id'] ?? null);
+                $saleId = null;
+                if (isset($payment['transactions'][0]['related_resources'][0]['sale']['id'])) {
+                    $saleId = $payment['transactions'][0]['related_resources'][0]['sale']['id'];
+                }
+
+                $commande->setReferencePaypalId($saleId);
+
                 $commande->setPayerPaypalId($payment['payer']['payer_info']['payer_id'] ?? null);
+                $commande->setPayerEmailPaypal($payment['payer']['payer_info']['email'] ?? null);
+
+                $commande->setIsPayWithStripe(false);
 
                 $entityManager->flush();
+
+
+                /** Envoie du mail au client */
+                $mailer->sendCommandMail(
+                    'talengo.contact@gmail.com',
+                    $commande->getClient()->getEmail(),
+                    'Nouvelle commande',
+                    'mails/_client.html.twig',
+                    $commande->getClient(),
+                    $commande->getVendeur(),
+                    $commande
+                );
+
+                /** Envoie du mail au vendeur */
+                $mailer->sendCommandMail(
+                    'talengo.contact@gmail.com',
+                    $commande->getVendeur()->getEmail(),
+                    'Nouvelle commande',
+                    'mails/_vendeur.html.twig',
+                    $commande->getClient(),
+                    $commande->getVendeur(),
+                    $commande
+                );
             }
 
             return $this->render('commande/success.html.twig', [
@@ -608,7 +663,7 @@ class CommandeController extends AbstractController
             );
         }
 
-        $this->addFlash('success', 'Commande validée!');
+        $this->addFlash('success', 'Commande validée !');
 
         return $this->redirectToRoute('commande_details', [
             'id' => $commande->getId()
@@ -661,19 +716,73 @@ class CommandeController extends AbstractController
 
         if ($this->isCsrfTokenValid('annuler' . $commande->getId(), $request->request->get('_token'))) {
 
-            /** Annulation de la commande entraine un remboursement Stripe */
-            \Stripe\Stripe::setApiKey($this->privateKey);
+            if ($commande->isIsPayWithStripe()) {
+                $gateway = Omnipay::create('Stripe');
+                $gateway->setApiKey($this->privateKey);
 
-            try {
-                $refound = \Stripe\Refund::create([
-                    "payment_intent" => $commande->getPaymentIntent(),
-                    "reason" => "requested_by_customer",
-                    //"receipt_number" => "4242 4242 4242 4242",
-                    //"source_transfer_reversal" => null,
-                    //"status" => "succeeded",
-                ]);
-            } catch (\Throwable $th) {
-                dd($th->getMessage());
+                $response = $gateway->refund([
+                    'transactionReference' => $commande->getReferenceStripeId(),
+                    'amount' => $commande->getMontant(), // Optionnel, pour remboursement partiel
+                ])->send();
+
+                if ($response->isSuccessful()) {
+                    // Remboursement OK
+                    $refundId = $response->getTransactionReference();
+                    $commande->setReferenceStripeRefundId($refundId);
+
+                    $commande->setStatut('Annulé');
+
+                    $commande->setIsPayWithStripe(null);
+                } else {
+
+                    $commande->setStripeErrorRefund($response->getMessage());
+
+                    $entityManager->flush();
+
+                    $this->addFlash('danger', "La commande n'a pas pu être annulée. Contactez l'administrateur du site.");
+
+                    return $this->redirectToRoute('commande_details', [
+                        'id' => $commande->getId(),
+                    ], Response::HTTP_SEE_OTHER);
+                }
+            } elseif ($commande->isIsPayWithStripe() === false) {
+                $gateway = Omnipay::create('PayPal_Rest');
+                $gateway->setClientId($_ENV['PAYPAL_CLIENT_ID']);
+                $gateway->setSecret($_ENV['PAYPAL_SECRET']);
+
+                if ($_ENV['APP_ENV'] === 'dev') {
+                    $gateway->setTestMode(true);
+                }
+
+                $response = $gateway->refund([
+                    'transactionReference' => $commande->getReferencePaypalId(),
+                    'amount' => number_format($commande->getMontant(), 2, '.', ''),
+                    'currency' => 'EUR',
+                ])->send();
+
+                if ($response->isSuccessful()) {
+                    $refundData = $response->getData();
+
+                    $commande->setReferencePaypalRefundId($refundData['id']);
+
+                    $commande->setStatut('Annulé');
+
+                    $commande->setIsPayWithStripe(null);
+                } else {
+
+                    $commande->setPaypalErrorRefund($response->getMessage());
+
+                    $entityManager->flush();
+
+                    $this->addFlash('danger', "La commande n'a pas pu être annulée. Contactez l'administrateur du site.");
+
+                    return $this->redirectToRoute('commande_details', [
+                        'id' => $commande->getId(),
+                    ], Response::HTTP_SEE_OTHER);
+                }
+
+            } else {
+                throw $this->createNotFoundException("Impossible d'identifier la méthode de paiement utilisé !");
             }
 
             $remboursement = new Remboursement();
@@ -787,7 +896,10 @@ class CommandeController extends AbstractController
 
                     if ($response->isSuccessful()) {
 
+                        $commande->setReferenceStripeId($response->getTransactionReference());
                         $commande->setPayed(true);
+
+                        $commande->setIsPayWithStripe(true);
 
                         $entityManager->flush();
 

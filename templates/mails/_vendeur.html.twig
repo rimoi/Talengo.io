@@ -9,17 +9,11 @@
 
       <p>
          Bonne nouvelle ! vous avez une nouvelle commande d'un montant de <strong>{{ commande.montant ~ currency }}</strong> du client <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
-         client.nom ~ ' ' ~ client.prenom }}</strong>. pour le service <strong>{{ commande.microservice.name }}</strong>
+         client.nickName }}</strong>. pour le service <strong>{{ commande.microservice.name }}</strong>
       </p>
       
-      {% if commande.disponibilite %}
       <p>
-         Disponibilité: <strong>{{ commande.disponibilite }}</strong>
-      </p>
-      {% endif %}
-
-      <p>
-         Lorsque la commande sera terminée, vous percevrez <strong>{{ commande.montant ~ currency }}</strong>. Ce montant varie en fonction de votre offre {{ appName }}. Vous avez désormais 48 h à partir de la date de la commande pour recevoir les consignes de votre client via la messagerie, puis la valider. Le délai de livraison démarrera alors.
+         Lorsque la commande sera terminée, vous percevrez <strong>{{ commande.montant ~ currency }}</strong>. Ce montant varie en fonction de votre offre. Vous avez désormais 48 h à partir de la date de la commande pour recevoir les consignes de votre client via la messagerie, puis la valider. Le délai de livraison démarrera alors.
       </p>
 
       <div><br>

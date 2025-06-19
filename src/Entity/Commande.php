@@ -114,20 +114,32 @@ class Commande
     #[ORM\Column(nullable: true)]
     private ?bool $payed = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $tauxHoraire = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $startHoure = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $endHoure = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $payerPaypalId = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $referencePaypalId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $payerEmailPaypal = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $referenceStripeId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $referenceStripeRefundId = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $StripeErrorRefund = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $ReferencePaypalRefundId = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $paypalErrorRefund = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isPayWithStripe = null;
 
     public function __construct()
     {
@@ -568,42 +580,6 @@ class Commande
         return $this;
     }
 
-    public function getTauxHoraire(): ?int
-    {
-        return $this->tauxHoraire;
-    }
-
-    public function setTauxHoraire(?int $tauxHoraire): self
-    {
-        $this->tauxHoraire = $tauxHoraire;
-
-        return $this;
-    }
-
-    public function getStartHoure(): ?int
-    {
-        return $this->startHoure;
-    }
-
-    public function setStartHoure(?int $startHoure): self
-    {
-        $this->startHoure = $startHoure;
-
-        return $this;
-    }
-
-    public function getEndHoure(): ?int
-    {
-        return $this->endHoure;
-    }
-
-    public function setEndHoure(?int $endHoure): self
-    {
-        $this->endHoure = $endHoure;
-
-        return $this;
-    }
-
     public function getPayerPaypalId(): ?string
     {
         return $this->payerPaypalId;
@@ -622,6 +598,90 @@ class Commande
     public function setReferencePaypalId(?string $referencePaypalId): self
     {
         $this->referencePaypalId = $referencePaypalId;
+
+        return $this;
+    }
+
+    public function getPayerEmailPaypal(): ?string
+    {
+        return $this->payerEmailPaypal;
+    }
+
+    public function setPayerEmailPaypal(?string $payerEmailPaypal): self
+    {
+        $this->payerEmailPaypal = $payerEmailPaypal;
+
+        return $this;
+    }
+
+    public function getReferenceStripeId(): ?string
+    {
+        return $this->referenceStripeId;
+    }
+
+    public function setReferenceStripeId(?string $referenceStripeId): self
+    {
+        $this->referenceStripeId = $referenceStripeId;
+
+        return $this;
+    }
+
+    public function getReferenceStripeRefundId(): ?string
+    {
+        return $this->referenceStripeRefundId;
+    }
+
+    public function setReferenceStripeRefundId(?string $referenceStripeRefundId): self
+    {
+        $this->referenceStripeRefundId = $referenceStripeRefundId;
+
+        return $this;
+    }
+
+    public function getStripeErrorRefund(): ?string
+    {
+        return $this->StripeErrorRefund;
+    }
+
+    public function setStripeErrorRefund(?string $StripeErrorRefund): self
+    {
+        $this->StripeErrorRefund = $StripeErrorRefund;
+
+        return $this;
+    }
+
+    public function getReferencePaypalRefundId(): ?string
+    {
+        return $this->ReferencePaypalRefundId;
+    }
+
+    public function setReferencePaypalRefundId(?string $ReferencePaypalRefundId): self
+    {
+        $this->ReferencePaypalRefundId = $ReferencePaypalRefundId;
+
+        return $this;
+    }
+
+    public function getPaypalErrorRefund(): ?string
+    {
+        return $this->paypalErrorRefund;
+    }
+
+    public function setPaypalErrorRefund(?string $paypalErrorRefund): self
+    {
+        $this->paypalErrorRefund = $paypalErrorRefund;
+
+        return $this;
+    }
+
+    public function isIsPayWithStripe(): ?bool
+    {
+        return $this->isPayWithStripe;
+    }
+
+    public function setIsPayWithStripe(?bool $isPayWithStripe): self
+    {
+        $this->isPayWithStripe = $isPayWithStripe;
 
         return $this;
     }

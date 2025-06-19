@@ -9,7 +9,6 @@
 {% block footer '' %}
 
 {% block body %}
-
     <section class="container py-5">
         <div class="row">
             <div class="col-sm-4">
@@ -42,23 +41,32 @@
                             <div class="card-body">
 
                                 {% if commande.payed == true %}
-                                    <div class="">
+                                    <div class="d-flex justify-content-between">
                                         <h3 class="h6 custom-size">1 - Commande payée</h3>
-                                        <span class="text-muted">{{ commande.created|ago(locale='fr') }}</span>
+                                        <div class="text-muted mt-n2px">
+                                            {{ commande.created|date('d/m/Y à H:i') }}
+                                        </div>
+{#                                       <span class="text-muted">{{ commande.created|ago(locale='fr') }}</span>#}
                                     </div>
                                 {% endif %}
 
                                 {% if commande.validate == 1 %}
 
-                                    <div class="py-3" id="valider">
+                                    <div class="py-3 d-flex justify-content-between" id="valider">
                                         <h3 class="h6 custom-size">2 - Commande validée</h3>
-                                        <span class="text-muted">{{ commande.validateAt|ago(locale='fr') }}</span>
+                                        <div class="text-muted mt-n2px">
+                                            {{ commande.validateAt|date('d/m/Y à H:i') }}
+                                        </div>
+{#                                        <span class="text-muted">{{ commande.validateAt|ago(locale='fr') }}</span>#}
                                     </div>
 
 
-                                    <div class="py-3">
+                                    <div class="py-3 d-flex justify-content-between">
                                         <h3 class="h6 custom-size">3 - Commande en cours</h3>
-                                        <span class="text-muted">{{ commande.validateAt|ago(locale='fr') }}</span>
+                                        <div class="text-muted mt-n2px">
+                                            {{ commande.validateAt|date('d/m/Y à H:i') }}
+                                        </div>
+{#                                        <span class="text-muted">{{ commande.validateAt|ago(locale='fr') }}</span>#}
                                     </div>
 
                                 {% endif %}
@@ -95,27 +103,40 @@
 
                                 {% if commande.deliver == 1 %}
 
-                                    <div class="py-3">
+                                    <div class="py-3 d-flex justify-content-between">
                                         <h3 class="h6 custom-size">4 - Commande livrée</h3>
-                                        <span class="text-muted">{{ commande.deliverAt|ago(locale='fr') }}</span>
+                                        <div class="text-muted mt-n2px">
+                                            {{ commande.deliverAt|date('d/m/Y à H:i') }}
+                                        </div>
+{#                                        <span class="text-muted">{{ commande.deliverAt|ago(locale='fr') }}</span>#}
                                     </div>
 
                                 {% endif %}
 
                                 {% if commande.cancel == 1 %}
 
-                                    <div class="py-3">
+                                    <div class="py-3 d-flex justify-content-between">
                                         <h3 class="h6 custom-size">5 - Commande annuler</h3>
-                                        <span class="text-muted">{{ commande.cancelAt|ago(locale='fr') }}</span>
-                                        <p>Pour une raison ou une autre, la commande à été annulée par le vendeur</p>
-                                    </div>
+                                        <div class="text-muted mt-n2px">
+                                            {{ commande.cancelAt|date('d/m/Y à H:i') }}
+                                        </div>
+{#                                        <span class="text-muted">{{ commande.cancelAt|ago(locale='fr') }}</span>#}
 
+                                    </div>
+                                    {% if is_granted('ROLE_VENDEUR') %}
+                                        <p class="text-muted mt-n2">
+                                            Vous avez choisi d'annuler cette commande. <br> Un imprévu peut arriver à tout professionnel, l'important est d'en informer rapidement le client, ce que vous avez fait. <br /> Merci !
+                                        </p>
+                                    {% else %}
+                                        <p class="text-muted mt-n2">
+                                            Nous regrettons de vous informer que le vendeur a annulé votre commande. Le remboursement est en cours et sera crédité sur votre compte d'ici quelques jours. <br>Pour toute demande, notre service client reste disponible.
+                                        </p>
+                                    {% endif %}
                                 {% endif %}
 
 
 
                             </div>
-
                         </div>
                         <hr class="m-0 p-0">
                         <div class="p-3">
