@@ -80,7 +80,7 @@
 									</div>
 									<div class="pl-3">
 										<strong class="d-block">{{ microservice.name }}</strong>
-										<a href="{{ path('microservices_categories', {slug: microservice.categorie.slug}) }}?categories%5B%5D={{ microservice.categorie.id }}" class="badge badge-blue rounded-pill">#{{ microservice.categorie.name }}</a>
+										<a href="{{ path('show_service', {slug: microservice.categorie.slug}) }}?categories%5B%5D={{ microservice.categorie.id }}" class="badge badge-blue rounded-pill">#{{ microservice.categorie.name }}</a>
 										<p class="">
 											A partir de <strong class="text-dark">{{ microservice.prix ~ currency }}</strong>
 										</p>

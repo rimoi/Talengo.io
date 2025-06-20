@@ -1,0 +1,10 @@
+<form method="post" class="d-inline" action="{{ path('vendeur_retouche_commande', {'id': commande.id}) }}"
+      title="Cliquez ici pour demander une retouche au vendeur !"
+      onsubmit="return confirm('Vous souhaitez demander une retouche au vendeur ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('retouche' ~ commande.id) }}">
+    <button class="btn btn-warning rounded-btn w-100 my-2">
+        <span id="btnFetch">
+           🔄 Demander une retouche au vendeur &nbsp;&nbsp;&nbsp;&nbsp;
+        </span>
+    </button>
+</form>

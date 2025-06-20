@@ -15,7 +15,7 @@
             <div class="row pb-3">
                <div class="col-sm-12">
                   {% for categorie in pack.categorie %}
-                  <a href="{{ path('microservices_categories', {slug: categorie.slug}) }}?categories%5B%5D={{ categorie.id }}"
+                  <a href="{{ path('show_service', {slug: categorie.slug}) }}?categories%5B%5D={{ categorie.id }}"
                      class="text-uppercase text-light">
                      {{ categorie.name }} /
                   </a> 

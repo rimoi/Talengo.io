@@ -1,0 +1,8 @@
+<form method="post" class="d-inline" action="{{ path('vendeur_cloturer_commande', {'id': commande.id}) }}"
+      title="Marquer la prestation comme clôturée. Attention : aucune retouche ne sera possible après cette action !"
+      onsubmit="return confirm('Marquer la prestation comme clôturée. Attention : aucune retouche ne sera possible après cette action ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('cloturer' ~ commande.id) }}">
+    <button class="btn btn-success rounded-btn w-100 my-2">
+        <span id="btnFetch">✅ Marquer la commande comme clôturer</span>
+    </button>
+</form>

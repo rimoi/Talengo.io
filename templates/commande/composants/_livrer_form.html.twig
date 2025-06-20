@@ -1,6 +1,8 @@
-<form method="post" class="d-inline" action="{{ path('vendeur_livrer_commande', {'id': commande.id}) }}" onsubmit="return confirm('Cette commande a bien été livrée?');">
+<form method="post" class="d-inline" action="{{ path('vendeur_livrer_commande', {'id': commande.id}) }}"
+      title="Cliquez ici pour marquer la prestation comme terminée. Une fois cela fait, le client pourra à son tour soit valider la commande comme terminée, soit demander une retouche."
+      onsubmit="return confirm('Cette commande a bien été livrée?');">
     <input type="hidden" name="_token" value="{{ csrf_token('livrer' ~ commande.id) }}">
-    <button class="btn btn-success rounded-btn w-100 my-2">
-        <span id="btnFetch">Prestation terminée commande livrée !</span>
+    <button class="btn btn-dark rounded-btn w-100 my-2">
+        <span id="btnFetch">Marquer la commande comme terminée !</span>
     </button>
 </form>

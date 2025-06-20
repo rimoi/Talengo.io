@@ -29,7 +29,7 @@
 
         <div class="py-2">
             {% for categorie in commande.pack.categorie %}
-            <a href="{{ path('microservices_categories', {slug: categorie.slug}) }}?categories%5B%5D={{ categorie.id }}"
+            <a href="{{ path('show_service', {slug: categorie.slug}) }}"
                 class="text-uppercase badge badge-pill badge-blue">
                 {{ categorie.name }}
             </a>

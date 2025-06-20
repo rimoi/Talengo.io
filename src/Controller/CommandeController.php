@@ -11,6 +11,7 @@ use App\Entity\Message;
 use App\Entity\Portefeuille;
 use App\Entity\Rapport;
 use App\Entity\Remboursement;
+use App\Entity\Retouche;
 use App\Entity\User;
 use App\Form\AvisReponseType;
 use App\Form\AvisType;
@@ -85,15 +86,16 @@ class CommandeController extends AbstractController
 
     #[Route('/suivis/commande_id={id}', name: 'commande_details')]
     public function commande(
-        CommandeRepository $commandeRepository,
-        $id,
-        Request $request,
-        EntityManagerInterface $entityManager,
+        CommandeRepository        $commandeRepository,
+                                  $id,
+        Request                   $request,
+        EntityManagerInterface    $entityManager,
         CommandeMessageRepository $commandeMessageRepository,
-        MailerService $mailer,
-        RapportRepository $rapportRepository,
-        AvisRepository $avisRepository
-    ): Response {
+        MailerService             $mailer,
+        RapportRepository         $rapportRepository,
+        AvisRepository            $avisRepository
+    ): Response
+    {
 
         /** @var User $user */
         $user = $this->getUser();
@@ -292,7 +294,7 @@ class CommandeController extends AbstractController
             $mailer->sendCommandMail(
                 'talengo.contact@gmail.com',
                 $commande->getVendeur()->getEmail(),
-                'Commande livrée',
+                'Votre argent arrive !',
                 'mails/_rapport_livrer.html.twig',
                 $commande->getClient(),
                 $commande->getVendeur(),
@@ -485,19 +487,19 @@ class CommandeController extends AbstractController
 
         $order = [
             'purchase_units' => [[
-                'description'    => 'Talengo.io achats de prestation',
-                'items'   =>  [
-                    'name'  =>  $microservice->getName(),
-                    'quatity'   =>  1,
-                    'unit_amount'   =>  [
-                        'value'     =>  $somme,
-                        'currency_code' =>  'EUR',
+                'description' => 'Talengo.io achats de prestation',
+                'items' => [
+                    'name' => $microservice->getName(),
+                    'quatity' => 1,
+                    'unit_amount' => [
+                        'value' => $somme,
+                        'currency_code' => 'EUR',
                     ],
                 ],
 
-                'amount'  =>  [
-                    'currency_code' =>  'EUR',
-                    'value'         =>  $somme,
+                'amount' => [
+                    'currency_code' => 'EUR',
+                    'value' => $somme,
                 ]
             ]]
         ];
@@ -513,9 +515,9 @@ class CommandeController extends AbstractController
             \Stripe\Stripe::setApiKey($this->privateKey);
 
             $intent = \Stripe\PaymentIntent::create([
-                'amount'    =>  number_format((float)$somme, 2, '.', '') * 100,
-                'currency'  =>  'eur',
-                'payment_method_types'  =>  ['card']
+                'amount' => number_format((float)$somme, 2, '.', '') * 100,
+                'currency' => 'eur',
+                'payment_method_types' => ['card']
             ]);
             // Traitement du formulaire Stripe
             //dd($intent);
@@ -532,12 +534,12 @@ class CommandeController extends AbstractController
         }
 
         return $this->render('commande/checkout.html.twig', [
-            'intentSecret'    =>  $intent['client_secret'],
-            'intent'    => $intent,
-            'intentId'    => $intent['id'],
-            'frais'    => number_format((float)$frais, 2, '.', ''),
-            'taux'    => number_format((float)$taux, 2, '.', ''),
-            'total'    => number_format((float)$somme, 2, '.', ''),
+            'intentSecret' => $intent['client_secret'],
+            'intent' => $intent,
+            'intentId' => $intent['id'],
+            'frais' => number_format((float)$frais, 2, '.', ''),
+            'taux' => number_format((float)$taux, 2, '.', ''),
+            'total' => number_format((float)$somme, 2, '.', ''),
             'microservice' => $microservice,
             'type_offre' => $offre,
             'montant' => $montant,
@@ -560,10 +562,10 @@ class CommandeController extends AbstractController
             $montant = $microservice->getPrixBeatmaking();
         } elseif ($offre == 'Composition') {
             $montant = $microservice->getPrixComposition();
-        }else {
+        } else {
             # code...
         }
-        
+
         // Calcul des taxes
         $taux = (0.015 * $montant) + 0.25;
         $frais = 0.30;
@@ -619,12 +621,13 @@ class CommandeController extends AbstractController
 
     #[Route('/vendeur/commande/validate/{id}', name: 'vendeur_valider_commande', methods: ['POST'])]
     public function vendeurValiderCommande(
-        Request $request,
-        CommandeRepository $commandeRepository,
-        $id,
-        MailerService $mailer,
+        Request                $request,
+        CommandeRepository     $commandeRepository,
+                               $id,
+        MailerService          $mailer,
         EntityManagerInterface $entityManager
-    ): Response {
+    ): Response
+    {
         $commande = $commandeRepository->find($id);
 
         if ($this->isCsrfTokenValid('validate' . $commande->getId(), $request->request->get('_token'))) {
@@ -673,12 +676,13 @@ class CommandeController extends AbstractController
 
     #[Route('/vendeur/commande/livrer/{id}', name: 'vendeur_livrer_commande', methods: ['POST'])]
     public function vendeurLivrerCommande(
-        Request $request,
-        CommandeRepository $commandeRepository,
-        $id,
-        MailerService $mailer,
+        Request                $request,
+        CommandeRepository     $commandeRepository,
+                               $id,
+        MailerService          $mailer,
         EntityManagerInterface $entityManager
-    ): Response {
+    ): Response
+    {
         $commande = $commandeRepository->find($id);
 
         if ($this->isCsrfTokenValid('livrer' . $commande->getId(), $request->request->get('_token'))) {
@@ -686,14 +690,146 @@ class CommandeController extends AbstractController
             $commande->setDeliver(true);
             $commande->setDeliverAt(new \DateTimeImmutable());
             $entityManager->flush();
-            $this->addFlash('success', 'Commande livrée!');
+            $this->addFlash('success', 'Commande livrée 🚚 !');
+
+            /** Envoie du mail au client */
+            $mailer->sendCommandMail(
+                'talengo.contact@gmail.com',
+                $commande->getClient()->getEmail(),
+                'Commande livrée 🚚',
+                'mails/_commande_livrer_client.html.twig',
+                $commande->getClient(),
+                $commande->getVendeur(),
+                $commande
+            );
 
             /** Envoie du mail au vendeur */
             $mailer->sendCommandMail(
                 'talengo.contact@gmail.com',
                 $commande->getVendeur()->getEmail(),
-                'Commande livrée',
+                'Commande livrée 🚚',
                 'mails/_commande_livrer.html.twig',
+                $commande->getClient(),
+                $commande->getVendeur(),
+                $commande
+            );
+        }
+
+        return $this->redirectToRoute('commande_details', [
+            'id' => $commande->getId(),
+        ], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/vendeur/commande/retouche/{id}', name: 'vendeur_retouche_commande', methods: ['POST'])]
+    public function vendeurRetoucheCommande(
+        Request                $request,
+        CommandeRepository     $commandeRepository,
+                               $id,
+        MailerService          $mailer,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $commande = $commandeRepository->find($id);
+
+
+        if ($this->isCsrfTokenValid('retouche' . $commande->getId(), $request->request->get('_token'))) {
+
+            $retouche = new Retouche();
+            $retouche->setCommande($commande);
+            $commande->addRetouche($retouche);
+
+            $entityManager->persist($retouche);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Votre demande de retouche a bien été envoyée !");
+
+            /** Envoie du mail au vendeur */
+            $mailer->sendCommandMail(
+                'talengo.contact@gmail.com',
+                $commande->getVendeur()->getEmail(),
+                'Demande de retouche 🔄',
+                'mails/_commande_retouche.html.twig',
+                $commande->getClient(),
+                $commande->getVendeur(),
+                $commande
+            );
+        }
+
+        return $this->redirectToRoute('commande_details', [
+            'id' => $commande->getId(),
+        ], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/vendeur/commande/retouche/{id}/valider', name: 'vendeur_retouche_valider_commande', methods: ['POST'])]
+    public function vendeurRetoucheValiderCommande(
+        Request                $request,
+        CommandeRepository     $commandeRepository,
+                               $id,
+        MailerService          $mailer,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $commande = $commandeRepository->find($id);
+
+
+        if ($this->isCsrfTokenValid('retouche' . $commande->getId(), $request->request->get('_token'))) {
+
+            $retouche = $commande->getRetouches()->last();
+
+            if (!$retouche) {
+                throw $this->createNotFoundException('Retouche introuvable !');
+            }
+
+            $retouche->setFinished(true);
+            $retouche->setFinRetoucheDate(new \DateTime());
+
+            $entityManager->flush();
+
+            $this->addFlash('success', "Votre correction a bien été transmise au client !");
+
+            /** Envoie du mail au client */
+            $mailer->sendCommandMail(
+                'talengo.contact@gmail.com',
+                $commande->getClient()->getEmail(),
+                'Retouche effectuée ✅',
+                'mails/_commande_retouche_effectuer.html.twig',
+                $commande->getClient(),
+                $commande->getVendeur(),
+                $commande
+            );
+        }
+
+        return $this->redirectToRoute('commande_details', [
+            'id' => $commande->getId(),
+        ], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/vendeur/commande/cloturer/{id}', name: 'vendeur_cloturer_commande', methods: ['POST'])]
+    public function vendeurCloturerCommande(
+        Request                $request,
+        CommandeRepository     $commandeRepository,
+                               $id,
+        MailerService          $mailer,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $commande = $commandeRepository->find($id);
+
+        if ($this->isCsrfTokenValid('cloturer' . $commande->getId(), $request->request->get('_token'))) {
+
+            $commande->setCloturer(true);
+            $commande->setCloturerDate(new \DateTime());
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Commande clôturée ✅ !');
+
+            /** Envoie du mail au vendeur */
+            $mailer->sendCommandMail(
+                'talengo.contact@gmail.com',
+                $commande->getVendeur()->getEmail(),
+                'Commande clôturée ✅',
+                'mails/_commande_terminer.html.twig',
                 $commande->getClient(),
                 $commande->getVendeur(),
                 $commande
@@ -707,12 +843,13 @@ class CommandeController extends AbstractController
 
     #[Route('/vendeur/commande/annuler/{id}', name: 'vendeur_annuler_commande', methods: ['POST'])]
     public function vendeurAnnulerCommande(
-        Request $request,
-        CommandeRepository $commandeRepository,
-        $id,
-        MailerService $mailer,
+        Request                $request,
+        CommandeRepository     $commandeRepository,
+                               $id,
+        MailerService          $mailer,
         EntityManagerInterface $entityManager
-    ): Response {
+    ): Response
+    {
         $commande = $commandeRepository->find($id);
 
         if ($this->isCsrfTokenValid('annuler' . $commande->getId(), $request->request->get('_token'))) {
@@ -836,12 +973,12 @@ class CommandeController extends AbstractController
 
     #[Route('/reservation/{slug}/{commande}', name: 'commander_microservice_reservation', methods: ['GET', 'POST'])]
     public function reservation(
-        Request $request,
+        Request                $request,
         EntityManagerInterface $entityManager,
         MicroserviceRepository $microserviceRepository,
-        $slug,
-        Commande $commande,
-        PaymentService $paymentService
+                               $slug,
+        Commande               $commande,
+        PaymentService         $paymentService
     ): Response
     {
         /** @var User $currentUser */
@@ -878,7 +1015,7 @@ class CommandeController extends AbstractController
             if ($this->isCsrfTokenValid('reserver' . $commande->getId(), $request->request->get('_token'))) {
 
                 if ($request->get('montant')) {
-                    $commande->setMontant((float) $request->get('montant'));
+                    $commande->setMontant((float)$request->get('montant'));
                     $entityManager->flush();
                 }
 
@@ -887,7 +1024,7 @@ class CommandeController extends AbstractController
                     $paymentService->hydrateInfo($request, $this->getUser());
 
                     if ($request->get('montant')) {
-                        $commande->setMontant((float) $request->get('montant'));
+                        $commande->setMontant((float)$request->get('montant'));
                     }
 
                     $entityManager->flush();
@@ -921,7 +1058,7 @@ class CommandeController extends AbstractController
                 } else {
 
                     if ($request->get('montant')) {
-                        $commande->setMontant((float) $request->get('montant'));
+                        $commande->setMontant((float)$request->get('montant'));
                         $entityManager->flush();
                     }
 
@@ -936,8 +1073,8 @@ class CommandeController extends AbstractController
                     $response = $gateway->purchase([
                         'amount' => $commande->getMontant(),
                         'currency' => $_ENV['PAYPAL_CURRENCY'],
-                        'returnUrl' => $this->generateUrl('commande_pyp_success', ['id' =>  $commande->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
-                        'cancelUrl' => $this->generateUrl('commande_error', ['id' =>  $commande->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
+                        'returnUrl' => $this->generateUrl('commande_pyp_success', ['id' => $commande->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
+                        'cancelUrl' => $this->generateUrl('commande_error', ['id' => $commande->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
                     ])->send();
 
                     if ($response->isRedirect()) {
@@ -965,7 +1102,7 @@ class CommandeController extends AbstractController
         }
 
         return $this->render('commande/reservation2.html.twig', [
-            'commande'    => $commande,
+            'commande' => $commande,
             'microservice' => $microservice,
             'errorMessage' => $errorMessage,
             'stripe_public_key' => $_ENV['STRIPE_PUBLIC_KEY'],
@@ -978,7 +1115,7 @@ class CommandeController extends AbstractController
     {
         $microservice = $microserviceRepository->findOneBy(['slug' => $slug]);
         $tauxHoraire = 1;
-        
+
         // Calcul des taxes
         $taux = (0.015 * $commande->getMontant()) + 0.25;
         $frais = 0.30;

@@ -68,7 +68,20 @@ class CoordonneeType extends AbstractType
                 'required' => false
             ])
             ->add('imageFile', VichImageType::class, [
-                'label' => 'Image de profil (Png, jpg et jpeg)',
+                'label' => '
+        <div class="upload-label">
+            <div class="mb-1">
+                <i class="fas fa-chart-line mr-1 text-primary"></i>
+                <strong>Boostez votre crédibilité : </strong> les vendeurs avec une vraie photo de profil génèrent plus
+de ventes que la moyenne !
+            </div>
+            <div class="small text-muted">
+                <i class="fas fa-file-image mr-1"></i>
+                Formats : PNG, JPG, JPEG
+            </div>
+        </div>
+    ',
+                'label_html' => true,
                 'required'  =>  false,
                 'allow_delete' =>  false,
                 'download_label'     =>  false,
@@ -98,7 +111,13 @@ class CoordonneeType extends AbstractType
             ])
             ->add('apropos', CKEditorType::class, [
                 'label' => 'Biographie',
-                'help' => "N'hésitez pas à vous présenter : une description attractive donnera aux clients l'envie de faire appel à vos services.",
+                'help' => "Votre biographie est votre premier levier de vente. <br>
+Elle transmet votre professionnalisme, valorise votre parcours et crée une première impression décisive.<br>
+Une présentation soignée capte l’attention, inspire confiance et déclenche l’envie de travailler avec vous.<br>
+Une biographie bien construite met en lumière votre expertise, affirme votre valeur ajoutée et vous
+positionne comme un partenaire fiable. <br>Elle reflète votre engagement, votre sérieux et votre capacité à
+répondre aux besoins des clients.",
+                'help_html' => true,
                 'required' => false,
                 'attr' => ['rows' => 6],
             ])

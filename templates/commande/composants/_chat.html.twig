@@ -174,7 +174,7 @@
 
                     </div>
 
-                    {% if commande.deliver == false %}
+                    {% if not commande.cloturer %}
 
                         {% include "conversations/composants/_message_form.html.twig" %}
 

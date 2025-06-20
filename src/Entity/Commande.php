@@ -141,12 +141,36 @@ class Commande
     #[ORM\Column(nullable: true)]
     private ?bool $isPayWithStripe = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $cloturer = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $cloturerDate = null;
+
+    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Retouche::class, orphanRemoval: true)]
+    private Collection $retouches;
+
+    // commande en cours de retouche
+    public function isRetouche(): bool
+    {
+
+
+        foreach ($this->retouches as $retouche) {
+            if (!$retouche->isFinished()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
         $this->commandeMessages = new ArrayCollection();
         $this->serviceOptions = new ArrayCollection();
         $this->remboursements = new ArrayCollection();
+        $this->retouches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -682,6 +706,60 @@ class Commande
     public function setIsPayWithStripe(?bool $isPayWithStripe): self
     {
         $this->isPayWithStripe = $isPayWithStripe;
+
+        return $this;
+    }
+
+    public function isCloturer(): ?bool
+    {
+        return $this->cloturer;
+    }
+
+    public function setCloturer(?bool $cloturer): self
+    {
+        $this->cloturer = $cloturer;
+
+        return $this;
+    }
+
+    public function getCloturerDate(): ?\DateTimeInterface
+    {
+        return $this->cloturerDate;
+    }
+
+    public function setCloturerDate(?\DateTimeInterface $cloturerDate): self
+    {
+        $this->cloturerDate = $cloturerDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Retouche>
+     */
+    public function getRetouches(): Collection
+    {
+        return $this->retouches;
+    }
+
+    public function addRetouche(Retouche $retouche): self
+    {
+        if (!$this->retouches->contains($retouche)) {
+            $this->retouches->add($retouche);
+            $retouche->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRetouche(Retouche $retouche): self
+    {
+        if ($this->retouches->removeElement($retouche)) {
+            // set the owning side to null (unless already changed)
+            if ($retouche->getCommande() == $this) {
+                $retouche->setCommande(null);
+            }
+        }
 
         return $this;
     }

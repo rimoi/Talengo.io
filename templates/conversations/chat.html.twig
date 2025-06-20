@@ -51,7 +51,7 @@
 
                      <div class="d-flex align-items-top py-2">
                         <p class="mb-0 text-muted">Catégorie</p>
-                        <a href="{{ path('microservices_categories', {slug: microservice.categorie.slug}) }}?categories%5B%5D={{ microservice.categorie.id }}" class="badge badge-blue border badge-pill ml-auto">
+                        <a href="{{ path('show_service', {slug: microservice.categorie.slug}) }}?categories%5B%5D={{ microservice.categorie.id }}" class="badge badge-blue border badge-pill ml-auto">
                            #{{ microservice.categorie.name }}
                         </a>
                      </div>

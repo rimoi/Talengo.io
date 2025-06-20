@@ -1,0 +1,31 @@
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+   <div style="margin: auto;background: #fff;padding: 20px;">
+
+      {% include "mails/_logo.html.twig" %}
+      
+      <p>Bonjour <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
+            client.nom ~ ' ' ~ client.prenom }}</strong>,</p>
+
+      <p>
+         Le vendeur <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nickName }}</strong> a marqué la prestation "<strong>{{ commande.microservice.name }}</strong>" comme livrée 🎉 !
+      </p>
+
+      <p>
+         Vous disposez maintenant de <strong>48 heures</strong> pour :
+      <ul>
+         <li>✔️ Vérifier que tout est conforme</li>
+         <li>🔄 Demander des modifications si nécessaire</li>
+         <li>✅ Clôturer la commande</li>
+      </ul>
+      </p>
+
+      <p class="text-muted">
+         <small>
+            <i class="fas fa-info-circle"></i> Passé ce délai, la commande sera automatiquement considérée comme <strong>clôturée</strong>.
+         </small>
+      </p>
+
+      {% include "mails/_lien_cgu.html.twig" %}
+      
+   </div>
+</div>

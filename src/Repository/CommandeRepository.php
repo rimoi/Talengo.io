@@ -22,11 +22,12 @@ class CommandeRepository extends ServiceEntityRepository
     public function findWhereUserIsClientOrVendeur($user)
     {
         return $this->createQueryBuilder('c')
-            ->orWhere('c.client = :client')
-            ->orWhere('c.vendeur = :vendeur')
+            ->where('c.payed = :payed')
+            ->andWhere('c.client = :client OR c.vendeur = :vendeur')
             ->setParameters([
                 'client' => $user,
                 'vendeur' => $user,
+                'payed' => true
             ])
             ->orderBy('c.created', 'DESC')
             ->getQuery()

@@ -6,7 +6,6 @@
 
 {% block col %}6{% endblock %}
 
-{% block footer '' %}
 
 {% block body %}
     <section class="container py-5">
@@ -25,7 +24,7 @@
                     <div class="card-body p-0">
 
                         <div class="p-3">
-                            {% if commande.offre == 'Reservation' %}
+                            {% if commande.offre == 'Réservation' %}
 
                                 {% include "commande/composants/_reservation_detail.html.twig" %}
 
@@ -83,6 +82,8 @@
 
                                                     {{ include('commande/composants/_validate_form.html.twig') }}
 
+                                                    {{ include('commande/composants/_annuler_form.html.twig') }}
+
                                                 {% endif %}
 
                                                 {% if commande.validate == 1 %}
@@ -90,8 +91,6 @@
                                                     {{ include('commande/composants/_livrer_form.html.twig') }}
 
                                                 {% endif %}
-
-                                                {{ include('commande/composants/_annuler_form.html.twig') }}
 
                                             </div>
 
@@ -108,8 +107,53 @@
                                         <div class="text-muted mt-n2px">
                                             {{ commande.deliverAt|date('d/m/Y à H:i') }}
                                         </div>
-{#                                        <span class="text-muted">{{ commande.deliverAt|ago(locale='fr') }}</span>#}
                                     </div>
+
+                                    {% set step_count = 4  %}
+
+                                    {% for key, retouche in commande.retouches %}
+                                        {% if loop.first %}
+                                            {% set step_count = key + step_count + 1 %}
+                                        {% endif %}
+
+                                        <div class="py-3 d-flex justify-content-between">
+                                            <h3 class="h6 custom-size">{{ step_count }} - Retouche demandée</h3>
+                                            <div class="text-muted mt-n2px">
+                                                {{ retouche.date|date('d/m/Y à H:i') }}
+                                            </div>
+                                            {% set step_count = step_count + 1 %}
+                                        </div>
+                                        <div class="py-3 d-flex justify-content-between">
+                                            {% if retouche.isFinished %}
+                                                <h3 class="h6 custom-size">{{ step_count }} - Retouche réalisée</h3>
+                                                <div class="text-muted mt-n2px">
+                                                    {{ retouche.finRetoucheDate|date('d/m/Y à H:i') }}
+                                                </div>
+
+                                                {% set step_count = step_count + 1 %}
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+
+
+                                    {% if
+                                        is_granted('ROLE_CLIENT')
+                                        and commande.client.id == app.user.id
+                                        and not commande.cloturer
+                                        and not commande.retouche
+                                    %}
+                                        {{ include('commande/composants/_retouche_form.html.twig') }}
+
+                                        {{ include('commande/composants/_cloturer_form.html.twig') }}
+                                    {% endif %}
+
+                                    {% if
+                                        is_granted('ROLE_VENDEUR')
+                                        and  commande.vendeur.id == app.user.id
+                                        and commande.retouche
+                                    %}
+                                        {{ include('commande/composants/_retouche_terminer_form.html.twig') }}
+                                    {% endif %}
 
                                 {% endif %}
 
@@ -157,7 +201,7 @@
                                        class="text-dark ml-auto">
                                         {{ commande.microservice.name }}
                                     </a> <br>
-                                    <a href="{{ path('microservices_categories', {slug: commande.microservice.categorie.slug}) }}?categories%5B%5D={{ commande.microservice.categorie.id }}"
+                                    <a href="{{ path('show_service', {slug: commande.microservice.categorie.slug}) }}"
                                        class="badge badge-blue rounded-pill">
                                         #{{ commande.microservice.categorie.name }}
                                     </a>

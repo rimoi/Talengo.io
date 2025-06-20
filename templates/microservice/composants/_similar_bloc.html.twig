@@ -29,7 +29,7 @@
             <a href="{{ path('favoris_new', {id: similaire.id}) }}">
                <div class="rating-wrapper">
                   <span class="gig-rating text-body-2">
-                     <a href="{{ path('microservices_categories', {slug: similaire.categorie.slug}) }}?categories%5B%5D={{ similaire.categorie.id }}"
+                     <a href="{{ path('show_service', {slug: similaire.categorie.slug}) }}?categories%5B%5D={{ similaire.categorie.id }}"
                         class="badge badge-blue badge-pill my-2" style="font-size: .9em!important;">
                         #{{ similaire.categorie.name }}
                      </a>

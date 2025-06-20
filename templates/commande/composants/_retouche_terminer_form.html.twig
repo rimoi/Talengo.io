@@ -1,0 +1,8 @@
+<form method="post" class="d-inline" action="{{ path('vendeur_retouche_valider_commande', {'id': commande.id}) }}"
+      title="Cliquez pour attester que toutes les modifications demandées ont été effectuées"
+      onsubmit="return confirm('Cliquez pour attester que toutes les modifications demandées ont été effectuées ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('retouche' ~ commande.id) }}">
+    <button class="btn btn-dark rounded-btn w-100 my-2">
+        <span id="btnFetch">Marquer que la retouche est terminée !</span>
+    </button>
+</form>

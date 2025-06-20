@@ -38,7 +38,7 @@
          <h5 class="mb-1 text-dark">{{ microservice.name }}</h5>
       </a>
       <div class="mb-2">
-         <a href="{{ path('microservices_categories', {slug: microservice.categorie.slug}) }}?categories%5B%5D={{ microservice.categorie.id }}"
+         <a href="{{ path('show_service', {slug: microservice.categorie.slug}) }}"
             class="badge badge-warning badge-pill my-2 categorie">
             #{{ microservice.categorie.name }}
          </a>

@@ -6,7 +6,7 @@
       <p>Bonjour <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo : client.nom ~ ' ' ~ client.prenom }}</strong>,</p>
 
       <p>
-         Bonne nouvelle !<br> Votre reservation d'un montant de <strong>{{ commande.montant ~ currency }}</strong> a été
+         Bonne nouvelle !<br> Votre commande d'un montant de <strong>{{ commande.montant ~ currency }}</strong> a été
          prise
          en
          compte par le prestataire <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>.
