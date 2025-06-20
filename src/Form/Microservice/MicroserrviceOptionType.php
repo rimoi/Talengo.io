@@ -28,7 +28,7 @@ class MicroserrviceOptionType extends AbstractType
 //                'error_bubbling' => false
 //            ])
             ->add('promo', CheckboxType::class, [
-                'label' => 'En promootion',
+                'label' => 'En promotion',
                 'help' => "Cocher pour mettre se service en promotion",
                 'required' => false
             ])

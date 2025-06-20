@@ -44,36 +44,36 @@
 			
 			</div>
 
-			<div class="row">
-				<div class="col-sm-6">
-					<strong>Photo de couverture</strong>
-					<div class="form-group">
+{#			<div class="row">#}
+{#				<div class="col-sm-6">#}
+{#					<strong>Photo de couverture</strong>#}
+{#					<div class="form-group">#}
 
-						<div class="cs-imageFile">
-							{{ form_label(form.couvertureFile) }}
-							{% if form.couvertureFile.vars.errors|length > 0 %}
-								<span class="invalid-feedback d-block cs-show-error">
-								{% for error in form.couvertureFile.vars.errors %}
-									{% if loop.first %}
-										<span class="form-error-icon badge badge-danger text-uppercase">Erreur</span>
-										<span class="form-error-message">{{ error.getMessage() }}</span>
-									{% endif %}
-								{% endfor %}
-                			</span>
-							{% endif %}
-							{{ form_widget(form.couvertureFile) }}
-						</div>
+{#						<div class="cs-imageFile">#}
+{#							{{ form_label(form.couvertureFile) }}#}
+{#							{% if form.couvertureFile.vars.errors|length > 0 %}#}
+{#								<span class="invalid-feedback d-block cs-show-error">#}
+{#								{% for error in form.couvertureFile.vars.errors %}#}
+{#									{% if loop.first %}#}
+{#										<span class="form-error-icon badge badge-danger text-uppercase">Erreur</span>#}
+{#										<span class="form-error-message">{{ error.getMessage() }}</span>#}
+{#									{% endif %}#}
+{#								{% endfor %}#}
+{#                			</span>#}
+{#							{% endif %}#}
+{#							{{ form_widget(form.couvertureFile) }}#}
+{#						</div>#}
 
 {#						{{ form_row(form.couvertureFile) }}#}
-					</div>
-					{% if is_granted('ROLE_VENDEUR') %}
-					<p>
-						Ce n’est pas obligatoire, mais c’est joli. Personnalisez votre photo de couverture pour vous
-						démarquer.
-					</p>
-					{% endif %}
-				</div>
-			</div>
+{#					</div>#}
+{#					{% if is_granted('ROLE_VENDEUR') %}#}
+{#					<p>#}
+{#						Ce n’est pas obligatoire, mais c’est joli. Personnalisez votre photo de couverture pour vous#}
+{#						démarquer.#}
+{#					</p>#}
+{#					{% endif %}#}
+{#				</div>#}
+{#			</div>#}
 
 			{{ form_rest(form) }}
 

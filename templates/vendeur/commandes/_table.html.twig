@@ -1,148 +1,148 @@
 <div class="table-responsive">
 
-   <table class="table text-dark table-borderless">
-      <thead>
-         <tr>
+    <table class="table text-dark table-borderless">
+        <thead>
+        <tr>
             <th>Service</th>
             <th>{{ app.request.attributes.get('_route') == 'vendeur_commandes_index' ? 'Client' :
-               'Vendeur' }}</th>
+                'Vendeur' }}</th>
             <th>Statut</th>
             <th>Date</th>
             <th>actions</th>
-         </tr>
-      </thead>
-      <tbody>
-         {% for commande in commandes %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
 
-         {% if commande.microservice != null %}
+            {% if commande.microservice != null %}
 
-         <tr>
-            <td>
-               <div class="media">
-                  {% if commande.microservice.medias|length > 0 %}
+                <tr>
+                    <td>
+                        <div class="media">
+                            {% if commande.microservice.medias|length > 0 %}
 
-                  <img class="rounded"
-                     src="{{ vich_uploader_asset(commande.microservice.medias[0], 'imageFile') | imagine_filter('midle_avatar') }}">
+                                <img class="rounded"
+                                     src="{{ vich_uploader_asset(commande.microservice.medias[0], 'imageFile') | imagine_filter('midle_avatar') }}">
 
-                  {% else %}
+                            {% else %}
 
-                  <img class="img-fluid rounded"
-                     src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('midle_avatar') }}" />
+                                <img class="img-fluid rounded"
+                                     src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('midle_avatar') }}"/>
 
-                  {% endif %}
-                  <div class="media-body pl-3">
-                     <a href="{{ path('microservice_details', {slug: commande.microservice.slug}) }}"
-                        class="d-block text-dark font-weight-bold" target="_blank">{{
-                        commande.microservice.name|u.truncate(30, '...') }}</a>
-                     <strong>{{ commande.montant ~ currency }}</strong>
-                     <span class="badge badge-blue badge-pill text-capitalize">{{ commande.offre }}</span>
-                  </div>
-               </div>
-            </td>
-            <td>
+                            {% endif %}
+                            <div class="media-body pl-3">
+                                <a href="{{ path('microservice_details', {slug: commande.microservice.slug}) }}"
+                                   class="d-block text-dark font-weight-bold"
+                                   target="_blank">{{ commande.microservice.name|u.truncate(30, '...') }}</a>
+                                <strong>{{ commande.montant ~ currency }}</strong>
+{#                                <span class="badge badge-blue badge-pill text-capitalize">{{ commande.offre }}</span>#}
+                            </div>
+                        </div>
+                    </td>
+                    <td>
 
-               {% if app.request.attributes.get('_route') == 'vendeur_commandes_index' %}
+                        {% if app.request.attributes.get('_route') == 'vendeur_commandes_index' %}
 
-               {% if commande.client != null %}
+                            {% if commande.client != null %}
 
-               <div class="text-center shadow border rounded p-2">
-                  <div class="text-center">
-                     <strong class="d-block text-muted small">{{ commande.client.nom }} {{ commande.client.prenom
-                        }}</strong>
-                  </div>
-               </div>
+                                <div class="text-center shadow border rounded p-2">
+                                    <div class="text-center">
+                                        <strong class="d-block text-muted small">{{ commande.client.nickName }}</strong>
+                                    </div>
+                                </div>
 
-               {% endif %}
+                            {% endif %}
 
-               {% else %}
+                        {% else %}
 
-               <a href="{{ path('vendeur_profil', {nameUrl: commande.vendeur.nameUrl}) }}" target="_blank">
+                            <a href="{{ path('vendeur_profil', {nameUrl: commande.vendeur.nameUrl}) }}" target="_blank">
 
-                  <div class="text-center">
+                                <div class="text-center">
 
-                     <div class="text-center text-muted small">
-                        <strong>{{ commande.vendeur.nom }} {{ commande.vendeur.prenom }}</strong>
-                     </div>
-                  </div>
-               </a>
+                                    <div class="text-center text-muted small">
+                                        <strong>{{ commande.vendeur.nickName }}</strong>
+                                    </div>
+                                </div>
+                            </a>
 
-               {% endif %}
+                        {% endif %}
 
-            </td>
-            <td>
-               {% if commande.microservice %}
+                    </td>
+                    <td>
+                        {% if commande.microservice %}
 
-                  {% if commande.payed == true %}
+                            {% if commande.payed == true %}
 
-                  <span class="badge badge-pill badge-success">
-                     {{ commande.payed == true ? 'Payée' : 'Non payée' }}
-                  </span>
+                                <span class="badge badge-pill badge-success">
+                                     {{ commande.payed == true ? 'Payée' : 'Non payée' }}
+                                </span>
 
-                  {% else %}
-                  
-                  <span class="badge badge-pill badge-{% if commande.statut == 'En attente' %}warning{% elseif commande.statut == 'Valider' %}success{% elseif commande.statut == 'Non payée' %}info{% endif %}">
-                     {{ commande.statut }}
-                  </span>
-                  
-                  {% endif %}
+                            {% else %}
 
-               {% else %}
-               <span class="badge badge-pill badge-success">Validé</span>
-               {% endif %}
-            </td>
-            <td>{{ commande.created ? commande.created|date('d/m/Y') : '' }}</td>
-            <td>
-               {% if commande.payed == true %}
+                                <span class="badge badge-pill badge-{% if commande.statut == 'En attente' %}info{% elseif commande.statut == 'Valider' %}success{% elseif commande.statut == 'Non payée' %}warning{% endif %}">
+                                     {{ commande.statut }}
+                                </span>
 
-               <a href="{{ path('commande_details', {id: commande.id}) }}" class="btn btn-dark">Suivre</a>
+                            {% endif %}
 
-               {% else %}
+                        {% else %}
+                            <span class="badge badge-pill badge-success">Validé</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ commande.created ? commande.created|date('d/m/Y') : '' }}</td>
+                    <td>
 
-               <a href="{{ path('commander_microservice_reservation', {slug: commande.microservice.slug, commande: commande.id}) }}" class="btn btn-dark">Payer</a>
+                        {% if commande.payed == true %}
+                            <a href="{{ path('commande_details', {id: commande.id}) }}" class="btn btn-dark">Suivre</a>
+                        {% endif %}
 
-               {% endif %}
-            </td>
-         </tr>
+                        {% if is_granted('ROLE_CLIENT') and commande.payed != true %}
+                            <a href="{{ path('commander_microservice_reservation', {slug: commande.microservice.slug, commande: commande.id}) }}"
+                               class="btn btn-warning">Payer</a>
+                        {% endif %}
+                    </td>
+                </tr>
 
-         {% else %}
+            {% else %}
 
-         <tr>
-            <td>{{ commande.pack.name }}</td>
-            <td>{{ appName }}</td>
-            <td>
+                <tr>
+                    <td>{{ commande.pack.name }}</td>
+                    <td>{{ appName }}</td>
+                    <td>
                <span class="badge badge-pill badge-{{ commande.deliver ? 'success' : 'warning' }}">
                   {{ commande.statut }}</span>
-            </td>
-            <td>{{ commande.created ? commande.created|date('d/m/Y') : '' }}</td>
-            <td>
-               {% if commande.microservice %}
+                    </td>
+                    <td>{{ commande.created ? commande.created|date('d/m/Y') : '' }}</td>
+                    <td>
+                        {% if commande.microservice %}
 
-               <a href="{{ path('commande_details', {id: commande.id}) }}" class="btn btn-dark">Suivre</a>
+                            <a href="{{ path('commande_details', {id: commande.id}) }}" class="btn btn-dark">Suivre</a>
 
-               {% else %}
+                        {% else %}
 
-               <a href="{{ path('commandes_pack_show', {id: commande.id}) }}" class="btn btn-dark">Détails</a>
+                            <a href="{{ path('commandes_pack_show', {id: commande.id}) }}"
+                               class="btn btn-dark">Détails</a>
 
-               {% endif %}
-            </td>
-         </tr>
+                        {% endif %}
+                    </td>
+                </tr>
 
-         {% endif %}
+            {% endif %}
 
-         {% else %}
-         <tr>
-            <td colspan="7" class="text-center">
-               Aucune commande
-               <div class="py-4">
-                  <i class="fa fa-search fa-3x text-muted"></i>
-               </div>
-            </td>
-         </tr>
-         {% endfor %}
-      </tbody>
-   </table>
+        {% else %}
+            <tr>
+                <td colspan="7" class="text-center">
+                    Aucune commande
+                    <div class="py-4">
+                        <i class="fa fa-search fa-3x text-muted"></i>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-   <div class="p-2">
-				{{ knp_pagination_render(commandes) }}
-			</div>
+    <div class="p-2">
+        {{ knp_pagination_render(commandes) }}
+    </div>
 </div>

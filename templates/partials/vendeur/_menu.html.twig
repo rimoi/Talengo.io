@@ -18,9 +18,11 @@
 <a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'vendeur_commandes_' ? 'active' : '' }}"
    href="{{ path('vendeur_commandes_index') }}"><i class="fa fa-cart-plus"></i>&nbsp;&nbsp;&nbsp;Mes
    commandes</a>
+{% if is_granted('ROLE_CLIENT') %}
+   <a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'vendeur_achats_' ? 'active' : '' }}"
+      href="{{ path('vendeur_achats_index') }}"><i class="fa fa-opencart"></i>&nbsp;&nbsp;&nbsp;Mes achats</a>
+{% endif %}
 
-<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'vendeur_achats_' ? 'active' : '' }}"
-   href="{{ path('vendeur_achats_index') }}"><i class="fa fa-opencart"></i>&nbsp;&nbsp;&nbsp;Mes achats</a>
 
 <a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'favoris_' ? 'active' : '' }}"
    href="{{ path('favoris_index') }}"><i class="fa fa-heart"></i>&nbsp;&nbsp;&nbsp;Favoris</a>

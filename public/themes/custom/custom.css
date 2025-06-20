@@ -159,11 +159,6 @@ body.userConnected header ul.menu .dropdown-user-details-email {
     margin-bottom: 20px;
 }
 
-footer div ul li:not(:last-child) {
-    padding-bottom: 16px;
-
-}
-
 
 /*
 ALERT
@@ -214,7 +209,8 @@ ALERT
 }
 
 .alert-error {
-    background-color: #f44336;
+    color: #721c24;
+    background-color: #f8d7da;
 }
 
 .alert-success {

@@ -14,7 +14,7 @@ class MicroservicePublierType extends AbstractType
     {
         $builder
             ->add('question1', CheckboxType::class, [
-                'label' => "Avoir relu très attentivement mon service",
+                'label' => "J’ai vérifié attentivement le contenu de mon service avant sa mise en ligne.",
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champ est requis!',
@@ -22,7 +22,7 @@ class MicroservicePublierType extends AbstractType
                 ],
             ])
             ->add('question2', CheckboxType::class, [
-                'label' => "Que celui-ci est conforme et respecte les CGU de Talengo.io",
+                'label' => "Mon service est conforme aux Conditions Générales d’Utilisation de Talengo.io.",
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champ est requis!',
@@ -30,7 +30,7 @@ class MicroservicePublierType extends AbstractType
                 ],
             ])
             ->add('question3', CheckboxType::class, [
-                'label' => "Toujours rester professionnel et courtois avec mes clients",
+                'label' => "Je m’engage à adopter un comportement professionnel et respectueux envers mes clients.",
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champ est requis!',
@@ -38,7 +38,8 @@ class MicroservicePublierType extends AbstractType
                 ],
             ])
             ->add('question4', CheckboxType::class, [
-                'label' => "Ne pas proposer ou effectuer des transactions en dehors de Talengo.io",
+                'label' => "Je m’abstiendrai de proposer ou de réaliser toute transaction en dehors de la plateforme
+Talengo.io.",
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champ est requis!',

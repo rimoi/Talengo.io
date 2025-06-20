@@ -20,7 +20,7 @@
 {% block body %}
 
 {% for flashError in app.flashes('verify_email_error') %}
-<div class="alert alert-danger" role="alert">
+<div class="alert alert-error" role="alert">
 	<!-- flashError -->
 	Le lien pour vérifier votre e-mail semble être pour un autre compte ou e-mail. Veuillez demander un nouveau lien.
 </div>

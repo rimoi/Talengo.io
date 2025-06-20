@@ -1,13 +1,13 @@
 {% extends "old_base.html.twig" %}
 
 {% block body %}
-   <section class="container">
-      <div class="breadcrumb">
-         <div class="content">
-            <a href="{{ path('accueil') }}"><i class="fa fa-home"></i></a>
-            <a href=""></a>
-         </div>
-      </div>
+   <section class="container py-4">
+{#      <div class="breadcrumb">#}
+{#         <div class="content">#}
+{#            <a href="{{ path('accueil') }}"><i class="fa fa-home"></i></a>#}
+{#            <a href=""></a>#}
+{#         </div>#}
+{#      </div>#}
       {% include "commande/composants/_list_commandes.html.twig" %}
    </section>
 {% endblock %}

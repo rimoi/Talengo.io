@@ -18,7 +18,7 @@
             2. Service basique &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
          </a>
          
-         <a class="dropdown-item p-2 {{ app.request.attributes.get('_route') == 'vendeur_microservices_options' ? 'active' : '' }} {{ microservice.serviceOptions|length == 0 ? 'tache-encours' : 'tache-terminer' }} {{ microservice.medias|length > 0 ? 'tache-edit' : '' }} {{ microservice.realisations|length == 0 ? 'tache-encours' : 'tache-terminer' }}"
+         <a class="dropdown-item p-2 {{ app.request.attributes.get('_route') == 'vendeur_microservices_options' ? 'active' : '' }} {{ microservice.serviceOptions|length == 0 ? 'tache-encours' : 'tache-terminer' }} {{ microservice.serviceOptions|length > 0 ? 'tache-edit' : '' }} {{ microservice.serviceOptions|length == 0 ? 'tache-encours' : 'tache-terminer' }}"
             href="{{ path('vendeur_microservices_options', {id: microservice.id}) }}">
             3. Personnaliser le service &nbsp;&nbsp;&nbsp;<i class="text-muted fa fa-check-circle float-right"></i>
          </a>
@@ -80,8 +80,7 @@
       <h6 class="m-0">Besoin d'aide ?</h6>
    </div>
    <div class="card-body">
-      <p class="text-muted">À tout moment, vous pouvez nous contacté via notre adresse e-mail 
-      <a href="mailto:{{ appEmail  }}">{{ appEmail  }}</a> afin d'avoir nos
-         conseils sur la création de service.</p>
+      <p class="text-muted">Besoin d’un coup de pouce pour créer votre service ? N’hésitez pas à nous écrire à <br>
+      <a href="mailto:{{ appEmail  }}">{{ appEmail  }}</a> <br> on se fera un plaisir de vous aider !</p>
    </div>
 </div>

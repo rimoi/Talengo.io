@@ -2409,9 +2409,6 @@ footer div ul li {
     list-style: none
 }
 
-footer div ul li:not(:last-child) {
-    padding-bottom: 16px
-}
 
 footer div ul li a {
     color: #7a7d85

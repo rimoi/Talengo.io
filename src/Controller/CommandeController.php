@@ -11,6 +11,7 @@ use App\Entity\Message;
 use App\Entity\Portefeuille;
 use App\Entity\Rapport;
 use App\Entity\Remboursement;
+use App\Entity\User;
 use App\Form\AvisReponseType;
 use App\Form\AvisType;
 use App\Form\CommandeMessageType;
@@ -843,6 +844,12 @@ class CommandeController extends AbstractController
         PaymentService $paymentService
     ): Response
     {
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
+        if ($currentUser->hasRole('ROLE_VENDEUR')) {
+            throw $this->createAccessDeniedException("Actuellement, les vendeurs ne peuvent pas réserver les services d'autres vendeurs. Mais rassurez-vous, nous y travaillons : cette option est prévue et arrivera très prochainement !");
+        }
+
         $microservice = $microserviceRepository->findOneBy(['slug' => $slug]);
 
 

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Categorie;
 use App\Entity\User;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -95,9 +96,9 @@ class CoordonneeType extends AbstractType
                     ])
                 ],
             ])
-            ->add('apropos', TextareaType::class, [
+            ->add('apropos', CKEditorType::class, [
                 'label' => 'Biographie',
-                'help' => 'Renseignements',
+                'help' => "N'hésitez pas à vous présenter : une description attractive donnera aux clients l'envie de faire appel à vos services.",
                 'required' => false,
                 'attr' => ['rows' => 6],
             ])

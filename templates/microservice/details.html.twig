@@ -324,17 +324,22 @@
 										<li><i class="fa-solid fa-clock"></i> <span class="nbr">{{ microservice.nombreJour }}</span> <span>jours</span></li>
 									</ul>
 								</div>
-								<div class="priceBtn">
-									<button type="submit" class="btn btn-Yellow">Commander</button>
-									<span class="price">
+								{% if is_granted('ROLE_CLIENT') %}
+									<div class="priceBtn">
+										<button type="submit" class="btn btn-Yellow">Commander</button>
+										<span class="price">
 										<input type="hidden" class="js-total" name="total" value="{{ microservice.prix }}">
-										<span class="nbr">{{ microservice.prix }}</span>
-										{{ currency }}
-									</span>
-								</div>
+											<span class="nbr">{{ microservice.prix }}</span>
+											{{ currency }}
+										</span>
+									</div>
 
-							<p class="info-security hiddenMobile"><i class="fa-solid fa-lock"></i> Paiement Sécurisé</p>
-							<span class="info hiddenMobile">Tous les prix sont H.T et hors frais bancaires. Le prix définitif est calculé sur la page de paiement.</span>
+
+									<p class="info-security hiddenMobile"><i class="fa-solid fa-lock"></i> Paiement Sécurisé</p>
+									<span class="info hiddenMobile">Tous les prix sont H.T et hors frais bancaires. Le prix définitif est calculé sur la page de paiement.</span>
+								{% else %}
+									<span class="info">Actuellement, les vendeurs ne peuvent pas réserver les services d'autres vendeurs. <br/> Mais rassurez-vous, nous y travaillons : cette option est prévue et arrivera très prochainement !</span>
+								{% endif %}
 						</div>
 
 						{% if not app.user or app.user.id != microservice.vendeur.id %}

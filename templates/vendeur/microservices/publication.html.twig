@@ -15,10 +15,17 @@
 		<div class="form-group">
 				<p class="text-muted">
 				{% if microservice.online == 1 %}
-					Ce servise est déjà publié sur <strong>{{ appName }}</strong>.
-					Vous pouvez également revenir sur les étapes précédentes pour effectuer une modification.
+					Ce service est déjà publié sur <strong>{{ appName }}</strong>.
+					Vous pouvez revenir sur les étapes précédentes pour effectuer une modification.
 				{% else %}
-					Vous y êtes presque ! Avant qu’un membre de notre équipe de modération ne relise votre service, nous vous invitons à jeter un dernier coup d’œil à celui-ci. Vous pouvez également revenir sur les étapes précédentes pour effectuer une modification. J'atteste…
+					Vous y êtes presque ! Avant que notre équipe de modération ne relise votre service, prenez un
+					instant pour le relire une dernière fois. Vous pouvez également revenir sur les étapes précédentes
+					si vous souhaitez apporter des modifications.
+					<br>
+					Cochez les cases suivantes pour attester que votre service est prêt à être publié.
+					<br>
+					<br>
+					<i>En cochant cette case, je certifie que :</i>
 				{% endif %}
 				</p>
 			

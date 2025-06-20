@@ -7,7 +7,7 @@
             vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
 
       <p>
-         Nous accusons bonne reception de votre rapport de fin de prestation de service, suite à votre livraison de la commande du service <strong>{{ commande.microservice.name }}</strong>, pour votre client <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo : client.nom ~ ' ' ~ client.prenom }}</strong>, vous avez recu un paiement de <strong>{{ commande.montant ~ currency }}</strong>.
+         Nous accusons bonne reception de votre rapport de fin de prestation de service, suite à votre livraison de la commande du service <strong>{{ commande.microservice.name }}</strong>, pour votre client <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo : client.nickName }}</strong>, vous avez reçu un paiement de <strong>{{ commande.montant ~ currency }}</strong>.
       </p>
 
       <div><br>

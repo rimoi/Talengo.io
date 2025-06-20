@@ -29,22 +29,22 @@ class InformationUserType extends AbstractType
 //                'required' => false,
 //                'help'     =>  "Cocher uniquement s'il s'agit d'un Home studio",
 //            ])
-            ->add('couvertureFile', VichImageType::class, [
-                'label' => '(Png, jpg et jpeg)',
-                'required'  =>  false,
-                'allow_delete' =>  false,
-                'download_label'     =>  false,
-                'image_uri'     =>  false,
-                'download_uri'     =>  false,
-                'imagine_pattern'   =>  'rectangle_avatar',
-                'attr'   =>  ['class' => 'form-control-file'],
-                'constraints' => [
-                    new FileConstraint([
-                        'maxSize' => '2M',
-                        'maxSizeMessage' => 'Le fichier est trop volumineux ({{ taille }} {{ suffixe }}). La taille maximale autorisée est de {{ limite }}. {{ suffixe }}'
-                    ])
-                ],
-            ])
+//            ->add('couvertureFile', VichImageType::class, [
+//                'label' => '(Png, jpg et jpeg)',
+//                'required'  =>  false,
+//                'allow_delete' =>  false,
+//                'download_label'     =>  false,
+//                'image_uri'     =>  false,
+//                'download_uri'     =>  false,
+//                'imagine_pattern'   =>  'rectangle_avatar',
+//                'attr'   =>  ['class' => 'form-control-file'],
+//                'constraints' => [
+//                    new FileConstraint([
+//                        'maxSize' => '2M',
+//                        'maxSizeMessage' => 'Le fichier est trop volumineux ({{ taille }} {{ suffixe }}). La taille maximale autorisée est de {{ limite }}. {{ suffixe }}'
+//                    ])
+//                ],
+//            ])
             ->add('statut', ChoiceType::class, [
                 'label' => 'Statut',
                 'choices'  => [
