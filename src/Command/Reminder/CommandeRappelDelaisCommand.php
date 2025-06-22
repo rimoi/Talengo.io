@@ -88,7 +88,7 @@ class CommandeRappelDelaisCommand extends Command
         $this->mailerService->sendCommandMail(
             'talengo.contact@gmail.com',
             $commande->getVendeur()->getEmail(),
-            "⏳ Délai critique - Votre prestation se termine dans moins de 24h",
+            "Rappel – Échéance de livraison pour la prestation ⏳",
             'mails/vendeur/delai_critique.html.twig',
             $commande->getClient(),
             $commande->getVendeur(),

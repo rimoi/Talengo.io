@@ -6,28 +6,42 @@
         <p>Bonjour <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
                 vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
 
-        <h3 style="margin-top: 0; color: #e74c3c;">⏰ Dernières 24 heures !</h3>
-
         <p>
-            Votre prestation "<strong>{{ commande.microservice.name }}</strong>" pour <strong>{{ client.usePseudo == 1 ? client.pseudo : client.nickName }}</strong> arrive à échéance dans moins de 24 heures.
+            Nous souhaitons vous rappeler que la date de livraison pour la prestation "<strong>{{ commande.microservice.name }}</strong>"
+            <strong>{{ client.usePseudo == 1 ? client.pseudo : client.nickName }}</strong> approche.
+        </p>
+        <br>
+        <p>
+            La date d’échéance est fixée à moins de 24h !
+        </p>
+        <br>
+        <p>
+            Nous vous encourageons à finaliser la prestation dans les délais impartis.
+        </p>
+        <br>
+        <p>
+            Terminer votre prestation dans les délais augmente vos chances de visibilité sur notre site et favorise la
+            possibilité de recevoir un avis positif de la part du client.
+        </p>
+        <br>
+        <p>
+            Notre priorité à tous est la <strong>satisfaction de nos clients</strong>, et nous comptons sur votre professionnalisme pour
+            garantir une expérience optimale.
+        </p>
+        <br>
+        <p>
+            N'hésitez pas à nous contacter en cas de difficulté ou besoin de précision.
         </p>
 
-        <p><strong>Prochaines étapes :</strong></p>
-        <ul>
-            <li>✅ Finalisez et livrez les éléments demandés</li>
-            <li>💬 Informez votre client via votre espace</li>
-        </ul>
-
-
-      <div style="margin: 30px 0;"><br>
-         <a href="{{ absolute_url(path('commande_details', {id: commande.id})) }}#valider" style="background: #4c8be8;
-     background: -webkit-linear-gradient(legacy-direction(to right), #4c8be8 0%, #a9a9a9 100%);
-     background: -webkit-gradient(linear, left top, right top, from(#4c8be8), to(#a9a9a9));
-     background: -webkit-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
-     background: -o-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
-     background: linear-gradient(to right, #4c8be8 0%, #a9a9a9 100%);
-     border-color: #4c8be8;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Accéder à la commande</a>
-      </div><br>
+{#      <div style="margin: 30px 0;"><br>#}
+{#         <a href="{{ absolute_url(path('commande_details', {id: commande.id})) }}#valider" style="background: #4c8be8;#}
+{#     background: -webkit-linear-gradient(legacy-direction(to right), #4c8be8 0%, #a9a9a9 100%);#}
+{#     background: -webkit-gradient(linear, left top, right top, from(#4c8be8), to(#a9a9a9));#}
+{#     background: -webkit-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);#}
+{#     background: -o-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);#}
+{#     background: linear-gradient(to right, #4c8be8 0%, #a9a9a9 100%);#}
+{#     border-color: #4c8be8;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Accéder à la commande</a>#}
+{#      </div><br>#}
 
         {% include "mails/_lien_cgu.html.twig" %}
 
