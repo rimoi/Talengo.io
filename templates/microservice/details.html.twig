@@ -14,7 +14,6 @@
 {% block javascript %}
 	<link href="{{ asset('themes/layout/css/plyr.css') }}" rel="stylesheet">
 	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/plyr.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('themes/layout/js/lib/plyr.js') }}"></script>
 
 {% endblock %}
 
@@ -219,13 +218,19 @@
 						</div>
 					</div>
 					<div class="testimonials section-service">
-						<h3 class="title">Témoignages</h3>
+						<h3 class="title" id="temoignage">Témoignages</h3>
 						<div class="content">
-							<div class="testimonials_content">
+							<div class="testimonials_content" data-confirme="non">
 
-								{% for avisPositif in serviceAvisAll(microservice) %}
+								{% if app.request.get('all_comment') and app.request.get('all_comment') == '1' %}
+									{% set show_all =  serviceAvisAll(microservice, all_comment) %}
+									{% set all_avis =  serviceAvisAll(microservice, all_comment) %}
+								{% else %}
+									{% set show_all =  serviceAvisAll(microservice, all_comment) %}
+									{% set all_avis =  show_all|slice(0, 3) %}
+								{% endif %}
 
-
+								{% for avisPositif in all_avis %}
 									<div class="card" id="{{ avisPositif.client.nameUrl }}">
 										<div class="infoImg">
 											{% if avisPositif.client.reseauAvatar %}
@@ -283,19 +288,45 @@
 									</div>
 								{% endfor %}
 
+								{% if show_all|length > 3 and (app.request.get('all_comment') != '1') %}
+									<div class="flexCenter" style="margin-top: 4px;">
+										<a href="{{ path('microservice_details', {
+											slug: microservice.slug,
+											all_comment: true
+										}) }}#temoignage" class="btn btn-borderBlue">Afficher plus d'avis</a>
+									</div>
+								{% endif %}
 							</div>
 						</div>
 					</div>
 					<div class="section-service section-services">
-						<h3 class="title">Mes autres services</h3>
+						<h3 class="title" id="mes-services">Mes autres services</h3>
 						<div class="content">
-							{% for micros in microservice.vendeur.showOnlyOnlineService(3) %}
+
+							{% if app.request.get('all_service') == '1' %}
+								{% set show_service =  microservice.vendeur.showOnlyOnlineService(100) %}
+								{% set all_service =  show_service %}
+							{% else %}
+								{% set show_service =  microservice.vendeur.showOnlyOnlineService(4)%}
+								{% set all_service =  show_service|slice(0, 3) %}
+							{% endif %}
+
+							{% for micros in all_service %}
 								{{ include('microservice/composants/_bloc.html.twig', {microservice: micros}) }}
 							{% endfor %}
 						</div>
-						<div class="flexCenter">
-							<a href="{{ path('vendeur_profil', {nameUrl: microservice.vendeur.nameUrl }) }}" class="btn btn-borderBlue">Tous mes services</a>
-						</div>
+{#						<div class="flexCenter">#}
+{#							<a href="{{ path('vendeur_profil', {nameUrl: microservice.vendeur.nameUrl }) }}" class="btn btn-borderBlue">Tous mes services</a>#}
+{#						</div>#}
+
+						{% if show_service|length > 3 and (app.request.get('all_service') != '1') %}
+							<div class="flexCenter" >
+								<a href="{{ path('microservice_details', {
+									slug: microservice.slug,
+									all_service: true
+								}) }}#mes-services" class="btn btn-borderBlue">Afficher plus de services</a>
+							</div>
+						{% endif %}
 					</div>
 				</div>
 				<div class="sticky-details">
@@ -324,7 +355,9 @@
 										<li><i class="fa-solid fa-clock"></i> <span class="nbr">{{ microservice.nombreJour }}</span> <span>jours</span></li>
 									</ul>
 								</div>
-								{% if is_granted('ROLE_CLIENT') %}
+								{% if is_granted('ROLE_VENDEUR') %}
+									<span class="info">Actuellement, les vendeurs ne peuvent pas réserver les services d'autres vendeurs. <br/> Mais rassurez-vous, nous y travaillons : cette option est prévue et arrivera très prochainement !</span>
+								{% else %}
 									<div class="priceBtn">
 										<button type="submit" class="btn btn-Yellow">Commander</button>
 										<span class="price">
@@ -337,8 +370,7 @@
 
 									<p class="info-security hiddenMobile"><i class="fa-solid fa-lock"></i> Paiement Sécurisé</p>
 									<span class="info hiddenMobile">Tous les prix sont H.T et hors frais bancaires. Le prix définitif est calculé sur la page de paiement.</span>
-								{% else %}
-									<span class="info">Actuellement, les vendeurs ne peuvent pas réserver les services d'autres vendeurs. <br/> Mais rassurez-vous, nous y travaillons : cette option est prévue et arrivera très prochainement !</span>
+
 								{% endif %}
 						</div>
 

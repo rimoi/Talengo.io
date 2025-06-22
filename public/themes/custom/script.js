@@ -22,7 +22,6 @@ $(function () {
             Talengo.changeTopService();
             Talengo.checkboxService();
             Talengo.stripe();
-            Talengo.afficherOuReduire();
         },
 
         menuSticky : function () {
@@ -41,7 +40,11 @@ $(function () {
         },
 
         testimonialsMobileCarousel :function () {
-            if(($('.testimonials_content').length) && Talengo.vars.isMobileView)  {
+            if (
+                $('.testimonials_content').length
+                && Talengo.vars.isMobileView
+                && $('.testimonials_content').closest('.page-service').length == 0
+                && $('.testimonials_content').data('confirme') == "non") {
                 $('.testimonials_content').owlCarousel({
                     loop:true,
                     margin:10,
@@ -188,26 +191,6 @@ $(function () {
                         } // Sinon (PayPal), le formulaire se soumet normalement
                     });
                 }
-        },
-        afficherOuReduire : function () {
-            if ($('.profilSection').length) {
-                var $desc = $('.profilSection.aboutme .description');
-                var fullText = $desc.text();
-                var truncated = fullText.length > 800 ? fullText.substring(0,800) + '...' : fullText;
-
-                // Initialement afficher texte tronqué
-                $desc.text(truncated);
-
-                $('.show-more .toggle-btn').on('click', function() {
-                    if ($(this).text() === 'lire la suite') {
-                        $desc.text(fullText);
-                        $(this).text('réduire');
-                    } else {
-                        $desc.text(truncated);
-                        $(this).text('lire la suite');
-                    }
-                });
-            }
         },
     }
 

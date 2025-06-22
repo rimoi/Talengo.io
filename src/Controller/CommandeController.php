@@ -1043,6 +1043,8 @@ class CommandeController extends AbstractController
                         $commande->setReferenceStripeId($response->getTransactionReference());
                         $commande->setPayed(true);
 
+                        $commande->setReservationDate(new \DateTime());
+
                         $commande->setIsPayWithStripe(true);
 
                         $entityManager->flush();
@@ -1080,12 +1082,16 @@ class CommandeController extends AbstractController
                     if ($response->isRedirect()) {
                         $commande->setPayed(true);
 
+                        $commande->setReservationDate(new \DateTime());
+
                         $entityManager->flush();
 
                         return $response->redirect();
                     } elseif ($response->isSuccessful()) {
 
                         $commande->setPayed(true);
+
+                        $commande->setReservationDate(new \DateTime());
 
                         $entityManager->flush();
 

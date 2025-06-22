@@ -261,7 +261,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
            if ($microservice->getOnline() && !$microservice->getOffline()) {
                $res[] = $microservice;
 
-               if (count($res) >= 3) {
+               if (count($res) >= $max) {
                    break;
                }
            }

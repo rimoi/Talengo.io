@@ -84,7 +84,7 @@
                         Me contacter
                     </a>
                 {% endif %}
-                <p class="time lightText">Temps de réponse : <span>2h</span></p>
+{#                <p class="time lightText">Temps de réponse : <span>2h</span></p>#}
             </div>
 
         </div>
@@ -129,7 +129,14 @@
                             <div class="wrp-content">
                             <button class="popup-close">&times;</button>
                             <div class="content">
-                                <h4 class="primaryTitle">{{ realisation.name }}</h4>
+                                <div class="text-center">
+                                    {% if realisation.file %}
+                                        <img src="{{ vich_uploader_asset(realisation, 'imageFile') | imagine_filter('medium_size') }}"
+                                             class="img-fluid"
+                                             alt="" />
+                                    {% endif %}
+                                </div>
+                                <h4 class="primaryTitle text-center">{{ realisation.name }}</h4>
                                 <div class="description">
                                     {{ realisation.description }}
                                 </div>
@@ -150,7 +157,7 @@
         <div class="profilSection section-services">
             <h3 class="secondaryTitle">Services</h3>
             <div class="content">
-                {% for microservice in user.microservices %}
+                {% for microservice in microservices %}
                     {{ include('microservice/composants/_bloc.html.twig', {'page_profile': true}) }}
                 {% endfor %}
             </div>

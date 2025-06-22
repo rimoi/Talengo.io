@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -73,7 +74,7 @@ class EditProfilType extends AbstractType
                 'imagine_pattern'   =>  'small_size',
                 'attr'   =>  ['class' => 'form-control-file'],
             ])
-            ->add('apropos', TextareaType::class, [
+            ->add('apropos', CKEditorType::class, [
                 'label' => 'Biographie',
                 'help' => 'Renseignements',
                 'required' => false,

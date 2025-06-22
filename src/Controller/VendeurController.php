@@ -29,10 +29,12 @@ class VendeurController extends AbstractController
     #[Route('/compte/vendeurs/{nameUrl}', name: 'vendeur_profil')]
     public function profil(User $user, MicroserviceRepository $microserviceRepository, PaginatorInterface $paginator, Request $request, AvisRepository $avisRepository): Response
     {
+
         $microservices = $paginator->paginate(
             $microserviceRepository->findBy([
                 'vendeur' => $user,
-                'online' => true
+                'online' => true,
+                'offline' => false,
             ], ['created' => 'DESC']),
             $request->query->getInt('page', 1),
             6

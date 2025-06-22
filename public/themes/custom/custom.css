@@ -150,13 +150,25 @@ body.userConnected header ul.menu .dropdown-user-details-email {
         position: absolute;
         right: 143px;
         text-align: center;
-        top: 4px;
+        top: 1px;
         width: 31px;
+    }
+
+    .page-service .wrp-service .details-service .options-price .option {
+        display: flex;
     }
 }
 
 .aboutme .secondaryTitle {
     margin-bottom: 20px;
+}
+
+.portfolio .content-popup .content {
+    display: block !important;
+}
+
+.text-center {
+    text-align: center !important;
 }
 
 

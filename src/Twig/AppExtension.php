@@ -178,8 +178,14 @@ class AppExtension extends AbstractExtension
         return $this->avisRepository->findBy(['microservice' => $service, 'type' => 'Positif']);
     }
 
-    public function getServiceAvisAll($service){
-        return $this->avisRepository->findBy(['microservice' => $service]);
+    public function getServiceAvisAll($service, $allComment = false): array
+    {
+
+        if ($allComment) {
+            return $this->avisRepository->findBy(['microservice' => $service], []);
+        }
+
+        return $this->avisRepository->findBy(['microservice' => $service], [], 4);
     }
 
 

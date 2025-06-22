@@ -239,7 +239,7 @@
                                         <strong class="d-block">{{ commande.vendeur.usePseudo == 1 ? commande.vendeur.pseudo :
                                             commande.vendeur.nickName }}</strong>
                                         <p class="mb-0 text-muted text-left">
-                                            {{ commande.vendeur.apropos|u.truncate(60, '...') }}
+                                            {{ commande.vendeur.apropos|u.truncate(100, '...')|raw }}
                                         </p>
                                     </div>
                                 </div>

@@ -177,7 +177,9 @@ class MicroserviceController extends AbstractController
             'microservice' => $microservice,
             'commandeForm' => $commandeForm->createView(),
             'prix' => $microservice->getPrix(),
-            'isHiden' => $isHiden
+            'isHiden' => $isHiden,
+            'all_comment' => $request->get('all_comment'),
+            'all_service' => $request->get('all_service'),
         ]);
     }
 

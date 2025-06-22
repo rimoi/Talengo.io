@@ -34,4 +34,19 @@ class CommandeRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    // Ici nous allons recupèrer la commande qui est en cours.
+    public function getCommandeApprocheDelails(): array
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->where('c.payed = :payed')
+            ->andWhere('c.deliver =  :deliver')
+            ->setParameters([
+                'payed' => true,
+                'deliver' => false,
+            ]);
+
+        return $qb->getQuery()->getResult();
+    }
 }
