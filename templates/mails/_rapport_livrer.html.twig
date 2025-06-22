@@ -7,8 +7,13 @@
             vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
 
       <p>
-         Nous accusons bonne réception de votre rapport de fin de prestation de service, suite à votre livraison de la commande du service <strong>{{ commande.microservice.name }}</strong>, pour votre client <strong>{{ client.usePseudo == 1 ? client.pseudo : client.nickName }}</strong>.
-         <br> Votre argent <strong>{{ commande.montant ~ currency }}</strong> arrivera bientôt.
+         Nous vous confirmons la bonne réception de votre rapport final relatif à la prestation "<strong>{{ commande.microservice.name }}</strong>", effectuée pour <strong>{{ client.usePseudo == 1 ? client.pseudo : client.nickName }}</strong>.
+         <br> Le montant de <strong>{{ commande.montant ~ currency }}</strong> a été crédité avec succès sur votre portefeuille.
+      </p>
+      <br>
+      <p>
+         Vous pouvez consulter votre solde ainsi que l’historique de vos transactions en accédant à votre
+         portefeuille via le lien suivant :
       </p>
 
       <div><br>
@@ -22,6 +27,10 @@
       Voir mon portefeuille
      </a>
       </div><br>
+
+      <p>
+         Nous restons à votre disposition pour toute question.
+      </p>
 
       {% include "mails/_lien_cgu.html.twig" %}
    

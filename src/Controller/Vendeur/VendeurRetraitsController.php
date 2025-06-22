@@ -62,15 +62,15 @@ class VendeurRetraitsController extends AbstractController
                 $retrait
             );
             
-            /** Envoie du mail à l'auteur */
-            $mailer->sendDemandeMail(
-                'talengo.contact@gmail.com',
-                'talengo.contact@gmail.com',
-                'Talengo.io - Nouveau retrait',
-                'mails/_retrait.html.twig',
-                $retrait->getVendeur(),
-                $retrait
-            );
+            /** Envoie du mail à l'administration */
+//            $mailer->sendDemandeMail(
+//                'talengo.contact@gmail.com',
+//                'talengo.contact@gmail.com',
+//                'Talengo.io - Nouveau retrait',
+//                'mails/_retrait.html.twig',
+//                $retrait->getVendeur(),
+//                $retrait
+//            );
 
             $this->addFlash('success', 'Votre demande a bien été envoyée');
             return $redirectUrl;
