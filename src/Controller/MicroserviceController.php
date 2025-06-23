@@ -158,7 +158,6 @@ class MicroserviceController extends AbstractController
             $commande->setVendeur($microservice->getVendeur());
             $commande->setDestinataire($microservice->getVendeur());
             $commande->setConfirmationClient(false);
-            $commande->setLu(false);
             $commande->setStatut('Non payée');
             $commande->setOffre('Réservation');
             $commande->setValidate(false);

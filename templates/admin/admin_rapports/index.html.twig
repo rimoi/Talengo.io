@@ -1,15 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
-{% block title %}Rapport index{% endblock %}
+{% block title %}Liste des rapports{% endblock %}
 
 {% block body %}
-    <h1>Rapport index</h1>
+    <h1>{{ block('title') }}</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Fichier</th>
+{#                <th>Fichier</th>#}
                 <th>Contenu</th>
                 <th>Created</th>
                 <th>Updated</th>
@@ -20,13 +20,13 @@
         {% for rapport in rapports %}
             <tr>
                 <td>{{ rapport.id }}</td>
-                <td>{{ rapport.fichier }}</td>
-                <td>{{ rapport.contenu }}</td>
+{#                <td>{{ rapport.fichier }}</td>#}
+                <td>{{ rapport.contenu|raw }}</td>
                 <td>{{ rapport.created ? rapport.created|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ rapport.updated ? rapport.updated|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_admin_rapports_show', {'id': rapport.id}) }}">show</a>
-                    <a href="{{ path('app_admin_rapports_edit', {'id': rapport.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_rapports_show', {'id': rapport.id}) }}">Voir</a>
+                    <a href="{{ path('app_admin_rapports_edit', {'id': rapport.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -37,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_rapports_new') }}">Create new</a>
+    <a href="{{ path('app_admin_rapports_new') }}">Nouveau rapport</a>
 {% endblock %}

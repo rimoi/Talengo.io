@@ -1,0 +1,36 @@
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+   <div style="margin: auto;background: #fff;padding: 20px;">
+
+      {% include "mails/_logo.html.twig" %}
+      
+      <p>Bonjour <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
+            client.nom ~ ' ' ~ client.prenom }}</strong>,</p>
+
+      <p>
+         Nous tenons à vous informer que votre commande <strong>{{ commande.microservice.name }}</strong>, pour le vendeur <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
+            vendeur.nickName }}</strong> a été annulée.
+      </p>
+
+      <p>
+         Conformément à notre politique, un remboursement intégral du montant de <strong>{{ commande.montant ~ currency }}</strong> sera effectué sous 6 jours ouvrés.
+         <br> Ce montant sera crédité sur le moyen de paiement utilisé lors de votre achat.
+      </p>
+
+      <p>
+         Nous nous excusons pour la gêne occasionnée par cette annulation et restons à votre disposition pour toute information complémentaire.
+      </p>
+
+      <div><br>
+         <a href="{{ absolute_url(path('commande_details', {id: commande.id})) }}" style="background: #4c8be8;
+     background: -webkit-linear-gradient(legacy-direction(to right), #4c8be8 0%, #a9a9a9 100%);
+     background: -webkit-gradient(linear, left top, right top, from(#4c8be8), to(#a9a9a9));
+     background: -webkit-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
+     background: -o-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
+     background: linear-gradient(to right, #4c8be8 0%, #a9a9a9 100%);
+     border-color: #4c8be8;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;"> Voir la commande</a>
+      </div><br>
+
+      {% include "mails/_lien_cgu.html.twig" %}
+
+   </div>
+</div>

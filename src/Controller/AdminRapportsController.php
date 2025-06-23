@@ -16,7 +16,8 @@ class AdminRapportsController extends AbstractController
     #[Route('/', name: 'app_admin_rapports_index', methods: ['GET'])]
     public function index(RapportRepository $rapportRepository): Response
     {
-        return $this->render('admin_rapports/index.html.twig', [
+
+        return $this->render('admin/admin_rapports/index.html.twig', [
             'rapports' => $rapportRepository->findAll(),
         ]);
     }
@@ -34,7 +35,7 @@ class AdminRapportsController extends AbstractController
             return $this->redirectToRoute('app_admin_rapports_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin_rapports/new.html.twig', [
+        return $this->renderForm('admin/admin_rapports/new.html.twig', [
             'rapport' => $rapport,
             'form' => $form,
         ]);
@@ -43,7 +44,7 @@ class AdminRapportsController extends AbstractController
     #[Route('/{id}', name: 'app_admin_rapports_show', methods: ['GET'])]
     public function show(Rapport $rapport): Response
     {
-        return $this->render('admin_rapports/show.html.twig', [
+        return $this->render('admin/admin_rapports/show.html.twig', [
             'rapport' => $rapport,
         ]);
     }
@@ -60,7 +61,7 @@ class AdminRapportsController extends AbstractController
             return $this->redirectToRoute('app_admin_rapports_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin_rapports/edit.html.twig', [
+        return $this->renderForm('admin/admin_rapports/edit.html.twig', [
             'rapport' => $rapport,
             'form' => $form,
         ]);

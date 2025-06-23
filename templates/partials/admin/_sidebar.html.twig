@@ -58,6 +58,13 @@
                </a>
             </li>
 
+            <li {{ app.request.attributes.get('_route') starts with 'app_admin_rapports_' ? 'mm-active' : '' }}>
+               <a href="{{ path('app_admin_rapports_index') }}" class=" waves-effect {{ app.request.attributes.get('_route') starts with 'app_admin_rapports_' ? 'active' : '' }}">
+                  <i class="mdi mdi-finance"></i>
+                  <span>Rapports</span>
+               </a>
+            </li>
+
             <li>
                <a href="{{ path('app_admin_stripe_index') }}" class=" waves-effect">
                   <i class="mdi mdi-book-multiple-outline"></i>

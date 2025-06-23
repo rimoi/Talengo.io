@@ -1,9 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
 {% block title %}Rapport{% endblock %}
 
 {% block body %}
     <h1>Rapport</h1>
+
+    <a href="{{ path('app_admin_rapports_index') }}" class="btn btn-secondary">Retour à la liste</a>
 
     <table class="table">
         <tbody>
@@ -17,7 +19,7 @@
             </tr>
             <tr>
                 <th>Contenu</th>
-                <td>{{ rapport.contenu }}</td>
+                <td>{{ rapport.contenu|raw }}</td>
             </tr>
             <tr>
                 <th>Created</th>
@@ -30,9 +32,12 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_rapports_index') }}">back to list</a>
 
-    <a href="{{ path('app_admin_rapports_edit', {'id': rapport.id}) }}">edit</a>
 
-    {{ include('admin_rapports/_delete_form.html.twig') }}
+    <a href="{{ path('app_admin_rapports_edit', {'id': rapport.id}) }}" class="btn btn-info">Modifier</a>
+
+    <div class="mt-1">
+        {{ include('admin/admin_rapports/_delete_form.html.twig') }}
+    </div>
+
 {% endblock %}

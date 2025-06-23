@@ -183,6 +183,8 @@ class CommandeController extends AbstractController
             $entityManager->flush();
 
             $commande->setRapportValidate(true);
+            $commande->setLu(false);
+            $commande->setDestinataire($commande->getVendeur());
             $commande->setAvis($avis);
             $entityManager->flush();
 
@@ -223,6 +225,10 @@ class CommandeController extends AbstractController
 
             $avisReponse->setVendeur($commande->getVendeur());
             $avisReponse->setAvis($commande->getAvis());
+
+            $commande->setLu(false);
+            $commande->setDestinataire($commande->getClient());
+
             $entityManager->persist($avisReponse);
             $entityManager->flush();
         }
@@ -279,15 +285,14 @@ class CommandeController extends AbstractController
 
             $portefeuille->setSoldeDisponible($somme);
             $portefeuille->setSoldeEncours($difference);
-            $entityManager->flush();
 
             $rapport->setCommande($commande);
             $entityManager->persist($rapport);
-            $entityManager->flush();
 
             $commande->setRapport($rapport);
             $commande->setRapportValidate(true);
             $commande->setRapportValidateAt(new \DateTimeImmutable());
+
             $entityManager->flush();
 
             /** Envoie du mail au vendeur */
@@ -637,6 +642,10 @@ class CommandeController extends AbstractController
             $somme = $commande->getMontant() + $portefeuille->getSoldeEncours();
             $portefeuille->setSoldeEncours($somme);
 
+            // notifications vers le client
+            $commande->setLu(false);
+            $commande->setDestinataire($commande->getClient());
+
             $commande->setValidate(true);
             $commande->setDeliver(false);
             $commande->setStatut('Valider');
@@ -687,9 +696,14 @@ class CommandeController extends AbstractController
 
         if ($this->isCsrfTokenValid('livrer' . $commande->getId(), $request->request->get('_token'))) {
 
+            $commande->setLu(false);
+            $commande->setDestinataire($commande->getClient());
+
             $commande->setDeliver(true);
             $commande->setDeliverAt(new \DateTimeImmutable());
+
             $entityManager->flush();
+
             $this->addFlash('success', 'Commande livrée 🚚 !');
 
             /** Envoie du mail au client */
@@ -738,6 +752,9 @@ class CommandeController extends AbstractController
             $retouche->setCommande($commande);
             $commande->addRetouche($retouche);
 
+            $commande->setLu(false);
+            $commande->setDestinataire($commande->getVendeur());
+
             $entityManager->persist($retouche);
             $entityManager->flush();
 
@@ -783,6 +800,9 @@ class CommandeController extends AbstractController
             $retouche->setFinished(true);
             $retouche->setFinRetoucheDate(new \DateTime());
 
+            $commande->setLu(false);
+            $commande->setDestinataire($commande->getClient());
+
             $entityManager->flush();
 
             $this->addFlash('success', "Votre correction a bien été transmise au client !");
@@ -819,6 +839,9 @@ class CommandeController extends AbstractController
 
             $commande->setCloturer(true);
             $commande->setCloturerDate(new \DateTime());
+
+            $commande->setLu(false);
+            $commande->setDestinataire($commande->getVendeur());
 
             $entityManager->flush();
 
@@ -931,7 +954,6 @@ class CommandeController extends AbstractController
             $remboursement->setMotif("Commande annulée par le prestataire");
             $remboursement->setStatut("Annuler");
             $entityManager->persist($remboursement);
-            $entityManager->flush();
 
             $portefeuille = $commande->getVendeur()->getPortefeuille();
 
@@ -945,11 +967,15 @@ class CommandeController extends AbstractController
 
             $portefeuille->setSoldeEncours($difference);
 
+            $commande->setLu(false);
+            $commande->setDestinataire($commande->getClient());
+
             $commande->setCancel(true);
             $commande->setStatut('Annuler');
             $commande->setDeliver(false);
             $commande->setValidate(false);
             $commande->setCancelAt(new \DateTimeImmutable());
+
             $entityManager->flush();
 
             /** Envoie du mail au vendeur */
@@ -962,9 +988,20 @@ class CommandeController extends AbstractController
                 $commande->getVendeur(),
                 $commande
             );
+
+            /** Envoie du mail au client */
+            $mailer->sendCommandMail(
+                'talengo.contact@gmail.com',
+                $commande->getClient()->getEmail(),
+                'Annulation de votre commande et remboursement',
+                'mails/_commande_client_annuler.html.twig',
+                $commande->getClient(),
+                $commande->getVendeur(),
+                $commande
+            );
         }
 
-        $this->addFlash('success', 'Commande annulée avec succès!');
+        $this->addFlash('success', 'Commande annulée avec succès !');
 
         return $this->redirectToRoute('commande_details', [
             'id' => $commande->getId(),
@@ -1043,6 +1080,8 @@ class CommandeController extends AbstractController
                         $commande->setReferenceStripeId($response->getTransactionReference());
                         $commande->setPayed(true);
 
+                        $commande->setLu(false);
+
                         $commande->setReservationDate(new \DateTime());
 
                         $commande->setIsPayWithStripe(true);
@@ -1081,7 +1120,7 @@ class CommandeController extends AbstractController
 
                     if ($response->isRedirect()) {
                         $commande->setPayed(true);
-
+                        $commande->setLu(false);
                         $commande->setReservationDate(new \DateTime());
 
                         $entityManager->flush();
@@ -1090,7 +1129,7 @@ class CommandeController extends AbstractController
                     } elseif ($response->isSuccessful()) {
 
                         $commande->setPayed(true);
-
+                        $commande->setLu(false);
                         $commande->setReservationDate(new \DateTime());
 
                         $entityManager->flush();
