@@ -648,7 +648,7 @@ class CommandeController extends AbstractController
             $mailer->sendCommandMail(
                 'talengo.contact@gmail.com',
                 $commande->getClient()->getEmail(),
-                'Commande validée',
+                'Votre commande a été validée',
                 'mails/client/_commande_valider.html.twig',
                 $commande->getClient(),
                 $commande->getVendeur(),
@@ -659,7 +659,7 @@ class CommandeController extends AbstractController
             $mailer->sendCommandMail(
                 'talengo.contact@gmail.com',
                 $commande->getVendeur()->getEmail(),
-                'Commande validée',
+                'Confirmation – Vous avez accepté une commande',
                 'mails/_commande_valider.html.twig',
                 $commande->getClient(),
                 $commande->getVendeur(),
@@ -747,7 +747,7 @@ class CommandeController extends AbstractController
             $mailer->sendCommandMail(
                 'talengo.contact@gmail.com',
                 $commande->getVendeur()->getEmail(),
-                'Demande de retouche 🔄',
+                'Nouvelle demande de retouche sur la commande',
                 'mails/_commande_retouche.html.twig',
                 $commande->getClient(),
                 $commande->getVendeur(),

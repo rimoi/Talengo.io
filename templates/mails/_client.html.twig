@@ -6,12 +6,15 @@
       <p>Bonjour <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo : client.nom ~ ' ' ~ client.prenom }}</strong>,</p>
 
       <p>
-         Bonne nouvelle !<br> Votre commande d'un montant de <strong>{{ commande.montant ~ currency }}</strong> a été prise en compte par le prestataire <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nickName }}</strong>.
+         Félicitation !<br> Vous avez passé commande auprès de <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nickName }}</strong>
+         pour un montant total de <strong>{{ commande.montant ~ currency }}</strong>.
       </p>
-
+      <br>
       <p>
-         Lorsque la commande sera terminée par le prestataire <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo :
-         vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nickName }}, </strong> il percevra <strong>{{ commande.montant ~ currency }}</strong>.
+         La somme due à votre vendeur ne lui sera versée par Talengo.io qu'une fois votre commande livrée, vérifiée et validée par vos soins. En cas d'annulation par le vendeur,
+         vous serez intégralement remboursé sur le moyen de paiement utilisé.
+         <br>
+         Pour permettre à votre vendeur de commencer son travail, merci de lui transmettre toutes vos instructions via le chat de la commande.
       </p>
 
       <div><br>
@@ -21,7 +24,7 @@
      background: -webkit-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
      background: -o-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
      background: linear-gradient(to right, #4c8be8 0%, #a9a9a9 100%);
-     border-color: #4c8be8;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Voir cette commande</a>
+     border-color: #4c8be8;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Donner mes consignes</a>
       </div><br>
 
       {% include "mails/_lien_cgu.html.twig" %}

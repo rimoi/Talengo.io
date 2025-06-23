@@ -7,8 +7,16 @@
             vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
 
       <p>
-         Suite à votre livraison de la commande du service <strong>{{ commande.microservice.name }}</strong>, pour le client <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
-            client.nickName }}</strong>. Nous laissons maintenant le client disposer de 48 heures pour clôturer la commande ou demander une retouche.
+         Félicitations ! 🎉
+         Vous venez de <strong>terminer la prestation</strong> pour la commande <strong>{{ commande.microservice.name }}</strong> passée par <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
+            client.nickName }}</strong>. <br>
+         Le client dispose désormais d’un délai de 7 jours pour valider la livraison ou demander une retouche. <br>
+         ✅ Une fois la commande validée (ou automatiquement clôturée après ce délai), les fonds vous seront
+         versés sur votre solde {{ appName }}
+      </p>
+
+      <p>
+         Merci pour votre professionnalisme,
       </p>
 
       {% include "mails/_lien_cgu.html.twig" %}

@@ -7,8 +7,12 @@
             client.nom ~ ' ' ~ client.prenom }}</strong>,</p>
 
       <p>
-         Votre commande du service <strong>{{ commande.microservice.name }}</strong>, a bien été validée par le vendeur <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
-            vendeur.nickName }}</strong>
+         Vous avez récemment passé une commande sur {{ appName }} auprès de <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
+            vendeur.nickName }}</strong> pour le service <strong>{{ commande.microservice.name }}</strong> pour un montant de <strong>{{ commande.montant ~ currency }}</strong>.
+      </p>
+
+      <p>
+         Votre commande a bien été acceptée par le vendeur.
       </p>
 
       <div><br>

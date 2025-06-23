@@ -168,6 +168,17 @@ class Commande
         return !$this->retouches->isEmpty();
     }
 
+    public function nombreJour(): int
+    {
+        $nombreJour = $this->microservice->getNombreJour();
+
+        foreach ($this->serviceOptions as $serviceOption) {
+            $nombreJour += (int) $serviceOption->getDelai();
+        }
+
+        return $nombreJour;
+    }
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
