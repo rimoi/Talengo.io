@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous contacter{% endblock %}
+
+{% block _flash '' %}
+
+{% block body %}
+    <div class="page-editorial">
+        <div class="hero-editorial">
+            <div class="container">
+                <h1 class="secondaryTitle textcenter">Nous contacter</h1>
+            </div>
+        </div>
+        <div class="contact-form">
+            <div class="container-small">
+                {{ include('partials/_flash_message.html.twig') }}
+
+                {{ form_start(form, {attr: {class: 'global-form-style'}}) }}
+                    <div class="row-form">
+                        {{ form_errors(form.email) }}
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email) }}
+                    </div>
+
+                    <div class="row-form">
+                        {{ form_errors(form.name) }}
+                        {{ form_label(form.name) }}
+                        {{ form_widget(form.name) }}
+                    </div>
+
+                    <div class="row-form">
+                        {{ form_errors(form.content) }}
+                        {{ form_label(form.content) }}
+                        {{ form_widget(form.content) }}
+                    </div>
+
+                <div class="row-form custom-checkbox">
+                    <input type="checkbox" name="" id="checkbox">
+                    <label for="checkbox">En continuant, j'accepte  les Conditions Générales  et la Politique de Confidentialité de Talengo.io</label>
+                </div>
+                <button type="submit" class="btn btn-primaryBlue">Envoyer le message</button>
+
+                {{ form_end(form) }}
+
+{#                <form class="global-form-style" action="">#}
+{#                    <div class="row-form">#}
+{#                        <label class="regularText">Email <span class="required">(obligatoire)</span></label>#}
+{#                        <input type="text" name="" required>#}
+{#                    </div>#}
+{#                    <div class="row-form">#}
+{#                        <label class="regularText">Objet  <span class="required">(obligatoire)</span></label>#}
+{#                        <input type="text" name="" required>#}
+{#                    </div>#}
+{#                    <div class="row-form">#}
+{#                        <label class="regularText">Votre message  <span class="required">(obligatoire)</span></label>#}
+{#                        <textarea></textarea>#}
+{#                    </div>#}
+{#                    <div class="row-form custom-checkbox">#}
+{#                        <input type="checkbox" name="" id="checkbox">#}
+{#                        <label for="checkbox">En continuant, j'accepte  les Conditions Générales  et la Politique de Confidentialité de Talengo.io</label>#}
+{#                    </div>#}
+{#                    <button type="submit" class="btn btn-primaryBlue">Envoyer le message</button>#}
+
+{#                </form>#}
+            </div>
+        </div>
+    </div>
+{% endblock %}

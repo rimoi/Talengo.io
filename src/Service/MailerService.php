@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Commande;
 use App\Entity\User;
+use App\Model\Contact;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ class MailerService
 	{
 	}
 
-	public function sendMailBecomeSaller($from, $to, $subjet, $template, $user, $message)
+	public function sendMailBecomeSaller($from, $to, $subjet, $template, Contact $contact, ?User $user)
 	{
 
 		$email = (new TemplatedEmail())
@@ -26,8 +27,7 @@ class MailerService
 			->htmlTemplate($template)
 			->context([
 				'user' => $user,
-				'useremail'  =>  $from,
-				'message'   =>  $message
+				'contact'   =>  $contact
 			]);
 
 		return $this->mailer->send($email);

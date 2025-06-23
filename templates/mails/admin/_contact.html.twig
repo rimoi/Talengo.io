@@ -1,0 +1,36 @@
+<style>
+   body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+   .label { font-weight: bold; color: #555; }
+</style>
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+   <div style="margin: auto;background: #fff;padding: 20px;">
+      
+      {% include "mails/_logo.html.twig" %}
+      
+      <p>Bonjour,</p>
+
+      <p>Vous avez reçu une nouvelle prise de contact :</p>
+
+      <div style="margin: 25px 0;">
+         <p><span class="label">De :</span>
+            {% if user %}
+               <a href="{{ absolute_url(path('app_admin_users_show', {nameUrl: user.nameUrl})) }}">
+                  {{ user.fullName }}
+               </a>
+            {% endif %}
+            ({{ contact.email }})
+         </p>
+         <p><span class="label">Date :</span> {{ "now"|date("d/m/Y à H:i") }}</p>
+
+         <p><span class="label">Sujet :</span> {{ contact.name }}</p>
+      </div>
+
+      <div style="background-color: #f5f5f5; padding: 15px; border-radius: 4px;">
+         <p class="label">Message :</p>
+         <p>{{ contact.content|nl2br }}</p>
+      </div>
+
+      {% include "mails/_lien_cgu.html.twig" %}
+
+   </div>
+</div>
