@@ -38,7 +38,7 @@ class CommandeRappelDelaisCommand extends Command
             if ($this->regardeSiLeDelaisMoins24H($commande)) {
 
                 $io->info(
-                    sprintf('Pour la commande "%s", email envoyé au vendeur !', $commande->getId())
+                    sprintf('[Rappel] Pour la commande "%s", email envoyé au vendeur !', $commande->getId())
                 );
 
                 $this->sendEmail($commande);

@@ -1,0 +1,35 @@
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+    <div style="margin: auto;background: #fff;padding: 20px;">
+
+        {% include "mails/_logo.html.twig" %}
+
+        <p>Bonjour <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
+                vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
+
+        <div class="alert-box">
+            <p>Votre commande <span style="color: #2E7D32;">#{{ commande.id }}</span> ("<strong>{{ commande.microservice.name }}</strong>") a été
+                automatiquement marquée comme terminée ce jour ({{ "now"|date("d/m/Y à H:i") }}) faute de réponse de votre part dans les délais impartis.
+        </div>
+
+        <div class="info-box">
+            <h4 style="margin-top: 0;">Détails de la commande :</h4>
+            <p><strong>Service :</strong> {{ commande.microservice.name }}</p>
+            <p><strong>Vendeur :</strong> {{ client.usePseudo == 1 ? client.pseudo : client.nickName }}</p>
+            <p><strong>Montant :</strong> {{ commande.montant ~ currency }}</p>
+            <p><strong>Statut :</strong> Terminé (clôturé automatiquement le {{ "now"|date("d/m/Y à H:i") }})</p>
+        </div>
+
+      <div style="margin: 30px 0;"><br>
+         <a href="{{ absolute_url(path('commande_details', {id: commande.id})) }}#valider" style="background: #4c8be8;
+     background: -webkit-linear-gradient(legacy-direction(to right), #4c8be8 0%, #a9a9a9 100%);
+     background: -webkit-gradient(linear, left top, right top, from(#4c8be8), to(#a9a9a9));
+     background: -webkit-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
+     background: -o-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
+     background: linear-gradient(to right, #4c8be8 0%, #a9a9a9 100%);
+     border-color: #4c8be8;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Accéder à la commande</a>
+      </div><br>
+
+        {% include "mails/_lien_cgu.html.twig" %}
+
+    </div>
+</div>

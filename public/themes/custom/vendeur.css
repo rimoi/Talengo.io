@@ -352,6 +352,12 @@ nav ul.menu > li > a:hover {
     color: #20406f;
 }
 
+@media screen and (max-width: 991px) {
+    nav ul.menu > li > a:hover {
+        color: #969faa;
+    }
+}
+
 
 
 footer {

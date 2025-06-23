@@ -1,0 +1,41 @@
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+    <div style="margin: auto;background: #fff;padding: 20px;">
+
+        {% include "mails/_logo.html.twig" %}
+
+        <p>Bonjour <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
+                vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
+
+        <div class="alert-box">
+            <h3 style="margin-top: 0; color: #2E7D32;">Retouches effectuées par <strong>{{ client.usePseudo == 1 ? client.pseudo : client.nickName }}</strong></h3>
+            <p>Le vendeur a apporté les corrections demandées à votre commande "<strong>{{ commande.microservice.name }}</strong>".</p>
+        </div>
+
+        <div class="warning-box">
+            <h4 style="margin-top: 0; color: #E65100;">⏳ Délai critique : 24 heures</h4>
+            <p>Vous avez <strong>jusqu'au {{ "now"|date_modify("+1 day")|date("d/m/Y à H:i") }}</strong> pour :</p>
+            <ul>
+                <li>Tester les modifications</li>
+                <li>Valider que tout est conforme ou demander d'éventuelles corrections supplémentaires</li>
+            </ul>
+            <p><strong>Passé ce délai, la commande sera automatiquement considérée comme terminée.</strong></p>
+        </div>
+        <br>
+        <p>
+            N'hésitez pas à nous contacter en cas de difficulté ou besoin de précision.
+        </p>
+
+      <div style="margin: 30px 0;"><br>
+         <a href="{{ absolute_url(path('commande_details', {id: commande.id})) }}#valider" style="background: #4c8be8;
+     background: -webkit-linear-gradient(legacy-direction(to right), #4c8be8 0%, #a9a9a9 100%);
+     background: -webkit-gradient(linear, left top, right top, from(#4c8be8), to(#a9a9a9));
+     background: -webkit-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
+     background: -o-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
+     background: linear-gradient(to right, #4c8be8 0%, #a9a9a9 100%);
+     border-color: #4c8be8;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Accéder à la commande</a>
+      </div><br>
+
+        {% include "mails/_lien_cgu.html.twig" %}
+
+    </div>
+</div>

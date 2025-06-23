@@ -142,7 +142,7 @@ class Commande
     private ?bool $isPayWithStripe = null;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $cloturer = null;
+    private ?bool $cloturer = false;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $cloturerDate = null;
@@ -153,8 +153,6 @@ class Commande
     // commande en cours de retouche
     public function isRetouche(): bool
     {
-
-
         foreach ($this->retouches as $retouche) {
             if (!$retouche->isFinished()) {
                 return true;
@@ -162,6 +160,12 @@ class Commande
         }
 
         return false;
+    }
+
+    // commande passer en retouche
+    public function hasRetouche(): bool
+    {
+        return !$this->retouches->isEmpty();
     }
 
     public function __construct()

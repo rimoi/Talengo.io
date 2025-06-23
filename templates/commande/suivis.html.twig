@@ -157,6 +157,17 @@
 
                                 {% endif %}
 
+                                {% if commande.cloturer == 1 %}
+                                    <div class="py-3 d-flex justify-content-between">
+                                        <h3 class="h6 custom-size">{{ step_count }} - Commande clôturer 🔒</h3>
+                                        <div class="text-muted mt-n2px">
+                                            {{ commande.cloturerDate|date('d/m/Y à H:i') }}
+                                        </div>
+
+                                    </div>
+
+                                {% endif %}
+
                                 {% if commande.cancel == 1 %}
 
                                     <div class="py-3 d-flex justify-content-between">

@@ -49,4 +49,21 @@ class CommandeRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+//    // Ici nous allons recupèrer la commande qui est en cours pour un client.
+    public function getCommandeClientEncours(): array
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->where('c.payed = :payed')
+            ->andWhere('c.deliver =  :payed')
+            ->andWhere('c.cloturer =  :cloturer')
+            ->setParameters([
+                'payed' => true,
+                'cloturer' => false,
+            ]);
+
+        return $qb->getQuery()->getResult();
+    }
+
 }
