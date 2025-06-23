@@ -186,12 +186,16 @@ nav .left-content {
 }
 
 
+
 nav .content-right {
     display: flex;
     align-items: center;
 }
+body:not(.activeMenuBurger) nav .content-right {
+    display: none;
+}
 @media screen and (max-width: 1024px) {
-    nav .content-right {
+     nav .content-right {
         position: absolute;
         background: #20406f;
         width: 100%;

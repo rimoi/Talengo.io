@@ -35,10 +35,10 @@
             </div>
         {% endif %}
 
-        <section class="section-services">
+        <section class="section-services {{ app.request.get('_route') == 'search_list' ? 'cs-page-search' }}">
             <div class="container">
                 {% if app.request.get('_route') == 'search_list' %}
-                    <h3 class="primaryTitle">Résultat de recherche du mots : '{{ app.request.request.get('search') }}'</h3>
+                    <h3 class="primaryTitle">Résultat de recherche du mots : '{{ app.request.request.get('search') }}' </h3>
                 {% else %}
                     <h3 class="primaryTitle">Meilleurs services</h3>
                 {% endif %}

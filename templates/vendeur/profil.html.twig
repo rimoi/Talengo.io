@@ -22,14 +22,14 @@
 
 				{% if user.avatar %}
 
-				<img src="{{ vich_uploader_asset(user, 'imageFile') | imagine_filter('small_size') }}"
+				<img src="{{ vich_uploader_asset(user, 'imageFile') }}"
 					class="img-fluid rounded-circle"
 					alt="{{ user.usePseudo == 1 ? user.pseudo : user.usePseudo == 1 ? user.pseudo : user.nom ~ ' ' ~ user.prenom }}">
 
 				{% else %}
 
 				<img class="img-fluid rounded-circle"
-					src="{{ asset('img/user.jpg') | imagine_filter('small_size') }}" alt='' />
+					src="{{ asset('img/user.jpg') }}" alt='' />
 
 				{% endif %}
 
@@ -117,9 +117,12 @@
                         <div class="contentCard open-popup-link" data-popup-id="datapopup_{{ key }}">
 
                              {% if realisation.file %}
-                                <img src="{{ vich_uploader_asset(realisation, 'imageFile') | imagine_filter('medium_size') }}"
+                                <img src="{{ vich_uploader_asset(realisation, 'imageFile') }}"
                                      class="img-fluid"
                                      alt="" />
+{#                                 <img src="{{ vich_uploader_asset(realisation, 'imageFile') | imagine_filter('medium_size') }}"#}
+{#                                      class="img-fluid"#}
+{#                                      alt="" />#}
                             {% endif %}
                             <h4 class="title">{{ realisation.name }}</h4>
                             <p>{{ realisation.description|u.truncate(150, '...') }}</p>
@@ -131,7 +134,7 @@
                             <div class="content">
                                 <div class="text-center">
                                     {% if realisation.file %}
-                                        <img src="{{ vich_uploader_asset(realisation, 'imageFile') | imagine_filter('medium_size') }}"
+                                        <img src="{{ vich_uploader_asset(realisation, 'imageFile') }}"
                                              class="img-fluid"
                                              alt="" />
                                     {% endif %}

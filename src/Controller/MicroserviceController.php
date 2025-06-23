@@ -161,6 +161,7 @@ class MicroserviceController extends AbstractController
             $commande->setStatut('Non payée');
             $commande->setOffre('Réservation');
             $commande->setValidate(false);
+            $commande->setLu(false);
             $commande->setDeliver(false);
             $commande->setCancel(false);
             $entityManager->persist($commande);

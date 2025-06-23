@@ -9,7 +9,10 @@
 	<a href="{{ path('microservice_details', {slug: microservice.slug}) }}">
 		{% if microservice.medias|length > 0 %}
 			<img class="img-service"
-				 src="{{ vich_uploader_asset(microservice.medias[0], 'imageFile') | imagine_filter('medium_size') }}" />
+				 src="{{ vich_uploader_asset(microservice.medias[0], 'imageFile') }}" />
+
+{#			<img class="img-service"#}
+{#				 src="{{ vich_uploader_asset(microservice.medias[0], 'imageFile') | imagine_filter('medium_size') }}" />#}
 		{% else %}
 			<img class="img-service" src="{{ asset('themes/layout/img/hero.jpg') | imagine_filter('medium_size') }}" />
 		{% endif %}

@@ -12809,7 +12809,11 @@ header .btn-seller {
 }
 @media screen and (max-width: 767px) {
   .userConnected header .categories .container {
-    padding: 0 10px;
+    padding: 0;
+  }
+
+  .userConnected header .categories .menuCategories {
+    overflow-x: initial !important;
   }
 }
 .userConnected header .categories .menuCategories {
@@ -16025,6 +16029,12 @@ a.favoris:hover i {
 
 div.alert {
   margin: 74px auto 15px;
+}
+
+@media screen and (max-width: 991px) {
+  .section-services.cs-page-search .content .card:last-child {
+    display: block;
+  }
 }
 
 

@@ -7,7 +7,7 @@
             <th>{{ app.request.attributes.get('_route') == 'vendeur_commandes_index' ? 'Client' :
                 'Vendeur' }}</th>
             <th>Statut</th>
-            <th>Date</th>
+            <th class="invisibleMenuBurger">Date</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -19,18 +19,20 @@
                 <tr>
                     <td>
                         <div class="media">
-                            {% if commande.microservice.medias|length > 0 %}
+                            <a href="{{ path('microservice_details', {slug: commande.microservice.slug}) }}">
+                                {% if commande.microservice.medias|length > 0 %}
 
-                                <img class="rounded"
-                                     src="{{ vich_uploader_asset(commande.microservice.medias[0], 'imageFile') | imagine_filter('midle_avatar') }}">
+                                    <img class="rounded"
+                                         src="{{ vich_uploader_asset(commande.microservice.medias[0], 'imageFile') | imagine_filter('midle_avatar') }}">
 
-                            {% else %}
+                                {% else %}
 
-                                <img class="img-fluid rounded"
-                                     src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('midle_avatar') }}"/>
+                                    <img class="img-fluid rounded"
+                                         src="{{ asset('themes/base/images/list/v1.png') | imagine_filter('midle_avatar') }}"/>
 
-                            {% endif %}
-                            <div class="media-body pl-3">
+                                {% endif %}
+                            </a>
+                            <div class="media-body pl-3 invisibleMenuBurger">
                                 <a href="{{ path('microservice_details', {slug: commande.microservice.slug}) }}"
                                    class="d-block text-dark font-weight-bold"
                                    target="_blank">{{ commande.microservice.name|u.truncate(30, '...') }}</a>
@@ -89,7 +91,7 @@
                             <span class="badge badge-pill badge-success">Validé</span>
                         {% endif %}
                     </td>
-                    <td>{{ commande.created ? commande.created|date('d/m/Y') : '' }}</td>
+                    <td class="invisibleMenuBurger">{{ commande.created ? commande.created|date('d/m/Y') : '' }}</td>
                     <td>
 
                         {% if commande.payed == true %}

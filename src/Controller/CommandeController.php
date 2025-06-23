@@ -229,6 +229,8 @@ class CommandeController extends AbstractController
             $commande->setLu(false);
             $commande->setDestinataire($commande->getClient());
 
+            $this->addFlash('success', "Votre réponse a bien été soumise.");
+
             $entityManager->persist($avisReponse);
             $entityManager->flush();
         }
