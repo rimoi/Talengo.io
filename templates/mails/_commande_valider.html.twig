@@ -3,8 +3,8 @@
 
         {% include "mails/_logo.html.twig" %}
 
-        <p>Bonjour <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
-                client.nom ~ ' ' ~ client.prenom }}</strong>,</p>
+        <p>Bonjour <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
+                vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
 
         <p>
             Merci ! Vous venez de valider une commande pour votre service : <strong>{{ commande.microservice.name }}</strong>, commandé par <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
