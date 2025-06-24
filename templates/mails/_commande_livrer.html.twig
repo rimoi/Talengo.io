@@ -1,3 +1,22 @@
+<style>
+   @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400&display=swap');
+
+   body {
+      font-family: 'Outfit', Arial, sans-serif;
+      font-weight: 100;
+   }
+
+   p {
+      margin: 12px 0;
+      line-height: 1.5;
+      color: #333333;
+   }
+
+   strong {
+      font-weight: 300;
+   }
+</style>
+
 <div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
    <div style="margin: auto;background: #fff;padding: 20px;">
 
@@ -9,14 +28,16 @@
       <p>
          Félicitations ! 🎉
          Vous venez de <strong>terminer la prestation</strong> pour la commande <strong>{{ commande.microservice.name }}</strong> passée par <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
-            client.nickName }}</strong>. <br>
+            client.nickName }}</strong>.
+      </p>
+      <p>
          Le client dispose désormais d’un délai de 7 jours pour valider la livraison ou demander une retouche. <br>
          ✅ Une fois la commande validée (ou automatiquement clôturée après ce délai), les fonds vous seront
          versés sur votre solde {{ appName }}
       </p>
 
       <p>
-         Merci pour votre professionnalisme,
+         Merci pour votre professionnalisme.
       </p>
 
       {% include "mails/_lien_cgu.html.twig" %}

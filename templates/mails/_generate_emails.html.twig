@@ -1,25 +1,34 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400&display=swap');
+
+    body {
+        font-family: 'Outfit', Arial, sans-serif;
+        font-weight: 100;
+    }
+
+    p {
+        margin: 12px 0;
+        line-height: 1.5;
+        color: #333333;
+    }
+
+    strong {
+        font-weight: 300;
+    }
+</style>
 <div style="background-color: #f3f3f3;padding: 30px 0;font-size: 13px;">
     <div style="margin: auto;background: #fff;padding: 20px;">
 
         {% include "mails/_logo.html.twig" %}
 
         <p>Cher(e) membre,</p>
-        <br>
-        <br>
         <p>Nous avons récemment créer votre compte sur Links-Infinity.</p>
 
         <p> Nous vous informons que vous pouvez à tout moment et simplement, vous connecter à votre compte en ligne en renseignant vos identifiants et mot de passe ci-dessous :</p>
-        <br>
         <p ><bold>Identifiant :</bold>  <code style="color: #272498; font-size: 12px; ">{{ identifiant }}</code></p>
         <p ><bold>Mot de passe :</bold>  <code style="color: #272498; font-size: 12px; ">{{ password }}</code></p>
 
-        <br>
-        <br>
-
         <p> Pour garantir la sécurité de votre espace changé votre mot de passe à n'importe quel moment dans votre compte dans la rubrique "accès".</p>
-        <br>
-        <br>
-        <br>
         <p>A très bientôt
             <br>
             <span style="font-size: 12px; color: #272498">Equipe Links-Infinity</span>

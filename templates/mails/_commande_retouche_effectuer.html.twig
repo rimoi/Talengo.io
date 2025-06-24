@@ -1,13 +1,31 @@
+<style>
+   @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400&display=swap');
+
+   body {
+      font-family: 'Outfit', Arial, sans-serif;
+      font-weight: 100;
+   }
+
+   p {
+      margin: 12px 0;
+      line-height: 1.5;
+      color: #333333;
+   }
+
+   strong {
+      font-weight: 300;
+   }
+</style>
 <div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
    <div style="margin: auto;background: #fff;padding: 20px;">
 
       {% include "mails/_logo.html.twig" %}
 
-      <p>Bonjour <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
-            vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
+      <p>Bonjour <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
+            client.nom ~ ' ' ~ client.prenom }}</strong>,</p>
 
       <p>
-         Le vendeur <strong>{{ client.usePseudo == 1 ? client.pseudo : client.nickName }}</strong> vous informe que votre demande de retouche pour le service <strong>{{ commande.microservice.name }}</strong> a été réalisée 🎉.
+         Le vendeur <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nickName }}</strong> vous informe que votre demande de retouche pour le service <strong>{{ commande.microservice.name }}</strong> a été réalisée 🎉.
       </p>
 
       <p>
