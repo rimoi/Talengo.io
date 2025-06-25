@@ -27,8 +27,8 @@
 <a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'favoris_' ? 'active' : '' }}"
    href="{{ path('favoris_index') }}"><i class="fa fa-heart"></i>&nbsp;&nbsp;&nbsp;Favoris</a>
 
-<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'suivis_' ? 'active' : '' }}"
-   href="{{ path('suivis_index') }}"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Suivis</a>
+{#<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'suivis_' ? 'active' : '' }}"#}
+{#   href="{{ path('suivis_index') }}"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Suivis</a>#}
 <a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'app_vendeur_remboursements_' ? 'active' : '' }}"
    href="{{ path('app_vendeur_remboursements_index') }}"><i
       class="fa fa-backward"></i>&nbsp;&nbsp;&nbsp;Remboursements</a>

@@ -80,6 +80,14 @@
 									{% endif %}
 								</a>
 							</li>
+							{% if is_granted('ROLE_ADMIN') %}
+								<li class="visibleMenuBurger">
+									<a href="{{ path('admin_dashboard') }}">Administration</a>
+								</li>
+							{% endif %}
+							<li class="visibleMenuBurger">
+								<a href="{{ path('user_dashboard') }}">Tableau de bord</a>
+							</li>
 							<li>
 								{% if app.user.hasRole('ROLE_VENDEUR') %}
 									<a href="{{ path('vendeur_commandes_index') }}" title="Mes ventes">
@@ -99,14 +107,11 @@
 									</a>
 								{% endif %}
 							</li>
-							{% if is_granted('ROLE_ADMIN') %}
+							{% if app.user.hasRole('ROLE_VENDEUR') %}
 								<li class="visibleMenuBurger">
-									<a href="{{ path('admin_dashboard') }}">Administration</a>
+									<a href="{{ path('vendeur_microservices_index') }}">Services</a>
 								</li>
 							{% endif %}
-							<li class="visibleMenuBurger">
-								<a href="{{ path('user_dashboard') }}">Tableau de bord</a>
-							</li>
 							<li class="visibleMenuBurger">
 								<a href="{{ path('user_profil') }}">Profil</a>
 							</li>
