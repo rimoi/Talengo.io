@@ -96,7 +96,6 @@ class CommandeController extends AbstractController
         AvisRepository            $avisRepository
     ): Response
     {
-
         /** @var User $user */
         $user = $this->getUser();
 
@@ -274,15 +273,14 @@ class CommandeController extends AbstractController
 
             $portefeuille = $commande->getVendeur()->getPortefeuille();
 
+            $somme = $commande->realPriceWithOutFee() + $portefeuille->getSoldeDisponible();
 
-            $somme = $commande->getMontant() + $portefeuille->getSoldeDisponible();
+            if ($commande->realPriceWithOutFee() >= $portefeuille->getSoldeEncours()) {
 
-            if ($commande->getMontant() >= $portefeuille->getSoldeEncours()) {
-
-                $difference = $commande->getMontant() - $portefeuille->getSoldeEncours();
+                $difference = $commande->realPriceWithOutFee() - $portefeuille->getSoldeEncours();
             } else {
 
-                $difference = $portefeuille->getSoldeEncours() - $commande->getMontant();
+                $difference = $portefeuille->getSoldeEncours() - $commande->realPriceWithOutFee();
             }
 
             $portefeuille->setSoldeDisponible($somme);
@@ -639,11 +637,6 @@ class CommandeController extends AbstractController
 
         if ($this->isCsrfTokenValid('validate' . $commande->getId(), $request->request->get('_token'))) {
 
-            $portefeuille = $commande->getVendeur()->getPortefeuille();
-
-            $somme = $commande->getMontant() + $portefeuille->getSoldeEncours();
-            $portefeuille->setSoldeEncours($somme);
-
             // notifications vers le client
             $commande->setLu(false);
             $commande->setDestinataire($commande->getClient());
@@ -959,12 +952,12 @@ class CommandeController extends AbstractController
 
             $portefeuille = $commande->getVendeur()->getPortefeuille();
 
-            if ($commande->getMontant() >= $portefeuille->getSoldeEncours()) {
+            if ($commande->realPriceWithOutFee() >= $portefeuille->getSoldeEncours()) {
 
-                $difference = $commande->getMontant() - $portefeuille->getSoldeEncours();
+                $difference = $commande->realPriceWithOutFee() - $portefeuille->getSoldeEncours();
             } else {
 
-                $difference = $portefeuille->getSoldeEncours() - $commande->getMontant();
+                $difference = $portefeuille->getSoldeEncours() - $commande->realPriceWithOutFee();
             }
 
             $portefeuille->setSoldeEncours($difference);
@@ -1028,7 +1021,6 @@ class CommandeController extends AbstractController
 
         $microservice = $microserviceRepository->findOneBy(['slug' => $slug]);
 
-
         $directory = $this->redirectToRoute('microservices');
 
         if (!$microservice) {
@@ -1053,11 +1045,6 @@ class CommandeController extends AbstractController
 
             if ($this->isCsrfTokenValid('reserver' . $commande->getId(), $request->request->get('_token'))) {
 
-                if ($request->get('montant')) {
-                    $commande->setMontant((float)$request->get('montant'));
-                    $entityManager->flush();
-                }
-
                 if ($request->get('payment') === 'card') {
 
                     $paymentService->hydrateInfo($request, $this->getUser());
@@ -1065,8 +1052,6 @@ class CommandeController extends AbstractController
                     if ($request->get('montant')) {
                         $commande->setMontant((float)$request->get('montant'));
                     }
-
-                    $entityManager->flush();
 
                     $gateway = Omnipay::create('Stripe');
                     $gateway->setApiKey($this->privateKey);
@@ -1088,6 +1073,8 @@ class CommandeController extends AbstractController
 
                         $commande->setIsPayWithStripe(true);
 
+                        $portefeuille->setSoldeEncours($portefeuille->getSoldeEncours() + $commande->realPriceWithOutFee());
+
                         $entityManager->flush();
 
                         return $this->redirectToRoute('commande_str_success', [
@@ -1100,17 +1087,16 @@ class CommandeController extends AbstractController
                     }
                 } else {
 
-                    if ($request->get('montant')) {
-                        $commande->setMontant((float)$request->get('montant'));
-                        $entityManager->flush();
-                    }
-
                     $gateway = Omnipay::create('PayPal_Rest');
                     $gateway->setClientId($_ENV['PAYPAL_CLIENT_ID']);
                     $gateway->setSecret($_ENV['PAYPAL_SECRET']);
 
                     if ($_ENV['APP_ENV'] === 'dev') {
                         $gateway->setTestMode(true);
+                    }
+
+                    if ($request->get('montant')) {
+                        $commande->setMontant((float)$request->get('montant'));
                     }
 
                     $response = $gateway->purchase([
@@ -1125,6 +1111,8 @@ class CommandeController extends AbstractController
                         $commande->setLu(false);
                         $commande->setReservationDate(new \DateTime());
 
+                        $portefeuille->setSoldeEncours($portefeuille->getSoldeEncours() + $commande->realPriceWithOutFee());
+
                         $entityManager->flush();
 
                         return $response->redirect();
@@ -1133,6 +1121,8 @@ class CommandeController extends AbstractController
                         $commande->setPayed(true);
                         $commande->setLu(false);
                         $commande->setReservationDate(new \DateTime());
+
+                        $portefeuille->setSoldeEncours($portefeuille->getSoldeEncours() + $commande->realPriceWithOutFee());
 
                         $entityManager->flush();
 

@@ -44,6 +44,7 @@ class VendeurRetraitsController extends AbstractController
 
             if ($montant > $soldeVendeur) {
                 $this->addFlash('danger', "Votre demande n'a pas été envoyée, votre solde est insuffisant $soldeVendeur €, pour effectuer un retrait de fond de $montant €.");
+
                 return $this->redirectToRoute('app_vendeur_retraits_new', [], Response::HTTP_SEE_OTHER);
             }
 
@@ -63,16 +64,17 @@ class VendeurRetraitsController extends AbstractController
             );
             
             /** Envoie du mail à l'administration */
-//            $mailer->sendDemandeMail(
-//                'talengo.contact@gmail.com',
-//                'talengo.contact@gmail.com',
-//                'Talengo.io - Nouveau retrait',
-//                'mails/_retrait.html.twig',
-//                $retrait->getVendeur(),
-//                $retrait
-//            );
+            $mailer->sendDemandeMail(
+                'talengo.contact@gmail.com',
+                'talengo.contact@gmail.com',
+                'Talengo.io - Nouvelle demande de retrait',
+                'mails/admin/_retrait.html.twig',
+                $retrait->getVendeur(),
+                $retrait
+            );
 
             $this->addFlash('success', 'Votre demande a bien été envoyée');
+
             return $redirectUrl;
         }
 

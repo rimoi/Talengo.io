@@ -4,25 +4,69 @@
 
 {% block bg %}transparent{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(function () {
+            $(document).ready(function () {
+                // Cacher tous les champs au chargement
+                $('input[name="retrait[adressePaypal]"]').closest('.form-group').hide();
+                $('input[name="retrait[nomsurCarte]"]').closest('.form-group').hide();
+                $('input[name="retrait[numeroCarte]"]').closest('.form-group').hide();
+
+                // Cacher aussi les titres si besoin
+                $('h6:contains("Informations Paypal")').hide();
+                $('h6:contains("Informations Bancaire")').hide();
+
+                // Gérer le changement de mode de paiement
+                $('input[name="retrait[modePaiement]"]').on('change', function () {
+                    let selected = $(this).val();
+
+                    if (selected === 'Paypal') {
+                        // Afficher Paypal
+                        $('input[name="retrait[adressePaypal]"]').closest('.form-group').show();
+                        $('h6:contains("Informations Paypal")').show();
+
+                        // Cacher Banque
+                        $('input[name="retrait[nomsurCarte]"]').closest('.form-group').hide();
+                        $('input[name="retrait[numeroCarte]"]').closest('.form-group').hide();
+                        $('h6:contains("Informations Bancaire")').hide();
+                    } else if (selected === 'Virement Bancaire') {
+                        // Afficher Banque
+                        $('input[name="retrait[nomsurCarte]"]').closest('.form-group').show();
+                        $('input[name="retrait[numeroCarte]"]').closest('.form-group').show();
+                        $('h6:contains("Informations Bancaire")').show();
+
+                        // Cacher Paypal
+                        $('input[name="retrait[adressePaypal]"]').closest('.form-group').hide();
+                        $('h6:contains("Informations Paypal")').hide();
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
 
-{{ include('vendeur/portefeuille/composants/_box.html.twig') }}
-<br>
-<div class="card">
-    <div class="card-header bg-dark">
-        <h6 class="h6 text-light">Retrait de fonds</h6>
+    {{ include('vendeur/portefeuille/composants/_box.html.twig') }}
+    <br>
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h6 class="h6 text-light">Retrait de fonds</h6>
+        </div>
+        <div class="card-body">
+            {% if retraitEnattente|length == 0 %}
+
+                {{ include('vendeur/retraits/_form.html.twig') }}
+
+            {% else %}
+
+                <p class="alert alert-warning">Vous avez déjà un retrait en attentes</p>
+
+            {% endif %}
+        </div>
     </div>
-    <div class="card-body">
-        {% if retraitEnattente|length == 0 %}
-
-        {{ include('vendeur/retraits/_form.html.twig') }}
-
-        {% else %}
-
-        <p class="alert alert-warning">Vous avez déjà un retrait en attentes</p>
-
-        {% endif %}
-    </div>
-</div>
 
 {% endblock %}

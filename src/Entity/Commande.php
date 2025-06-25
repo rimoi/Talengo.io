@@ -23,6 +23,7 @@ class Commande
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $offre;
 
+    // Montant total ( prix de service + frai de commission + frais carte bleu ... )
     #[ORM\Column(type: 'float')]
     private $montant;
 
@@ -177,6 +178,17 @@ class Commande
         }
 
         return $nombreJour;
+    }
+
+    public function realPriceWithOutFee(): float
+    {
+        $realPrice = $this->microservice->getPrix();
+
+        foreach ($this->serviceOptions as $serviceOption) {
+            $realPrice += (float) $serviceOption->getMontant();
+        }
+
+        return $realPrice;
     }
 
     public function __construct()

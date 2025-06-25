@@ -1,0 +1,52 @@
+<style>
+   @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400&display=swap');
+
+   body {
+      font-family: 'Outfit', Arial, sans-serif;
+      font-weight: 100;
+   }
+
+   p {
+      margin: 12px 0;
+      line-height: 1.5;
+      color: #333333;
+   }
+
+   strong {
+      font-weight: 300;
+   }
+</style>
+
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+   <div style="margin: auto;background: #fff;padding: 20px;">
+      
+      {% include "mails/_logo.html.twig" %}
+      
+      <p>Bonjour,</p>
+
+      <p>Vous avez reçu une nouvelle demande de retrait :</p>
+
+      <div style="margin: 25px 0;">
+         <p><span class="label">De :</span>
+            {% if vendeur %}
+               <a href="{{ absolute_url(path('app_admin_users_show', {nameUrl: vendeur.nameUrl})) }}">
+                  {{ vendeur.fullName }}
+               </a>
+            {% endif %}
+            ({{ vendeur.email }})
+         </p>
+         <p><span class="label">Date :</span> {{ "now"|date("d/m/Y à H:i") }}</p>
+         <p><span class="label">Mode de paiement :</span> {{ demande.modePaiement }}</p>
+
+         <p><span class="label">Voir la demande :</span>
+            <a href="{{ absolute_url(path('app_admin_retraits_show', {id: demande.id})) }}">
+               {{ vendeur.fullName }}
+            </a>
+         </p>
+      </div>
+
+
+      {% include "mails/_lien_cgu.html.twig" %}
+
+   </div>
+</div>
