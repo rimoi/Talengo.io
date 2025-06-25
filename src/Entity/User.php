@@ -254,11 +254,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
         return in_array($role, $this->roles, true);
     }
 
-    public function showOnlyOnlineService(int $max = 3): array
+    public function showOnlyOnlineService(int $max = 3, int $serviceId): array
     {
         $res = [];
        foreach ($this->microservices as $microservice) {
-           if ($microservice->getOnline() && !$microservice->getOffline()) {
+           if (
+               $microservice->getOnline()
+               && !$microservice->getOffline()
+               && $microservice->getId() !== $serviceId
+           ) {
                $res[] = $microservice;
 
                if (count($res) >= $max) {
