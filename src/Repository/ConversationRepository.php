@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Conversation;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -63,6 +64,22 @@ class ConversationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function getNonLuMessage(User $user): array
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.lastMessage', 'l')
+            ->andWhere('l.destinataire = :destinataire')
+            ->andWhere('l.lu = :lu')
+            ->setParameters([
+                'destinataire' => $user,
+                'lu' => false
+            ])
+            ->orderBy('c.created', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**

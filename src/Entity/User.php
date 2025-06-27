@@ -249,7 +249,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
         return $prenom . '.' . $initialNom;
     }
 
-    public function hasRole(string $role): string
+    public function hasRole(string $role): bool
     {
         return in_array($role, $this->roles, true);
     }

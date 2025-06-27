@@ -45,7 +45,6 @@
 									</span>
 									<span class="visibleMenuBurger">Suivi commande</span>
 								</a>
-								{% dump(getCommandeNonLu(app.user)) %}
 								{% if getCommandeNonLu(app.user)|length > 0 %}
 									<span class="badge badge-danger font-weight-light badge-message">
 										{{ getCommandeNonLu(app.user)|length }}

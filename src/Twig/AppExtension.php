@@ -236,8 +236,11 @@ class AppExtension extends AbstractExtension
         return $this->conversationRepository->findByParticipationNonLu($user);
     }
     
-    public function getCommandeNonLu($user) {
-        return $this->commandeRepository->findBy(['destinataire' => $user, 'lu' => 0]);
+    public function getCommandeNonLu(User $user) {
+        if ($user->hasRole('ROLE_VENDEUR')) {
+            return $this->commandeRepository->findBy(['destinataire' => $user, 'vendeur' => $user, 'lu' => 0]);
+        }
+        return $this->commandeRepository->findBy(['destinataire' => $user, 'client' => $user, 'lu' => 0]);
     }
     
     public function getVendeurTotalVente($user) {

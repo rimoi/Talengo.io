@@ -12,12 +12,17 @@
 						{% for usercommande in usercommandes %}
 
 							{% if usercommande.vendeur != null %}
-							
+
+								{# partie vendeur #}
 								{% if usercommande.vendeur.id == app.user.id %}
 
 									{% if usercommande.client != null %}
-									
-									<div class="p-1 align-items-center border-bottom osahan-post-header overflow-hidden {{ usercommande == commande ? 'bg-blue' : '' }}">
+
+									{% set is_lu = usercommande.destinataire and usercommande.destinataire.id == app.user.id and not usercommande.lu  %}
+									<div
+										class="p-1 align-items-center border-bottom osahan-post-header overflow-hidden {{ usercommande == commande ? 'bg-blue' : '' }}"
+										style="background-color:{{ is_lu ? 'aliceblue' : 'gainsboro' }}"
+									>
 
 										<a href="{{ path('commande_details', {id: usercommande.id}) }}" class="media">
 
@@ -56,7 +61,7 @@
 									{% endif %}
 
 								{% else %}
-
+									{# Partie acheteur #}
 									<div
 										class="p-3 align-items-center border-bottom osahan-post-header overflow-hidden {{ usercommande == commande ? 'bg-blue' : '' }}">
 

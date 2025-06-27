@@ -34,6 +34,7 @@ use PHPUnit\TextUI\Command;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -61,12 +62,34 @@ class CommandeController extends AbstractController
     {
         $user = $this->getUser();
 
-        $commandes = $commandeRepository->findWhereUserIsClientOrVendeur($user);
+        if ($this->isGranted('ROLE_VENDEUR')) {
+            $commandes = $commandeRepository->findBy(['vendeur' => $user, 'payed' => true]);
+        } elseif ($this->isGranted('ROLE_CLIENT')) {
+            $commandes = $commandeRepository->findBy(['vendeur' => $user, 'payed' => true]);
+        } else {
+            throw $this->createNotFoundException("Vous n'avez pas de projet d'achat ni de vente");
+        }
 
         return $this->render('commande/chat.html.twig', [
             'usercommandes' => $commandes,
             'commande' => null,
         ]);
+    }
+
+    #[Route('/marquer-notif-comme-lu', name: 'commandes_notif_lu', methods: ['POST'])]
+    public function marquerNotifCommeLu(CommandeRepository $commandeRepository, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $user = $this->getUser();
+
+        $commandes = $commandeRepository->findBy(['destinataire' => $user, 'lu' => false]);
+
+        foreach ($commandes as $commande) {
+            $commande->setLu(true);
+        }
+
+        $entityManager->flush();
+
+        return $this->json(['success' => true]);
     }
 
     #[Route('/details/{id}', name: 'commandes_pack_show')]

@@ -13,6 +13,7 @@ use App\Repository\MicroserviceRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,6 +28,22 @@ class ConversationsController extends AbstractController
             'conversation' => null,
             'conversations' => $conversationsRepository->findByParticipation($this->getUser()),
         ]);
+    }
+
+    #[Route('/marquer-message-comme-lu', name: 'commandes_message_lu', methods: ['POST'])]
+    public function marquerMessageCommeLu(ConversationRepository $conversationRepository, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $user = $this->getUser();
+
+        $conversations = $conversationRepository->getNonLuMessage($user);
+
+        foreach ($conversations as $conversation) {
+            $conversation->getLastMessage()->setLu(true);
+        }
+
+        $entityManager->flush();
+
+        return $this->json(['success' => true]);
     }
 
     #[Route('/{id}/show', name: 'conversations_show', methods: ['GET', 'POST'])]

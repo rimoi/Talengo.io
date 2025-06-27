@@ -7,20 +7,23 @@ $(document).ready(function() {
             // État "en cours"
             $label.addClass('cs-processing');
 
-            // Simulation appel API (remplacer par un vrai appel)
-            setTimeout(function() {
-                // Action après succès
-                $('.cs-message-unread').removeClass('cs-message-unread');
+            const url = $(this).data('url');
 
-                // État "terminé"
-                $label.addClass('cs-completed').removeClass('cs-processing');
+            $.ajax({
+               url: url,
+               method: 'POST',
+               success: function (data) {
+                   if (data.success) {
+                       $('.cs-message-unread').removeClass('cs-message-unread');
+                       $label.addClass('cs-completed').removeClass('cs-processing');
 
-                // Réinitialisation après 3s
-                setTimeout(function() {
-                    $checkbox.prop('checked', false);
-                    $label.removeClass('cs-completed');
-                }, 3000);
-            }, 1500);
+                       $checkbox.prop('checked', false);
+                       $label.removeClass('cs-completed');
+
+                       location.reload();
+                   }
+               }
+            });
         }
     });
 });
