@@ -33,11 +33,13 @@
          </div>
       </div>
 
-      <div class="form-group">
-         <strong class="d-block">Biographie</strong>
-         {{ form_widget(form.apropos) }}
-         {{ form_errors(form.apropos) }}
-      </div>
+      {% if 'apropos' in form|keys %}
+         <div class="form-group">
+            <strong class="d-block">Biographie</strong>
+            {{ form_widget(form.apropos) }}
+            {{ form_errors(form.apropos) }}
+         </div>
+      {% endif %}
 
       <div>
          {{ form_rest(form) }}

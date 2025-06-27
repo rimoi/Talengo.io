@@ -74,12 +74,6 @@ class EditProfilType extends AbstractType
                 'imagine_pattern'   =>  'small_size',
                 'attr'   =>  ['class' => 'form-control-file'],
             ])
-            ->add('apropos', CKEditorType::class, [
-                'label' => 'Biographie',
-                'help' => 'Renseignements',
-                'required' => false,
-                'attr' => ['rows' => 6],
-            ])
             ->add('adresse', TextType::class, [
                 'label' => 'Adresse',
                 'help' => 'Exemple (N° Ruelle/Avenue)',
@@ -139,12 +133,22 @@ class EditProfilType extends AbstractType
                 ],
             ])
         ;
+
+        if ($options['biographie'] ?? false) {
+            $builder->add('apropos', CKEditorType::class, [
+                'label' => 'Biographie',
+                'help' => 'Renseignements',
+                'required' => false,
+                'attr' => ['rows' => 6],
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'biographie' => true,
         ]);
     }
 }

@@ -14,7 +14,7 @@
 
                 <div class="card mb-4">
                     <div class="card-header bg-dark">
-                        <h5 class="h6 text-light float-left">Suivis commande</h5>
+                        <h5 class="h6 text-light float-left">Suivi commande</h5>
 
                         <div class="float-right ">
                             <span class="badge badge-light">#{{ commande.id }}</span>
@@ -175,7 +175,6 @@
                                         <div class="text-muted mt-n2px">
                                             {{ commande.cancelAt|date('d/m/Y à H:i') }}
                                         </div>
-{#                                        <span class="text-muted">{{ commande.cancelAt|ago(locale='fr') }}</span>#}
 
                                     </div>
                                     {% if is_granted('ROLE_VENDEUR') %}

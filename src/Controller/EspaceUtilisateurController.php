@@ -247,7 +247,12 @@ class EspaceUtilisateurController extends AbstractController
     {
         $user = $this->getUser();
 
-        $form = $this->createForm(EditProfilType::class, $user);
+        if ($this->isGranted('ROLE_VENDEUR')) {
+            $form = $this->createForm(EditProfilType::class, $user, ['biographie' => true]);
+        } else {
+            $form = $this->createForm(EditProfilType::class, $user, ['biographie' => false]);
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
