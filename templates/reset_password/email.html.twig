@@ -1,41 +1,51 @@
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400&display=swap');
+
+	body {
+		font-family: 'Outfit', Arial, sans-serif;
+		font-weight: 300;
+	}
+
+	p {
+		margin: 12px 0;
+		line-height: 1.5;
+		color: #000000;
+	}
+
+	strong {
+		font-weight: 400;
+	}
+</style>
 <div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
 	<div style="margin: auto;background: #fff;padding: 20px;">
 
 		{% include "mails/_logo.html.twig" %}
-		
+
 		<p>Bonjour <strong>Mr/Mme</strong>,</p>
 
-		<p>
-
-			Pour réinitialiser votre mot de passe, veuillez cliquer ici:
-
+		<p>Vous avez demandé la réinitialisation de votre mot de passe. Pour procéder, veuillez cliquer sur le bouton ci-dessous :
 		</p>
 
 		<div><br>
-			<a href="{{ url('app_reset_password', {token: resetToken.token}) }}" style="background: #080679;
-     background: -webkit-linear-gradient(legacy-direction(to right), #080679 0%, #a9a9a9 100%);
-     background: -webkit-gradient(linear, left top, right top, from(#080679), to(#a9a9a9));
-     background: -webkit-linear-gradient(left, #080679 0%, #a9a9a9 100%);
-     background: -o-linear-gradient(left, #080679 0%, #a9a9a9 100%);
-     background: linear-gradient(to right, #080679 0%, #a9a9a9 100%);
-     border-color: #080679;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">
-      Réinitialiser mon mot de passe
-     </a>
+			<a href="{{ absolute_url(path('app_reset_password', {token: resetToken.token})) }}" style="background: #4C8BE8;
+     background: -webkit-linear-gradient(legacy-direction(to right), #4C8BE8 0%, #a9a9a9 100%);
+     background: -webkit-gradient(linear, left top, right top, from(#4C8BE8), to(#a9a9a9));
+     background: -webkit-linear-gradient(left, #4C8BE8 0%, #a9a9a9 100%);
+     background: -o-linear-gradient(left, #4C8BE8 0%, #a9a9a9 100%);
+     background: linear-gradient(to right, #4C8BE8 0%, #a9a9a9 100%);
+     border-color: #4C8BE8;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">
+				Réinitialiser mon mot de passe
+			</a>
 		</div><br>
 
-		<p>Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+		<p>Ce lien restera valide pendant {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
 
 		<p>
 			Besoin d'aide ? Consultez la <a href="{{ path('page_faqs') }}">FAQ</a>.
 			<a href="{{ path('page_politiques') }}">Conditions générales</a>
 		</p>
 
-		<p>
-			Cordialement, <br>
-			L'équipe {{ appName }}
-		</p>
+		{% include "mails/_lien_cgu.html.twig" %}
 
-		<p style="text-align: center;">©{{ appName }} - Tous droits réservés</p>
 	</div>
 </div>
-

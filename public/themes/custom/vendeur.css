@@ -526,3 +526,112 @@ footer .copyrights p {
 footer div ul li:not(:last-child) {
     padding-bottom: 0 !important;
 }
+
+
+/* Marquer comme lu*/
+
+/* Conteneur principal */
+.cs-notification-control {
+    position: relative;
+    margin: 20px 0;
+    font-family: system-ui, sans-serif;
+}
+
+/* Checkbox masqué */
+.cs-pretty-checkbox {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Label stylisé */
+.cs-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+    user-select: none;
+}
+
+.cs-checkbox-label:hover {
+    background: #eef2ff;
+    box-shadow: 0 2px 8px rgba(76, 139, 232, 0.1);
+}
+
+/* Icône de validation */
+.cs-check-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    fill: transparent;
+    stroke: #4C8BE8;
+    stroke-width: 2;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+/* Spinner */
+.cs-spinner {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    display: none;
+    animation: cs-rotate 1.4s linear infinite;
+    flex-shrink: 0;
+}
+
+.cs-spinner circle {
+    stroke: #4C8BE8;
+    stroke-linecap: round;
+    stroke-dasharray: 80, 200;
+    stroke-dashoffset: 0;
+    animation: cs-dash 1.5s ease-in-out infinite;
+}
+
+/* Texte */
+.cs-checkbox-text {
+    color: #333;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* États */
+.cs-pretty-checkbox:checked + .cs-checkbox-label .cs-check-icon {
+    fill: #4C8BE8;
+    stroke: none;
+}
+
+.cs-pretty-checkbox:checked + .cs-checkbox-label .cs-checkbox-text {
+    color: #4C8BE8;
+}
+
+.cs-pretty-checkbox:focus + .cs-checkbox-label {
+    box-shadow: 0 0 0 2px rgba(76, 139, 232, 0.3);
+}
+
+/* Animation spinner */
+@keyframes cs-rotate {
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes cs-dash {
+    0% { stroke-dasharray: 1, 200; stroke-dashoffset: 0; }
+    50% { stroke-dasharray: 89, 200; stroke-dashoffset: -35; }
+    100% { stroke-dasharray: 89, 200; stroke-dashoffset: -124; }
+}
+
+/* États de traitement */
+.cs-checkbox-label.cs-processing .cs-check-icon {
+    display: none;
+}
+
+.cs-checkbox-label.cs-processing .cs-spinner {
+    display: block;
+}
+
+.cs-checkbox-label.cs-completed .cs-checkbox-text {
+    color: #4C8BE8;
+}

@@ -27,11 +27,11 @@ class MicroserrviceOptionType extends AbstractType
 //                'allow_delete' => true,
 //                'error_bubbling' => false
 //            ])
-            ->add('promo', CheckboxType::class, [
-                'label' => 'En promotion',
-                'help' => "Cocher pour mettre se service en promotion",
-                'required' => false
-            ])
+//            ->add('promo', CheckboxType::class, [
+//                'label' => 'En promotion',
+//                'help' => "Cocher pour mettre se service en promotion",
+//                'required' => false
+//            ])
             ->add('serviceOptions', CollectionType::class, [
                 'entry_type' => ServiceOptionType::class,
                 'label' => false,

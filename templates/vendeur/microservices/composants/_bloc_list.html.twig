@@ -23,7 +23,7 @@
 				{% else %}
 
 				<span class="badge badge-{{ microservice.online == true ? 'success' : 'secondary' }} badge-pill">
-					{{ microservice.online == true ? 'En ligne' : 'Hors ligne' }}
+					{{ microservice.online == true ? 'En ligne' : 'En cours de validation' }}
 				</span>
 
 				{% endif %}
@@ -60,11 +60,12 @@
 
 				<div class="content-info mb-3 text-right pt-2">
 					<a href="{{ path('microservice_details', {'slug': microservice.slug}) }}" class="btn btn-outline-dark btn-sm"
-						target="_blank"><i class="fa fa-file"></i></a>
+					   title="Aperçu du service"
+						target="_blank"><i class="fa fa-eye"></i></a>
 					<a href="{{ path('vendeur_microservices_galerie', {'id': microservice.id}) }}"
-						class="btn btn btn-outline-dark btn-sm">
+						class="btn btn btn-outline-dark btn-sm" title="Voir la galerie d'images">
 						<i class="fa fa-image"></i></a>
-					<a href="{{ path('vendeur_microservices_titre', {'id': microservice.id}) }}" class="btn btn-dark btn-sm"><i class="fa fa-edit"></i></a>
+					<a href="{{ path('vendeur_microservices_titre', {'id': microservice.id}) }}" class="btn btn-dark btn-sm" title="Modifier le service"><i class="fa fa-edit"></i></a>
 
 					{% include "vendeur/microservices/_delete_form.html.twig" %}
 				</div>

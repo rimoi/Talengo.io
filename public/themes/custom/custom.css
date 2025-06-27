@@ -249,6 +249,19 @@ ALERT
     font-weight: bold;
 }
 
+.change_password_form .row-form .form-group {
+    margin-bottom: 17px;
+}
+
+.cs-reset-password .invalid-feedback {
+    display: block;
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: 15px;
+    margin: 4px;
+    border-radius: 5px;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to   { opacity: 1; transform: translateY(0); }

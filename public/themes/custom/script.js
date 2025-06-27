@@ -78,60 +78,51 @@ $(function () {
             }
         },
 
-        checkboxService : function () {
-            var additional = parseInt($('.basic .nbr').text().trim(), 10);
+        checkboxService: function () {
+            let additional = parseInt($('.basic .nbr').text().trim(), 10);
+            let basicPrice = parseInt($('.options-price .basicprice').text().trim(), 10);
 
-            var basicPrice =  parseInt($('.options-price .basicprice').text().trim(), 10);
+            // Nettoie les anciens écouteurs pour éviter les doublons
+            $('.custom-service input[type="checkbox"]').off('change').on('change', function () {
+                const $checkbox = $(this);
+                const isChecked = $checkbox.is(':checked');
+                const checkboxId = $checkbox.attr('id');
+                const labelText = $checkbox.siblings('label').find('.label').text().trim();
+                const val = parseInt($checkbox.siblings('label').find('.nbr-op').text().trim(), 10);
+                const valPrice = parseInt($checkbox.closest('.option').find('.price').text().trim(), 10);
 
-            $('.custom-service input[type="checkbox"]').change(function () {
-                const checkbox = $(this);
-                const isChecked = checkbox.is(':checked');
-                const labelText = checkbox.siblings('label').find('.label').text().trim();
-                const checkboxId = checkbox.attr('id');
-                const listSelector = '.custom';
-                const listNbr = '.custom .nbr';
+                const listItemId = `list-item-${checkboxId}`;
+                const $customList = $('.custom');
 
-                const listItemId = 'list-item-' + checkboxId;
-                $('#basic-option').prop('checked', true).trigger('change');
+                // Met à jour les totaux
                 if (isChecked) {
+                    additional += val;
+                    basicPrice += valPrice;
 
-                    if ($('#' + listItemId).length === 0) {
-                        $(listSelector).append(
+                    // Ajouter l'élément personnalisé s'il n'existe pas
+                    if (document.getElementById(listItemId) === null) {
+                        $customList.append(
                             `<li id="${listItemId}"><i class="fa-solid fa-check"></i> <span>${labelText}</span></li>`
                         );
                     }
                 } else {
-
-                    $('#' + listItemId).remove();
-                }
-
-
-
-                var val = parseInt($(this).siblings('label').find('.nbr-op').text().trim(), 10);
-
-                var valprice = parseInt($(this).closest('.option').find('.price').text().trim(), 10);
-
-
-                if ($(this).is(':checked')) {
-                    additional += val;
-                    basicPrice += valprice;
-                } else {
                     additional -= val;
-                    basicPrice -= valprice;
+                    basicPrice -= valPrice;
+
+                    // Supprimer l'élément personnalisé s'il existe
+                    document.getElementById(listItemId)?.remove();
                 }
 
+                // Met à jour les compteurs
                 $('.custom .nbr').text(additional);
                 $('.priceBtn .price .nbr').text(basicPrice);
                 $('.priceBtn .js-total').val(basicPrice);
 
-                if ($('.custom-service input[type="checkbox"]:checked').length > 0) {
-                    $('#custom-option').prop('checked', true).trigger('change');
-                    $('#basic-option').prop('checked', false).trigger('change');
-                } else {
-                    $('#basic-option, #custom-option').prop('checked', false);
-                    $('#basic-option').prop('checked', true).trigger('change');
-                }
+                // Activer/désactiver les onglets
+                const hasCustom = $('.custom-service input[type="checkbox"]:checked').length > 0;
 
+                $('#custom-option').prop('checked', hasCustom).trigger('change');
+                $('#basic-option').prop('checked', !hasCustom).trigger('change');
             });
         },
 

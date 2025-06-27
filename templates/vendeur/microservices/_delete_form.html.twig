@@ -1,4 +1,4 @@
 <form method="post" class="d-inline" action="{{ path('vendeur_microservices_delete', {'id': microservice.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer ce service?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ microservice.id) }}">
-    <button class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
+    <button class="btn btn-outline-danger btn-sm" title="Supprimer le service"><i class="fa fa-trash"></i></button>
 </form>

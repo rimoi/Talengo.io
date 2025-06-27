@@ -1,13 +1,38 @@
-{% extends 'auth.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}E-mail de réinitialisation du mot de passe envoyé{% endblock %}
 
 {% block titre %}E-mail de réinitialisation du mot de passe envoyé{% endblock %}
 
 {% block body %}
-    <p>
-        Si un compte correspondant à votre adresse e-mail, un e-mail vient d'être envoyé contenant un lien que vous pouvez utiliser pour réinitialiser votre mot de passe. 
-        Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
-    </p>
-    <p>Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou <a href="{{ path('app_forgot_password_request') }}">Réessayer</a>.</p>
+
+    <div class="account-page">
+        <div class="container">
+            <div class="content-sign-upForm" style="background-color: #4C8BE8; color: #fff; padding: 2rem; border-radius: 10px; text-align: center; position: relative; overflow: hidden;">
+
+                <!-- SVG décoratif en haut à droite -->
+                <svg viewBox="0 0 200 200" width="150" height="150" fill="#fff" style="position: absolute; top: -30px; right: -30px; opacity: 0.15; z-index: 0;">
+                    <circle cx="100" cy="100" r="100" />
+                </svg>
+
+                <!-- SVG icône enveloppe -->
+                <div style="z-index: 1; position: relative; margin-bottom: 1.5rem;">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4H4C2.89 4 2 .89 2 2V22L6 18H20C21.11 18 22 17.11 22 16V6C22 4.89 21.11 4 20 4ZM20 16H5.17L4 17.17V6H20V16Z"/>
+                    </svg>
+                </div>
+
+                <p style="z-index: 1; position: relative; font-size: 1.1rem; margin-bottom: 1rem;">
+                    Si un compte correspondant à votre adresse e-mail existe, un e-mail a été envoyé avec un lien pour réinitialiser votre mot de passe.
+                    Ce lien expirera dans <strong>{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}</strong>.
+                </p>
+
+                <p style="z-index: 1; position: relative;">
+                    Si vous ne recevez pas d'e-mail, vérifiez votre dossier spam ou <a href="{{ path('app_forgot_password_request') }}" style="color: #fff; text-decoration: underline;">réessayez ici</a>.
+                </p>
+
+            </div>
+
+        </div>
+    </div>
 {% endblock %}

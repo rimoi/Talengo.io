@@ -67,26 +67,26 @@
 					</p>
 					{% endif %}
 
-					{% if is_granted('ROLE_VENDEUR') %}
+{#					{% if is_granted('ROLE_VENDEUR') %}#}
 
-					<div>
-						<strong>Photo de couverture</strong>
-						<div class="py-4">
-							{% if app.user.couverture %}
+{#					<div>#}
+{#						<strong>Photo de couverture</strong>#}
+{#						<div class="py-4">#}
+{#							{% if app.user.couverture %}#}
 
-							<img class="img-fluid rounded"
-								src="{{ vich_uploader_asset(app.user, 'couvertureFile') | imagine_filter('rectangle_avatar') }}"
-								alt='' />
+{#							<img class="img-fluid rounded"#}
+{#								src="{{ vich_uploader_asset(app.user, 'couvertureFile') | imagine_filter('rectangle_avatar') }}"#}
+{#								alt='' />#}
 
-							{% else %}
+{#							{% else %}#}
 
-							<p>Aucune image de couverture..</p>
+{#							<p>Aucune image de couverture..</p>#}
 
-							{% endif %}
-						</div>
-					</div>
+{#							{% endif %}#}
+{#						</div>#}
+{#					</div>#}
 
-					{% endif %}
+{#					{% endif %}#}
 				</div>
 			</div>
 			<div class="col-sm-4">

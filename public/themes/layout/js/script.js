@@ -25,8 +25,6 @@ var Talengo = {
         Talengo.carouselService();
         Talengo.faq();
         Talengo.radioServices();
-        Talengo.checkboxService();
-        Talengo.openGallery();
         Talengo.radioPayments();
         // Talengo.priceOrder();
         Talengo.radioOrderBuyer();
@@ -344,66 +342,6 @@ $('.main-carousel').magnificPopup({
 
           
     },
-
-    checkboxService : function () {
-        var additional = parseInt($('.basic .nbr').text().trim(), 10);
-
-        var basicPrice =  parseInt($('.options-price .basicprice').text().trim(), 10);
-
-        $('.custom-service input[type="checkbox"]').change(function () {
-            const checkbox = $(this);
-            const isChecked = checkbox.is(':checked');
-            const labelText = checkbox.siblings('label').find('.label').text().trim();
-            const checkboxId = checkbox.attr('id');
-            const listSelector = '.custom';
-            const listNbr = '.custom .nbr';
-            
-            const listItemId = 'list-item-' + checkboxId;
-            $('#basic-option').prop('checked', true).trigger('change');
-            if (isChecked) {
-                
-                if ($('#' + listItemId).length === 0) {
-                    $(listSelector).append(
-                        `<li id="${listItemId}"><i class="fa-solid fa-check"></i> <span>${labelText}</span></li>`
-                    );
-                }
-            } else {
-               
-                $('#' + listItemId).remove();
-            }
-
-            
-
-            var val = parseInt($(this).siblings('label').find('.nbr-op').text().trim(), 10);
-
-            var valprice = parseInt($(this).closest('.option').find('.price').text().trim(), 10);
-
-
-            if ($(this).is(':checked')) {
-                additional += val; 
-                basicPrice += valprice;
-            } else {
-                additional -= val;
-                basicPrice -= valprice;
-            }
-
-            $('.custom .nbr').text(additional);
-            $('.priceBtn .price .nbr').text(basicPrice);
-
-            if ($('.custom-service input[type="checkbox"]:checked').length > 0) {
-                $('#custom-option').prop('checked', true).trigger('change');
-                $('#basic-option').prop('checked', false).trigger('change');
-            } else {
-                $('#basic-option, #custom-option').prop('checked', false); 
-                $('#basic-option').prop('checked', true).trigger('change');
-            }
-
-        });
-    },
-
-    openGallery: function () {
-        
-      },
 
     radioPayments : function () {
         $('input[name="payment"]').change(function () {

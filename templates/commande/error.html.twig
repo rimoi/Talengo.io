@@ -17,18 +17,44 @@
 					<div class="card-body text-center">
 						<div class="row">
 							<div class="col-sm-3 mx-auto text-center">
-								<img src="{{ asset('img/cancel.svg') }}" class="img-fluid mt-3" alt="">
+								<img src="{{ asset('img/cancel.svg') }}" class="img-fluid mt-3" alt="" height="319px">
 							</div>
 						</div>
-						<div>
-							<h6 class="text-center py-3">Oops...</h6>
-							<p class="text-muted m-0">Un problème est survenu, empêchant l'exécution de cette page.</p>
-							<p>Vous pouvez nous le signaler en contactant notre support :</p>
-							<a href="mailto:{{ appEmail }}" class="font-weight-bold">{{ appEmail }}</a>
-							
+						<div style="background: white; border-left: 4px solid #4C8BE8; border-radius: 8px; padding: 2rem; max-width: 600px; margin: 2rem auto; box-shadow: 0 4px 12px rgba(76, 139, 232, 0.15);">
+							<h6 style="color: #4C8BE8; font-size: 1.5rem; text-align: center; margin-bottom: 1.5rem; font-weight: 600;">
+								<svg style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;" fill="#4C8BE8" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+								</svg>
+								Paiement interrompu
+							</h6>
+
+							<p style="color: #555; margin-bottom: 1rem; font-size: 1rem; line-height: 1.6;">
+								Nous avons rencontré un problème lors du traitement de votre paiement.
+							</p>
+
+							<p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.6;">
+								Vous pouvez réessayer ou contacter notre support :
+							</p>
+
+							<div style="background: #F5F9FF; padding: 12px 16px; border-radius: 6px; margin-bottom: 1.5rem; display: inline-block; border: 1px solid rgba(76, 139, 232, 0.2);">
+								<a href="mailto:{{ appEmail }}" style="color: #4C8BE8; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center;">
+									<svg style="width: 18px; height: 18px; margin-right: 8px;" fill="#4C8BE8" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+										<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+										<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+									</svg>
+									{{ appEmail }}
+								</a>
+							</div>
+
 							{% if commande.microservice %}
-								<div class="py-2">
-									<a href="{{ path('commander_microservice_reservation', {commande: commande.id, slug: commande.microservice.slug}) }}" class="btn btn-dark">Retenter &longrightarrow;</a>
+								<div style="text-align: center; margin-top: 2rem;">
+									<a href="{{ path('commander_microservice_reservation', {commande: commande.id, slug: commande.microservice.slug}) }}"
+									   style="background: #4C8BE8; color: white; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; justify-content: center; transition: all 0.3s ease; border: none; cursor: pointer;">
+										<svg style="width: 18px; height: 18px; margin-right: 10px;" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z" clip-rule="evenodd"></path>
+										</svg>
+										Réessayer le paiement
+									</a>
 								</div>
 							{% endif %}
 						</div>

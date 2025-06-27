@@ -124,6 +124,16 @@ class MicroserviceController extends AbstractController
     #[Route('/{slug}', name: 'microservice_details', methods: ['GET', 'POST'])]
     public function details(Microservice $microservice, Request $request, EntityManagerInterface $entityManager, MicroserviceRepository $microserviceRepository, AvisRepository $avisRepository, ServiceOptionRepository $serviceOptionRepository, ServiceSignaleRepository $serviceSignaleRepository, DisponibiliteRepository $disponibiliteRepository, CommandeRepository $commandeRepository): Response
     {
+        if (!$microservice->getOnline() || $microservice->getOffline()) {
+            if (!$this->getUser()) {
+                return $this->redirectToRoute('accueil');
+            }
+
+            if ($this->getUser()->getId() !== $microservice->getVendeur()->getId()) {
+                return $this->redirectToRoute('accueil');
+            }
+        }
+
         $commandeFormType = Commande2Type::class;
         $isHiden = true;
 

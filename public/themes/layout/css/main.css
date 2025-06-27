@@ -12812,9 +12812,10 @@ header .btn-seller {
     padding: 0;
   }
 
-  .userConnected header .categories .menuCategories {
-    overflow-x: initial !important;
-  }
+  /* Possibilité de scroller a droite */
+  /*.userConnected header .categories .menuCategories {*/
+  /*  overflow-x: initial !important;*/
+  /*}*/
 }
 .userConnected header .categories .menuCategories {
   display: flex;
@@ -13229,9 +13230,9 @@ footer .copyrights p {
   }
 }
 @media screen and (max-width: 991px) {
-  .section-services .content .card:last-child, .section-services .content .card:nth-child(7) {
-    display: none;
-  }
+  /*.section-services .content .card:last-child, .section-services .content .card:nth-child(7) {*/
+  /*  display: none;*/
+  /*}*/
 }
 .section-services .content .card .favoris {
   position: absolute;

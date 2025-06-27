@@ -14,19 +14,20 @@
 
 {% block body %}
 
-	<div class="header-payment" style="margin-top: 128px;">
-		<a href="{{ path('accueil') }}">
-			<img src="{{ asset('themes/layout/img/logo-blue.svg') }}" alt="">
-		</a>
-	</div>
+{#	<div class="header-payment" style="margin-top: 128px;">#}
+{#		<a href="{{ path('accueil') }}">#}
+{#			<img src="{{ asset('themes/layout/img/logo-blue.svg') }}" alt="">#}
+{#		</a>#}
+{#	</div>#}
 
 	{% if errorMessage|default %}
-		<div class="alert alert-warning">
+		<div class="alert alert-warning" style="margin-top: 115px;">
 			<button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
 			{{ errorMessage }}
 		</div>
 	{% endif %}
-	<div class="page-payment">
+
+	<div class="page-payment" {{ not errorMessage|default ? 'style="margin-top: 132px;"' }}>
 		<div class="container-small">
 			<h1 class="primaryTitle">Paiement et facturation de votre commande</h1>
 			<form class="payment-methods global-form-style" method="post">

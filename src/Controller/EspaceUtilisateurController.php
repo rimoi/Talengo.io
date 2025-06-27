@@ -47,6 +47,7 @@ class EspaceUtilisateurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
+            $user = $this->getUser();
             $this->emailVerifier->sendEmailConfirmation(
                 'app_verify_email',
                 $user,
@@ -231,9 +232,9 @@ class EspaceUtilisateurController extends AbstractController
             // The session is cleaned up after the password has been changed.
             //$this->cleanSessionAfterReset();
 
-            $this->addFlash('success', 'Mot de passe modifer avec succès essayer votre nouveau mot de passe');
+            $this->addFlash('success', 'Mot de passe modifier avec succès !');
 
-            return $this->redirectToRoute('app_logout');
+            return $this->redirectToRoute('edit_password');
         }
 
         return $this->render('espace_utilisateur/edit_password.html.twig', [

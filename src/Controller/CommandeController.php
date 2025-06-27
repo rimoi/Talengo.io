@@ -39,6 +39,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 #[Route('/commandes')]
 class CommandeController extends AbstractController
@@ -331,33 +333,41 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/success/str/commande_id={id}', name: 'commande_str_success')]
-    public function successStripe(Commande $commande, MailerService $mailer): Response
+    public function successStripe(Commande $commande, MailerService $mailer, CacheInterface $cache): Response
     {
         if ($commande->getClient() != $this->getUser()) {
             return $this->redirectToRoute('accueil', [], Response::HTTP_SEE_OTHER);
         }
 
-        /** Envoie du mail au client */
-        $mailer->sendCommandMail(
-            'talengo.contact@gmail.com',
-            $commande->getClient()->getEmail(),
-            'Nouvelle commande',
-            'mails/_client.html.twig',
-            $commande->getClient(),
-            $commande->getVendeur(),
-            $commande
-        );
+        $key = sprintf('stripe_%s_%s', $commande->getId(), $this->getUser()->getId());
 
-        /** Envoie du mail au vendeur */
-        $mailer->sendCommandMail(
-            'talengo.contact@gmail.com',
-            $commande->getVendeur()->getEmail(),
-            'Nouvelle commande',
-            'mails/_vendeur.html.twig',
-            $commande->getClient(),
-            $commande->getVendeur(),
-            $commande
-        );
+        $result = $cache->hasItem($key);
+
+       if ($result) {
+           /** Envoie du mail au client */
+           $mailer->sendCommandMail(
+               'talengo.contact@gmail.com',
+               $commande->getClient()->getEmail(),
+               'Nouvelle commande',
+               'mails/_client.html.twig',
+               $commande->getClient(),
+               $commande->getVendeur(),
+               $commande
+           );
+
+           /** Envoie du mail au vendeur */
+           $mailer->sendCommandMail(
+               'talengo.contact@gmail.com',
+               $commande->getVendeur()->getEmail(),
+               'Nouvelle commande',
+               'mails/_vendeur.html.twig',
+               $commande->getClient(),
+               $commande->getVendeur(),
+               $commande
+           );
+
+           $cache->delete($key);
+       }
 
         return $this->render('commande/success.html.twig', [
             'commande' => $commande
@@ -365,74 +375,103 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/success/pyp/commande_id={id}', name: 'commande_pyp_success')]
-    public function successPaypal(Request $request, Commande $commande, EntityManagerInterface $entityManager, MailerService $mailer): Response
+    public function successPaypal(
+        Request $request,
+        Commande $commande,
+        EntityManagerInterface $entityManager,
+        MailerService $mailer,
+        CacheInterface $cache
+    ): Response
     {
         if ($commande->getClient() != $this->getUser()) {
             return $this->redirectToRoute('accueil', [], Response::HTTP_SEE_OTHER);
         }
 
-        if ($request->get('paymentId') && $request->get('PayerID')) {
-            $gateway = Omnipay::create('PayPal_Rest');
-            $gateway->setClientId($_ENV['PAYPAL_CLIENT_ID']);
-            $gateway->setSecret($_ENV['PAYPAL_SECRET']);
+        $key = sprintf('paypal_%s_%s', $commande->getId(), $this->getUser()->getId());
 
-            if ($_ENV['APP_ENV'] === 'dev') {
-                $gateway->setTestMode(true);
-            }
+        $keySuccess = sprintf('paypal_success_%s_%s', $commande->getId(), $this->getUser()->getId());
 
-            $operation = $gateway->completePurchase([
-                'payer_id' => $request->get('PayerID'),
-                'transactionReference' => $request->get('paymentId'),
-            ]);
+        $callBefore = $cache->hasItem($keySuccess);
 
-            $response = $operation->send();
-
-            if ($response->isSuccessful()) {
-                $payment = $response->getData();
-
-                $saleId = null;
-                if (isset($payment['transactions'][0]['related_resources'][0]['sale']['id'])) {
-                    $saleId = $payment['transactions'][0]['related_resources'][0]['sale']['id'];
-                }
-
-                $commande->setReferencePaypalId($saleId);
-
-                $commande->setPayerPaypalId($payment['payer']['payer_info']['payer_id'] ?? null);
-                $commande->setPayerEmailPaypal($payment['payer']['payer_info']['email'] ?? null);
-
-                $commande->setIsPayWithStripe(false);
-
-                $entityManager->flush();
-
-
-                /** Envoie du mail au client */
-                $mailer->sendCommandMail(
-                    'talengo.contact@gmail.com',
-                    $commande->getClient()->getEmail(),
-                    'Nouvelle commande',
-                    'mails/_client.html.twig',
-                    $commande->getClient(),
-                    $commande->getVendeur(),
-                    $commande
-                );
-
-                /** Envoie du mail au vendeur */
-                $mailer->sendCommandMail(
-                    'talengo.contact@gmail.com',
-                    $commande->getVendeur()->getEmail(),
-                    'Nouvelle commande',
-                    'mails/_vendeur.html.twig',
-                    $commande->getClient(),
-                    $commande->getVendeur(),
-                    $commande
-                );
-            }
-
+        if ($callBefore) {
             return $this->render('commande/success.html.twig', [
                 'commande' => $commande
             ]);
         }
 
+        $result = $cache->hasItem($key);
+
+        if ($result) {
+            $cache->delete($key);
+
+            $callBefore = $cache->get($keySuccess, function (ItemInterface $item) {
+                $item->expiresAfter(86400);
+
+                return true;
+            });
+
+            if ($request->get('paymentId') && $request->get('PayerID')) {
+                $gateway = Omnipay::create('PayPal_Rest');
+                $gateway->setClientId($_ENV['PAYPAL_CLIENT_ID']);
+                $gateway->setSecret($_ENV['PAYPAL_SECRET']);
+
+                if ($_ENV['APP_ENV'] === 'dev') {
+                    $gateway->setTestMode(true);
+                }
+
+                $operation = $gateway->completePurchase([
+                    'payer_id' => $request->get('PayerID'),
+                    'transactionReference' => $request->get('paymentId'),
+                ]);
+
+                $response = $operation->send();
+
+                if ($response->isSuccessful()) {
+                    $payment = $response->getData();
+
+                    $saleId = null;
+                    if (isset($payment['transactions'][0]['related_resources'][0]['sale']['id'])) {
+                        $saleId = $payment['transactions'][0]['related_resources'][0]['sale']['id'];
+                    }
+
+                    $commande->setReferencePaypalId($saleId);
+
+                    $commande->setPayerPaypalId($payment['payer']['payer_info']['payer_id'] ?? null);
+                    $commande->setPayerEmailPaypal($payment['payer']['payer_info']['email'] ?? null);
+
+                    $commande->setIsPayWithStripe(false);
+
+                    $entityManager->flush();
+
+
+                    /** Envoie du mail au client */
+                    $mailer->sendCommandMail(
+                        'talengo.contact@gmail.com',
+                        $commande->getClient()->getEmail(),
+                        'Nouvelle commande',
+                        'mails/_client.html.twig',
+                        $commande->getClient(),
+                        $commande->getVendeur(),
+                        $commande
+                    );
+
+                    /** Envoie du mail au vendeur */
+                    $mailer->sendCommandMail(
+                        'talengo.contact@gmail.com',
+                        $commande->getVendeur()->getEmail(),
+                        'Nouvelle commande',
+                        'mails/_vendeur.html.twig',
+                        $commande->getClient(),
+                        $commande->getVendeur(),
+                        $commande
+                    );
+                }
+
+                return $this->render('commande/success.html.twig', [
+                    'commande' => $commande
+                ]);
+            }
+        }
 
         return $this->render('commande/error.html.twig', [
             'commande' => $commande
@@ -1010,7 +1049,8 @@ class CommandeController extends AbstractController
         MicroserviceRepository $microserviceRepository,
                                $slug,
         Commande               $commande,
-        PaymentService         $paymentService
+        PaymentService         $paymentService,
+        CacheInterface $cache
     ): Response
     {
         /** @var User $currentUser */
@@ -1062,6 +1102,16 @@ class CommandeController extends AbstractController
                         'token' => $request->get('stripeToken'),
                     ])->send();
 
+                    $key = sprintf('stripe_%s_%s', $commande->getId(), $this->getUser()->getId());
+
+                    $cache->delete($key);
+
+                    $cache->get($key, function (ItemInterface $item) {
+                        $item->expiresAfter(86400);
+
+                        return true;
+                    });
+
                     if ($response->isSuccessful()) {
 
                         $commande->setReferenceStripeId($response->getTransactionReference());
@@ -1105,6 +1155,16 @@ class CommandeController extends AbstractController
                         'returnUrl' => $this->generateUrl('commande_pyp_success', ['id' => $commande->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
                         'cancelUrl' => $this->generateUrl('commande_error', ['id' => $commande->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
                     ])->send();
+
+                    $key = sprintf('paypal_%s_%s', $commande->getId(), $this->getUser()->getId());
+
+                    $cache->delete($key);
+
+                    $cache->get($key, function (ItemInterface $item) {
+                        $item->expiresAfter(86400);
+
+                        return true;
+                    });
 
                     if ($response->isRedirect()) {
                         $commande->setPayed(true);
