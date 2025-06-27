@@ -25,11 +25,12 @@
                     <tr>
                         <td>{{ remboursement.id }}</td>
                         <td>
-                            <strong class="text-light">{{ remboursement.montant ~ currency }}</strong>
+                            <strong>{{ remboursement.montant ~ currency }}</strong>
                         </td>
                         <td>{{ remboursement.created ? remboursement.created|date('d/m/Y') : '' }}</td>
                         <td>
                             <span
+                                    title="Status de la commande"
                                 class="badge badge-{% if remboursement.statut == 'En attente' %}warning{% elseif remboursement.statut == 'Accepter' %}success{% else %}danger{% endif %} badge-pill">{{
                                 remboursement.statut }}</span>
                         </td>

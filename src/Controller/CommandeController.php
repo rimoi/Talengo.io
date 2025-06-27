@@ -65,7 +65,7 @@ class CommandeController extends AbstractController
         if ($this->isGranted('ROLE_VENDEUR')) {
             $commandes = $commandeRepository->findBy(['vendeur' => $user, 'payed' => true]);
         } elseif ($this->isGranted('ROLE_CLIENT')) {
-            $commandes = $commandeRepository->findBy(['vendeur' => $user, 'payed' => true]);
+            $commandes = $commandeRepository->findBy(['client' => $user, 'payed' => true]);
         } else {
             throw $this->createNotFoundException("Vous n'avez pas de projet d'achat ni de vente");
         }

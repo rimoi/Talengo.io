@@ -22,7 +22,9 @@
                 <tr>
                     <th>Statut</th>
                     <td>
-                        <span class="badge badge-{% if remboursement.statut == 'En attente' %}warning{% elseif remboursement.statut == 'Accepter' %}success{% else %}danger{% endif %} badge-pill">{{ remboursement.statut }}</span>
+                        <span
+                                title="Status de la commande"
+                                class="badge badge-{% if remboursement.statut == 'En attente' %}warning{% elseif remboursement.statut == 'Accepter' %}success{% else %}danger{% endif %} badge-pill">{{ remboursement.statut }}</span>
                     </td>
                 </tr>
                 <tr>
@@ -30,14 +32,14 @@
                     <td>{{ remboursement.created ? remboursement.created|date('d/m/Y') : '' }}</td>
                 </tr>
                 <tr>
-                    <th>Reponse</th>
+                    <th>Réponse</th>
                     <td>
                         <p>{{ remboursement.reponse }}</p>
                     </td>
                 </tr>
                 <tr>
                     <th>Date</th>
-                    <td>{{ remboursement.updated ? remboursement.updated|date('d/m/Y') : '' }}</td>
+                    <td>{{ remboursement.updated ? remboursement.updated|date('d/m/Y à H:i') : '' }}</td>
                 </tr>
             </tbody>
         </table>
