@@ -14732,6 +14732,11 @@ footer .copyrights p {
   margin-right: 20px;
   margin-bottom: 5px;
 }
+@media (max-width: 800px) {
+  .page-service .wrp-service .details-service .seller-info .content .info .moreinfo p {
+    margin-right: -4px;
+  }
+}
 .page-service .wrp-service .details-service .seller-info .content .info .moreinfo p i {
   margin-right: 5px;
 }
