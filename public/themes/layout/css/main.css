@@ -14800,7 +14800,7 @@ footer .copyrights p {
 }
 .page-service .wrp-service .details-service .section-services .content .card {
   width: calc((100% - 30px)/3);
-  max-width: initial;
+  max-width: 335px;
   flex: auto;
 }
 @media screen and (max-width: 480px) {

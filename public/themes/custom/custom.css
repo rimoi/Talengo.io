@@ -171,6 +171,19 @@ body.userConnected header ul.menu .dropdown-user-details-email {
     text-align: center !important;
 }
 
+@media screen and (max-width: 1024px) {
+    .hero .content div.tag a {
+        padding: 5px 6px;
+        width: 155px;
+        font-size: 14px;
+    }
+
+    section.section-services {
+        margin: 52px 0;
+    }
+}
+
+
 
 /*
 ALERT
