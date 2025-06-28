@@ -22,6 +22,7 @@
 									<div
 										class="p-1 align-items-center border-bottom osahan-post-header overflow-hidden {{ usercommande == commande ? 'bg-blue' : '' }}"
 										style="background-color:{{ is_lu ? 'aliceblue' : 'gainsboro' }}"
+										id="{{ usercommande.id }}"
 									>
 										<a href="{{ path('commande_details', {id: usercommande.id}) }}" class="media">
 
@@ -55,7 +56,7 @@
 														{{ usercommande.offre }}
 													</span>
 													<small class="ml-2 small conversation-time">
-														{% if not usercommande.lu %}
+														{% if is_lu %}
 															<span title="Nouveau message" class="badge badge-blue" style="font-size: 109%">Non lu</span>
 														{% else %}
 															<span title="Nouveau message" class="badge badge-secondary" style="font-size: 109%">Déjà lu</span>
@@ -107,7 +108,7 @@
 														{{ usercommande.offre }}
 													</span>
 													<small class="ml-2 small conversation-time">
-														{% if not usercommande.lu %}
+														{% if is_lu %}
 															<span title="Nouveau message" class="badge badge-blue" style="font-size: 109%">Non lu</span>
 														{% else %}
 															<span title="Nouveau message" class="badge badge-secondary" style="font-size: 109%">Déjà lu</span>

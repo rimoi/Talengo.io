@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Commande;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -62,6 +63,47 @@ class CommandeRepository extends ServiceEntityRepository
                 'payed' => true,
                 'cloturer' => false,
             ]);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getCommandePayer(): array
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->where('c.payed = :payed')
+            ->andWhere('c.payed =  :payed')
+            ->andWhere('c.deliver =  :cloturer')
+            ->andWhere('c.cloturer =  :cloturer')
+            ->setParameters([
+                'payed' => true,
+                'cloturer' => false,
+            ]);
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+    public function lastCommandes(?User $client = null, ?User $vendeur = null): array
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->where('c.payed = :payed')
+            ->setParameter('payed', true)
+            ->orderBy(
+                'CASE WHEN c.updated IS NOT NULL THEN c.updated ELSE c.created END',
+                'DESC'
+            );
+
+        if ($client) {
+            $qb->andWhere('c.client = :client')
+                ->setParameter('client', $client);
+        }
+
+        if ($vendeur) {
+            $qb->andWhere('c.vendeur = :vendeur')
+                ->setParameter('vendeur', $vendeur);
+        }
 
         return $qb->getQuery()->getResult();
     }

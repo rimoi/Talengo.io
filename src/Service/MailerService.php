@@ -52,8 +52,16 @@ class MailerService
 		return $this->mailer->send($email);
 	}
 
-	public function sendCommandMail($from, $to, $subjet, ?string $template = null, ?User $client = null, ?User $vendeur = null, ?Commande $commande = null)
-	{
+    public function sendCommandMail(
+        $from,
+        $to,
+        $subjet,
+        ?string $template = null,
+        ?User $client = null,
+        ?User $vendeur = null,
+        ?Commande $commande = null,
+        ?string $copieCacher = null
+    ) {
 
 		if (!$template) {
 			$template = 'mails/_default.html.twig';
@@ -69,6 +77,10 @@ class MailerService
 				'vendeur' => $vendeur,
 				'commande'   =>  $commande
 			]);
+
+        if ($copieCacher) {
+            $email->cc($copieCacher);
+        }
 
 		return $this->mailer->send($email);
 	}

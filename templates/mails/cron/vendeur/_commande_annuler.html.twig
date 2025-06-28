@@ -1,0 +1,68 @@
+<style>
+   @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400&display=swap');
+
+   body {
+      font-family: 'Outfit', Arial, sans-serif;
+      font-weight: 300;
+   }
+
+   p {
+      margin: 12px 0;
+      line-height: 1.5;
+      color: #000000;
+   }
+
+   strong {
+      font-weight: 400;
+   }
+</style>
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+   <div style="margin: auto;background: #fff;padding: 20px;">
+
+      {% include "mails/_logo.html.twig" %}
+
+      <p>Bonjour <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
+            vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
+
+      <p>
+         Nous vous informons que la commande <strong>#{{ commande.id }}</strong>, passée par <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
+            client.nickName }}</strong> pour le service "<strong>{{ commande.microservice.name }}</strong>" le <strong>{{ commande.reservationDate|date('d/m/Y à H:i') }}</strong>, a été <strong>automatiquement annulée</strong>.
+      </p>
+
+      <p>
+         Cette annulation est intervenue <strong>faute de traitement dans les 48 heures suivant la réservation</strong>.
+      </p>
+
+      <p>
+         Le client a été notifié de cette annulation.
+      </p>
+
+      <p>
+         <strong>Important : Pour éviter ce type de situation à l’avenir</strong>
+         <br>
+         IL est essentiel de <strong>traiter les commandes dans les délais impartis</strong>. Une réponse rapide :
+         <ul>
+            <li>Améliore votre réputation auprès des clients,</li>
+            <li>Augmente vos chances de ventes futures,</li>
+            <li>Et vous permet de rester visible et compétitif sur la plateforme.</li>
+         </ul>
+      </p>
+
+      <p>
+         Nous vous remercions pour votre attention et votre professionnalisme.
+      </p>
+
+{#      <div><br>#}
+{#         <a href="{{ absolute_url(path('commande_details', {id: commande.id})) }}" style="background: #4c8be8;#}
+{#     background: -webkit-linear-gradient(legacy-direction(to right), #4c8be8 0%, #a9a9a9 100%);#}
+{#     background: -webkit-gradient(linear, left top, right top, from(#4c8be8), to(#a9a9a9));#}
+{#     background: -webkit-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);#}
+{#     background: -o-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);#}
+{#     background: linear-gradient(to right, #4c8be8 0%, #a9a9a9 100%);#}
+{#     border-color: #4c8be8;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;"> Voir la commande</a>#}
+{#      </div><br>#}
+
+      {% include "mails/_lien_cgu.html.twig" %}
+
+   </div>
+</div>

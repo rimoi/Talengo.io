@@ -133,8 +133,8 @@ répondre aux besoins des clients.",
             ])
             ->add('ville', TextType::class, [
                 'label' => 'Ville',
-                'help' => 'Ville de residence actuelle',
-                'attr' => ['placeholder' => 'Ville de residence', 'autocomplete' => "address-level2"],
+                'help' => 'Ville de résidence actuelle',
+                'attr' => ['placeholder' => 'Ville', 'autocomplete' => "address-level2"],
                 'required' => false,
                 'constraints' => [
                     new NotBlank([
@@ -144,8 +144,8 @@ répondre aux besoins des clients.",
             ])
             ->add('pays', TextType::class, [
                 'label' => 'Pays',
-                'help' => 'Ville de residence actuelle',
-                'attr' => ['placeholder' => 'Ville de residence', 'autocomplete' => "country"],
+                'help' => 'Pays de résidence actuelle',
+                'attr' => ['placeholder' => 'Pays de résidence', 'autocomplete' => "country"],
                 'required' => false,
                 'constraints' => [
                     new NotBlank([

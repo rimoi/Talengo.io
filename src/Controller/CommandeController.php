@@ -63,9 +63,10 @@ class CommandeController extends AbstractController
         $user = $this->getUser();
 
         if ($this->isGranted('ROLE_VENDEUR')) {
-            $commandes = $commandeRepository->findBy(['vendeur' => $user, 'payed' => true]);
+
+            $commandes = $commandeRepository->lastCommandes(null, $user);
         } elseif ($this->isGranted('ROLE_CLIENT')) {
-            $commandes = $commandeRepository->findBy(['client' => $user, 'payed' => true]);
+            $commandes = $commandeRepository->lastCommandes($user);
         } else {
             throw $this->createNotFoundException("Vous n'avez pas de projet d'achat ni de vente");
         }
@@ -900,20 +901,48 @@ class CommandeController extends AbstractController
             $commande->setLu(false);
             $commande->setDestinataire($commande->getVendeur());
 
-            $entityManager->flush();
 
-            $this->addFlash('success', 'Commande clôturée ✅ !');
+            $portefeuille = $commande->getVendeur()->getPortefeuille();
+
+            $somme = $commande->realPriceWithOutFee() + $portefeuille->getSoldeDisponible();
+
+            if ($commande->realPriceWithOutFee() >= $portefeuille->getSoldeEncours()) {
+
+                $difference = $commande->realPriceWithOutFee() - $portefeuille->getSoldeEncours();
+            } else {
+
+                $difference = $portefeuille->getSoldeEncours() - $commande->realPriceWithOutFee();
+            }
+
+            $portefeuille->setSoldeDisponible($somme);
+            $portefeuille->setSoldeEncours($difference);
+
+            $entityManager->flush();
 
             /** Envoie du mail au vendeur */
             $mailer->sendCommandMail(
                 'talengo.contact@gmail.com',
                 $commande->getVendeur()->getEmail(),
-                'Commande clôturée ✅',
-                'mails/_commande_terminer.html.twig',
+                'Votre argent arrive !',
+                'mails/_rapport_livrer.html.twig',
                 $commande->getClient(),
                 $commande->getVendeur(),
                 $commande
             );
+
+
+            $this->addFlash('success', 'Commande clôturée ✅ !');
+
+//            /** Envoie du mail au vendeur */
+//            $mailer->sendCommandMail(
+//                'talengo.contact@gmail.com',
+//                $commande->getVendeur()->getEmail(),
+//                'Commande clôturée ✅',
+//                'mails/_commande_terminer.html.twig',
+//                $commande->getClient(),
+//                $commande->getVendeur(),
+//                $commande
+//            );
         }
 
         return $this->redirectToRoute('commande_details', [

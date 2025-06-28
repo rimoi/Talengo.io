@@ -1,0 +1,64 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400&display=swap');
+
+    body {
+        font-family: 'Outfit', Arial, sans-serif;
+        font-weight: 300;
+    }
+
+    p {
+        margin: 12px 0;
+        line-height: 1.5;
+        color: #000000;
+    }
+
+    strong {
+        font-weight: 400;
+    }
+</style>
+<div style="background-color: #f3f3f3;padding: 30px;font-size: 13px;">
+    <div style="margin: auto;background: #fff;padding: 20px;">
+
+        {% include "mails/_logo.html.twig" %}
+
+        <p>Bonjour <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
+                vendeur.nom ~ ' ' ~ vendeur.prenom }}</strong>,</p>
+
+        <p>
+            Vous avez reçu une nouvelle commande de la part de <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
+                client.nickName }}</strong> pour le service "<strong>{{ commande.microservice.name }}</strong>", effectuée le {{ commande.reservationDate|date('d/m/Y à H:i') }}.
+        </p>
+
+        <p>
+            <strong>Cette commande est toujours en attente d’acceptation. Elle sera automatiquement annulée dans 24
+            heures si aucune action n'est prise.</strong>
+        </p>
+        <p>
+            Pour éviter l'annulation :
+            <ul>
+                <li>Connectez-vous à votre espace vendeur</li>
+                <li>Acceptez la commande depuis votre tableau de bord.</li>
+            </ul>
+        </p>
+
+          <div><br>
+             <a href="{{ absolute_url(path('commande_details', {id: commande.id})) }}" style="background: #4c8be8;
+         background: -webkit-linear-gradient(legacy-direction(to right), #4c8be8 0%, #a9a9a9 100%);
+         background: -webkit-gradient(linear, left top, right top, from(#4c8be8), to(#a9a9a9));
+         background: -webkit-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
+         background: -o-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
+         background: linear-gradient(to right, #4c8be8 0%, #a9a9a9 100%);
+         border-color: #4c8be8;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Accéder à ma commande</a>
+          </div><br>
+
+        <p>
+            Passé ce délai, la commande sera automatiquement annulée et le client en sera informé.
+        </p>
+        <p>
+            Merci de votre réactivité.
+        </p>
+
+        {% include "mails/_lien_cgu.html.twig" %}
+
+    </div>
+</div>

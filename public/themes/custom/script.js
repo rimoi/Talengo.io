@@ -167,6 +167,9 @@ $(function () {
                     $('form.payment-methods').on('submit', function (e) {
                         const selectedPayment = $('input[name="payment"]:checked').val();
 
+                        $('.defaultPayment').hide();
+                        $('.paypalPayment').hide();
+
                         if (selectedPayment === 'card') {
                             e.preventDefault(); // Bloque la soumission
 
