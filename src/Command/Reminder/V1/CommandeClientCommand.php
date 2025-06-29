@@ -149,7 +149,7 @@ class CommandeClientCommand extends Command
         $this->mailerService->sendCommandMail(
             'talengo.contact@gmail.com',
             $commande->getClient()->getEmail(),
-            "⏳ Dernière chance – La commande sera automatiquement clôturée dans 48h.",
+            "Votre commande sera annulée sous 48h",
             'mails/cron/client/rappel_48h.html.twig',
             $commande->getClient(),
             $commande->getVendeur(),
@@ -163,7 +163,7 @@ class CommandeClientCommand extends Command
         $this->mailerService->sendCommandMail(
             'talengo.contact@gmail.com',
             $commande->getClient()->getEmail(),
-            sprintf("Votre commande #[%s] est clôturée automatiquement", $commande->getId()),
+            sprintf("Votre commande #[%s] a été clôturée automatiquement", $commande->getId()),
             'mails/cron/client/_commande_client_cloturer.html.twig',
             $commande->getClient(),
             $commande->getVendeur(),

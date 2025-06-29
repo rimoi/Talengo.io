@@ -25,14 +25,27 @@
             client.nom ~ ' ' ~ client.prenom }}</strong>,</p>
 
       <p>
-         Malheureusement, votre commande #{{ commande.id }} réalisée par
+         Votre commande #{{ commande.id }} passée par
          <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.usePseudo == 1 ? vendeur.pseudo :
             vendeur.nickName }}</strong>
-         pour le service <strong>{{ commande.microservice.name }}</strong>, a été automatiquement clôturé car aucun traitement n'a été effectué dans les 7 jours calendaires depuis la dernier livraison.
+         pour le service <strong>{{ commande.microservice.name }}</strong>, a été automatiquement clôturée.
       </p>
 
       <p>
-         Cette annulation a également été notifiée au vendeur. Pour éviter cela à l'avenir, veillez à traiter les commandes dans les délais impartis.
+         Aucune action n’ayant été effectuée dans les <strong>7 jours calendaires</strong> suivant la dernière livraison, la
+         commande a été finalisée par notre système.
+      </p>
+      <p>
+         Cette clôture a également été notifiée au vendeur.
+      </p>
+
+      <p>
+         <strong>
+            Pour éviter ce type de situation à l’avenir :
+         </strong>
+         <ul>
+            <li>Pensez à valider ou demander une retouche dans les délais impartis.</li>
+         </ul>
       </p>
 
 

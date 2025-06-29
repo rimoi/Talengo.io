@@ -25,33 +25,33 @@
                 client.nom ~ ' ' ~ client.prenom }}</strong>,</p>
 
         <p>
-            Votre commande #{{ commande.id }} concernant <strong>{{ commande.microservice.name }}</strong>  n’a toujours pas été accepté par vous.
+            Nous vous informons que votre commande <strong>#{{ commande.id }}</strong> du <strong>{{ commande.reservationDate|date('d/m/Y à H:i') }}</strong>
+            pour <strong>{{ commande.microservice.name }}</strong>  est toujours en attente de validation.
         </p>
         <p>
-            Elle sera automatiquement annulée dans 48h !
+            <strong>Sans action de votre part, elle sera automatiquement clôturée dans 48 heures.</strong>
         </p>
         <p>
-            Pour éviter l’annulation :
+            <strong>Pour éviter cela :</strong>
             <ul>
-                <li>Connectez-vous à votre espace client.</li>
-                <li>Clôturer la commande ou faire une demande de retouche.</li>
+                <li>Connectez-vous à votre espace client</li>
+            <li>Choisissez de <strong>valider, demander une retouche ou clôturer la commande</strong></li>
              </ul>
         </p>
 
-        <p>
-            ⚠ Passé ce délai, la commande sera clôturée et les fonds seront envoyés au vendeur.
-        </p>
+        <p><strong>Passé ce délai, la commande sera considérée comme finalisée et les fonds seront automatiquement
+                transférés au vendeur.</strong></p>
 
 
-      <div><br>
-         <a href="{{ absolute_url(path('commande_details', {id: commande.id})) }}" style="background: #4c8be8;
-     background: -webkit-linear-gradient(legacy-direction(to right), #4c8be8 0%, #a9a9a9 100%);
-     background: -webkit-gradient(linear, left top, right top, from(#4c8be8), to(#a9a9a9));
-     background: -webkit-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
-     background: -o-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);
-     background: linear-gradient(to right, #4c8be8 0%, #a9a9a9 100%);
-     border-color: #4c8be8;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Accèder à ma commande</a>
-      </div><br>
+{#      <div><br>#}
+{#         <a href="{{ absolute_url(path('commande_details', {id: commande.id})) }}" style="background: #4c8be8;#}
+{#     background: -webkit-linear-gradient(legacy-direction(to right), #4c8be8 0%, #a9a9a9 100%);#}
+{#     background: -webkit-gradient(linear, left top, right top, from(#4c8be8), to(#a9a9a9));#}
+{#     background: -webkit-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);#}
+{#     background: -o-linear-gradient(left, #4c8be8 0%, #a9a9a9 100%);#}
+{#     background: linear-gradient(to right, #4c8be8 0%, #a9a9a9 100%);#}
+{#     border-color: #4c8be8;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Accèder à ma commande</a>#}
+{#      </div><br>#}
 
         {% include "mails/_lien_cgu.html.twig" %}
 
