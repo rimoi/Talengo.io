@@ -69,7 +69,7 @@
 			"handleBrowserDNTRequest": false, /* Refuser tout par défaut si Do Not Track est activé sur le navigateur */
 
 			"removeCredit": false, /* Retirer le lien de crédit vers tarteaucitron.io */
-			"moreInfoLink": true, /* Afficher le lien En savoir plus */
+			"moreInfoLink": false, /* Afficher le lien En savoir plus */
 
 			"useExternalCss": false, /* Mode expert : désactiver le chargement des fichiers .css tarteaucitron */
 			"useExternalJs": false, /* Mode expert : désactiver le chargement des fichiers .js tarteaucitron */
@@ -90,8 +90,12 @@
 			"dataLayer": false, /* Envoyer un événement dans dataLayer avec le statut des services */
 			"serverSide": false, /* Server side seulement, les tags ne sont pas chargé côté client */
 
-			"partnersList": true /* Afficher le détail du nombre de partenaires sur la bandeau */
+			"partnersList": false /* Afficher le détail du nombre de partenaires sur la bandeau */
 		});
+
+		setTimeout(function() {
+		 	document.getElementById('tarteaucitronRoot').classList.add('visible');
+		 }, 4000);
 
 		(tarteaucitron.job = tarteaucitron.job || []).push('googlesignin');
 		(tarteaucitron.job = tarteaucitron.job || []).push('facebook');
@@ -155,16 +159,16 @@
 {#		(tarteaucitron.job = tarteaucitron.job || []).push('googlefonts');#}
 {#	</script>#}
 
-{#	<style>#}
-{#		#tarteaucitronRoot {#}
-{#			opacity: 0 !important;#}
-{#			pointer-events: none !important;#}
-{#		}#}
-{#		#tarteaucitronRoot.visible {#}
-{#			opacity: 1 !important;#}
-{#			pointer-events: auto !important;#}
-{#		}#}
-{#	</style>#}
+	<style>
+		#tarteaucitronRoot {
+			opacity: 0 !important;
+			pointer-events: none !important;
+		}
+		#tarteaucitronRoot.visible {
+			opacity: 1 !important;
+			pointer-events: auto !important;
+		}
+	</style>
 
 </head>
 
