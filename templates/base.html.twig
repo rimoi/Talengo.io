@@ -75,6 +75,11 @@
 			"theme": "edgeless" // Style moderne sans bordures arrondies
 		});
 
+
+		setTimeout(function() {
+			document.getElementById('tarteaucitronRoot').classList.add('visible');
+		}, 4000);
+
 		(tarteaucitron.job = tarteaucitron.job || []).push('googlesignin');
 		(tarteaucitron.job = tarteaucitron.job || []).push('facebook');
 		(tarteaucitron.job = tarteaucitron.job || []).push('linkedin');
@@ -83,6 +88,17 @@
 		tarteaucitron.user.googleFonts = 'families';
 		(tarteaucitron.job = tarteaucitron.job || []).push('googlefonts');
 	</script>
+
+	<style>
+		#tarteaucitronRoot {
+			opacity: 0 !important;
+			pointer-events: none !important;
+		}
+		#tarteaucitronRoot.visible {
+			opacity: 1 !important;
+			pointer-events: auto !important;
+		}
+	</style>
 
 </head>
 
@@ -117,7 +133,7 @@
 			let file = $(".custom-file-input")[0].files[0].name;
 			let label = $(".label");
 			label.text(file);
-		}});
+		});
 	</script>
 
 </body>
