@@ -764,7 +764,7 @@ span#tarteaucitronDisclaimerAlert {
 }
 
 #tarteaucitronRoot #tarteaucitronAlertBig {
-    background: #507ecd;
+    background: #333;
     color: #fff;
     display: none;
     font-size: 15px !important;
