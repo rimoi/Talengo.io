@@ -34,6 +34,56 @@
 	<!-- Cke editor -->
 	<script defer src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 
+	<script src="{{ asset('themes/custom/tarteaucitron/tarteaucitron.min.js') }}"></script>
+
+	<script type="text/javascript">
+		tarteaucitron.init({
+			"privacyUrl": "{{ path('page_politiques') }}",
+			"bodyPosition": "top",
+			"hashtag": "#tarteaucitron",
+			"cookieName": "tarteaucitron",
+			"orientation": "middle",
+			"groupServices": true,
+			"showDetailsOnClick": true,
+			"serviceDefaultState": "wait",
+			"showAlertSmall": false,
+			"cookieslist": false,
+			"closePopup": true,
+			"showIcon": true,
+			"iconPosition": "BottomRight",
+			"adblocker": false,
+			"DenyAllCta": true,
+			"AcceptAllCta": true,
+			"highPrivacy": true,
+			"iconSrc": "{{ asset('img/logo/favicon.png') }}",
+			"alwaysNeedConsent": false,
+			"handleBrowserDNTRequest": false,
+			"removeCredit": false,
+			"moreInfoLink": true,
+			"useExternalCss": false,
+			"useExternalJs": false,
+			"mandatory": true,
+			"mandatoryCta": false,
+			"googleConsentMode": true,
+			"readmoreLink": "{{ path('app_about') }}",
+			"bingConsentMode": true,
+			"softConsentMode": false,
+			"dataLayer": false,
+			"serverSide": false,
+			"partnersList": true,
+
+			"theme": "edgeless" // Style moderne sans bordures arrondies
+		});
+
+		(tarteaucitron.job = tarteaucitron.job || []).push('googlesignin');
+		(tarteaucitron.job = tarteaucitron.job || []).push('facebook');
+		(tarteaucitron.job = tarteaucitron.job || []).push('linkedin');
+		(tarteaucitron.job = tarteaucitron.job || []).push('instagram');
+		(tarteaucitron.job = tarteaucitron.job || []).push('youtube');
+		tarteaucitron.user.googleFonts = 'families';
+		(tarteaucitron.job = tarteaucitron.job || []).push('googlefonts');
+	</script>
+
 </head>
 
 <body data-turbo="false" class="bg userConnected {% block body_class '' %}">
@@ -67,7 +117,7 @@
 			let file = $(".custom-file-input")[0].files[0].name;
 			let label = $(".label");
 			label.text(file);
-		});
+		}});
 	</script>
 
 </body>

@@ -196,9 +196,16 @@
 
 		<ul class="navbar-nav align-items-center mr-auto mx-sm-auto">
 			<li class="nav-item text-center">
-				<a href="{{ path('accueil') }}" class="nav-link">
-					<img src="{{ asset('themes/layout/img/logo.svg') }}" width="120px" height="40px" alt="Glog {{ appName }}" style="margin-left: 20px;display:inline-block;">
-				</a>
+
+				{% if app.user %}
+					<a href="{{ path('list') }}" class="nav-link">
+						<img src="{{ asset('themes/layout/img/logo.svg') }}" width="120px" height="40px" alt="Glog {{ appName }}" style="margin-left: 20px;display:inline-block;">
+					</a>
+				{% else %}
+					<a href="{{ path('accueil') }}" class="nav-link">
+						<img src="{{ asset('themes/layout/img/logo.svg') }}" width="120px" height="40px" alt="Glog {{ appName }}" style="margin-left: 20px;display:inline-block;">
+					</a>
+				{% endif %}
 			</li>
 		</ul>
 
