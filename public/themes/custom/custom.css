@@ -266,7 +266,7 @@ ALERT
     margin-bottom: 17px;
 }
 
-.cs-reset-password .invalid-feedback {
+.invalid-feedback {
     display: block;
     color: #721c24;
     background-color: #f8d7da;

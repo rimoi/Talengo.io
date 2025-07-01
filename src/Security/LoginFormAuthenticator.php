@@ -51,9 +51,9 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
         
-        if($request->query->get('redirect')) {
-            return new RedirectResponse($this->urlGenerator->generate('microservice_details', ['slug' => $request->query->get('redirect')]));
-        }
+//        if($request->query->get('redirect')) {
+//            return new RedirectResponse($this->urlGenerator->generate('microservice_details', ['slug' => $request->query->get('redirect')]));
+//        }
 
         // For example:
         return new RedirectResponse($this->urlGenerator->generate('list'));

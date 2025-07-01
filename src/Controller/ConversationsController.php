@@ -210,7 +210,7 @@ class ConversationsController extends AbstractController
         $user = $this->getUser();
 
         if (!$microservice) {
-            throw $this->createNotFoundException('microservice is missing!');
+            throw $this->createNotFoundException('microservice is missing !');
         }
 
         $findconversation = $conversationsRepository->findOneBy([
@@ -261,8 +261,8 @@ class ConversationsController extends AbstractController
             ], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('conversations/new.html.twig', [
-            'form' => $form,
+        return $this->render('conversations/new.html.twig', [
+            'form' => $form->createView(),
             'vendeur' => $vendeur,
             'microservice' => $microservice
         ]);
