@@ -35,8 +35,8 @@
 				<div class="links">
 					<h3 class="title">Talengo</h3>
 					<ul>
-						<li><a href="">à propos de nous</a></li>
-						<li><a href="">Comment ça marche</a></li>
+						<li><a href="{{ path('app_about') }}">à propos de nous</a></li>
+						<li><a href="{{ path('app_comment_ca_marche') }}">Comment ça marche</a></li>
 						<li><a href="{{ path('app_faq') }}">FAQ</a></li>
 						<li><a href="{{ path('app_contact') }}">Nous contacter</a></li>
 					</ul>
@@ -45,8 +45,8 @@
 					<h3 class="title">terms</h3>
 					<ul>
 						<li><a href="{{ path('page_politiques') }}">Politique de Confidentialité</a></li>
-						<li><a href="{{ path('page_conditions') }}">Termes et Conditions</a></li>
-						<li><a href="{{ path('page_mentions') }}">Mentions légales</a></li>
+{#						<li><a href="{{ path('page_conditions') }}">Termes et Conditions</a></li>#}
+						<li><a href="{{ path('app_mention_legale') }}">Mentions légales</a></li>
 					</ul>
 				</div>
 			</div>

@@ -20,9 +20,7 @@ class PagesController extends AbstractController
     #[Route('/politique-de-confidentialite', name: 'page_politiques')]
     public function politiques(): Response
     {
-        return $this->render('pages/politiques.html.twig', [
-            
-        ]);
+        return $this->render('pages/politiques.html.twig');
     }
 
     #[Route('/mentions-legales', name: 'page_mentions')]
@@ -37,14 +35,6 @@ class PagesController extends AbstractController
     public function conditions(): Response
     {
         return $this->render('pages/conditions.html.twig', [
-        ]);
-    }
-
-    #[Route('/comment-ca-marche', name: 'page_cmarche')]
-    public function cmarche(): Response
-    {
-        return $this->render('pages/cmarche.html.twig', [
-            
         ]);
     }
 }

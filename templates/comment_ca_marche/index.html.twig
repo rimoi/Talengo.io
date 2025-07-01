@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Comment ça marche{% endblock %}
+
+{% block stylesheet %}
+    {{ parent() }}
+
+    <link href="{{ asset('themes/custom/about.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="page-editorial how-it-works">
+        <div class="hero-editorial">
+            <div class="container">
+                <h1 class="primaryTitle textcenter">comment ça marche</h1>
+                <h2 class="lightText textcenter"><strong class="br-mobile">Avec Talengo.io,</strong> trouvez un freelance, passez commande, recevez un travail de qualité. Simple, rapide, efficace.</h2>
+            </div>
+        </div>
+        <div class="textImage">
+            <div class="container">
+                <div class="content">
+                    <div class="img">
+                        <img src="dist/img/profile3.jpg" alt="">
+                    </div>
+                    <div class="text-content">
+                        <h3 class="secondaryTitle"><span class="nbr">1</span> <span class="title">Choisissez votre service et passez commande en toute simplicité<span></h3>
+                        <p>Besoin d’un logo, d’un montage vidéo, d’un site internet, ou encore d’un texte bien rédigé ? Sur notre
+                            plateforme, des freelances passionnés vous proposent des services clairs, à des prix transparents.</p>
+                        <p>Naviguez dans les catégories, comparez les offres, lisez les avis, et trouvez rapidement le freelance qui
+                            correspond à vos besoins.</p>
+                        <p>Une fois votre choix fait, il ne vous reste qu’à passer commande : vous décrivez ce que vous attendez,
+                            vous validez... et c’est tout ! Votre commande est transmise au freelance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="textImage img-right">
+            <div class="container">
+                <div class="content">
+                    <div class="img">
+                        <img src="dist/img/hero.jpg" alt="">
+                    </div>
+                    <div class="text-content">
+                        <h3 class="secondaryTitle"><span class="nbr">2</span> <span class="title">Le freelance accepte la commande et réalise votre mission</span></h3>
+                        <p>Dès que votre commande est validée, le freelance se met au travail selon vos instructions. Vous pouvez
+                            échanger facilement via notre messagerie intégrée pour poser des questions ou clarifier certains détails.</p>
+                        <p>Vous êtes informé à chaque étape de l’avancement. Le freelance vous envoie le livrable dans les délais
+                            annoncés, en respectant vos attentes. Besoin d’un ajustement ? Vous pouvez en demander directement
+                            avant de valider la commande.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="textImage">
+            <div class="container">
+                <div class="content">
+                    <div class="img">
+                        <img src="dist/img/profile3.jpg" alt="">
+                    </div>
+                    <div class="text-content">
+                        <h3 class="secondaryTitle"><span class="nbr">3</span> <span class="title">Recevez votre commande et finalisez en toute tranquillité</span></h3>
+                        <p>Votre freelance vous livre le travail terminé, directement sur la plateforme. Prenez le temps de le consulter
+                            et assurez-vous que tout correspond à vos attentes.</p>
+                        <p>Besoin d’un petit ajustement ? Vous pouvez facilement en discuter avec le freelance et demander une
+                            retouche. Une fois que tout est parfait, il vous suffit de valider la commande.</p>
+                        <p>Simple, fluide et sécurisé : vous gardez le contrôle du début à la fin, avec la garantie de recevoir un travail
+                            soigné et conforme à vos besoins.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slogan-content">
+            <div class="container">
+                <div class="content">
+                    <p>Trouvez le freelance idéal, avec les compétences qu’il vous faut.</p>
+                    <div class="flexCenter">
+                        <a href="{{ path('list') }}" class="btn btn-primaryBlue">voir les meilleurs services</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

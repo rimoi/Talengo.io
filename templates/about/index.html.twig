@@ -2,249 +2,89 @@
 
 {% block title %}A propos de nous{% endblock %}
 
+{% block stylesheet %}
+    {{ parent() }}
+
+    <link href="{{ asset('themes/custom/about.css') }}" rel="stylesheet">
+{% endblock %}
+
+
 {% block body %}
     <div class="page-editorial">
         <div class="hero-editorial">
             <div class="container">
-                <h1 class="primaryTitle textcenter">Questions fréquentes sur<br>Talengo.io</h1>
+                <h1 class="primaryTitle textcenter">À propos de Talengo.io</h1>
+                <!-- <h2 class="lightText textcenter">Qualité, confiance, impact. C’est notre promesse</h2> -->
             </div>
         </div>
-        <div class="faq section-service">
-            <div class="container-small">
-                <div class="content-flex">
-                    <h3 class="title">Pour les clients</h3>
-                    <div class="accordion">
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">1. Pourquoi passer par Talengo.io plutôt que chercher un freelance par moi-même ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Talengo.io vous fait gagner un temps précieux en vous connectant directement aux
-                                    meilleurs freelances
-                                    présélectionnés selon vos besoins. Chaque profil est vérifié, évalué et spécialisé, ce
-                                    qui réduit les risques
-                                    d'erreurs et vous garantit un résultat professionnel, rapidement.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">2. En quoi Talengo.io est-il meilleur que les autres plateformes freelance ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Contrairement aux grandes plateformes généralistes, Talengo.io mise sur la qualité et la
-                                    fiabilité avant
-                                    tout. Nous sélectionnons rigoureusement chaque freelance, garantissons un accompagnement
-                                    personnalisé
-                                    et assurons un suivi complet de votre projet.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">3. Quels types de services puis-je trouver sur Talengo.io ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Design graphique, développement web, rédaction, marketing digital, traduction, stratégie
-                                    UX/UI...
-                                    Talengo.io couvre un large éventail de compétences freelances pour répondre à tous vos
-                                    besoins de projet,
-                                    de la startup à la grande entreprise.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">4. Comment s’assurer que le freelance respectera les délais et la qualité attendue ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Chaque mission sur Talengo.io est encadrée par un système de suivi transparent. Les
-                                    livrables, délais et
-                                    modalités sont validés à l’avance. En cas de besoin, notre équipe support est toujours
-                                    disponible pour
-                                    vous accompagner et garantir votre satisfaction.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">5. Puis-je suivre l’avancement de mon projet ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Oui, vous bénéficiez d’un espace client dédié pour suivre les échanges, les fichiers
-                                    livrés, et les étapes du
-                                    projet. La communication est centralisée et fluide, pour garder un œil sur chaque étape
-                                    sans stress.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">6. Que se passe-t-il si je ne suis pas satisfait du résultat ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Votre satisfaction est notre priorité. Si le rendu ne correspond pas à vos attentes,
-                                    nous mettons en place
-                                    des révisions avec le freelance. En cas de litige, notre service client intervient pour
-                                    trouver une solution
-                                    équitable. Sur Talengo.io, vous ne prenez aucun risque.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">7. Quels sont les moyens de paiement disponibles ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Vous pouvez régler vos prestations directement en ligne via carte bancaire ou virement
-                                    sécurisé, Paypal.
-                                    Toutes les transactions sont protégées, et les paiements ne sont libérés qu’une fois la
-                                    prestation validée par
-                                    vos soins.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content-flex">
-                    <h3 class="title">Pour les freelances</h3>
-                    <div class="accordion">
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">1. Pourquoi proposer mes services sur Talengo.io ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Talengo.io vous connecte à des clients qualifiés, sérieux et en recherche active de
-                                    prestataires. Fini le
-                                    démarchage à l’aveugle : ici, vous gagnez en visibilité, vous accédez à des missions
-                                    ciblées et vous
-                                    développez votre activité en toute sérénité.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">2. Quels types de missions puis-je trouver sur la plateforme ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    De la création de site web au branding, en passant par le copywriting, le développement
-                                    ou le marketing
-                                    digital : les missions sont variées, bien rémunérées et adaptées à tous les profils
-                                    freelances, juniors ou
-                                    expérimentés.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">3. Comment fonctionne la sélection des freelances ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Nous valorisons la qualité avant tout. Pour intégrer Talengo.io, il suffit de remplir un
-                                    profil complet, avec
-                                    portfolio, expériences et compétences. Certains profils sont sélectionnés manuellement
-                                    pour des projets
-                                    premium. Plus votre profil est soigné, plus vous avez de chances de décrocher des
-                                    missions.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">4. Comment suis-je payé ? Et quand ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Vous êtes payé rapidement et en toute sécurité après validation du livrable par le
-                                    client. Les fonds sont
-                                    déposés sur votre compte Talengo.io, puis transférés sur votre compte bancaire selon vos
-                                    préférences.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">5. Puis-je refuser une mission si elle ne me convient pas ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Bien sûr. Vous restez libre d’accepter ou non une proposition. Sur Talengo.io, vous
-                                    gérez votre planning,
-                                    vos tarifs et vos conditions. Vous choisissez les missions qui correspondent à vos
-                                    valeurs et à vos
-                                    objectifs.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">6. Comment booster mes chances d’être sélectionné par les clients ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Un profil bien rempli, un portfolio à jour, des avis clients positifs et une
-                                    communication réactive sont vos
-                                    meilleurs alliés. N’hésitez pas à soigner votre description, à montrer votre expertise
-                                    et à personnaliser vos
-                                    propositions pour chaque mission.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <button id="accordion-button-1" aria-expanded="false">
-                                <span class="accordion-title">7. Puis-je travailler avec des clients internationaux via Talengo.io ?</span>
-                                <span class="icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Absolument. Talengo.io vous permet de collaborer avec des clients en France comme à
-                                    l’international.
-                                    Vous élargissez ainsi votre réseau, accédez à des projets variés et développez votre
-                                    activité freelance à
-                                    l’échelle globale — tout en restant payé en toute sécurité.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="section-joinUs">
-            <div class="container-small">
+        <div class="textImage">
+            <div class="container">
                 <div class="content">
-                    <div class="joinusDescription">
-                        <a href="mailto:"></a>
-                        <span class="fav"></span>
-                        <h3 class="title">Vous ne trouvez pas ce que vous cherchez ?</h3>
-                        <p class="description">Pas de souci, nous sommes là pour vous accompagner.<br>
-                            N’hésitez pas à nous écrire à <a href="mailto:talengo.contact@gmail.com">talengo.contact@gmail.com</a>,
-                            notre
-                            équipe se fera un plaisir de vous aider rapidement.</p>
+                    <div class="img">
+                        <img src="dist/img/profile3.jpg" alt="">
                     </div>
-                    <img src="{{ asset('img/faq/FAQ.svg') }}" alt="">
+                    <div class="text-content">
+                        <h2 class="secondaryTitle">Talengo.io</h2>
+                        <h3 class="secondaryTitle">La plateforme au service des prestataires et porteurs
+                            de projets</h3>
+                        <p>Talengo.io est une plateforme innovante conçue pour connecter <strong>prestataires de services</strong> et <strong>porteurs de
+                                projets</strong> dans un environnement numérique simple, fiable et ouvert. Que vous soyez un expert indépendant
+                            à la recherche de missions ou un entrepreneur souhaitant faire avancer ses projets grâce à des talents
+                            qualifiés, Talengo.io est votre allié de confiance.</p>
+                        <p>Notre ambition est claire : offrir une expérience fluide et transparente, qui valorise les compétences tout
+                            en facilitant la collaboration, partout dans le monde.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="textImage img-right">
+            <div class="container">
+                <div class="content">
+                    <div class="img">
+                        <img src="dist/img/hero.jpg" alt="">
+                    </div>
+                    <div class="text-content">
+                        <h2 class="secondaryTitle">Notre mission</h2>
+                        <h3 class="secondaryTitle"> Simplifier la collaboration professionnelle</h3>
+                        <p>Nous vivons une époque où les modes de travail évoluent rapidement. Chez Talengo.io, notre mission est
+                            de <strong>rendre accessible la collaboration entre prestataires de services et porteurs de projets</strong>, en
+                            supprimant les barrières traditionnelles.</p>
+                        <p>Nous voulons permettre à chacun, qu’il soit freelance, entrepreneur, particulier de trouver facilement son
+                            partenaire idéal, en toute sérénité. Notre plateforme vise à optimiser la mise en relation, simplifier la
+                            gestion des missions, et sécuriser chaque étape pour que vous puissiez vous concentrer sur l’essentiel :
+                            votre expertise et vos ambitions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slogan-content">
+            <div class="container">
+                <div class="content">
+                    <h4 class="secondaryTitle">La confiance avant tout</h4>
+                    <p>Sur Talengo.io, les profils sont vérifiés et les services évalués.<br> Des règles strictes protègent notre communauté.</p>
+                </div>
+            </div>
+        </div>
+        <div class="textImage">
+            <div class="container">
+                <div class="content">
+                    <div class="img">
+                        <img src="dist/img/profile3.jpg" alt="">
+                    </div>
+                    <div class="text-content">
+                        <h2 class="secondaryTitle">Nos valeurs</h2>
+                        <h3 class="secondaryTitle">Confiance, simplicité, liberté</h3>
+                        <ul>
+                            <li><i class="fa-regular fa-circle-check"></i><strong>Confiance </strong>: Nous croyons que toute collaboration réussie repose sur un climat de confiance
+                                mutuelle. C’est pourquoi nous valorisons la transparence, la vérification des profils, et le respect
+                                des engagements.</li>
+                            <li><i class="fa-regular fa-circle-check"></i><strong>Simplicité </strong>: Talengo.io a été pensée pour être intuitive et facile d’utilisation. De l’inscription à la
+                                gestion de projet, tout est fluide, accessible et rapide.</li>
+                            <li><i class="fa-regular fa-circle-check"></i><strong>Liberté géographique </strong>: Le travail n’a plus de frontières. Nous offrons à nos utilisateurs la
+                                possibilité de collaborer depuis n’importe où, qu’ils soient à Paris, New York, ou en télétravail au
+                                soleil. La flexibilité est au cœur de notre ADN.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

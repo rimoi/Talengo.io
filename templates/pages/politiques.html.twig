@@ -2,518 +2,149 @@
 
 {% block title %}Politique de confidentialité{% endblock %}
 
+{% block stylesheet %}
+   {{ parent() }}
+
+   <link href="{{ asset('themes/custom/about.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-<div class="bg-dark pt-5 pb-5">
-   <div class="container">
-      <div class="row">
-         <div class="col-md-7 text-center mx-auto my-4">
-            <!-- Title -->
-            <div class="mb-4">
-               <h1 class="h3 text-white mb-0">Politique de confidentialité</h1>
-            </div>
-            <!-- End Title -->
+   <div class="page-editorial page-wysiwyg">
+      <div class="hero-editorial">
+         <div class="container">
+            <h1 class="primaryTitle textcenter">Politique de Confidentialité – Talengo.io</h1>
+            <h3 class="lightText textcenter"><strong>Date de dernière mise à jour : 25 juin 2025</strong></h3>
+            <h2 class="lightText textcenter"><strong   class="br-mobile">Chez Talengo.io,</strong> la confidentialité de vos données est une priorité. Cette Politique de confidentialité
+               explique comment nous collectons, utilisons, stockons et protégeons vos données personnelles lorsque
+               vous utilisez notre plateforme.</h2>
          </div>
       </div>
-   </div>
-</div>
-<div class="py-5">
-   <div class="container mx-auto col-md-8">
-      <div class="row">
-         <!-- Main Content -->
-         <div class="col-md-12">
-            <div id="basics">
-               <!-- Title -->
-               <div class="mb-3 mt-0">
-                  <h4 class="font-weight-semi-bold">Basics</h4>
-               </div>
-               <!-- End Title -->
-               <!-- Basics Accordion -->
-               <div id="basicsAccordion">
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="basicsHeadingOne">
-                        <h5 class="mb-0">
-                           <button
-                              class="shadow-none btn btn-block d-flex justify-content-between card-btn p-3 collapsed"
-                              data-toggle="collapse" data-target="#basicsCollapseOne" aria-expanded="false"
-                              aria-controls="basicsCollapseOne">
-                              Do you have any built-in caching?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="basicsCollapseOne" class="collapse" aria-labelledby="basicsHeadingOne"
-                        data-parent="#basicsAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="basicsHeadingTwo">
-                        <h5 class="mb-0">
-                           <button
-                              class="shadow-none btn btn-block d-flex justify-content-between card-btn collapsed p-3"
-                              data-toggle="collapse" data-target="#basicsCollapseTwo" aria-expanded="false"
-                              aria-controls="basicsCollapseTwo">
-                              Can I add/upgrade my plan at any time?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="basicsCollapseTwo" class="collapse" aria-labelledby="basicsHeadingTwo"
-                        data-parent="#basicsAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="basicsHeadingThree">
-                        <h5 class="mb-0">
-                           <button
-                              class="shadow-none btn btn-block d-flex justify-content-between card-btn collapsed p-3"
-                              data-toggle="collapse" data-target="#basicsCollapseThree" aria-expanded="false"
-                              aria-controls="basicsCollapseThree">
-                              What access comes with my hosting plan?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="basicsCollapseThree" class="collapse" aria-labelledby="basicsHeadingThree"
-                        data-parent="#basicsAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="basicsHeadingFour">
-                        <h5 class="mb-0">
-                           <button
-                              class="shadow-none btn btn-block d-flex justify-content-between card-btn collapsed p-3"
-                              data-toggle="collapse" data-target="#basicsCollapseFour" aria-expanded="false"
-                              aria-controls="basicsCollapseFour">
-                              How do I change my password?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="basicsCollapseFour" class="collapse" aria-labelledby="basicsHeadingFour"
-                        data-parent="#basicsAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-               </div>
-               <!-- End Basics Accordion -->
+      <div class="container">
+         <div class="wysiwyg">
+            <div class="content">
+               <h3 class="secondaryTitle">1. Responsable du traitement</h3>
+               <p>Le responsable du traitement des données personnelles est :</p>
+               <p>
+                  <strong>Talengo.io</strong><br>
+                  SARL immatriculée sous le numéro <strong>11238932</strong><br>
+                  Siège social : Irlande<br>
+                  <span class="fa-solid fa-envelope"></span> Contact : <a href="mailto:talengo.contact@gmail.com">talengo.contact@gmail.com</a>
+               </p>
             </div>
-            <div id="syncing">
-               <!-- Title -->
-               <div class="mb-3 mt-4">
-                  <h4 class="font-weight-semi-bold">Syncing</h4>
-               </div>
-               <!-- End Title -->
-               <!-- Syncing Accordion -->
-               <div id="syncingAccordion">
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="syncingHeadingOne">
-                        <h5 class="mb-0">
-                           <button class="shadow-none btn btn-block d-flex justify-content-between card-btn p-3"
-                              data-toggle="collapse" data-target="#syncingCollapseOne" aria-expanded="false"
-                              aria-controls="syncingCollapseOne">
-                              How does syncing work?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="syncingCollapseOne" class="collapse show" aria-labelledby="syncingHeadingOne"
-                        data-parent="#syncingAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="syncingHeadingTwo">
-                        <h5 class="mb-0">
-                           <button
-                              class="shadow-none btn btn-block d-flex justify-content-between card-btn collapsed p-3"
-                              data-toggle="collapse" data-target="#syncingCollapseTwo" aria-expanded="false"
-                              aria-controls="syncingCollapseTwo">
-                              How do I upload files from my phone or tablet?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="syncingCollapseTwo" class="collapse" aria-labelledby="syncingHeadingTwo"
-                        data-parent="#syncingAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="syncingHeadingThree">
-                        <h5 class="mb-0">
-                           <button
-                              class="shadow-none btn btn-block d-flex justify-content-between card-btn collapsed p-3"
-                              data-toggle="collapse" data-target="#syncingCollapseThree" aria-expanded="false"
-                              aria-controls="syncingCollapseThree">
-                              How do I link to a file or folder?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="syncingCollapseThree" class="collapse" aria-labelledby="syncingHeadingThree"
-                        data-parent="#syncingAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-               </div>
-               <!-- End Syncing Accordion -->
+            <div class="content">
+               <h3 class="secondaryTitle">2. Quelles données sont collectées ?</h3>
+               <p>Nous collectons uniquement les données nécessaires à la bonne utilisation de la plateforme, notamment :</p>
+               <ul>
+                  <li><strong>Données d’identification :</strong> prénom, nom, adresse e-mail, numéro de téléphone (le cas échéant).</li>
+                  <li><strong>Données de compte :</strong> nom d'utilisateur, mot de passe (chiffré), photo de profil, bio.</li>
+                  <li><strong>Données de transaction :</strong> historique des services achetés ou vendus, informations de facturation.</li>
+                  <li><strong>Données de navigation :</strong> adresse IP, navigateur, appareil, pages visitées, cookies (voir section 7).</li>
+                  <li><strong>Échanges :</strong> messages entre utilisateurs, tickets de support, évaluations.</li>
+               </ul>
             </div>
-            <div id="account">
-               <!-- Title -->
-               <div class="mb-3 mt-4">
-                  <h4 class="font-weight-semi-bold">Account</h4>
-               </div>
-               <!-- End Title -->
-               <!-- Account Accordion -->
-               <div id="accountAccordion">
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="accountHeadingOne">
-                        <h5 class="mb-0">
-                           <button class="shadow-none btn btn-block d-flex justify-content-between card-btn p-3"
-                              data-toggle="collapse" data-target="#accountCollapseOne" aria-expanded="false"
-                              aria-controls="accountCollapseOne">
-                              How do I change my password?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="accountCollapseOne" class="collapse show" aria-labelledby="accountHeadingOne"
-                        data-parent="#accountAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="accountHeadingTwo">
-                        <h5 class="mb-0">
-                           <button
-                              class="shadow-none btn btn-block d-flex justify-content-between card-btn collapsed p-3"
-                              data-toggle="collapse" data-target="#accountCollapseTwo" aria-expanded="false"
-                              aria-controls="accountCollapseTwo">
-                              How do I delete my account?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="accountCollapseTwo" class="collapse" aria-labelledby="accountHeadingTwo"
-                        data-parent="#accountAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="accountHeadingThree">
-                        <h5 class="mb-0">
-                           <button
-                              class="shadow-none btn btn-block d-flex justify-content-between card-btn collapsed p-3"
-                              data-toggle="collapse" data-target="#accountCollapseThree" aria-expanded="false"
-                              aria-controls="accountCollapseThree">
-                              How do I change my account settings?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="accountCollapseThree" class="collapse" aria-labelledby="accountHeadingThree"
-                        data-parent="#accountAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="accountHeadingFour">
-                        <h5 class="mb-0">
-                           <button
-                              class="shadow-none btn btn-block d-flex justify-content-between card-btn collapsed p-3"
-                              data-toggle="collapse" data-target="#accountCollapseFour" aria-expanded="false"
-                              aria-controls="accountCollapseFour">
-                              I forgot my password. How do I reset it?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="accountCollapseFour" class="collapse" aria-labelledby="accountHeadingFour"
-                        data-parent="#accountAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-               </div>
-               <!-- End Account Accordion -->
+            <div class="content">
+               <h3 class="secondaryTitle">3. Finalités du traitement</h3>
+               <p>Vos données sont traitées pour les finalités suivantes :</p>
+               <ul>
+                  <li>Fournir, gérer et sécuriser votre compte utilisateur.</li>
+                  <li>Faciliter les mises en relation entre Freelances et Clients.</li>
+                  <li>Traiter les paiements et émettre les factures.</li>
+                  <li>Répondre à vos demandes via le support client.</li>
+                  <li>Améliorer notre plateforme et prévenir les fraudes.</li>
+                  <li>Respecter nos obligations légales et réglementaires.</li>
+               </ul>
             </div>
-            <div id="privacy">
-               <!-- Title -->
-               <div class="mb-3 mt-4">
-                  <h4 class="font-weight-semi-bold">Privacy</h4>
-               </div>
-               <!-- End Title -->
-               <!-- Privacy Accordion -->
-               <div id="privacyAccordion">
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="privacyHeadingOne">
-                        <h5 class="mb-0">
-                           <button class="shadow-none btn btn-block d-flex justify-content-between card-btn p-3"
-                              data-toggle="collapse" data-target="#privacyCollapseOne" aria-expanded="false"
-                              aria-controls="privacyCollapseOne">
-                              Can I specify my own private key?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="privacyCollapseOne" class="collapse show" aria-labelledby="privacyHeadingOne"
-                        data-parent="#privacyAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="privacyHeadingTwo">
-                        <h5 class="mb-0">
-                           <button
-                              class="shadow-none btn btn-block d-flex justify-content-between card-btn collapsed p-3"
-                              data-toggle="collapse" data-target="#privacyCollapseTwo" aria-expanded="false"
-                              aria-controls="privacyCollapseTwo">
-                              My files are missing! How do I get them back?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="privacyCollapseTwo" class="collapse" aria-labelledby="privacyHeadingTwo"
-                        data-parent="#privacyAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="privacyHeadingThree">
-                        <h5 class="mb-0">
-                           <button
-                              class="shadow-none btn btn-block d-flex justify-content-between card-btn collapsed p-3"
-                              data-toggle="collapse" data-target="#privacyCollapseThree" aria-expanded="false"
-                              aria-controls="privacyCollapseThree">
-                              How can I access my privacy data?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="privacyCollapseThree" class="collapse" aria-labelledby="privacyHeadingThree"
-                        data-parent="#privacyAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-                  <!-- Card -->
-                  <div class="box shadow-sm rounded bg-white mb-2">
-                     <div id="privacyHeadingFour">
-                        <h5 class="mb-0">
-                           <button
-                              class="shadow-none btn btn-block d-flex justify-content-between card-btn collapsed p-3"
-                              data-toggle="collapse" data-target="#privacyCollapseFour" aria-expanded="false"
-                              aria-controls="privacyCollapseFour">
-                              How can I control if other search engines can link to my profile?
-                              <span class="card-btn-arrow">
-                                 <span class="mdi mdi-chevron-down"></span>
-                              </span>
-                           </button>
-                        </h5>
-                     </div>
-                     <div id="privacyCollapseFour" class="collapse" aria-labelledby="privacyHeadingFour"
-                        data-parent="#privacyAccordion">
-                        <div class="card-body border-top p-3 text-muted">
-                           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-                           brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                           aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                           ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                           farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                           accusamus labore sustainable VHS.
-                        </div>
-                     </div>
-                  </div>
-                  <!-- End Card -->
-               </div>
-               <!-- End Privacy Accordion -->
+            <div class="content">
+               <h3 class="secondaryTitle">4. Base légale du traitement</h3>
+               <p>Conformément au <strong>RGPD (UE)</strong> et à la législation internationale applicable, vos données sont traitées sur
+                  la base :</p>
+               <ul>
+                  <li>Du<strong> consentement</strong> (formulaire de contact, cookies non essentiels).</li>
+                  <li>De <strong>l’exécution d’un contrat</strong> (lorsque vous utilisez nos services).</li>
+                  <li>De notre <strong>intérêt légitime</strong> (sécurité du site, amélioration continue).</li>
+                  <li>Ou de notre <strong>obligation légale</strong>(conservation des factures, lutte contre la fraude).</li>
+               </ul>
             </div>
+            <div class="content">
+               <h3 class="secondaryTitle">5. Destinataires des données</h3>
+               <p>Vos données peuvent être transmises à :</p>
+               <ul>
+                  <li>Nos prestataires techniques (hébergeur, solution de paiement, support client).</li>
+                  <li>Nos partenaires contractuels (ex. prestataires de services freelances) dans le cadre des projets
+                     réalisés.</li>
+                  <li>Les autorités compétentes sur réquisition légale ou judiciaire.</li>
+               </ul>
+               <p><strong>Talengo.io</strong> ne revend jamais vos données à des tiers.</p>
+            </div>
+            <div class="content">
+               <h3 class="secondaryTitle">6. Durée de conservation</h3>
+               <p>Vos données sont conservées :</p>
+               <ul>
+                  <li><strong>Pendant la durée de votre relation contractuelle</strong> avec Talengo.io.</li>
+                  <li><strong>Jusqu’à 5 ans</strong> après la fermeture de votre compte, sauf demande contraire ou obligation légale.</li>
+                  <li><strong>13 mois maximum</strong> pour les données de navigation (cookies).</li>
+               </ul>
+            </div>
+            <div class="content">
+               <h3 class="secondaryTitle">7. Cookies et technologies de suivi</h3>
+               <p>Nous utilisons des cookies techniques nécessaires au bon fonctionnement du site, ainsi que des cookies de
+                  mesure d’audience ou de services tiers (ex. Google Analytics), soumis à votre consentement.</p>
+               <p>Vous pouvez <strong>accepter ou refuser les cookies</strong> via notre bandeau lors de votre première visite, ou modifier
+                  vos préférences à tout moment.</p>
+            </div>
+            <div class="content">
+               <h3 class="secondaryTitle">8. Sécurité des données</h3>
+               <p>Nous mettons en œuvre des mesures techniques et organisationnelles strictes pour protéger vos données :</p>
+               <ul>
+                  <li>Chiffrement SSL/TLS</li>
+                  <li>Hébergement sécurisé via <strong>Hostinger</strong></li>
+                  <li>Protection contre les accès non autorisés</li>
+                  <li>Limitation de l’accès aux données au personnel habilité</li>
+               </ul>
+            </div>
+            <div class="content">
+               <h3 class="secondaryTitle">9. Transfert de données hors UE</h3>
+               <p>Certains de nos sous-traitants sont situés hors de l’Union européenne (notamment aux Émirats arabes unis
+                  ou aux États-Unis). Dans ce cas, nous nous assurons qu’ils offrent des garanties équivalentes (clauses
+                  contractuelles types de la Commission européenne ou équivalent reconnu).</p>
+            </div>
+            <div class="content">
+               <h3 class="secondaryTitle">10. Vos droits</h3>
+               <p>Conformément au RGPD et aux lois applicables, vous disposez des droits suivants :</p>
+               <ul>
+                  <li><strong>Accès</strong> à vos données personnelles.</li>
+                  <li><strong>Rectification</strong> de vos données inexactes.</li>
+                  <li><strong>Suppression</strong> de vos données (droit à l’oubli).</li>
+                  <li><strong>Opposition</strong> au traitement de vos données dans certains cas.</li>
+                  <li><strong>Portabilité</strong> des données (sur demande, format structuré).</li>
+                  <li><strong>Limitation</strong> du traitement.</li>
+                  <li><strong>Retrait de votre consentement</strong> à tout moment (si applicable).</li>
+               </ul>
+               <p>Pour exercer vos droits, envoyez un e-mail à : <a href="mailto:talengo.contact@gmail.com">talengo.contact@gmail.com</a> <br>
+                  Une réponse vous sera apportée dans un délai de 30 jours.</p>
+            </div>
+            <div class="content">
+               <h3 class="secondaryTitle">11. Réclamations</h3>
+               <p>En cas de litige ou de désaccord concernant l’utilisation de vos données, vous pouvez contacter l’autorité
+                  de protection des données compétente :</p>
+               <ul>
+                  <li><strong>France :</strong> <a href="https://www.cnil.fr">CNIL – https://www.cnil.fr</a></li>
+                  <li><strong>UE :</strong> Autorité du pays de résidence</li>
+                  <li><strong>Autres pays :</strong> Autorité nationale compétente</li>
+               </ul>
+            </div>
+            <div class="content">
+               <h3 class="secondaryTitle">12. Modification de la politique de confidentialité</h3>
+               <p>Talengo.io se réserve le droit de modifier la présente Politique à tout moment. En cas de changement
+                  important, vous serez informé(e) par e-mail ou via une notification sur la plateforme.</p>
+            </div>
+            <siv class="content">
+               <h3 class="secondaryTitle"><i class="fa-solid fa-envelope"></i> Contact</h3>
+               <p>Pour toute question relative à cette Politique ou à vos données personnelles :<br>
+                  <a href="mailto:talengo.contact@gmail.com">talengo.contact@gmail.com</a></p>
+            </siv>
          </div>
       </div>
+
    </div>
-</div>
 {% endblock %}

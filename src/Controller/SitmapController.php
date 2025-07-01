@@ -23,11 +23,12 @@ class SitmapController extends AbstractController
         $urls[] = ['loc' => $this->generateUrl('accueil')];
         $urls[] = ['loc' => $this->generateUrl('microservices')];
         $urls[] = ['loc' => $this->generateUrl('page_faqs')];
+        $urls[] = ['loc' => $this->generateUrl('app_about')];
+        $urls[] = ['loc' => $this->generateUrl('app_comment_ca_marche')];
+        $urls[] = ['loc' => $this->generateUrl('app_mention_legale')];
         $urls[] = ['loc' => $this->generateUrl('app_contact')];
         $urls[] = ['loc' => $this->generateUrl('page_politiques')];
-        $urls[] = ['loc' => $this->generateUrl('page_mentions')];
-        $urls[] = ['loc' => $this->generateUrl('page_conditions')];
-        $urls[] = ['loc' => $this->generateUrl('page_cmarche')];
+//        $urls[] = ['loc' => $this->generateUrl('page_conditions')];
 
         foreach($categorieRepository->findAll() as $categorie) {
             $urls[] = [
