@@ -1036,7 +1036,7 @@ class CommandeController extends AbstractController
             $remboursement->setUser($commande->getClient());
             $remboursement->setVendeur($commande->getVendeur());
             $remboursement->setCommande($commande);
-            $remboursement->setMontant($commande->getMontant());
+            $remboursement->setMontant($commande->realPriceWithOutFee());
             $remboursement->setMotif("Commande annulée par le prestataire");
             $remboursement->setStatut("Annuler");
             $entityManager->persist($remboursement);
@@ -1080,7 +1080,7 @@ class CommandeController extends AbstractController
                 'talengo.contact@gmail.com',
                 $commande->getClient()->getEmail(),
                 'Annulation de votre commande et remboursement',
-                'mails/_commande_client_annuler.html.twig',
+                'mails/client/_commande_client_annuler.html.twig',
                 $commande->getClient(),
                 $commande->getVendeur(),
                 $commande

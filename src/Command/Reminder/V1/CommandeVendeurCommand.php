@@ -218,7 +218,7 @@ class CommandeVendeurCommand extends Command
         $remboursement->setUser($commande->getClient());
         $remboursement->setVendeur($commande->getVendeur());
         $remboursement->setCommande($commande);
-        $remboursement->setMontant($commande->getMontant());
+        $remboursement->setMontant($commande->realPriceWithOutFee());
         $remboursement->setMotif("Commande annulée par le prestataire");
         $remboursement->setStatut("Annuler");
         $entityManager->persist($remboursement);

@@ -27,7 +27,7 @@
 
         <p>
             Merci ! Vous venez de valider une commande pour votre service : <strong>{{ commande.microservice.name }}</strong>, commandé par <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
-                client.nickName }}</strong> pour un montant de <strong>{{ commande.montant ~ currency }}</strong>.
+                client.nickName }}</strong> pour un montant de <strong>{{ commande.realPriceWithOutFee ~ currency }}</strong>.
         </p>
 
         <p>

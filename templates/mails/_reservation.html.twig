@@ -31,7 +31,7 @@
 
       <p>
          Lorsque la commande sera terminée par le prestataire <strong>{{ vendeur.usePseudo == 1 ? vendeur.pseudo :
-         vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}, </strong> il percevra <strong>{{ commande.montant ~ currency }}</strong>.
+         vendeur.usePseudo == 1 ? vendeur.pseudo : vendeur.nom ~ ' ' ~ vendeur.prenom }}, </strong> il percevra <strong>{{ commande.realPriceWithOutFee ~ currency }}</strong>.
       </p>
 
       <div><br>

@@ -28,7 +28,7 @@
             ' ' ~ vendeur.prenom }}</strong>,</p>
 
       <p>
-         Félicitation ! Vous avez une nouvelle commande d’un montant de <strong>{{ commande.montant ~ currency }}</strong> du client <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
+         Félicitation ! Vous avez une nouvelle commande d’un montant de <strong>{{ commande.realPriceWithOutFee ~ currency }}</strong> du client <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
          client.nickName }}</strong> pour le service <strong>{{ commande.microservice.name }}</strong>
       </p>
       
@@ -40,7 +40,7 @@
          Passé ce délai, la commande pourrait être annulée automatiquement.
       </p>
       <p>
-         Lorsque la commande sera terminée, vous percevrez <strong>{{ commande.montant ~ currency }}</strong>. Ce montant varie en fonction de votre offre. Vous avez désormais 48 h à partir de la date de la commande pour recevoir les consignes de votre client via la messagerie, puis la valider. Le délai de livraison démarrera alors.
+         Lorsque la commande sera terminée, vous percevrez <strong>{{ commande.realPriceWithOutFee ~ currency }}</strong>. Ce montant varie en fonction de votre offre. Vous avez désormais 48 h à partir de la date de la commande pour recevoir les consignes de votre client via la messagerie, puis la valider. Le délai de livraison démarrera alors.
       </p>
 
       <p>

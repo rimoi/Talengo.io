@@ -33,7 +33,7 @@
             <h4 style="margin-top: 0;">Détails de la commande :</h4>
             <p><strong>Service :</strong> {{ commande.microservice.name }}</p>
             <p><strong>Vendeur :</strong> {{ client.usePseudo == 1 ? client.pseudo : client.nickName }}</p>
-            <p><strong>Montant :</strong> {{ commande.montant ~ currency }}</p>
+            <p><strong>Montant :</strong> {{ commande.realPriceWithOutFee ~ currency }}</p>
             <p><strong>Statut :</strong> Terminé (clôturé automatiquement le {{ "now"|date("d/m/Y à H:i") }})</p>
         </div>
 

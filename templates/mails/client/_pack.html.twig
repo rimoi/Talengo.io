@@ -24,7 +24,7 @@
       <p>Bonjour <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo : client.nom ~ ' ' ~ client.prenom }}</strong>,</p>
 
       <p>
-         Bonne nouvelle !<br> Votre commande d'un montant de <strong>{{ commande.montant ~ currency }}</strong> pour le pack <strong>{{ commande.pack.name }}</strong> a été prise en
+         Bonne nouvelle !<br> Votre commande d'un montant total de <strong>{{ commande.montant ~ currency }}</strong> pour le pack <strong>{{ commande.pack.name }}</strong> a été prise en
          compte par <strong>{{ appName }}</strong>.
       </p>
 

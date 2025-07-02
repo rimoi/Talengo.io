@@ -26,7 +26,7 @@
 
       <p>
          Suite à l'annulation de la commande du service <strong>{{ commande.microservice.name }}</strong>, pour le client <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
-            client.nickName }}</strong>, un montant de <strong>{{ commande.montant ~ currency }}</strong> va être remboursé au client.
+            client.nickName }}</strong>, un montant de <strong>{{ commande.realPriceWithOutFee ~ currency }}</strong> va être remboursé au client.
       </p>
 
       <div><br>

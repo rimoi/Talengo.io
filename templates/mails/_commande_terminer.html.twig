@@ -28,7 +28,7 @@
 
       <p>
          Suite à votre livraison de la commande du service <strong>{{ commande.microservice.name }}</strong>, pour le client <strong>{{ client.usePseudo == 1 ? client.pseudo : client.usePseudo == 1 ? client.pseudo :
-            client.nickName }}</strong>, vous allez recevoir un paiement de <strong>{{ commande.montant ~ currency }}</strong> après la rédaction de votre rapport de fin de prestation de service.
+            client.nickName }}</strong>, vous allez recevoir un paiement de <strong>{{ commande.realPriceWithOutFee ~ currency }}</strong> après la rédaction de votre rapport de fin de prestation de service.
       </p>
 
       <div><br>
@@ -40,11 +40,6 @@
      background: linear-gradient(to right, #4c8be8 0%, #a9a9a9 100%);
      border-color: #4c8be8;color:#fff;padding: 15px;border-radius: 5px;margin: 10px 0;text-decoration: none;">Rédigez le rapport</a>
       </div><br>
-
-
-      <p>
-         Attention ⚠ : Faites-nous parvenir votre rapport de fin de prestation de service afin de recevoir vos fonds, <strong>{{ commande.montant ~ currency }}</strong> rapidement.
-      </p>
 
       {% include "mails/_lien_cgu.html.twig" %}
       

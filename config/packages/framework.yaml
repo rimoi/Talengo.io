@@ -17,6 +17,9 @@ framework:
     php_errors:
         log: true
 
+    router:
+        default_uri: 'https://talengo.io'
+
 when@test:
     framework:
         test: true

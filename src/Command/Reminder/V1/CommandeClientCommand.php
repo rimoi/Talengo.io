@@ -149,7 +149,7 @@ class CommandeClientCommand extends Command
         $this->mailerService->sendCommandMail(
             'talengo.contact@gmail.com',
             $commande->getClient()->getEmail(),
-            "Votre commande sera annulée sous 48h",
+            "Votre commande sera clôturée sous 48h",
             'mails/cron/client/rappel_48h.html.twig',
             $commande->getClient(),
             $commande->getVendeur(),

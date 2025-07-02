@@ -13,7 +13,7 @@
             <table class="table table-borderless text-dark">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Commande ID</th>
                         <th>Montant</th>
                         <th>Date</th>
                         <th>Statut</th>
@@ -23,7 +23,12 @@
                 <tbody>
                     {% for remboursement in remboursements %}
                     <tr>
-                        <td>{{ remboursement.id }}</td>
+                        <td>
+                            {% if remboursement.commande %}
+                                <a href="{{ path('commande_details', {id: remboursement.commande.id}) }}" class="text-dark">#{{ remboursement.commande.id }}</a>
+
+                            {% endif %}
+                        </td>
                         <td>
                             <strong>{{ remboursement.montant ~ currency }}</strong>
                         </td>
