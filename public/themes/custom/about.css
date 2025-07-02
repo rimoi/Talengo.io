@@ -261,18 +261,18 @@
 }
 @media screen and (max-width: 1150px) {
     .page-editorial .textImage .content img {
-        width: 380px;
+        width: 243px;
     }
 }
 @media screen and (max-width: 880px) {
     .page-editorial .textImage .content img {
-        width: 280px;
+        width: 243px;
     }
 }
 @media screen and (max-width: 767px) {
     .page-editorial .textImage .content img {
         width: 100%;
-        height: 170px;
+        height: 243px;
         margin-bottom: 25px;
     }
 }
@@ -365,14 +365,16 @@
 }
 .page-editorial.how-it-works .textImage .img {
     width: 50%;
+    text-align: center;
 }
 @media screen and (max-width: 767px) {
     .page-editorial.how-it-works .textImage .img {
         width: 100%;
+        text-align: center;
     }
 }
 .page-editorial.how-it-works .textImage .img img {
-    width: 100%;
+    width: 58%;
 }
 .page-editorial.how-it-works .textImage .text-content {
     width: 50%;
