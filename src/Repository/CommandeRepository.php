@@ -73,11 +73,13 @@ class CommandeRepository extends ServiceEntityRepository
 
         $qb->where('c.payed = :payed')
             ->andWhere('c.payed =  :payed')
+            ->andWhere('c.cancel <>  :cancel')
             ->andWhere('c.deliver =  :cloturer')
             ->andWhere('c.cloturer =  :cloturer')
             ->setParameters([
                 'payed' => true,
                 'cloturer' => false,
+                'cancel' => true,
             ]);
 
         return $qb->getQuery()->getResult();
