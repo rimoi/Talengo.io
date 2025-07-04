@@ -30,7 +30,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            <strong>{{ remboursement.montant ~ currency }}</strong>
+                            <strong>{{ remboursement.commande.montant ~ currency }}</strong>
                         </td>
                         <td>{{ remboursement.created ? remboursement.created|date('d/m/Y') : '' }}</td>
                         <td>

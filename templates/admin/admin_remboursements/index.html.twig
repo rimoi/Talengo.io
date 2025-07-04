@@ -85,7 +85,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <strong>{{ remboursement.montant ~ currency }}</strong>
+                                    <strong>{{ remboursement.commande.montant ~ currency }}</strong>
                                 </td>
                                 <td>{{ remboursement.created ? remboursement.created|date('Y-m-d H:i:s') : '' }}</td>
                                 <td>
