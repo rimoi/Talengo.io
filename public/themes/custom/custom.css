@@ -275,6 +275,12 @@ ALERT
     border-radius: 5px;
 }
 
+.cs-footer-fixed {
+    position: sticky;
+    top: 100vh;
+    margin-top: auto;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to   { opacity: 1; transform: translateY(0); }
