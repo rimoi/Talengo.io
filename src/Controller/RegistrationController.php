@@ -62,9 +62,17 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $userNameUrl = $this->sluger->slug(strtolower($user->getNom() . '-' . $user->getPrenom()));
+            $baseSlug = $this->sluger->slug(strtolower($user->getNom() . '-' . $user->getPrenom()));
+            $slug = $baseSlug;
+            $i = 1;
 
-            $user->setNameUrl($userNameUrl);
+            // Vérifie l'existence du slug en base
+            while ($entityManager->getRepository(User::class)->findOneBy(['nameUrl' => $slug])) {
+                $slug = $baseSlug . '-' . $i;
+                $i++;
+            }
+
+            $user->setNameUrl($slug);
             //$user->setIsLocked(false);
 
             $user->setRoles(['ROLE_CLIENT']);
@@ -120,9 +128,18 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $userNameUrl = $this->sluger->slug(strtolower($user->getNom() . '-' . $user->getPrenom()));
+            $baseSlug = $this->sluger->slug(strtolower($user->getNom() . '-' . $user->getPrenom()));
+            $slug = $baseSlug;
+            $i = 1;
 
-            $user->setNameUrl($userNameUrl);
+            // Vérifie l'existence du slug en base
+            while ($entityManager->getRepository(User::class)->findOneBy(['nameUrl' => $slug])) {
+                $slug = $baseSlug . '-' . $i;
+                $i++;
+            }
+
+
+            $user->setNameUrl($slug);
             //$user->setIsLocked(false);
 
             $user->setRoles(['ROLE_VENDEUR']);
