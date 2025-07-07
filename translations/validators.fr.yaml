@@ -1,0 +1,2 @@
+Symfony\Component\Validator\Constraints\File:
+  maxSizeMessage: "Le fichier est trop volumineux ({{ size_in_mb }} Mo). La taille maximale autorisée est de {{ limit_in_mb }} Mo."

@@ -31,7 +31,7 @@ class EditMediaType extends AbstractType
                 'constraints' => [
                     new FileConstraint([
                         'maxSize' => '2M',
-                        'maxSizeMessage' => 'Le fichier est trop volumineux ({{ taille }} {{ suffixe }}). La taille maximale autorisée est de {{ limite }}. {{ suffixe }}'
+                        'maxSizeMessage' => 'Le fichier est trop volumineux ({{ size }} {{ suffix }}). La taille maximale autorisée est de {{ limit }} {{ suffix }}.'
                     ])
                 ],
             ]);
