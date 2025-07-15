@@ -106,12 +106,12 @@
 					<i class="fa fa-check-circle float-right"></i>
 				</a>
 
-				<a class="dropdown-item py-2 {{ app.user.statut ? 'tache-terminer' : 'tache-encours' }} {{ app.user.statut ? '' : 'disabled' }} {{ app.request.attributes.get('_route') == 'user_categorie' ? 'active' : '' }}"
+				<a class="dropdown-item py-2 {{ app.user.statut ? 'tache-terminer' : 'tache-edit' }}  {{ app.request.attributes.get('_route') == 'user_categorie' ? 'active' : '' }}"
 					href="{{ path('user_categorie') }}"><i class=" fa fa-info-circle"></i>&nbsp;&nbsp;&nbsp;Informations supplémentaires
 					<i class="fa fa-check-circle float-right"></i>
 				</a>
 
-				<a class="dropdown-item py-2 {{ app.user.rib ? 'tache-terminer' : 'tache-encours' }}  {{ app.request.attributes.get('_route') == 'user_methode_payment' ? 'active' : '' }}"
+				<a class="dropdown-item py-2 {{ app.user.rib ? 'tache-terminer' : 'tache-edit' }}  {{ app.request.attributes.get('_route') == 'user_methode_payment' ? 'active' : '' }}"
 					href="{{ path('user_methode_payment') }}">
 					<i class="fa fa-credit-card "></i>&nbsp;&nbsp;&nbsp;Méthode de paiement
 					<i class="fa fa-check-circle float-right"></i>

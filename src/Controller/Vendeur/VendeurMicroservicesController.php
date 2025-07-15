@@ -45,11 +45,6 @@ class VendeurMicroservicesController extends AbstractController
         /** @var User */
         $user = $this->getUser();
 
-        if (empty($user->getAdresse())) {
-            $this->addFlash('warning', 'Veuillez indiquer votre lieu de la prestation de service pour completer votre compte');
-            return $this->redirectToRoute('user_edit_adresse');
-        }
-
         $microservices = $paginator->paginate(
             $microserviceRepository->findBy(['vendeur' => $user], ['created' => 'DESC']),
             $request->query->getInt('page', 1),

@@ -2,162 +2,163 @@
 <html lang="fr">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="Découvrez des milliers de services professionnels pour tous vos projets">
-	<meta name="author" content="Découvrez des milliers de services professionnels pour tous vos projets">
-	<title>
-		{% block title %}{{ appName }} des services pour tout vos besoins{% endblock %}
-	</title>
-	<link rel="alternate" hreflang="fr-fr" href="https://talengo.io/">
-	<!-- Favicon Icon -->
-	<link rel="icon" href="{{ asset('img/logo/favicon.png') }}">
-	<!-- Bootstrap core CSS -->
-	<link href="{{ asset('themes/base/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-	<!-- Font Awesome-->
-	<link href="{{ asset('themes/base/vendor/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">
-	<!-- Material Design Icons -->
-	<link href="{{ asset('themes/base/vendor/icons/css/materialdesignicons.min.css') }}" media="all" rel="stylesheet"
-		type="text/css">
-	<!-- Slick -->
-	<link href="{{ asset('themes/base/vendor/slick-master/slick/slick.css') }}" rel="stylesheet" type="text/css">
-	<!-- Lightgallery -->
-	<link href="{{ asset('themes/base/vendor/lightgallery-master/dist/css/lightgallery.min.css') }}" rel="stylesheet">
-	<!-- Select2 CSS -->
-	<link href="{{ asset('themes/base/vendor/select2/css/select2-bootstrap.css') }}" />
-	<link href="{{ asset('themes/base/vendor/select2/css/select2.min.css') }}" rel="stylesheet">
-	<!-- Custom styles for this template -->
-	{% block stylesheets %}
-		{{ encore_entry_link_tags('app') }}
-		{{ encore_entry_link_tags('style') }}
-		{{ encore_entry_link_tags('custom') }}
-		{{ encore_entry_link_tags('responsive') }}
-	{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Découvrez des milliers de services professionnels pour tous vos projets">
+    <meta name="author" content="Découvrez des milliers de services professionnels pour tous vos projets">
+    <title>
+        {% block title %}{{ appName }} des services pour tout vos besoins{% endblock %}
+    </title>
+    <link rel="alternate" hreflang="fr-fr" href="https://talengo.io/">
+    <!-- Favicon Icon -->
+    <link rel="icon" href="{{ asset('img/logo/favicon.png') }}">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('themes/base/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Font Awesome-->
+    <link href="{{ asset('themes/base/vendor/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <!-- Material Design Icons -->
+    <link href="{{ asset('themes/base/vendor/icons/css/materialdesignicons.min.css') }}" media="all" rel="stylesheet"
+          type="text/css">
+    <!-- Slick -->
+    <link href="{{ asset('themes/base/vendor/slick-master/slick/slick.css') }}" rel="stylesheet" type="text/css">
+    <!-- Lightgallery -->
+    <link href="{{ asset('themes/base/vendor/lightgallery-master/dist/css/lightgallery.min.css') }}" rel="stylesheet">
+    <!-- Select2 CSS -->
+    <link href="{{ asset('themes/base/vendor/select2/css/select2-bootstrap.css') }}"/>
+    <link href="{{ asset('themes/base/vendor/select2/css/select2.min.css') }}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_link_tags('style') }}
+        {{ encore_entry_link_tags('custom') }}
+        {{ encore_entry_link_tags('responsive') }}
+    {% endblock %}
 
-	<link href="{{ asset('themes/custom/vendeur.css') }}" rel="stylesheet">
+    <link href="{{ asset('themes/custom/vendeur.css') }}" rel="stylesheet">
 
-	<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-	<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>
 
-	<!-- map box -->
-	<script id="search-js" defer src="https://api.mapbox.com/search-js/v1.0.0-beta.14/web.js">
-	</script>
+    <!-- map box -->
+    <script id="search-js" defer src="https://api.mapbox.com/search-js/v1.0.0-beta.14/web.js">
+    </script>
 </head>
 
 <body data-turbo="false" class="bg">
 
-	{{ include('partials/base/_navbars.html.twig') }}
+{{ include('partials/base/_navbars.html.twig') }}
 
-	{% block filters %}{% endblock %}
+{% block filters %}{% endblock %}
 
-	<section class="py-5">
-		<div class="container">
+<section class="py-5">
+    <div class="container">
 
-			{% if app.user.isVerified == true %}
+        {% if app.user.isVerified == true %}
 
-			<div class="row">
-				<div class="col-md-{% block colleft %}4{% endblock %}">
-					<div class="sidebar-fix">
-						{% include "vendeur/microservices/composants/_step.html.twig" %}
-					</div>
-				</div>
-				<div class="col-md-{% block colright %}8{% endblock %}">
+            <div class="row">
+                <div class="col-md-{% block colleft %}4{% endblock %}">
+                    <div class="sidebar-fix">
+                        {% include "vendeur/microservices/composants/_step.html.twig" %}
+                    </div>
+                </div>
+                <div class="col-md-{% block colright %}8{% endblock %}">
 
-					<div class="bg-{% block bg %}shadow-sm{% endblock %} rounded sidebar-page-right">
-						<div>
-						
-							{{ include('partials/_flash_message.html.twig') }}
-							
-							{% if is_granted('ROLE_VENDEUR') %}
+                    <div class="bg-{% block bg %}shadow-sm{% endblock %} rounded sidebar-page-right">
+                        <div>
 
-								{% if app.user.endRegister == null %}
+                            {{ include('partials/_flash_message.html.twig') }}
 
-								<div class="alert alert-warning">
-									<p><i class="fa fa-exclamation-triangle"></i> Veuillez completter votre profil avant de vendre vos prestations sur {{ appName }} il s'agit de:</p>
-									<ol class="pl-3">
-										{% if app.user.categorie == null %}
-										<li>Vos coordonnées et</li>
-										{% endif %}
-										{% if app.user.statut == null %}
-										<li>Vos informations supplémentaires</li>
-										{% endif %}
-										{% if app.user.rib == null %}
-										<li>Méthode de paiement</li>
-										{% endif %}
-									</ol>
-								</div>
+                            {% if is_granted('ROLE_VENDEUR') %}
 
-								{% endif %}
+                                {% if app.user.endRegister == null %}
 
-							{% endif %}
+                                    <div class="alert alert-warning">
+                                        <p><i class="fa fa-exclamation-triangle"></i> Veuillez completter votre profil
+                                            avant de vendre vos prestations sur {{ appName }} il s'agit de:</p>
+                                        <ol class="pl-3">
+                                            {% if app.user.categorie == null %}
+                                                <li>Vos coordonnées et</li>
+                                            {% endif %}
+                                            {% if app.user.statut == null %}
+                                                <li>Vos informations supplémentaires</li>
+                                            {% endif %}
+                                            {% if app.user.rib == null %}
+                                                <li>Méthode de paiement</li>
+                                            {% endif %}
+                                        </ol>
+                                    </div>
 
-							{% block body %}{% endblock %}
+                                {% endif %}
 
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card my-3 d-block d-sm-none">
-				<div class="card-header bg-transparent border-0">
-					<h6 class="m-0">Besoin d'aide ?</h6>
-				</div>
-				<div class="card-body">
-					<p class="text-muted">À tout moment, cliquez sur le bouton d’aide contextuelle afin de consulter nos
-						conseils sur la création de service.</p>
-				</div>
-			</div>
-			
-			{% else %}
+                            {% endif %}
 
-				{% include "vendeur/composants/_compte_non_valide.html.twig" %}
+                            {% block body %}{% endblock %}
 
-			{% endif %}
-		</div>
-	</section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card my-3 d-block d-sm-none">
+                <div class="card-header bg-transparent border-0">
+                    <h6 class="m-0">Besoin d'aide ?</h6>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">À tout moment, cliquez sur le bouton d’aide contextuelle afin de consulter nos
+                        conseils sur la création de service.</p>
+                </div>
+            </div>
 
-	<!--       footer -->
-	{{ include('partials/base/_footer.html.twig') }}
+        {% else %}
 
-	<!--       footer-->
-	<!-- Bootstrap core JavaScript -->
-	<script src="{{ asset('themes/base/vendor/jquery/jquery.min.js') }}"> </script>
-	<script src="{{ asset('themes/base/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-	<!-- Contact form JavaScript -->
-	<!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-	<script src="{{ asset('themes/base/js/jqBootstrapValidation.js') }}"></script>
-	<script src="{{ asset('themes/base/js/contact_me.js') }}"></script>
-	<!-- Slick -->
-	<script src="{{ asset('themes/base/vendor/slick-master/slick/slick.js') }}" type="text/javascript"
-		charset="utf-8"></script>
-	<!-- lightgallery -->
-	<script src="{{ asset('themes/base/vendor/lightgallery-master/dist/js/lightgallery-all.min.js') }}"></script>
-	<!-- select2 Js -->
-	<script src="{{ asset('themes/base/vendor/select2/js/select2.min.js') }}"></script>
-	{% block javascripts %}
-		{{ encore_entry_script_tags('app') }}
-		{{ encore_entry_script_tags('jscustom') }}
-		{{ encore_entry_script_tags('dropdown') }}
-		{{ encore_entry_script_tags('favoris') }}
-		{{ encore_entry_script_tags('btnloader') }}
-		{{ encore_entry_script_tags('service') }}
-		{{ encore_entry_script_tags('file') }}
-	{% endblock %}
+            {% include "vendeur/composants/_compte_non_valide.html.twig" %}
 
-	<script>
-		// Add the following code if you want the name of the file appear on select
-		$(".custom-file-input").on("change", function () {
-			var fileName = $(this).val().split("\\").pop();
-			$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-		});
-	</script>
+        {% endif %}
+    </div>
+</section>
 
-	<script>
-		$(document).ready(function () {
-			$('.menuBurger').click( function() {
-				$('body').toggleClass('activeMenuBurger');
-			});
-		})
-	</script>
+<!--       footer -->
+{{ include('partials/base/_footer.html.twig') }}
+
+<!--       footer-->
+<!-- Bootstrap core JavaScript -->
+<script src="{{ asset('themes/base/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('themes/base/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- Contact form JavaScript -->
+<!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+<script src="{{ asset('themes/base/js/jqBootstrapValidation.js') }}"></script>
+<script src="{{ asset('themes/base/js/contact_me.js') }}"></script>
+<!-- Slick -->
+<script src="{{ asset('themes/base/vendor/slick-master/slick/slick.js') }}" type="text/javascript"
+        charset="utf-8"></script>
+<!-- lightgallery -->
+<script src="{{ asset('themes/base/vendor/lightgallery-master/dist/js/lightgallery-all.min.js') }}"></script>
+<!-- select2 Js -->
+<script src="{{ asset('themes/base/vendor/select2/js/select2.min.js') }}"></script>
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('jscustom') }}
+    {{ encore_entry_script_tags('dropdown') }}
+    {{ encore_entry_script_tags('favoris') }}
+    {{ encore_entry_script_tags('btnloader') }}
+    {{ encore_entry_script_tags('service') }}
+    {{ encore_entry_script_tags('file') }}
+{% endblock %}
+
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.menuBurger').click(function () {
+            $('body').toggleClass('activeMenuBurger');
+        });
+    })
+</script>
 
 </body>
 

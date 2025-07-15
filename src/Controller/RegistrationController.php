@@ -145,6 +145,8 @@ class RegistrationController extends AbstractController
             $user->setRoles(['ROLE_VENDEUR']);
             $user->setCompte('Vendeur');
 
+            $user->setEndRegister(true);
+
             // Création du portefeuille si l'utilisateur choisis le compte vendeur
             $portefeuille = new Portefeuille();
             $portefeuille->setSoldeDisponible(0);
