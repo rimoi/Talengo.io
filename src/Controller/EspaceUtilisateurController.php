@@ -58,7 +58,7 @@ class EspaceUtilisateurController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
     
-            $this->addFlash('info', 'Vérifez votre boite mail puis cliquez sur le lien "Confirmer mon e-mail"' . 'un mail vous a été envoyé à l\'adresse email:' . $this->getUser()->getEmail());
+            $this->addFlash('info', 'Vérifez votre boite mail et/ou courrier indésirable, puis cliquez sur le lien "Confirmer mon e-mail"' . 'un mail vous a été envoyé à l\'adresse email:' . $this->getUser()->getEmail());
 
             return $this->redirectToRoute('user_profil');
         }

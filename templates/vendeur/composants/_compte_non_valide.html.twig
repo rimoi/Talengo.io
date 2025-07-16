@@ -11,13 +11,13 @@
 			<strong>{{ app.user.compte }}</strong>
 		</p>
 		<p>
-			Un mail vous a été envoyé lors de votre inscription <br> Vérifez votre
-			boite mail puis cliquez sur le lien "Confirmer mon e-mail"
+			Un mail vous a été envoyé lors de votre inscription <br> Vérifiez votre
+			boîte mail et/ou courrier indésirable puis cliquez sur le lien "Confirmer mon e-mail"
 		</p>
-        
-		{{ form_start(form) }}
+		{% if form|default %}
+			{{ form_start(form) }}
 			{{ form_widget(form) }}
-		{{ form_end(form) }}
-	
+			{{ form_end(form) }}
+		{% endif %}
 	</div>
 </div>

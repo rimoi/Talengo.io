@@ -3,6 +3,7 @@
 namespace App\Controller\Vendeur;
 
 use App\Entity\Commande;
+use App\Entity\User;
 use App\Form\CommandeType;
 use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,8 +19,16 @@ class VendeurCommandesController extends AbstractController
     #[Route('/', name: 'vendeur_commandes_index', methods: ['GET'])]
     public function index(CommandeRepository $commandeRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        /**
+         * @var User $currentUser
+         */
+        $currentUser = $this->getUser();
+        if (!$currentUser->isVerified()) {
+            return $this->redirectToRoute('user_dashboard');
+        }
+
         $commandes = $paginator->paginate(
-            $commandeRepository->findBy(['vendeur' => $this->getUser()], ['created' => 'DESC']),
+            $commandeRepository->findBy(['vendeur' => $currentUser], ['created' => 'DESC']),
             $request->query->getInt('page', 1),
             10
         );
